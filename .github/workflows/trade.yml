@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
-      COMTRADE_KEY: ${{ secrets.COMTRADE_KEY }}
+      COMTRADE_KEY: ${{ secrets.COMTRADE_KEY || secrets.COMTRADEKEY }}
       MPLBACKEND: Agg
     steps:
       - uses: actions/checkout@v4
