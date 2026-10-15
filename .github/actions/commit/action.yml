@@ -18,7 +18,7 @@ runs:
         if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
         git commit -m "${{ inputs.message }}"
         for i in 1 2 3 4; do
-          if git pull --rebase -X theirs origin main && git push origin HEAD:main; then exit 0; fi
+          if git pull --rebase --autostash -X theirs origin main && git push origin HEAD:main; then exit 0; fi
           sleep $((i * 10))
         done
         echo "Push failed after 4 tries"; exit 1
