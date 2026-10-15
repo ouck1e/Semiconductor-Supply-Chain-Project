@@ -1,0 +1,57 @@
+{
+  "_readme": "Sources for news_collector.py. Switched off after the first run: SIA (bad XML), CSIS (feed moved), WEF and IMF (block scripts), Reddit (blocks scripts). Add, remove or switch off (\"on\": false) any entry. type: rss | gdelt | googlenews | hn | reddit. kind = what the globe calls it: trade press, general news, forum, policy & economics, industry body. country = where the outlet is based; with \"local\": true it is also the fallback location when a story names no place (otherwise such stories count as Global).",
+  "lookback_days": 7,
+  "keep_days_in_feed": 30,
+  "rss": [
+    {"name": "Semiconductor Engineering", "url": "https://semiengineering.com/feed/", "kind": "trade press", "country": "United States", "on": true},
+    {"name": "EE Times", "url": "https://www.eetimes.com/feed/", "kind": "trade press", "country": "United States", "on": true},
+    {"name": "Electronics Weekly", "url": "https://www.electronicsweekly.com/feed/", "kind": "trade press", "country": "United Kingdom", "on": true},
+    {"name": "Tom's Hardware", "url": "https://www.tomshardware.com/feeds/all", "kind": "trade press", "country": "United States", "on": true},
+    {"name": "The Register", "url": "https://www.theregister.com/headlines.atom", "kind": "trade press", "country": "United Kingdom", "on": true},
+    {"name": "TrendForce", "url": "https://www.trendforce.com/news/feed/", "kind": "trade press", "country": "Taiwan", "on": true},
+    {"name": "Taipei Times", "url": "https://www.taipeitimes.com/xml/index.rss", "kind": "general news", "country": "Taiwan", "local": true, "on": true},
+    {"name": "Korea Herald business", "url": "https://www.koreaherald.com/rss/020000000000.xml", "kind": "general news", "country": "South Korea", "local": true, "on": true},
+    {"name": "Nikkei Asia", "url": "https://asia.nikkei.com/rss/feed/nar", "kind": "general news", "country": "Japan", "local": true, "on": true},
+    {"name": "SCMP tech", "url": "https://www.scmp.com/rss/36/feed", "kind": "general news", "country": "China", "local": true, "on": true},
+    {"name": "SIA (Semiconductor Industry Association)", "url": "https://www.semiconductors.org/feed/", "kind": "industry body", "country": "United States", "on": false},
+    {"name": "CSIS analysis", "url": "https://www.csis.org/analysis/feed", "kind": "policy & economics", "country": "United States", "on": false},
+    {"name": "PIIE (Peterson Institute)", "url": "https://www.piie.com/rss/update.xml", "kind": "policy & economics", "country": "United States", "on": true},
+    {"name": "World Economic Forum stories", "url": "https://www.weforum.org/stories/feed", "kind": "policy & economics", "country": "Switzerland", "on": false},
+    {"name": "IMF blog", "url": "https://www.imf.org/en/Blogs/rss", "kind": "policy & economics", "country": "United States", "on": false}
+  ],
+  "gdelt": {
+    "_readme": "GDELT DOC 2.0: free, worldwide, 65 languages machine-translated for search. One query every 6 seconds.",
+    "on": true,
+    "queries": [
+      "(semiconductor OR chipmaker OR \"chip export\" OR foundry) (supply OR shortage OR \"export controls\" OR tariff)",
+      "(TSMC OR Samsung OR \"SK hynix\" OR Micron OR Intel OR ASML OR SMIC) (fab OR plant OR capacity OR export)",
+      "(gallium OR germanium OR \"rare earth\" OR helium OR neon OR \"hydrogen fluoride\" OR polysilicon) (chip OR semiconductor OR export)"
+    ]
+  },
+  "googlenews": {
+    "_readme": "Google News search RSS, one regional edition per row, in that region's own language so local coverage shows up.",
+    "on": true,
+    "editions": [
+      {"country": "United States", "hl": "en-US", "gl": "US", "ceid": "US:en", "q": "semiconductor supply chain"},
+      {"country": "United States", "hl": "en-US", "gl": "US", "ceid": "US:en", "q": "chip export controls"},
+      {"country": "Taiwan", "hl": "zh-TW", "gl": "TW", "ceid": "TW:zh-Hant", "q": "半導體 供應鏈"},
+      {"country": "South Korea", "hl": "ko", "gl": "KR", "ceid": "KR:ko", "q": "반도체 공급망"},
+      {"country": "Japan", "hl": "ja", "gl": "JP", "ceid": "JP:ja", "q": "半導体 供給網"},
+      {"country": "India", "hl": "en-IN", "gl": "IN", "ceid": "IN:en", "q": "semiconductor fab"},
+      {"country": "Singapore", "hl": "en-SG", "gl": "SG", "ceid": "SG:en", "q": "semiconductor Malaysia OR Vietnam OR Singapore"},
+      {"country": "Germany", "hl": "de", "gl": "DE", "ceid": "DE:de", "q": "Halbleiter Lieferkette"},
+      {"country": "Netherlands", "hl": "nl", "gl": "NL", "ceid": "NL:nl", "q": "ASML chips export"},
+      {"country": "Israel", "hl": "en-US", "gl": "IL", "ceid": "IL:en", "q": "chip plant Israel"}
+    ]
+  },
+  "hn": {
+    "_readme": "Hacker News (Algolia search API).",
+    "on": true,
+    "queries": ["semiconductor", "TSMC", "chip export", "fab", "ASML", "rare earth", "HBM"]
+  },
+  "reddit": {
+    "_readme": "Public subreddit listings. Off: Reddit blocks scripts without an API key (Oct 2026). Needs a free Reddit app + OAuth to switch back on.",
+    "on": false,
+    "subreddits": ["semiconductors", "hardware", "chipdesign", "geopolitics"]
+  }
+}

@@ -1,0 +1,7 @@
+name = "chip-quotes"
+main = "worker.js"
+compatibility_date = "2025-06-01"
+
+[vars]
+ALLOWED_ORIGIN = "*"
+# FINNHUB_KEY is a secret: set it with `npx wrangler secret put FINNHUB_KEY` or in the Cloudflare dashboard.

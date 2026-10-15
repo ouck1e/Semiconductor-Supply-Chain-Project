@@ -1,0 +1,10 @@
+comtradeapicall
+requests
+pandas
+numpy
+scipy
+matplotlib
+scikit-learn
+xlrd
+openpyxl
+yfinance

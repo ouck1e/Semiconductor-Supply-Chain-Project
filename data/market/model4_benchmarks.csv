@@ -1,0 +1,55 @@
+event,label,role,benchmark,window,car_pct,se_pct,t,p
+hf_2019,HF 2019,Expected losers,World market,0-1,-0.9318,2.5304,-0.3682,0.7127
+hf_2019,HF 2019,Expected losers,World market,0-5,-7.0057,4.3829,-1.5984,0.1099
+hf_2019,HF 2019,Expected losers,World market,0-20,1.6981,8.1996,0.2071,0.8359
+hf_2019,HF 2019,Expected losers,Chip sector (SOXX),0-1,-0.9295,2.4602,-0.3778,0.7056
+hf_2019,HF 2019,Expected losers,Chip sector (SOXX),0-5,-5.0562,4.2612,-1.1866,0.2354
+hf_2019,HF 2019,Expected losers,Chip sector (SOXX),0-20,-1.8174,7.9719,-0.228,0.8197
+hf_2019,HF 2019,Expected losers,Home stock market,0-1,1.075,1.8643,0.5766,0.5642
+hf_2019,HF 2019,Expected losers,Home stock market,0-5,-0.302,3.229,-0.0935,0.9255
+hf_2019,HF 2019,Expected losers,Home stock market,0-20,9.9796,6.0409,1.652,0.0985
+neon_2022,Neon 2022,Expected losers,World market,0-1,-3.0254,1.317,-2.2973,0.0216
+neon_2022,Neon 2022,Expected losers,World market,0-5,-1.386,2.281,-0.6076,0.5435
+neon_2022,Neon 2022,Expected losers,World market,0-20,-8.9585,4.2674,-2.0993,0.0358
+neon_2022,Neon 2022,Expected losers,Chip sector (SOXX),0-1,-3.9121,1.1567,-3.3822,0.0007
+neon_2022,Neon 2022,Expected losers,Chip sector (SOXX),0-5,-1.4681,2.0034,-0.7328,0.4637
+neon_2022,Neon 2022,Expected losers,Chip sector (SOXX),0-20,-8.0038,3.748,-2.1355,0.0327
+neon_2022,Neon 2022,Expected losers,Home stock market,0-1,-0.9471,1.0399,-0.9108,0.3624
+neon_2022,Neon 2022,Expected losers,Home stock market,0-5,-0.7548,1.8011,-0.4191,0.6751
+neon_2022,Neon 2022,Expected losers,Home stock market,0-20,-4.4955,3.3696,-1.3342,0.1822
+neon_2022,Neon 2022,Expected winners,World market,0-1,-0.696,0.8071,-0.8624,0.3885
+neon_2022,Neon 2022,Expected winners,World market,0-5,-2.6009,1.398,-1.8604,0.0628
+neon_2022,Neon 2022,Expected winners,World market,0-20,0.1431,2.6154,0.0547,0.9564
+neon_2022,Neon 2022,Expected winners,Chip sector (SOXX),0-1,-0.3265,0.8941,-0.3651,0.715
+neon_2022,Neon 2022,Expected winners,Chip sector (SOXX),0-5,-2.5349,1.5486,-1.6369,0.1017
+neon_2022,Neon 2022,Expected winners,Chip sector (SOXX),0-20,1.7956,2.8972,0.6198,0.5354
+neon_2022,Neon 2022,Expected winners,Home stock market,0-1,-0.9907,0.7952,-1.2457,0.2129
+neon_2022,Neon 2022,Expected winners,Home stock market,0-5,-3.5231,1.3774,-2.5578,0.0105
+neon_2022,Neon 2022,Expected winners,Home stock market,0-20,-0.1558,2.5769,-0.0605,0.9518
+gallium_2023,Gallium 2023,Expected winners,World market,0-1,6.2001,2.7564,2.2494,0.0245
+gallium_2023,Gallium 2023,Expected winners,World market,0-5,8.7929,4.7742,1.8417,0.0655
+gallium_2023,Gallium 2023,Expected winners,World market,0-20,-1.2411,8.9317,-0.139,0.8895
+gallium_2023,Gallium 2023,Expected winners,Chip sector (SOXX),0-1,6.733,2.8991,2.3225,0.0202
+gallium_2023,Gallium 2023,Expected winners,Chip sector (SOXX),0-5,8.6745,5.0213,1.7275,0.0841
+gallium_2023,Gallium 2023,Expected winners,Chip sector (SOXX),0-20,-0.9358,9.3941,-0.0996,0.9207
+gallium_2023,Gallium 2023,Expected winners,Home stock market,0-1,5.946,2.8221,2.1069,0.0351
+gallium_2023,Gallium 2023,Expected winners,Home stock market,0-5,8.6724,4.888,1.7742,0.076
+gallium_2023,Gallium 2023,Expected winners,Home stock market,0-20,-1.4194,9.1447,-0.1552,0.8767
+helium_2026,Helium 2026,Expected losers,World market,0-1,-13.7538,1.8482,-7.4417,0.0
+helium_2026,Helium 2026,Expected losers,World market,0-5,-11.6205,3.2012,-3.6301,0.0003
+helium_2026,Helium 2026,Expected losers,World market,0-20,-19.3419,5.9888,-3.2297,0.0012
+helium_2026,Helium 2026,Expected losers,Chip sector (SOXX),0-1,-12.753,1.7867,-7.1378,0.0
+helium_2026,Helium 2026,Expected losers,Chip sector (SOXX),0-5,-10.6433,3.0946,-3.4393,0.0006
+helium_2026,Helium 2026,Expected losers,Chip sector (SOXX),0-20,-21.3709,5.7895,-3.6913,0.0002
+helium_2026,Helium 2026,Expected losers,Home stock market,0-1,2.99,1.0598,2.8212,0.0048
+helium_2026,Helium 2026,Expected losers,Home stock market,0-5,0.9403,1.8357,0.5122,0.6085
+helium_2026,Helium 2026,Expected losers,Home stock market,0-20,-2.13,3.4342,-0.6202,0.5351
+helium_2026,Helium 2026,Expected winners,World market,0-1,-1.2306,1.0398,-1.1835,0.2366
+helium_2026,Helium 2026,Expected winners,World market,0-5,-4.2658,1.801,-2.3686,0.0179
+helium_2026,Helium 2026,Expected winners,World market,0-20,4.3487,3.3693,1.2907,0.1968
+helium_2026,Helium 2026,Expected winners,Chip sector (SOXX),0-1,-1.6552,1.1668,-1.4186,0.156
+helium_2026,Helium 2026,Expected winners,Chip sector (SOXX),0-5,-5.0206,2.0209,-2.4843,0.013
+helium_2026,Helium 2026,Expected winners,Chip sector (SOXX),0-20,0.4589,3.7808,0.1214,0.9034
+helium_2026,Helium 2026,Expected winners,Home stock market,0-1,-0.9271,1.0491,-0.8837,0.3768
+helium_2026,Helium 2026,Expected winners,Home stock market,0-5,-3.2141,1.8171,-1.7688,0.0769
+helium_2026,Helium 2026,Expected winners,Home stock market,0-20,5.314,3.3995,1.5632,0.118

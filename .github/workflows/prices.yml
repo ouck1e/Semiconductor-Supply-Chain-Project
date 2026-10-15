@@ -1,0 +1,33 @@
+# Weekdays after the US close: download daily prices for the 34 tracked symbols, rebuild the tracker data.
+name: Stock prices (daily)
+on:
+  schedule:
+    - cron: "23 22 * * 1-5"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: site-data
+  cancel-in-progress: false
+jobs:
+  prices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Download prices
+        run: python fetch_prices.py
+      - run: python build_site_data.py prices
+      - uses: ./.github/actions/commit
+        with:
+          message: "Daily prices"
+  deploy:
+    needs: prices
+    uses: ./.github/workflows/deploy.yml

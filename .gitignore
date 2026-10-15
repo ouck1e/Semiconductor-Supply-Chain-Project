@@ -1,0 +1,17 @@
+# secrets: never commit these
+comtrade_key.txt
+.env
+worker/.dev.vars
+
+# rebuilt by the scheduled jobs (the news archive lives in the Actions cache)
+data/market/market.db
+data/market/prices_adj_close.csv
+data/news/news.db
+data/news/news_latest.json
+data/news/news_by_region.csv
+data/processed/
+data/external/gpr_raw.xls
+__pycache__/
+*_log.txt
+*.pyc
+.idea/

@@ -1,0 +1,1996 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Semiconductor supply-chain globe with hourly news, risk alerts, trade flows and a chip stock tracker.">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<script src="config.js"></script>
+<title>Orbit Globe</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: full-bleed WebGL stage, a compact instrument panel docked bottom-left, an orientation gizmo top-right. */
+:root {
+  color-scheme: dark;
+  /* Midnight Slate */
+  --space: #0B0D10;
+  --deep: #1A1F26;
+  --slate: #2E3640;
+  --dim: #7C8794;
+  --ink: #E6E9EE;
+  --line: rgba(124, 135, 148, 0.28);
+  --panel: rgba(26, 31, 38, 0.8);
+  --cyan: #E6E9EE;
+  --pin: #ff4a4a;
+  --flow: #ffd36b;
+  --critical: #d03b3b;
+  --serious: #ec835a;
+  --warning: #fab219;
+  --news: #5cc8ff;
+  --x: #ff6b6b;
+  --y: #7ee08a;
+  --z: #6aa8ff;
+  --display: "Chakra Petch", "Rajdhani", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  background: var(--space);
+  color: var(--ink);
+  font-family: var(--mono);
+  overflow-x: clip;
+  margin: 0;
+}
+#stage { position: absolute; inset: 0; touch-action: none; cursor: grab; }
+#stage.dragging { cursor: grabbing; }
+#stage canvas { display: block; outline: none; }
+#globe {
+  position: relative; overflow: hidden;
+  height: calc(100vh - 64px); height: calc(100svh - 64px); min-height: 460px;
+  background: radial-gradient(ellipse at 50% 45%, var(--deep) 0%, var(--space) 70%);
+}
+.cue {
+  position: absolute; z-index: 3; left: 50%; transform: translateX(-50%);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
+  display: grid; justify-items: center; gap: 2px; padding: 8px 14px; border-radius: 12px;
+  background: var(--panel); border: 1px solid rgba(124, 135, 148, 0.35);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  font-family: var(--display); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink);
+}
+.cue small { font-family: var(--mono); font-size: 10px; letter-spacing: 0.02em; text-transform: none; color: var(--dim); }
+.cue svg { animation: nudge 2.4s ease-in-out infinite; }
+@keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+@media (prefers-reduced-motion: reduce) { .cue svg { animation: none; } }
+@media (max-width: 520px) { .cue small { display: none; } .cue { padding: 8px 12px; } }
+
+.title {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 18px);
+  left: max(16px, env(safe-area-inset-left, 0px));
+  pointer-events: none;
+  display: grid; gap: 4px;
+}
+.title h1 {
+  font-family: var(--display); font-weight: 600; font-size: 22px;
+  letter-spacing: 0.14em; text-transform: uppercase; margin: 0;
+}
+.title p { margin: 0; font-size: 11px; color: var(--dim); letter-spacing: 0.06em; }
+
+#gizmo {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  right: max(16px, env(safe-area-inset-right, 0px));
+  width: 96px; height: 96px;
+  pointer-events: none;
+}
+
+.panel {
+  position: absolute;
+  left: max(16px, env(safe-area-inset-left, 0px));
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  width: min(320px, calc(100vw - 32px));
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: grid; gap: 12px;
+}
+.panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.panel-head span {
+  font-family: var(--display); font-size: 12px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--dim);
+}
+.axis { display: grid; grid-template-columns: 22px 1fr 58px; align-items: center; gap: 10px; }
+.axis label { font-family: var(--display); font-weight: 600; font-size: 14px; }
+.axis[data-a="x"] label { color: var(--x); }
+.axis[data-a="y"] label { color: var(--y); }
+.axis[data-a="z"] label { color: var(--z); }
+.axis output { text-align: right; font-variant-numeric: tabular-nums; font-size: 12px; color: var(--ink); }
+
+input[type=range] {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type=range]::-webkit-slider-runnable-track { height: 2px; background: var(--line); border-radius: 2px; }
+input[type=range]::-moz-range-track { height: 2px; background: var(--line); border-radius: 2px; }
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; margin-top: -6px;
+  background: var(--space); border: 2px solid var(--c, var(--cyan));
+}
+input[type=range]::-moz-range-thumb {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--space); border: 2px solid var(--c, var(--cyan));
+}
+.axis[data-a="x"] input { --c: var(--x); }
+.axis[data-a="y"] input { --c: var(--y); }
+.axis[data-a="z"] input { --c: var(--z); }
+input[type=range]:focus-visible { outline: 1px dashed var(--cyan); outline-offset: 4px; }
+
+.row { display: flex; gap: 8px; flex-wrap: wrap; }
+button {
+  font-family: var(--mono); font-size: 12px; color: var(--ink);
+  background: rgba(46, 54, 64, 0.5); border: 1px solid var(--line);
+  border-radius: 6px; padding: 7px 10px; cursor: pointer;
+}
+button:hover { border-color: var(--cyan); }
+button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+button[aria-pressed="true"] { background: var(--slate); border-color: var(--dim); color: var(--ink); }
+
+.hint { font-size: 11px; color: var(--dim); line-height: 1.55; margin: 0; }
+.hint kbd {
+  font-family: var(--mono); font-size: 10px; border: 1px solid var(--line);
+  border-radius: 3px; padding: 0 4px; color: var(--ink);
+}
+#status { font-size: 11px; color: var(--dim); }
+#tip {
+  position: fixed; pointer-events: none; z-index: 5; max-width: 220px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  padding: 8px 10px; font-size: 12px; line-height: 1.4; display: grid; gap: 2px;
+}
+#tip b { font-family: var(--display); font-size: 15px; letter-spacing: 0.08em; color: #ffd36b; }
+#tip.pin { max-width: 260px; }
+#tip.pin b { color: var(--pin); letter-spacing: 0.04em; }
+#tip em { font-style: normal; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); }
+#tip.pin div { color: var(--ink); margin-top: 2px; }
+.supply { display: grid; gap: 8px; padding-top: 10px; border-top: 1px solid var(--line); }
+.supply-label { font-family: var(--display); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+.chip { display: inline-flex; align-items: center; gap: 6px; }
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--pin); }
+.chip[aria-pressed="false"]::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--pin); }
+.chip.flow::before { background: var(--flow); border-radius: 2px; width: 10px; height: 3px; }
+.chip.flow[aria-pressed="false"]::before { background: transparent; box-shadow: inset 0 0 0 1px var(--flow); }
+.legend { margin: 0; font-size: 11px; color: var(--dim); line-height: 1.6; }
+.legend .ln { display: inline-block; width: 16px; height: 0; border-top: 2px solid var(--flow); vertical-align: middle; margin-right: 4px; }
+.legend .ln.dash { border-top-style: dashed; margin-left: 8px; }
+#tip.flowtip b { color: var(--flow); letter-spacing: 0.04em; }
+#tip .val { color: var(--ink); font-variant-numeric: tabular-nums; }
+#tip .st-ok { color: var(--dim); } #tip .st-restricted, #tip .st-disrupted { color: var(--flow); }
+.chip i { font-style: normal; color: var(--dim); font-variant-numeric: tabular-nums; }
+#tip span { color: var(--dim); font-variant-numeric: tabular-nums; }
+#tip small { color: var(--dim); font-size: 11px; }
+.risk {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  right: max(16px, env(safe-area-inset-right, 0px));
+  width: min(310px, calc(100vw - 32px));
+  max-height: calc(100vh - 160px);
+  overflow: auto;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  padding: 12px 14px;
+}
+.risk summary {
+  list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+  font-family: var(--display); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim);
+}
+.risk summary::-webkit-details-marker { display: none; }
+.risk summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+.risk summary b { color: var(--critical); font-weight: 600; letter-spacing: 0.06em; }
+.risk-note, .risk-foot { margin: 8px 0 0; font-size: 11px; line-height: 1.5; color: var(--dim); }
+.risk ol { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+.risk li button {
+  width: 100%; text-align: left; display: grid; gap: 2px; padding: 8px 10px;
+  background: rgba(46, 54, 64, 0.35); border: 1px solid var(--line); border-left: 3px solid var(--sev);
+}
+.risk li button:hover { border-color: var(--dim); border-left-color: var(--sev); }
+.sev { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sev); font-weight: 500; }
+.risk .t { color: var(--ink); font-size: 12px; }
+.risk .d { color: var(--dim); font-size: 11px; font-variant-numeric: tabular-nums; }
+.s-critical { --sev: var(--critical); } .s-serious { --sev: var(--serious); } .s-warning { --sev: var(--warning); }
+#tip.risktip b { color: var(--ink); letter-spacing: 0.03em; }
+#tip .sev { margin-top: 1px; }
+#tip svg { display: block; margin-top: 4px; }
+/* side panel tabs + news list */
+.tabs { display: flex; gap: 6px; margin-top: 10px; }
+.tabs button { flex: 1; padding: 6px 8px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.tabs button[aria-selected="true"] { background: var(--slate); border-color: var(--dim); }
+.tabs i { font-style: normal; color: var(--dim); }
+.filters { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
+.filters select {
+  font-family: var(--mono); font-size: 11px; color: var(--ink); background: rgba(46, 54, 64, 0.5);
+  border: 1px solid var(--line); border-radius: 6px; padding: 5px 6px; min-width: 0;
+}
+.filters .row { grid-column: 1 / -1; gap: 6px; }
+.filters button { padding: 4px 8px; font-size: 11px; }
+.news-list { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+.news-list li {
+  display: grid; gap: 3px; padding: 8px 10px; border: 1px solid var(--line); border-left: 3px solid var(--news);
+  border-radius: 6px; background: rgba(46, 54, 64, 0.35);
+}
+.news-list li.alert { border-left-color: var(--critical); }
+.news-list a { color: var(--ink); font-size: 12px; line-height: 1.4; text-decoration: none; }
+.news-list a:hover { text-decoration: underline; }
+.news-list .m { color: var(--dim); font-size: 10.5px; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
+.risk .news-list li .m button { width: auto; display: inline-block; padding: 1px 6px; font-size: 10.5px; color: var(--news);
+  background: transparent; border: 1px solid var(--line); border-left: 1px solid var(--line); }
+.news-list .tag-alert { color: var(--critical); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+.news-empty { font-size: 11px; color: var(--dim); line-height: 1.5; margin: 10px 0 0; }
+.news-foot button { padding: 2px 8px; font-size: 11px; margin-left: 4px; }
+.chip.news::before { background: var(--news); border-radius: 1px; width: 3px; height: 10px; }
+.chip.news[aria-pressed="false"]::before { background: transparent; box-shadow: inset 0 0 0 1px var(--news); }
+#tip.newstip b { color: var(--news); letter-spacing: 0.04em; }
+#tip .hl { color: var(--ink); }
+#tip .hl.alert::before { content: "▲ "; color: var(--critical); }
+.fab {
+  position: absolute; bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  width: 48px; height: 48px; padding: 0; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--panel); border: 1px solid rgba(124, 135, 148, 0.35);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 3;
+}
+.fab-l { left: max(16px, env(safe-area-inset-left, 0px)); }
+.fab-r { right: max(16px, env(safe-area-inset-right, 0px)); }
+.fab .badge {
+  position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; padding: 0 5px; box-sizing: border-box;
+  border-radius: 10px; background: var(--critical); color: #fff; font-size: 11px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.panel, .risk { z-index: 4; }
+.phead { display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  font-family: var(--display); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+.phead b { color: var(--critical); font-weight: 600; letter-spacing: 0.06em; }
+.panel-head { align-items: center; }
+.ph-right { display: flex; align-items: center; gap: 8px; }
+.pclose { width: 32px; height: 32px; padding: 0; display: flex; align-items: center; justify-content: center; flex: none; }
+@media (max-width: 520px) {
+  .hint { display: none; }
+  .risk { max-height: 60vh; width: auto;
+          left: max(16px, env(safe-area-inset-left, 0px)); padding: 10px 12px; }
+  .panel { max-height: 70vh; overflow: auto; }
+  #gizmo { width: 72px; height: 72px; }
+  .title h1 { font-size: 18px; }
+}
+
+/* Layout: one brokerage-style quote screen. Picker on top, quote header, chart with MA legend,
+   event flags and volume, range bar underneath, then the event detail and peer list. Deliberately dark only. */
+#tracker {
+  color-scheme: dark;
+  --bg: #0B0D10;
+  --panel: #151a21;
+  --panel-2: #1d232c;
+  --line: #29313c;
+  --ink: #E6E9EE;
+  --muted: #8b95a2;
+  --faint: #5f6874;
+  --up: #3ccf95;
+  --down: #f0566f;
+  --accent: #3b7bfa;
+  --ma5: #4d8eff;
+  --ma10: #f29b3a;
+  --ma20: #b06cf3;
+  --event: #ffd36b;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --display: "Chakra Petch", "Rajdhani", system-ui, sans-serif;
+}
+#tracker, #tracker * { box-sizing: border-box; }
+#tracker [hidden] { display: none !important; }
+#tracker { background: var(--bg); color: var(--ink); }
+#tracker {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.45;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 18px 40px;
+}
+#tracker .wrap { max-width: 920px; margin: 0 auto; display: grid; gap: 16px; }
+#tracker button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+#tracker button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+#tracker .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+#tracker .topbar { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+#tracker .brand { font-weight: 700; letter-spacing: .02em; font-size: 15px; }
+#tracker .brand span { color: var(--muted); font-weight: 500; }
+#tracker .asof { color: var(--muted); font-size: 12px; }
+
+#tracker .scroller { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+#tracker .scroller::-webkit-scrollbar { display: none; }
+#tracker .tkrow { display: flex; gap: 8px; width: max-content; }
+#tracker .grp { padding: 6px 12px; border-radius: 999px; color: var(--muted); font-size: 13px; font-weight: 500; white-space: nowrap; border: 1px solid var(--line); }
+#tracker .grp[aria-pressed="true"] { color: var(--ink); background: var(--panel-2); border-color: #3a4766; }
+#tracker .tkchip { display: grid; gap: 0; text-align: left; padding: 8px 12px; border-radius: 10px; background: var(--panel); border: 1px solid transparent; min-width: 104px; }
+#tracker .tkchip b { font-weight: 600; font-size: 13px; white-space: nowrap; }
+#tracker .tkchip small { color: var(--muted); font-family: var(--mono); font-size: 11px; }
+#tracker .tkchip .chg { font-family: var(--mono); font-size: 11px; }
+#tracker .tkchip[aria-pressed="true"] { border-color: var(--accent); background: var(--panel-2); }
+
+#tracker .quote { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+#tracker .qname h1 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -.01em; text-wrap: balance; }
+#tracker .qname p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+#tracker .qprice { text-align: right; }
+#tracker .qprice .big { font-family: var(--mono); font-size: 28px; font-weight: 500; letter-spacing: -.02em; }
+#tracker .qprice .big small { font-size: 13px; color: var(--muted); margin-left: 6px; letter-spacing: 0; }
+#tracker .qprice .chg { font-family: var(--mono); font-size: 14px; }
+#tracker .up { color: var(--up); } #tracker .down { color: var(--down); }
+
+#tracker .card { background: var(--panel); border-radius: 16px; padding: 14px 14px 12px; display: grid; gap: 10px; }
+#tracker .tktabs { display: flex; gap: 22px; border-bottom: 1px solid var(--line); }
+#tracker .tab { padding: 4px 0 10px; font-size: 17px; font-weight: 600; color: var(--muted); position: relative; }
+#tracker .tab[aria-selected="true"] { color: var(--ink); }
+#tracker .tab[aria-selected="true"]::after { content: ""; position: absolute; left: 50%; bottom: -1px; width: 28px; height: 3px; margin-left: -14px; border-radius: 3px; background: var(--accent); }
+
+#tracker .tklegend { display: flex; gap: 12px; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+#tracker .tklegend .m5 { color: var(--ma5); } #tracker .tklegend .m10 { color: var(--ma10); } #tracker .tklegend .m20 { color: var(--ma20); }
+#tracker .readout { display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; color: var(--muted); min-height: 18px; }
+#tracker .readout b { color: var(--ink); font-weight: 500; }
+#tracker .chartbox { position: relative; }
+#tracker canvas#tk-chart { display: block; width: 100%; height: 360px; touch-action: pan-y; cursor: crosshair; }
+
+#tracker .ranges { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+#tracker .rng { padding: 6px 11px; border-radius: 10px; font-weight: 600; font-size: 15px; color: var(--ink); }
+#tracker .rng[aria-pressed="true"] { background: var(--accent); color: #fff; }
+#tracker .sep { width: 1px; height: 22px; background: var(--line); margin: 0 6px; }
+#tracker .tog { padding: 5px 9px; border-radius: 8px; font-size: 12px; font-weight: 600; color: var(--muted); border: 1px solid var(--line); }
+#tracker .tog[aria-pressed="true"] { color: var(--ink); border-color: #44527a; background: var(--panel-2); }
+#tracker .toggles { display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; }
+
+#tracker .evchips { display: flex; gap: 8px; width: max-content; }
+#tracker .evchip { display: flex; align-items: center; gap: 8px; padding: 7px 11px; border-radius: 10px; background: var(--panel-2); font-size: 12px; white-space: nowrap; border: 1px solid transparent; }
+#tracker .evchip i { width: 8px; height: 8px; border-radius: 2px; background: var(--event); transform: rotate(45deg); }
+#tracker .evchip small { color: var(--muted); font-family: var(--mono); }
+#tracker .evchip[aria-pressed="true"] { border-color: var(--event); }
+#tracker .evchip.out { opacity: .55; }
+
+#tracker .evcard { display: grid; gap: 10px; padding: 14px; border-radius: 12px; background: var(--panel-2); }
+#tracker .evcard h3 { margin: 0; font-size: 16px; text-wrap: balance; }
+#tracker .evcard .when { color: var(--event); font-family: var(--mono); font-size: 12px; }
+#tracker .evcard p { margin: 0; color: #c9d0de; max-width: 68ch; }
+#tracker .evcard .lbl { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+#tracker .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+#tracker .stat { background: var(--panel); border-radius: 10px; padding: 9px 10px; display: grid; gap: 2px; min-width: 0; }
+#tracker .stat span { color: var(--muted); font-size: 11px; }
+#tracker .stat b { font-family: var(--mono); font-weight: 500; font-size: 16px; }
+#tracker .stat em { font-style: normal; color: var(--faint); font-size: 11px; font-family: var(--mono); }
+#tracker .role { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; border: 1px solid var(--line); color: var(--muted); }
+#tracker .role.loser { color: var(--down); border-color: rgba(240,86,111,.45); }
+#tracker .role.winner { color: var(--up); border-color: rgba(60,207,149,.45); }
+#tracker .evactions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+#tracker .btn { padding: 7px 12px; border-radius: 9px; background: var(--accent); color: #fff; font-weight: 600; font-size: 13px; }
+#tracker .btn.ghost { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+
+#tracker table { width: 100%; border-collapse: collapse; font-size: 13px; }
+#tracker th { text-align: left; color: var(--muted); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: .07em; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+#tracker td { padding: 9px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+#tracker td.r, #tracker th.r { text-align: right; }
+#tracker tbody tr { cursor: pointer; }
+#tracker tbody tr:hover { background: var(--panel-2); }
+#tracker tbody tr.sel { background: var(--panel-2); }
+#tracker .tablewrap { overflow-x: auto; }
+#tracker .note { color: var(--muted); font-size: 12px; max-width: 80ch; }
+#tracker .foot { color: var(--faint); font-size: 12px; display: grid; gap: 4px; }
+
+@media (max-width: 560px) {
+  #tracker canvas#tk-chart { height: 300px; }
+  #tracker .qprice { text-align: left; }
+  #tracker .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #tracker .rng { padding: 6px 7px; font-size: 13px; }
+  #tracker .ranges { gap: 2px; }
+  #tracker .toggles { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { #tracker, #tracker * { transition: none !important; } }
+
+#tracker { border-top: 1px solid var(--line); }
+#tracker button { font-family: inherit; font-size: inherit; color: inherit; background: none; border: 0; border-radius: 0; padding: 0; letter-spacing: normal; }
+#tracker .sechead { margin: 0; font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; }
+#tracker .toglobe { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); font-size: 12px; font-weight: 600; }
+#tracker .toglobe:hover { color: var(--ink); border-color: #44505f; }
+#tracker .topbar { align-items: center; }
+
+#tracker .grp { padding: 6px 12px; border-radius: 999px; color: var(--muted); font-size: 13px; font-weight: 500; white-space: nowrap; border: 1px solid var(--line); }
+#tracker .grp[aria-pressed="true"] { color: var(--ink); background: var(--panel-2); border-color: #3a4766; }
+#tracker .tab { padding: 4px 0 10px; font-size: 17px; font-weight: 600; color: var(--muted); position: relative; }
+#tracker .tab[aria-selected="true"] { color: var(--ink); }
+#tracker .tab[aria-selected="true"]::after { content: ""; position: absolute; left: 50%; bottom: -1px; width: 28px; height: 3px; margin-left: -14px; border-radius: 3px; background: var(--accent); }
+#tracker .rng { padding: 6px 11px; border-radius: 10px; font-weight: 600; font-size: 15px; color: var(--ink); }
+#tracker .rng[aria-pressed="true"] { background: var(--accent); color: #fff; }
+#tracker .tog { padding: 5px 9px; border-radius: 8px; font-size: 12px; font-weight: 600; color: var(--muted); border: 1px solid var(--line); }
+#tracker .tog[aria-pressed="true"] { color: var(--ink); border-color: #44527a; background: var(--panel-2); }
+#tracker .toggles { display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; }
+#tracker .evchips { display: flex; gap: 8px; width: max-content; }
+#tracker .evchip { display: flex; align-items: center; gap: 8px; padding: 7px 11px; border-radius: 10px; background: var(--panel-2); font-size: 12px; white-space: nowrap; border: 1px solid transparent; }
+#tracker .evchip i { width: 8px; height: 8px; border-radius: 2px; background: var(--event); transform: rotate(45deg); }
+#tracker .evchip small { color: var(--muted); font-family: var(--mono); }
+#tracker .evchip[aria-pressed="true"] { border-color: var(--event); }
+#tracker .evchip.out { opacity: .55; }
+#tracker .btn { padding: 7px 12px; border-radius: 9px; background: var(--accent); color: #fff; font-weight: 600; font-size: 13px; }
+#tracker .btn.ghost { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+#tracker .tablewrap { overflow-x: auto; }
+#tracker .rng { padding: 6px 7px; font-size: 13px; }
+#tracker .toggles { margin-left: 0; }
+#tracker .toglobe { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); font-size: 12px; font-weight: 600; }
+#tracker .toglobe:hover { color: var(--ink); border-color: #44505f; }
+
+
+#tracker .status { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 4px; font-size: 12px; color: var(--muted); }
+#tracker .status b { color: var(--ink); font-weight: 500; }
+#tracker .loading { margin: 0; color: var(--muted); }
+#tracker .live { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-family: var(--mono); font-size: 13px; color: var(--muted); margin-top: -6px; }
+#tracker .live b { color: var(--ink); font-weight: 500; }
+#tracker .live .t { color: var(--faint); }
+#tracker .live .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); display: inline-block; }
+#tracker .live .dot.on { background: var(--up); box-shadow: 0 0 0 3px rgba(60,207,149,.18); }
+</style>
+</head>
+<body>
+
+
+<section id="globe" aria-label="Orbit Globe">
+<div id="stage" aria-label="Interactive 3D globe. Drag to rotate, shift-drag to roll." role="img"></div>
+
+<div class="title">
+  <h1>Orbit Globe</h1>
+  <p>Semiconductor supply chain · Hover or tap a pin, flow, alert or news beacon</p>
+</div>
+
+<div id="tip" hidden></div>
+<canvas id="gizmo" width="192" height="192" aria-hidden="true"></canvas>
+
+<section class="risk" id="riskBox" aria-label="Risk and news monitor" hidden>
+  <div class="phead"><span class="plabel">Monitor <b id="riskCount"></b></span><button class="pclose" data-target="riskBox" aria-label="Collapse monitor"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tabRisk" aria-selected="true" aria-controls="paneRisk">Risk</button>
+    <button role="tab" id="tabNews" aria-selected="false" aria-controls="paneNews">News <i id="newsCount"></i></button>
+  </div>
+  <div id="paneRisk" role="tabpanel">
+    <p class="risk-note">Supply routes where the model expects a sharp drop, or where a supplier country's geopolitical risk is spiking while it holds a large share. Click one to spin the globe there.</p>
+    <ol id="riskList"></ol>
+    <p class="risk-foot" id="riskFoot"></p>
+  </div>
+  <div id="paneNews" role="tabpanel" hidden>
+    <div class="filters">
+      <select id="fRegion" aria-label="Region"></select>
+      <select id="fTopic" aria-label="Topic"></select>
+      <div class="row">
+        <button id="fAlerts" aria-pressed="false">Alerts only</button>
+        <button id="fCountry" hidden></button>
+      </div>
+    </div>
+    <ol class="news-list" id="newsList"></ol>
+    <p class="risk-foot news-foot" id="newsFoot"></p>
+    <input type="file" id="newsFile" accept=".json,application/json" hidden>
+  </div>
+</section>
+
+<section class="panel" id="ctrlBox" aria-label="Orientation and legend" hidden>
+  <div class="panel-head"><span>Orientation</span><span class="ph-right"><span id="status">Loading map…</span><button class="pclose" data-target="ctrlBox" aria-label="Collapse orientation and legend"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></span></div>
+  <div class="axis" data-a="x"><label for="rx">X</label><input id="rx" type="range" min="-180" max="180" step="1" value="0"><output id="ox">0°</output></div>
+  <div class="axis" data-a="y"><label for="ry">Y</label><input id="ry" type="range" min="-180" max="180" step="1" value="0"><output id="oy">0°</output></div>
+  <div class="axis" data-a="z"><label for="rz">Z</label><input id="rz" type="range" min="-180" max="180" step="1" value="0"><output id="oz">0°</output></div>
+  <div class="supply">
+    <span class="supply-label">Sites</span>
+    <div class="row">
+      <button class="chip" data-cat="fab" aria-pressed="true">Fabs <i>0</i></button>
+      <button class="chip" data-cat="mat" aria-pressed="true">Materials <i>0</i></button>
+      <button class="chip" data-cat="hq" aria-pressed="true">HQs <i>0</i></button>
+    </div>
+  </div>
+  <div class="supply">
+    <span class="supply-label">Trade flows</span>
+    <div class="row">
+      <button class="chip flow" data-stage="mat" aria-pressed="true">Materials <i>0</i></button>
+      <button class="chip flow" data-stage="eq" aria-pressed="true">Equipment <i>0</i></button>
+      <button class="chip flow" data-stage="chip" aria-pressed="true">Chips <i>0</i></button>
+      <button class="chip flow" data-stage="sys" aria-pressed="true">Servers <i>0</i></button>
+    </div>
+    <div class="row">
+      <button class="chip news" id="newsBtn" aria-pressed="true">News by country <i>0</i></button>
+    </div>
+    <p class="legend"><span class="ln solid"></span>Flowing <span class="ln dash"></span>Export controls or disrupted · latest published data, Oct 2026</p>
+  </div>
+  <div class="row">
+    <button id="spin" aria-pressed="true">Auto-spin</button>
+    <button id="riskBtn" aria-pressed="true">Risk layer</button>
+    <button id="reset">Reset to 23.4° tilt</button>
+  </div>
+  <p class="hint"><kbd>←</kbd><kbd>→</kbd> Y axis · <kbd>↑</kbd><kbd>↓</kbd> X axis · <kbd>Q</kbd><kbd>E</kbd> Z axis · two-finger twist rolls on touch</p>
+</section>
+
+<button class="fab fab-l" id="ctrlFab" aria-expanded="false" aria-controls="ctrlBox" aria-label="Open orientation and legend" title="Orientation &amp; legend"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="9" ry="3.5"/><path d="M12 3v18"/></svg></button>
+<button class="fab fab-r" id="riskFab" aria-expanded="false" aria-controls="riskBox" aria-label="Open monitor" title="Risk &amp; news monitor"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/><path d="M12 12l6-6"/></svg><span class="badge" id="riskBadge" hidden></span></button>
+<button class="cue" id="toTracker" aria-label="Scroll down to the stock tracker">
+  Stock tracker
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  <small>Scroll down · Ctrl + scroll zooms the globe</small>
+</button>
+</section>
+<section id="tracker" aria-label="Chip stock tracker">
+<div class="wrap">
+  <div class="topbar">
+    <div><h2 class="sechead">Stock tracker</h2><div class="asof" id="tk-asof"></div><div class="status" id="tk-status"></div></div>
+    <button class="toglobe" id="tk-toglobe"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>Back to globe</button>
+  </div>
+
+  <div class="scroller"><div class="tkrow" id="tk-groups"></div></div>
+  <div class="scroller"><div class="tkrow" id="tk-chips"></div></div>
+
+  <p class="loading" id="tk-loading">Loading prices…</p>
+  <div class="quote">
+    <div class="qname"><h1 id="tk-qname"></h1><p id="tk-qmeta"></p></div>
+    <div class="qprice"><div class="big" id="tk-qprice"></div><div class="chg" id="tk-qchg"></div></div>
+  </div>
+  <div class="live" id="tk-live"></div>
+
+  <section class="card">
+    <div class="tktabs" role="tablist">
+      <button class="tab" role="tab" id="tk-tab-chart" aria-selected="true" data-tab="chart">Chart</button>
+      <button class="tab" role="tab" id="tk-tab-events" aria-selected="false" data-tab="events">Events</button>
+      <button class="tab" role="tab" id="tk-tab-peers" aria-selected="false" data-tab="peers">Peers</button>
+    </div>
+
+    <div id="tk-pane-chart" style="display:grid;gap:10px">
+      <div class="tklegend" id="tk-legend"></div>
+      <div class="chartbox"><canvas id="tk-chart" aria-label="Price chart"></canvas></div>
+      <div class="readout" id="tk-readout"></div>
+      <div class="ranges">
+        <div class="ranges" id="tk-ranges"></div>
+        <div class="toggles">
+          <button class="tog" id="tk-t-ev" aria-pressed="true">Events</button>
+          <button class="tog" id="tk-t-ma" aria-pressed="true">MA</button>
+          <button class="tog" id="tk-t-log" aria-pressed="false">Log</button>
+          <button class="tog" id="tk-t-usd" aria-pressed="false">USD</button>
+        </div>
+      </div>
+      <div class="scroller"><div class="evchips" id="tk-evchips"></div></div>
+      <div class="evcard" id="tk-evcard"></div>
+    </div>
+
+    <div id="tk-pane-events" hidden>
+      <div class="tablewrap"><table id="tk-evtable"></table></div>
+      <p class="note">Price move = change from the close before the event, in the stock's own currency. Abnormal = the move left after removing what the world stock market (MSCI World ETF) did, using each stock's normal relationship to it over the prior year. That is the Model 4 method from the research. An asterisk marks a move large enough that random noise would produce it less than 5% of the time.</p>
+    </div>
+
+    <div id="tk-pane-peers" hidden>
+      <div class="tablewrap"><table id="tk-peertable"></table></div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <div id="tk-srcline"></div>
+    <div>Prices are Yahoo Finance daily closes adjusted for splits and dividends, so early values can differ from the prices quoted at the time. Daily data only, so there is no intraday (1D) view. Research on how markets react to supply shocks, not investment advice.</div>
+  </div>
+</div>
+
+</section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// Stub so the ECharts world-map script hands its GeoJSON to us instead of to ECharts.
+window.__worldGeo = null;
+window.echarts = { registerMap: function (name, geo) { window.__worldGeo = geo; if (window.__onWorld) window.__onWorld(geo); } };
+</script>
+<script>
+(function () {
+  if (!window.THREE) { document.getElementById('status').textContent = '3D library failed to load'; return; }
+  const T = THREE;
+  const stage = document.getElementById('stage');
+  const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- renderer / scene ----------
+  const renderer = new T.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  stage.appendChild(renderer.domElement);
+  const scene = new T.Scene();
+  const camera = new T.PerspectiveCamera(40, 1, 0.1, 100);
+  let camDist = 3.6;
+  camera.position.set(0, 0, camDist);
+
+  const globe = new T.Group();
+  scene.add(globe);
+  const R = 1;
+
+  function ll2v(lat, lon, r) {
+    const phi = (90 - lat) * Math.PI / 180, th = (lon + 180) * Math.PI / 180;
+    return new T.Vector3(-r * Math.sin(phi) * Math.cos(th), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(th));
+  }
+
+  // Ocean sphere: dark with a soft fresnel rim
+  const oceanMat = new T.ShaderMaterial({
+    uniforms: {},
+    vertexShader: `varying vec3 vN; varying vec3 vV;
+      void main(){ vec4 mv = modelViewMatrix*vec4(position,1.0); vN = normalize(normalMatrix*normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix*mv; }`,
+    fragmentShader: `varying vec3 vN; varying vec3 vV;
+      void main(){ float f = pow(1.0 - max(dot(vN, vV), 0.0), 2.5);
+        vec3 base = mix(vec3(0.043,0.051,0.063), vec3(0.102,0.122,0.149), vN.y*0.5+0.5);
+        vec3 rim = mix(vec3(0.180,0.212,0.251), vec3(0.486,0.529,0.580), f);
+        gl_FragColor = vec4(mix(base, rim, f*0.85), 1.0); }`
+  });
+  globe.add(new T.Mesh(new T.SphereGeometry(R, 96, 96), oceanMat));
+
+  // Atmosphere halo (back-faced, additive)
+  const atmo = new T.Mesh(new T.SphereGeometry(R * 1.18, 64, 64), new T.ShaderMaterial({
+    side: T.BackSide, transparent: true, blending: T.AdditiveBlending, depthWrite: false,
+    vertexShader: `varying vec3 vN; void main(){ vN = normalize(normalMatrix*normal); gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
+    fragmentShader: `varying vec3 vN; void main(){ float i = pow(0.72 - dot(vN, vec3(0.0,0.0,1.0)), 3.0); gl_FragColor = vec4(0.486,0.529,0.580,1.0)*i*1.1; }`
+  }));
+  scene.add(atmo);
+
+  // Graticule (every 30°)
+  (function () {
+    const pts = [];
+    for (let lat = -60; lat <= 60; lat += 30) for (let lon = -180; lon < 180; lon += 3) { pts.push(ll2v(lat, lon, R * 1.001), ll2v(lat, lon + 3, R * 1.001)); }
+    for (let lon = -180; lon < 180; lon += 30) for (let lat = -90; lat < 90; lat += 3) { pts.push(ll2v(lat, lon, R * 1.001), ll2v(lat + 3, lon, R * 1.001)); }
+    const g = new T.BufferGeometry().setFromPoints(pts);
+    globe.add(new T.LineSegments(g, new T.LineBasicMaterial({ color: 0x7c8794, transparent: true, opacity: 0.12 })));
+  })();
+
+  // Body-axis lines through the poles etc. so X/Y/Z rotations read clearly
+  (function () {
+    const mk = (a, b, c) => { const g = new T.BufferGeometry().setFromPoints([a, b]); return new T.Line(g, new T.LineBasicMaterial({ color: c, transparent: true, opacity: 0.55 })); };
+    globe.add(mk(new T.Vector3(0, -1.32, 0), new T.Vector3(0, 1.32, 0), 0xe6e9ee));
+    // Fixed vertical reference (orbital-plane normal) so the tilt angle is visible
+    const ref = mk(new T.Vector3(0, -1.32, 0), new T.Vector3(0, 1.32, 0), 0x7c8794);
+    ref.material.opacity = 0.3; scene.add(ref);
+  })();
+
+  // ---------- land dots + borders from world GeoJSON ----------
+  const dotMat = new T.ShaderMaterial({
+    transparent: true, depthWrite: false,
+    uniforms: { uSize: { value: 3.0 * renderer.getPixelRatio() }, uColor: { value: new T.Color(0xe6e9ee) } },
+    vertexShader: `uniform float uSize; varying float vFace;
+      void main(){ vec4 mv = modelViewMatrix*vec4(position,1.0);
+        vec3 n = normalize(normalMatrix*position); vFace = dot(n, normalize(-mv.xyz));
+        gl_PointSize = uSize * (3.6 / -mv.z); gl_Position = projectionMatrix*mv; }`,
+    fragmentShader: `uniform vec3 uColor; varying float vFace;
+      void main(){ vec2 c = gl_PointCoord - 0.5; float d = length(c); if (d > 0.5) discard;
+        float a = smoothstep(0.5, 0.2, d) * clamp(vFace*1.4+0.15, 0.0, 1.0);
+        gl_FragColor = vec4(uColor, a); }`
+  });
+  let landDots = null, borders = null;
+
+  function decodeRing(str, off, scale) {
+    const out = []; let px = off[0], py = off[1];
+    for (let i = 0; i < str.length; i += 2) {
+      let x = str.charCodeAt(i) - 64, y = str.charCodeAt(i + 1) - 64;
+      x = (x >> 1) ^ (-(x & 1)); y = (y >> 1) ^ (-(y & 1));
+      x += px; y += py; px = x; py = y;
+      out.push([x / scale, y / scale]);
+    }
+    return out;
+  }
+  function polygonsOf(geo) {
+    const scale = geo.UTF8Scale || 1024, enc = !!geo.UTF8Encoding, polys = [];
+    for (const f of geo.features || []) {
+      const g = f.geometry; if (!g) continue;
+      if (g.type === 'Polygon') polys.push(g.coordinates.map((r, i) => enc ? decodeRing(r, g.encodeOffsets[i], scale) : r));
+      else if (g.type === 'MultiPolygon') g.coordinates.forEach((p, j) => polys.push(p.map((r, i) => enc ? decodeRing(r, g.encodeOffsets[j][i], scale) : r)));
+    }
+    return polys;
+  }
+
+  function buildLand(geo) {
+    const polys = polygonsOf(geo);
+    if (!polys.length) return false;
+    // Rasterize land to an equirectangular mask
+    const W = 2048, H = 1024, cv = document.createElement('canvas');
+    cv.width = W; cv.height = H;
+    const cx = cv.getContext('2d', { willReadFrequently: true });
+    cx.fillStyle = '#fff';
+    for (const p of polys) {
+      cx.beginPath();
+      for (const ring of p) ring.forEach(([lon, lat], k) => {
+        const x = (lon + 180) / 360 * W, y = (90 - lat) / 180 * H;
+        k ? cx.lineTo(x, y) : cx.moveTo(x, y);
+      });
+      cx.fill('evenodd');
+    }
+    const mask = cx.getImageData(0, 0, W, H).data;
+    // Fibonacci sphere sampling for even dot spacing
+    const N = 60000, ga = Math.PI * (3 - Math.sqrt(5)), pos = [];
+    for (let i = 0; i < N; i++) {
+      const y = 1 - (i / (N - 1)) * 2, lat = Math.asin(y) * 180 / Math.PI;
+      let lon = ((ga * i) * 180 / Math.PI) % 360 - 180;
+      const px = Math.min(W - 1, Math.floor((lon + 180) / 360 * W)), py = Math.min(H - 1, Math.floor((90 - lat) / 180 * H));
+      if (mask[(py * W + px) * 4] > 128) { const v = ll2v(lat, lon, R * 1.004); pos.push(v.x, v.y, v.z); }
+    }
+    const g = new T.BufferGeometry();
+    g.setAttribute('position', new T.Float32BufferAttribute(pos, 3));
+    landDots = new T.Points(g, dotMat);
+    globe.add(landDots);
+    // Country outlines
+    const seg = [];
+    for (const p of polys) for (const ring of p) for (let k = 1; k < ring.length; k++) {
+      const a = ring[k - 1], b = ring[k];
+      if (Math.abs(a[0] - b[0]) > 180) continue;
+      seg.push(ll2v(a[1], a[0], R * 1.003), ll2v(b[1], b[0], R * 1.003));
+    }
+    borders = new T.LineSegments(new T.BufferGeometry().setFromPoints(seg),
+      new T.LineBasicMaterial({ color: 0x7c8794, transparent: true, opacity: 0.4 }));
+    globe.add(borders);
+    return true;
+  }
+
+  const statusEl = document.getElementById('status');
+  function onWorld(geo) {
+    try { statusEl.textContent = buildLand(geo) ? 'Live' : 'Map data empty'; }
+    catch (e) { statusEl.textContent = 'Map failed to draw'; console.error(e); }
+  }
+  window.__onWorld = onWorld;
+  if (window.__worldGeo) onWorld(window.__worldGeo);
+  function loadMap(srcs) {
+    if (!srcs.length) { statusEl.textContent = 'Map offline · grid only'; return; }
+    const s = document.createElement('script');
+    s.src = srcs[0];
+    s.onerror = () => loadMap(srcs.slice(1));
+    s.onload = () => { if (!window.__worldGeo) loadMap(srcs.slice(1)); };
+    document.body.appendChild(s);
+  }
+  loadMap([
+    'https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js',
+    'https://unpkg.com/echarts@4.9.0/map/js/world.js'
+  ]);
+
+  // ---------- semiconductor trade flows (yellow arcs) ----------
+  // Latest published figures as of Oct 2026. Trade statistics are released monthly or yearly with a lag,
+  // so each flow carries its own period and source. status: ok | restricted (export controls/licensing) | disrupted
+  const NODES = {
+    ningbo:[29.87,121.55,'Ningbo, China'], china:[34.75,113.62,'China'], ganzhou:[25.83,114.93,'Ganzhou, China'],
+    kachin:[25.90,98.40,'Kachin State, Myanmar'], mtweld:[-28.86,122.55,'Mount Weld, Australia'], kuantan:[3.97,103.38,'Kuantan, Malaysia'],
+    mtpass:[35.48,-115.53,'Mountain Pass, USA'], shandong:[36.80,118.05,'Shandong, China'], yunnan:[23.88,100.09,'Yunnan, China'],
+    sprucepine:[35.92,-82.06,'Spruce Pine, USA'], burghausen:[48.17,12.83,'Burghausen, Germany'], hemlock:[43.42,-84.02,'Hemlock, USA'],
+    jpwafer:[37.13,140.21,'Japanese wafer makers'], raslaffan:[25.90,51.55,'Ras Laffan, Qatar'], odesa:[46.48,30.73,'Odesa, Ukraine'],
+    veldhoven:[51.41,5.41,'Veldhoven, Netherlands'], oberkochen:[48.78,10.10,'Oberkochen, Germany'], sandiego:[32.90,-117.20,'San Diego, USA'],
+    tokyo:[35.67,139.75,'Japan'], svalley:[37.37,-121.96,'United States'], singapore:[1.35,103.82,'Singapore'],
+    shanghai:[31.20,121.60,'China'], hk:[22.32,114.17,'China & Hong Kong'], hsinchu:[24.78,121.00,'Taiwan'], tainan:[23.11,120.27,'Taiwan'],
+    taoyuan:[24.99,121.30,'Taiwan'], pyeongtaek:[37.02,127.05,'South Korea'], icheon:[37.20,127.40,'South Korea'], seoul:[37.57,126.98,'South Korea'],
+    hillsboro:[45.54,-122.96,'Hillsboro, USA'], penang:[5.30,100.28,'Malaysia'], kiryat:[31.61,34.77,'Israel'], leixlip:[53.36,-6.50,'Ireland'],
+    germany:[50.11,8.68,'Germany'], bacninh:[21.19,106.07,'Vietnam'], usa:[39.00,-95.70,'United States'],
+    guadalajara:[20.67,-103.35,'Mexico'], ashburn:[39.04,-77.49,'United States']
+  };
+  const STAGE_LABEL = { mat:'Raw materials', eq:'Equipment', chip:'Chips', sys:'Servers' };
+  const SRC = {
+    reuters:'China customs data via Reuters', silverado:'Silverado Policy Accelerator', trendforce:'TrendForce',
+    caixin:'ASML results via Caixin', census:'US Census import data (HTS 8542)', mofa:'Korea trade ministry via JoongAng Daily',
+    banamex:'Banamex / Mexico News Daily', moea:'Taiwan Ministry of Economic Affairs', mofcom:'China Ministry of Commerce via Reuters',
+    techspot:'QatarEnergy / industry reports', csis:'CSIS “From Mine to Microchip”', industry:'Industry and company reports'
+  };
+  const FLOWS = [
+    // Raw materials and inputs
+    { st:'mat', f:'kachin', t:'ganzhou', item:'Heavy rare-earth ore', val:'Most of Myanmar’s output is refined in China', per:'Ongoing', s:'ok', w:1, src:'csis' },
+    { st:'mat', f:'mtweld', t:'kuantan', item:'Rare-earth concentrate', val:'Shipped to Lynas’s separation plant in Malaysia', per:'Ongoing', s:'ok', w:1, src:'industry' },
+    { st:'mat', f:'mtpass', t:'china', item:'Rare-earth concentrate', val:'MP Materials stopped shipping to China in April 2025', per:'Since Apr 2025', s:'disrupted', w:1, src:'industry' },
+    { st:'mat', f:'ningbo', t:'germany', item:'Rare-earth magnets', val:'Largest destination; China exported 10,763 t in total (+8.2% y/y)', per:'Jan–Feb 2026', s:'restricted', w:2, src:'reuters' },
+    { st:'mat', f:'ningbo', t:'seoul', item:'Rare-earth magnets', val:'Second-largest destination', per:'Jan–Feb 2026', s:'restricted', w:2, src:'reuters' },
+    { st:'mat', f:'ningbo', t:'usa', item:'Rare-earth magnets', val:'994 t (−22.5% y/y)', per:'Jan–Feb 2026', s:'restricted', w:2, src:'reuters' },
+    { st:'mat', f:'ningbo', t:'tokyo', item:'Rare-earth magnets', val:'444 t (+9.5% y/y)', per:'Jan–Feb 2026', s:'restricted', w:1, src:'reuters' },
+    { st:'mat', f:'ningbo', t:'bacninh', item:'Rare-earth magnets', val:'A top-five destination', per:'Jan–Feb 2026', s:'restricted', w:1, src:'reuters' },
+    { st:'mat', f:'shandong', t:'usa', item:'Gallium', val:'China makes ~98% of primary gallium. The US ban is suspended until Nov 27, 2026, but licenses are still required', per:'Through Nov 2026', s:'restricted', w:1, src:'mofcom' },
+    { st:'mat', f:'shandong', t:'tokyo', item:'Gallium', val:'Feedstock for compound semiconductors; licensed exports', per:'Ongoing', s:'restricted', w:1, src:'mofcom' },
+    { st:'mat', f:'yunnan', t:'usa', item:'Germanium', val:'US ban suspended until Nov 27, 2026; licenses still required', per:'Through Nov 2026', s:'restricted', w:1, src:'mofcom' },
+    { st:'mat', f:'sprucepine', t:'jpwafer', item:'High-purity quartz', val:'Used for the crucibles that grow silicon crystals', per:'Ongoing', s:'ok', w:1, src:'csis' },
+    { st:'mat', f:'burghausen', t:'jpwafer', item:'Hyperpure polysilicon', val:'Raw silicon for wafer makers', per:'Ongoing', s:'ok', w:1, src:'industry' },
+    { st:'mat', f:'hemlock', t:'jpwafer', item:'Electronic-grade polysilicon', val:'Raw silicon for wafer makers', per:'Ongoing', s:'ok', w:1, src:'industry' },
+    { st:'mat', f:'jpwafer', t:'hsinchu', item:'Silicon wafers', val:'Shin-Etsu and SUMCO make about half of the world’s wafers', per:'Ongoing', s:'ok', w:2, src:'industry' },
+    { st:'mat', f:'jpwafer', t:'pyeongtaek', item:'Silicon wafers', val:'Wafers for Samsung and SK hynix fabs', per:'Ongoing', s:'ok', w:1, src:'industry' },
+    { st:'mat', f:'jpwafer', t:'shanghai', item:'Silicon wafers', val:'Wafers for Chinese fabs', per:'Ongoing', s:'ok', w:1, src:'industry' },
+    { st:'mat', f:'raslaffan', t:'pyeongtaek', item:'Helium', val:'Korea got ~65% of its helium from Qatar in 2025. Ras Laffan has been offline since Mar 2, 2026 (force majeure)', per:'Since Mar 2026', s:'disrupted', w:2, src:'techspot' },
+    { st:'mat', f:'raslaffan', t:'hsinchu', item:'Helium', val:'Ras Laffan supplies nearly a third of world helium and is offline', per:'Since Mar 2026', s:'disrupted', w:1, src:'techspot' },
+    { st:'mat', f:'odesa', t:'pyeongtaek', item:'Neon gas', val:'A major pre-war route for lithography-laser gas, now largely replaced', per:'Since 2022', s:'disrupted', w:1, src:'csis' },
+    // Equipment
+    { st:'eq', f:'oberkochen', t:'veldhoven', item:'EUV optics', val:'Zeiss builds the mirrors for every EUV machine', per:'Ongoing', s:'ok', w:1, src:'industry' },
+    { st:'eq', f:'sandiego', t:'veldhoven', item:'EUV light sources', val:'Cymer (ASML) light-source modules', per:'Ongoing', s:'ok', w:1, src:'industry' },
+    { st:'eq', f:'veldhoven', t:'shanghai', item:'Lithography machines (DUV only)', val:'China was 33% of ASML’s 2025 sales, its largest market. EUV sales are banned and ASML expects a decline in 2026', per:'2025', s:'restricted', w:3, src:'caixin' },
+    { st:'eq', f:'veldhoven', t:'hsinchu', item:'EUV lithography machines', val:'TSMC’s leading-edge nodes depend on ASML EUV', per:'Ongoing', s:'ok', w:2, src:'industry' },
+    { st:'eq', f:'veldhoven', t:'pyeongtaek', item:'EUV lithography machines', val:'For Samsung and SK hynix', per:'Ongoing', s:'ok', w:2, src:'industry' },
+    { st:'eq', f:'veldhoven', t:'hillsboro', item:'High-NA EUV machines', val:'Intel took the first High-NA EUV tools', per:'Ongoing', s:'ok', w:1, src:'industry' },
+    { st:'eq', f:'tokyo', t:'shanghai', item:'Chipmaking tools', val:'$14.3B in 2024 (30.4% of China’s imports, the largest source); $6.4B in 1H 2025. China’s tool imports hit a record $51.1B in 2025', per:'2024–1H 2025', s:'restricted', w:3, src:'trendforce' },
+    { st:'eq', f:'svalley', t:'shanghai', item:'Chipmaking tools', val:'~9% of China’s 2025 tool imports, down from 23% in 2016', per:'2025', s:'restricted', w:2, src:'silverado' },
+    { st:'eq', f:'singapore', t:'shanghai', item:'Chipmaking tools', val:'One of China’s four largest tool sources in 2025', per:'2025', s:'ok', w:2, src:'silverado' },
+    // Chips
+    { st:'chip', f:'tainan', t:'svalley', item:'Integrated circuits', val:'$7.41B, 37.3% of US chip imports (the largest source)', per:'Mar–Jul 2026', s:'ok', w:3, src:'census' },
+    { st:'chip', f:'penang', t:'svalley', item:'Integrated circuits', val:'$2.70B, 13.6% of US chip imports', per:'Mar–Jul 2026', s:'ok', w:2, src:'census' },
+    { st:'chip', f:'icheon', t:'svalley', item:'Integrated circuits', val:'$2.27B, 11.4% of US chip imports', per:'Mar–Jul 2026', s:'ok', w:2, src:'census' },
+    { st:'chip', f:'kiryat', t:'svalley', item:'Integrated circuits', val:'$2.01B, 10.1% of US chip imports', per:'Mar–Jul 2026', s:'ok', w:2, src:'census' },
+    { st:'chip', f:'leixlip', t:'svalley', item:'Integrated circuits', val:'$1.59B, 8.0% of US chip imports', per:'Mar–Jul 2026', s:'ok', w:2, src:'census' },
+    { st:'chip', f:'icheon', t:'hk', item:'Memory chips', val:'$42.5B, 51.7% of Korea’s chip exports', per:'Jan–Nov 2024', s:'ok', w:3, src:'mofa' },
+    { st:'chip', f:'icheon', t:'hsinchu', item:'HBM memory', val:'$18.5B (+119% y/y), mostly HBM paired with Nvidia GPUs at TSMC', per:'Jan–Nov 2024', s:'ok', w:3, src:'mofa' },
+    { st:'chip', f:'pyeongtaek', t:'bacninh', item:'Chips for device assembly', val:'12.9% of Korea’s chip exports', per:'Jan–Nov 2024', s:'ok', w:2, src:'mofa' },
+    { st:'chip', f:'hsinchu', t:'hk', item:'Chips and electronics', val:'$137.8B in export orders, all goods', per:'2025', s:'ok', w:3, src:'moea' },
+    { st:'chip', f:'tainan', t:'penang', item:'Wafers for packaging', val:'Chips sent to Malaysia for assembly and test', per:'Ongoing', s:'ok', w:1, src:'industry' },
+    // AI servers
+    { st:'sys', f:'taoyuan', t:'ashburn', item:'AI servers', val:'$72.2B; 36% of US server imports in 1H 2026', per:'1H 2026', s:'ok', w:3, src:'banamex' },
+    { st:'sys', f:'guadalajara', t:'ashburn', item:'AI servers', val:'$60.4B; nearly 40% of US server imports in Q2 2026, passing Taiwan', per:'1H 2026', s:'ok', w:3, src:'banamex' },
+    { st:'sys', f:'taoyuan', t:'guadalajara', item:'Server components', val:'Taiwanese makers (Foxconn, Inventec) assemble in Mexico', per:'Ongoing', s:'ok', w:2, src:'banamex' }
+  ];
+  const STATUS_LABEL = { ok:'Flowing', restricted:'Under export controls', disrupted:'Disrupted' };
+
+  const arcGroup = new T.Group(); globe.add(arcGroup);
+  const flowGroups = { mat: new T.Group(), eq: new T.Group(), chip: new T.Group(), sys: new T.Group() };
+  Object.values(flowGroups).forEach(g => arcGroup.add(g));
+  const rings = [], flowTargets = [];
+  const nodeGeo = new T.SphereGeometry(0.006, 10, 10), nodeMat = new T.MeshBasicMaterial({ color: 0xffd36b });
+  const usedNodes = new Set(); FLOWS.forEach(fl => { usedNodes.add(fl.f); usedNodes.add(fl.t); });
+  usedNodes.forEach(k => {
+    const [lat, lon] = NODES[k], v = ll2v(lat, lon, R * 1.004);
+    const m = new T.Mesh(nodeGeo, nodeMat); m.position.copy(v); arcGroup.add(m);
+  });
+  const arcMats = [];
+  const arcVS = `attribute float t; varying float vT; void main(){ vT = t; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }`;
+  const arcFS = `uniform float uTime; uniform float uOff; uniform float uSpeed; uniform float uDash; uniform float uW; varying float vT;
+        void main(){
+          if (uDash > 0.5 && fract(vT*40.0) > 0.55) discard;
+          float head = fract(uTime*uSpeed + uOff); float d = head - vT;
+          float trail = d >= 0.0 ? exp(-d*9.0) : 0.0;
+          trail *= (uDash > 0.5) ? 0.45 : 1.0;
+          vec3 c = mix(vec3(1.0,0.55,0.35), vec3(1.0,0.85,0.45), trail);
+          gl_FragColor = vec4(c, 0.05 + 0.05*uW + trail*(0.55 + 0.2*uW)); }`;
+  FLOWS.forEach(fl => {
+    const A = NODES[fl.f], B = NODES[fl.t];
+    const va = ll2v(A[0], A[1], R), vb = ll2v(B[0], B[1], R);
+    const ang = va.angleTo(vb), mid = va.clone().add(vb).normalize().multiplyScalar(R + 0.03 + ang * 0.2);
+    const curve = new T.QuadraticBezierCurve3(va.clone().multiplyScalar(1.004), mid, vb.clone().multiplyScalar(1.004));
+    const P = curve.getPoints(Math.max(30, Math.round(ang * 80))), g = new T.BufferGeometry().setFromPoints(P);
+    g.setAttribute('t', new T.Float32BufferAttribute(P.map((_, i) => i / (P.length - 1)), 1));
+    const dashed = fl.s !== 'ok';
+    const mat = new T.ShaderMaterial({
+      transparent: true, depthWrite: false, blending: T.AdditiveBlending,
+      uniforms: { uTime: { value: 0 }, uOff: { value: Math.random() }, uSpeed: { value: (dashed ? 0.06 : 0.12) / (0.25 + ang) },
+                  uDash: { value: dashed ? 1 : 0 }, uW: { value: fl.w } },
+      vertexShader: arcVS, fragmentShader: arcFS
+    });
+    arcMats.push(mat);
+    flowGroups[fl.st].add(new T.Line(g, mat));
+    for (let i = 2; i <= 18; i++) flowTargets.push({ kind: 'flow', flow: fl, v: curve.getPoint(i / 20) });
+  });
+
+  // ---------- semiconductor supply-chain sites (red pins) ----------
+  // cat: fab = fabs & packaging, mat = raw materials & inputs, hq = company headquarters & toolmakers
+  // Status notes reflect public reporting as of Oct 2026.
+  const SITES = [
+    // Fabs, megafabs & packaging
+    { cat:'fab', name:'TSMC Fab 18', place:'Tainan, Taiwan', lat:23.11, lon:120.27, note:'Gigafab producing TSMC’s 3 nm and 5 nm chips, including most leading-edge AI and phone processors.' },
+    { cat:'fab', name:'TSMC Fab 15', place:'Taichung, Taiwan', lat:24.21, lon:120.62, note:'Gigafab for 7 nm-class and mature nodes.' },
+    { cat:'fab', name:'TSMC Fab 22 · ASE', place:'Kaohsiung, Taiwan', lat:22.71, lon:120.30, note:'TSMC 2 nm production site; ASE, the world’s largest chip packaging and test company, is also based here.' },
+    { cat:'fab', name:'TSMC Arizona (Fab 21)', place:'Phoenix, Arizona, USA', lat:33.75, lon:-112.12, note:'Phase 1 in volume production since 2025; more phases under construction.' },
+    { cat:'fab', name:'JASM Kumamoto', place:'Kikuyo, Kumamoto, Japan', lat:32.88, lon:130.78, note:'TSMC joint venture with Sony and Denso. Fab 1 is producing; Fab 2 is delayed.' },
+    { cat:'fab', name:'ESMC Dresden', place:'Dresden, Germany', lat:51.12, lon:13.73, note:'TSMC joint venture with Bosch, Infineon and NXP, under construction. Dresden is Europe’s largest chip cluster and also hosts GlobalFoundries and Infineon fabs.' },
+    { cat:'fab', name:'Samsung Pyeongtaek', place:'Pyeongtaek, South Korea', lat:37.02, lon:127.05, note:'One of the world’s largest fab complexes, making memory and foundry chips.' },
+    { cat:'fab', name:'Samsung Taylor', place:'Taylor, Texas, USA', lat:30.57, lon:-97.41, note:'Foundry fab in risk production; volume production reportedly slipping to 2027.' },
+    { cat:'fab', name:'SK hynix Icheon & Yongin', place:'Gyeonggi, South Korea', lat:37.20, lon:127.40, note:'SK hynix HQ and DRAM/HBM fabs. A large new memory cluster is being built at Yongin.' },
+    { cat:'fab', name:'SK hynix Cheongju', place:'Cheongju, South Korea', lat:36.64, lon:127.43, note:'NAND flash fabs and HBM packaging.' },
+    { cat:'fab', name:'SK hynix Indiana', place:'West Lafayette, Indiana, USA', lat:40.43, lon:-86.91, note:'HBM advanced-packaging plant under construction.' },
+    { cat:'fab', name:'Intel Ocotillo', place:'Chandler, Arizona, USA', lat:33.27, lon:-111.88, note:'Intel’s newest fabs, including Fab 52 for the Intel 18A process.' },
+    { cat:'fab', name:'Intel Ronler Acres', place:'Hillsboro, Oregon, USA', lat:45.54, lon:-122.96, note:'Intel’s main R&D fab, where new process nodes are developed.' },
+    { cat:'fab', name:'Intel Ohio One', place:'New Albany, Ohio, USA', lat:40.08, lon:-82.75, note:'Planned megafab with construction delayed into the 2030s.' },
+    { cat:'fab', name:'Intel Leixlip', place:'Leixlip, Ireland', lat:53.36, lon:-6.50, note:'Intel’s main European fab.' },
+    { cat:'fab', name:'Intel Kiryat Gat', place:'Kiryat Gat, Israel', lat:31.61, lon:34.77, note:'Intel high-volume fab.' },
+    { cat:'fab', name:'Micron Boise', place:'Boise, Idaho, USA', lat:43.53, lon:-116.15, note:'Micron HQ, with a new DRAM megafab under construction.' },
+    { cat:'fab', name:'Micron Clay megafab', place:'Clay, New York, USA', lat:43.17, lon:-76.17, note:'Planned memory megafab that broke ground in 2026.' },
+    { cat:'fab', name:'GlobalFoundries Fab 8', place:'Malta, New York, USA', lat:42.97, lon:-73.76, note:'Largest US-owned foundry fab.' },
+    { cat:'fab', name:'Texas Instruments Sherman', place:'Sherman, Texas, USA', lat:33.63, lon:-96.61, note:'300 mm analog-chip megafab complex.' },
+    { cat:'fab', name:'Rapidus IIM-1', place:'Chitose, Hokkaido, Japan', lat:42.80, lon:141.65, note:'Japan’s state-backed 2 nm pilot fab.' },
+    { cat:'fab', name:'Kioxia Yokkaichi', place:'Yokkaichi, Japan', lat:34.97, lon:136.60, note:'One of the world’s largest NAND flash sites.' },
+    { cat:'fab', name:'SMIC Shanghai', place:'Shanghai, China', lat:31.20, lon:121.60, note:'China’s largest foundry.' },
+    { cat:'fab', name:'YMTC', place:'Wuhan, China', lat:30.45, lon:114.42, note:'China’s leading NAND flash maker.' },
+    { cat:'fab', name:'CXMT', place:'Hefei, China', lat:31.80, lon:117.20, note:'China’s leading DRAM maker.' },
+    { cat:'fab', name:'Penang packaging hub', place:'Penang, Malaysia', lat:5.30, lon:100.28, note:'Major chip assembly and test hub, with plants run by Intel, AMD, Micron and others.' },
+    // Raw materials & critical inputs
+    { cat:'mat', name:'Bayan Obo', place:'Inner Mongolia, China', lat:41.78, lon:109.97, note:'The world’s largest rare-earth mine. China dominates both mining and refining of rare earths.' },
+    { cat:'mat', name:'Ganzhou ionic clays', place:'Jiangxi, China', lat:25.83, lon:114.93, note:'Main source of heavy rare earths such as dysprosium and terbium, plus a large share of rare-earth refining.' },
+    { cat:'mat', name:'Kachin rare earths', place:'Kachin State, Myanmar', lat:25.90, lon:98.40, note:'Major heavy-rare-earth mining region; most of its ore goes to China for refining.' },
+    { cat:'mat', name:'Mountain Pass (MP Materials)', place:'California, USA', lat:35.48, lon:-115.53, note:'The only large-scale rare-earth mine in the US.' },
+    { cat:'mat', name:'Mount Weld (Lynas)', place:'Western Australia', lat:-28.86, lon:122.55, note:'The largest rare-earth supplier outside China.' },
+    { cat:'mat', name:'Lynas Kuantan', place:'Pahang, Malaysia', lat:3.97, lon:103.38, note:'Rare-earth separation plant that processes Mount Weld ore.' },
+    { cat:'mat', name:'Spruce Pine quartz', place:'North Carolina, USA', lat:35.92, lon:-82.06, note:'Supplies most of the world’s high-purity quartz, used in the crucibles that grow silicon wafers.' },
+    { cat:'mat', name:'Gallium refining', place:'Shandong, China', lat:36.80, lon:118.05, note:'China produces about 98% of the world’s primary gallium, which is now under export controls.' },
+    { cat:'mat', name:'Germanium (Lincang)', place:'Yunnan, China', lat:23.88, lon:100.09, note:'Center of China’s germanium output, also under export controls.' },
+    { cat:'mat', name:'Wacker Burghausen', place:'Bavaria, Germany', lat:48.17, lon:12.83, note:'Major maker of the hyperpure polysilicon used for wafers.' },
+    { cat:'mat', name:'Hemlock Semiconductor', place:'Michigan, USA', lat:43.42, lon:-84.02, note:'The largest US producer of electronic-grade polysilicon.' },
+    { cat:'mat', name:'Neon gas (Odesa)', place:'Odesa, Ukraine', lat:46.48, lon:30.73, note:'Ukraine supplied a large share of the semiconductor-grade neon used in lithography lasers before 2022.' },
+    { cat:'mat', name:'Ras Laffan helium', place:'Qatar', lat:25.90, lon:51.55, note:'Produces nearly a third of world helium, which fabs use for cooling and process gases. Offline since Iranian drone strikes on Mar 2, 2026.' },
+    // Company headquarters & equipment makers
+    { cat:'hq', name:'TSMC HQ · Hsinchu', place:'Hsinchu, Taiwan', lat:24.78, lon:121.00, note:'Headquarters of the world’s largest foundry, inside Hsinchu Science Park.', companies:'TSMC, MediaTek, UMC' },
+    { cat:'hq', name:'ASML', place:'Veldhoven, Netherlands', lat:51.41, lon:5.41, note:'The only maker of the EUV lithography machines every leading-edge fab needs.' },
+    { cat:'hq', name:'Carl Zeiss SMT', place:'Oberkochen, Germany', lat:48.78, lon:10.10, note:'Builds the optics inside every ASML EUV machine.' },
+    { cat:'hq', name:'Silicon Valley', place:'Santa Clara, California, USA', lat:37.37, lon:-121.96, note:'Home to Nvidia’s headquarters and the world’s densest cluster of chip designers and toolmakers.', companies:'Nvidia, AMD, Intel, Apple, Broadcom, Applied Materials, Lam Research, KLA' },
+    { cat:'hq', name:'Qualcomm · Cymer', place:'San Diego, California, USA', lat:32.90, lon:-117.20, note:'Qualcomm HQ, plus Cymer, which makes the light sources for ASML’s machines.', companies:'Qualcomm, Cymer (ASML)' },
+    { cat:'hq', name:'Samsung Electronics', place:'Suwon, South Korea', lat:37.26, lon:127.03, note:'Samsung Electronics HQ, next to its Hwaseong and Giheung fabs.' },
+    { cat:'hq', name:'Tokyo equipment & materials', place:'Tokyo, Japan', lat:35.67, lon:139.75, note:'Headquarters of key toolmakers and wafer and chemical suppliers.', companies:'Tokyo Electron, Shin-Etsu, SUMCO, Advantest' },
+    { cat:'hq', name:'Arm', place:'Cambridge, United Kingdom', lat:52.20, lon:0.13, note:'Designs the chip architecture used in nearly every smartphone and a growing share of servers.' },
+    { cat:'hq', name:'Huawei · HiSilicon', place:'Shenzhen, China', lat:22.65, lon:114.06, note:'China’s leading chip designer.' },
+    { cat:'hq', name:'Texas Instruments', place:'Dallas, Texas, USA', lat:32.91, lon:-96.75, note:'The largest analog-chip maker.' }
+  ];
+  const CAT_LABEL = { fab: 'Fab or packaging site', mat: 'Raw material or input', hq: 'Headquarters' };
+  const pinGroups = { fab: new T.Group(), mat: new T.Group(), hq: new T.Group() };
+  Object.values(pinGroups).forEach(g => globe.add(g));
+  const PIN_RED = 0xff4a4a;
+  const stalkGeo = new T.CylinderGeometry(0.0016, 0.0016, 0.05, 6); stalkGeo.translate(0, 0.025, 0);
+  const headGeo = new T.SphereGeometry(0.0105, 14, 14); headGeo.translate(0, 0.055, 0);
+  const stalkMat = new T.MeshBasicMaterial({ color: 0xc9cfd6 });
+  const headMat = new T.MeshBasicMaterial({ color: PIN_RED });
+  const UP = new T.Vector3(0, 1, 0);
+  const pinTargets = [];
+  SITES.forEach(s => {
+    const n = ll2v(s.lat, s.lon, 1).normalize();
+    const pin = new T.Group();
+    pin.position.copy(n.clone().multiplyScalar(R * 1.002));
+    pin.quaternion.setFromUnitVectors(UP, n);
+    pin.add(new T.Mesh(stalkGeo, stalkMat), new T.Mesh(headGeo, headMat));
+    pinGroups[s.cat].add(pin);
+    pinTargets.push({ kind: 'pin', site: s, v: n.clone().multiplyScalar(R * 1.002 + 0.055) });
+  });
+
+  // ---------- risk layer: model exposure scores + Geopolitical Risk Index alerts ----------
+  // Generated from phase3 outputs (exposure_scores_latest.csv) and fetch_gpr.py (gpr_monthly.csv).
+  const RISK = /*RISK_JSON*/{"gprAsof":"2026-09","countries":{"Algeria":{"name":"Algeria","lat":28.0,"lon":2.6,"iso":null,"status":"normal"},"Brazil":{"name":"Brazil","lat":-14.2,"lon":-51.9,"iso":"BRA","proxy":false,"ratio":0.69,"latest":0.13,"spark":[0.09,0.21,0.09,0.19,0.05,0.09,0.1,0.07,0.09,0.1,0.11,0.09,0.13,0.09,0.09,0.18,0.09,0.18,0.09,0.11,0.09,0.07,0.03,0.13],"status":"normal"},"Canada":{"name":"Canada","lat":52.0,"lon":-106.0,"iso":"CAN","proxy":false,"ratio":0.94,"latest":0.6,"spark":[0.22,0.33,0.31,0.34,0.65,0.96,0.39,0.74,0.94,0.39,0.45,0.4,0.27,0.3,0.2,0.67,0.41,0.79,0.63,0.48,0.32,0.33,0.34,0.6],"status":"normal"},"China":{"name":"China","lat":35.0,"lon":104.0,"iso":"CHN","proxy":false,"ratio":1.07,"latest":1.19,"spark":[0.98,1.01,0.84,0.86,1.1,1.08,1.06,1.13,1.39,0.9,0.82,0.98,0.94,0.63,1.0,1.49,0.88,1.7,1.62,1.72,0.85,1.15,1.02,1.19],"status":"normal"},"France":{"name":"France","lat":46.6,"lon":2.4,"iso":"FRA","proxy":false,"ratio":0.66,"latest":0.63,"spark":[0.65,0.69,0.55,0.63,1.03,1.35,0.76,1.02,1.1,0.71,0.98,0.88,0.57,0.55,0.68,0.92,0.56,1.96,1.34,0.91,1.08,0.64,0.45,0.63],"status":"normal"},"Germany":{"name":"Germany","lat":51.2,"lon":10.4,"iso":"DEU","proxy":false,"ratio":0.7,"latest":0.49,"spark":[0.55,0.7,0.54,0.53,1.15,0.95,0.62,0.68,0.92,0.66,0.91,0.69,0.54,0.55,0.7,0.66,0.46,1.43,0.95,0.8,0.63,0.59,0.4,0.49],"status":"normal"},"Ireland":{"name":"Ireland","lat":53.2,"lon":-8.0,"iso":null,"status":"normal"},"Israel":{"name":"Israel","lat":31.0,"lon":34.9,"iso":"ISR","proxy":false,"ratio":0.83,"latest":1.61,"spark":[2.1,1.41,1.61,1.03,1.0,1.2,1.13,1.92,4.18,1.8,1.52,1.37,1.49,0.58,0.66,1.16,1.13,6.39,3.76,2.22,2.5,1.89,1.16,1.61],"status":"normal"},"Japan":{"name":"Japan","lat":36.2,"lon":138.3,"iso":"JPN","proxy":false,"ratio":0.97,"latest":0.24,"spark":[0.22,0.2,0.21,0.14,0.18,0.3,0.32,0.17,0.39,0.31,0.28,0.18,0.28,0.16,0.26,0.32,0.2,0.94,0.59,0.42,0.4,0.33,0.27,0.24],"status":"normal"},"Malaysia":{"name":"Malaysia","lat":4.2,"lon":101.9,"iso":"MYS","proxy":false,"ratio":0.82,"latest":0.02,"spark":[0.04,0.01,0.03,0.01,0.01,0.03,0.05,0.03,0.04,0.16,0.03,0.03,0.1,0.04,0.07,0.05,0.03,0.07,0.04,0.06,0.03,0.03,0.05,0.02],"status":"normal"},"Mexico":{"name":"Mexico","lat":23.6,"lon":-102.5,"iso":"MEX","proxy":false,"ratio":0.63,"latest":0.11,"spark":[0.13,0.15,0.16,0.34,0.46,0.43,0.22,0.19,0.2,0.1,0.1,0.19,0.29,0.23,0.1,0.34,0.28,0.25,0.15,0.26,0.11,0.11,0.17,0.11],"status":"normal"},"Other Asia, nes":{"name":"Taiwan","lat":23.7,"lon":121.0,"iso":"TWN","proxy":false,"ratio":0.96,"latest":0.26,"spark":[0.31,0.19,0.18,0.16,0.14,0.17,0.13,0.21,0.21,0.11,0.1,0.12,0.19,0.14,0.26,0.19,0.13,0.33,0.25,0.53,0.18,0.16,0.14,0.26],"status":"normal"},"Poland":{"name":"Poland","lat":52.0,"lon":19.1,"iso":"POL","proxy":false,"ratio":0.91,"latest":0.25,"spark":[0.19,0.13,0.08,0.16,0.4,0.4,0.11,0.19,0.17,0.11,0.17,0.46,0.28,0.25,0.24,0.19,0.13,0.17,0.2,0.21,0.12,0.13,0.16,0.25],"status":"normal"},"Portugal":{"name":"Portugal","lat":39.5,"lon":-8.0,"iso":"PRT","proxy":false,"ratio":0.89,"latest":0.02,"spark":[0.01,0.01,0.02,0.02,0.02,0.04,0.01,0.02,0.01,0.02,0.03,0.1,0.02,0.04,0.01,0.02,0.01,0.02,0.06,0.05,0.04,0.05,0.0,0.02],"status":"normal"},"Qatar":{"name":"Qatar","lat":25.3,"lon":51.2,"iso":"SAU","proxy":true,"ratio":2.01,"latest":0.92,"spark":[0.3,0.21,0.34,0.24,0.69,0.8,0.26,0.71,0.46,0.21,0.18,0.25,0.23,0.21,0.15,0.34,0.32,2.24,0.9,0.59,0.45,1.14,0.61,0.92],"status":"critical"},"Rep. of Korea":{"name":"South Korea","lat":36.5,"lon":127.9,"iso":"KOR","proxy":false,"ratio":0.89,"latest":0.28,"spark":[0.4,0.85,0.54,0.35,0.33,0.39,0.32,0.32,0.42,0.35,0.27,0.24,0.33,0.2,0.2,0.21,0.23,0.78,0.53,0.62,0.33,0.32,0.38,0.28],"status":"normal"},"Russian Federation":{"name":"Russia","lat":55.8,"lon":37.6,"iso":"RUS","proxy":false,"ratio":0.85,"latest":1.48,"spark":[1.37,1.97,2.3,1.13,1.95,2.47,1.53,1.51,2.18,1.39,1.71,1.42,1.51,1.28,1.7,1.89,1.3,2.5,1.72,1.65,1.3,1.51,1.23,1.48],"status":"normal"},"Singapore":{"name":"Singapore","lat":1.35,"lon":103.8,"iso":null,"status":"normal"},"Spain":{"name":"Spain","lat":40.2,"lon":-3.6,"iso":"ESP","proxy":false,"ratio":0.76,"latest":0.09,"spark":[0.1,0.13,0.06,0.11,0.13,0.13,0.08,0.19,0.27,0.1,0.16,0.19,0.18,0.16,0.08,0.23,0.13,0.52,0.38,0.4,0.16,0.13,0.17,0.09],"status":"normal"},"USA":{"name":"United States","lat":39.0,"lon":-98.0,"iso":"USA","proxy":false,"ratio":0.97,"latest":3.91,"spark":[3.03,3.17,3.29,2.75,3.54,4.51,3.52,4.13,5.66,3.17,3.4,3.07,3.75,2.63,3.25,4.55,3.12,8.68,6.61,5.28,4.6,4.23,3.23,3.91],"status":"normal"}},"pairs":[{"sup":"Qatar","imp":"Japan","mat":"Helium","share":0.2,"score":0.831,"asof":"2026-07","status":"critical"},{"sup":"Algeria","imp":"Israel","mat":"Helium","share":0.703,"score":0.816,"asof":"2026-08","status":"critical"},{"sup":"Qatar","imp":"Malaysia","mat":"Helium","share":0.465,"score":0.812,"asof":"2026-08","status":"critical"},{"sup":"China","imp":"Germany","mat":"Neon & rare gases","share":0.518,"score":0.776,"asof":"2026-07","status":"critical"},{"sup":"Rep. of Korea","imp":"Singapore","mat":"Gallium (minor-metal code)","share":0.724,"score":0.764,"asof":"2026-03","status":"critical"},{"sup":"USA","imp":"Germany","mat":"Gallium (minor-metal code)","share":0.112,"score":0.66,"asof":"2026-07","status":"critical"},{"sup":"Poland","imp":"Germany","mat":"Helium","share":0.163,"score":0.48,"asof":"2026-07","status":"critical"},{"sup":"Qatar","imp":"USA","mat":"Helium","share":0.361,"score":0.411,"asof":"2026-07","status":"critical"},{"sup":"Qatar","imp":"Germany","mat":"Helium","share":0.591,"score":0.324,"asof":"2026-07","status":"critical"},{"sup":"Qatar","imp":"Singapore","mat":"Helium","share":0.963,"score":0.046,"asof":"2026-03","status":"critical"},{"sup":"Qatar","imp":"Rep. of Korea","mat":"Helium","share":0.63,"score":0.045,"asof":"2025-12","status":"critical"},{"sup":"Qatar","imp":"China","mat":"Helium","share":0.674,"score":0.035,"asof":"2024-12","status":"critical"},{"sup":"Singapore","imp":"China","mat":"Gallium (minor-metal code)","share":0.201,"score":0.343,"asof":"2024-12","status":"serious"},{"sup":"China","imp":"Malaysia","mat":"Neon & rare gases","share":0.205,"score":0.341,"asof":"2026-08","status":"serious"},{"sup":"Rep. of Korea","imp":"China","mat":"Gallium (minor-metal code)","share":0.546,"score":0.313,"asof":"2024-12","status":"serious"},{"sup":"China","imp":"Israel","mat":"Neon & rare gases","share":0.186,"score":0.306,"asof":"2026-08","status":"serious"},{"sup":"Poland","imp":"Germany","mat":"Neon & rare gases","share":0.135,"score":0.303,"asof":"2026-07","status":"serious"},{"sup":"Other Asia, nes","imp":"Ireland","mat":"Hydrogen fluoride","share":0.639,"score":0.3,"asof":"2026-07","status":"serious"},{"sup":"Japan","imp":"Malaysia","mat":"Gallium (minor-metal code)","share":0.409,"score":0.298,"asof":"2026-08","status":"serious"},{"sup":"Rep. of Korea","imp":"Singapore","mat":"Neon & rare gases","share":0.319,"score":0.292,"asof":"2026-03","status":"serious"},{"sup":"Portugal","imp":"USA","mat":"Neon & rare gases","share":0.298,"score":0.28,"asof":"2026-07","status":"serious"},{"sup":"China","imp":"Malaysia","mat":"Gallium (minor-metal code)","share":0.336,"score":0.27,"asof":"2026-08","status":"serious"},{"sup":"Malaysia","imp":"Singapore","mat":"Neon & rare gases","share":0.175,"score":0.256,"asof":"2026-03","status":"serious"},{"sup":"USA","imp":"Japan","mat":"Gallium (minor-metal code)","share":0.105,"score":0.251,"asof":"2026-07","status":"serious"},{"sup":"USA","imp":"Germany","mat":"Helium","share":0.112,"score":0.242,"asof":"2026-07","status":"serious"},{"sup":"Brazil","imp":"China","mat":"Gallium (minor-metal code)","share":0.146,"score":0.236,"asof":"2024-12","status":"serious"},{"sup":"China","imp":"Germany","mat":"Gallium (minor-metal code)","share":0.274,"score":0.233,"asof":"2026-07","status":"serious"},{"sup":"Germany","imp":"USA","mat":"Neon & rare gases","share":0.197,"score":0.233,"asof":"2026-07","status":"serious"},{"sup":"USA","imp":"Malaysia","mat":"Helium","share":0.532,"score":0.23,"asof":"2026-08","status":"serious"},{"sup":"France","imp":"Rep. of Korea","mat":"Neon & rare gases","share":0.697,"score":0.229,"asof":"2025-12","status":"serious"},{"sup":"Canada","imp":"USA","mat":"Gallium (minor-metal code)","share":0.121,"score":0.228,"asof":"2026-07","status":"serious"},{"sup":"Other Asia, nes","imp":"Germany","mat":"Gallium (minor-metal code)","share":0.1,"score":0.226,"asof":"2026-07","status":"serious"},{"sup":"USA","imp":"Israel","mat":"Helium","share":0.288,"score":0.213,"asof":"2026-08","status":"serious"},{"sup":"China","imp":"Japan","mat":"Gallium (minor-metal code)","share":0.201,"score":0.21,"asof":"2026-07","status":"serious"},{"sup":"Rep. of Korea","imp":"Germany","mat":"Gallium (minor-metal code)","share":0.101,"score":0.206,"asof":"2026-07","status":"serious"},{"sup":"China","imp":"Rep. of Korea","mat":"Neon & rare gases","share":0.244,"score":0.204,"asof":"2025-12","status":"serious"},{"sup":"China","imp":"USA","mat":"Neon & rare gases","share":0.249,"score":0.202,"asof":"2026-07","status":"serious"},{"sup":"Other Asia, nes","imp":"USA","mat":"Gallium (minor-metal code)","share":0.14,"score":0.197,"asof":"2026-07","status":"serious"},{"sup":"Brazil","imp":"USA","mat":"Gallium (minor-metal code)","share":0.143,"score":0.189,"asof":"2026-07","status":"serious"},{"sup":"Rep. of Korea","imp":"Japan","mat":"Gallium (minor-metal code)","share":0.156,"score":0.178,"asof":"2026-07","status":"serious"},{"sup":"Rep. of Korea","imp":"USA","mat":"Gallium (minor-metal code)","share":0.162,"score":0.173,"asof":"2026-07","status":"serious"},{"sup":"Japan","imp":"Singapore","mat":"Hydrogen fluoride","share":0.134,"score":0.167,"asof":"2026-03","status":"serious"},{"sup":"Japan","imp":"USA","mat":"Gallium (minor-metal code)","share":0.106,"score":0.164,"asof":"2026-07","status":"serious"},{"sup":"Algeria","imp":"Germany","mat":"Helium","share":0.134,"score":0.158,"asof":"2026-07","status":"serious"},{"sup":"Other Asia, nes","imp":"Japan","mat":"Gallium (minor-metal code)","share":0.237,"score":0.157,"asof":"2026-07","status":"serious"}]}/*END_RISK*/;
+  const SEV = { critical: 0xd03b3b, serious: 0xec835a, warning: 0xfab219 };
+  const SEV_LABEL = { critical: 'Critical', serious: 'Elevated', warning: 'Watch' };
+  const SEV_ICON = { critical: '▲', serious: '◆', warning: '●' };
+  const SEV_ORDER = { critical: 0, serious: 1, warning: 2 };
+  const cname = k => (RISK.countries[k] || {}).name || k;
+  // Transparent rules (see README): model score, or dependence on a supplier whose country risk is spiking.
+  function pairStatus(p) {
+    const r = (RISK.countries[p.sup] || {}).ratio || 1;
+    if (p.score >= 0.35 || (r >= 1.75 && p.share >= 0.5) || (p.score >= 0.15 && r >= 1.5)) return 'critical';
+    if (p.score >= 0.15 || (r >= 1.4 && p.share >= 0.2)) return 'serious';
+    if (p.score >= 0.12) return 'warning';
+    return null;
+  }
+  RISK.pairs.forEach(p => { p.status = pairStatus(p); });
+  const riskPairs = RISK.pairs.filter(p => p.status).sort((a, b) => SEV_ORDER[a.status] - SEV_ORDER[b.status] || b.score - a.score);
+  const riskGroup = new T.Group(); globe.add(riskGroup);
+  const riskTargets = [], halos = [];
+  // radar halos on every at-risk supply source. A country takes its worst level from either its own
+  // risk-index spike or any alerted route it supplies (red = critical, orange = elevated, amber = watch).
+  const worse = (a, b) => (!a || a === 'normal') ? b : (!b || b === 'normal') ? a : (SEV_ORDER[a] <= SEV_ORDER[b] ? a : b);
+  Object.entries(RISK.countries).forEach(([key, c]) => {
+    c.gprStatus = c.status || 'normal';
+    c.status = riskPairs.filter(p => p.sup === key).reduce((s, p) => worse(s, p.status), c.gprStatus);
+  });
+  const PULSE = { critical: 0.6, serious: 0.45, warning: 0.35 };   // more urgent = faster sweep
+  Object.entries(RISK.countries).forEach(([key, c]) => {
+    if (!c.status || c.status === 'normal') return;
+    const v = ll2v(c.lat, c.lon, R * 1.006);
+    for (let k = 0; k < 2; k++) {
+      const ring = new T.Mesh(new T.RingGeometry(0.03, 0.036, 48),
+        new T.MeshBasicMaterial({ color: SEV[c.status], transparent: true, side: T.DoubleSide, depthWrite: false }));
+      ring.position.copy(v); ring.lookAt(v.clone().multiplyScalar(2));
+      ring.userData.phase = k * 0.5 + Math.random() * 0.2; ring.userData.speed = PULSE[c.status];
+      riskGroup.add(ring); halos.push(ring);
+    }
+    const core = new T.Mesh(new T.RingGeometry(0.022, 0.026, 48),
+      new T.MeshBasicMaterial({ color: SEV[c.status], side: T.DoubleSide, transparent: true, opacity: 0.9, depthWrite: false }));
+    core.position.copy(v); core.lookAt(v.clone().multiplyScalar(2)); riskGroup.add(core);
+    riskTargets.push({ kind: 'country', key, v: v.clone() });
+  });
+  // exposure arcs: supplier -> importer, colored by alert level, flying higher than the yellow trade flows
+  const riskMats = [];
+  riskPairs.forEach(p => {
+    const A = RISK.countries[p.sup], B = RISK.countries[p.imp];
+    const va = ll2v(A.lat, A.lon, R), vb = ll2v(B.lat, B.lon, R);
+    const ang = va.angleTo(vb), mid = va.clone().add(vb).normalize().multiplyScalar(R + 0.1 + ang * 0.28);
+    const curve = new T.QuadraticBezierCurve3(va.clone().multiplyScalar(1.006), mid, vb.clone().multiplyScalar(1.006));
+    const P = curve.getPoints(Math.max(40, Math.round(ang * 90))), gm = new T.BufferGeometry().setFromPoints(P);
+    gm.setAttribute('t', new T.Float32BufferAttribute(P.map((_, i) => i / (P.length - 1)), 1));
+    const col = new T.Color(SEV[p.status]);
+    const mat = new T.ShaderMaterial({
+      transparent: true, depthWrite: false, blending: T.AdditiveBlending,
+      uniforms: { uTime: { value: 0 }, uOff: { value: Math.random() }, uSpeed: { value: 0.18 / (0.25 + ang) },
+                  uCol: { value: new T.Vector3(col.r, col.g, col.b) }, uBase: { value: p.status === 'warning' ? 0.12 : 0.28 } },
+      vertexShader: `attribute float t; varying float vT; void main(){ vT = t; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
+      fragmentShader: `uniform float uTime; uniform float uOff; uniform float uSpeed; uniform vec3 uCol; uniform float uBase; varying float vT;
+        void main(){ float head = fract(uTime*uSpeed + uOff); float d = head - vT;
+          float trail = d >= 0.0 ? exp(-d*7.0) : 0.0;
+          gl_FragColor = vec4(uCol * (0.8 + trail*0.6), uBase + trail*0.9); }`
+    });
+    riskMats.push(mat);
+    riskGroup.add(new T.Line(gm, mat));
+    for (let i = 2; i <= 18; i++) riskTargets.push({ kind: 'risk', pair: p, v: curve.getPoint(i / 20) });
+  });
+
+  // ---------- news layer: stories from news_collector.py, one blue beacon per country ----------
+  // NEWS is filled in by build_globe_news.py (from data/news/news_latest.json). "Load news file" in the
+  // News tab reads a newer news_latest.json straight from your computer without republishing the page.
+  const NEWS_EMBEDDED = {"items":[]};
+  let NEWS = NEWS_EMBEDDED;
+  try {
+    const saved = JSON.parse(localStorage.getItem('orbit-news') || 'null');
+    if (saved && saved.items) NEWS = saved;   // shown until data/news.json arrives
+  } catch (e) { /* storage unavailable: use the embedded snapshot */ }
+  const newsGroup = new T.Group(); globe.add(newsGroup);
+  let newsTargets = [], newsByCountry = {};
+  const beaconHead = new T.MeshBasicMaterial({ color: 0x5cc8ff });
+  const beaconAlert = new T.MeshBasicMaterial({ color: 0xfab219 });
+  const beaconStalk = new T.MeshBasicMaterial({ color: 0x5cc8ff, transparent: true, opacity: 0.55 });
+  const headSphere = new T.SphereGeometry(0.009, 12, 12);
+  function buildNews() {
+    while (newsGroup.children.length) newsGroup.remove(newsGroup.children[0]);
+    newsTargets = []; newsByCountry = {};
+    for (const it of NEWS.items || []) {
+      if (!it.country || it.lat == null) continue;
+      const c = newsByCountry[it.country] || (newsByCountry[it.country] = { name: it.country, region: it.region, lat: it.lat, lon: it.lon, items: [], alerts: 0 });
+      c.items.push(it); if (it.alert) c.alerts++;
+    }
+    Object.values(newsByCountry).forEach(c => {
+      const n = ll2v(c.lat, c.lon, 1).normalize();
+      // offset a little east so the beacon doesn't sit inside a risk halo at the same centroid
+      const off = ll2v(c.lat - 0.8, c.lon + 2.2, 1).normalize();
+      const h = 0.03 + 0.06 * Math.log10(1 + c.items.length);
+      const g = new T.Group();
+      g.position.copy(off.clone().multiplyScalar(R * 1.002)); g.quaternion.setFromUnitVectors(UP, off);
+      const stalk = new T.Mesh(new T.CylinderGeometry(0.0022, 0.0022, h, 6), beaconStalk); stalk.position.y = h / 2;
+      const head = new T.Mesh(headSphere, c.alerts ? beaconAlert : beaconHead); head.position.y = h;
+      g.add(stalk, head); newsGroup.add(g);
+      newsTargets.push({ kind: 'news', country: c, v: off.clone().multiplyScalar(R * 1.002 + h) });
+    });
+    const btn = document.getElementById('newsBtn');
+    if (btn) btn.querySelector('i').textContent = Object.keys(newsByCountry).length;
+  }
+  buildNews();
+
+  // Starfield (not rotated with globe)
+  (function () {
+    const n = 1400, p = new Float32Array(n * 3);
+    for (let i = 0; i < n; i++) { const v = new T.Vector3().randomDirection ? new T.Vector3().randomDirection() : new T.Vector3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize(); v.multiplyScalar(20 + Math.random() * 20); p.set([v.x, v.y, v.z], i * 3); }
+    const g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(p, 3));
+    scene.add(new T.Points(g, new T.PointsMaterial({ color: 0xe6e9ee, size: 0.06, transparent: true, opacity: 0.45, depthWrite: false })));
+  })();
+
+  // ---------- orientation state (quaternion) ----------
+  const q = new T.Quaternion();
+  // Earth's axial tilt: 23.44° between the spin axis and the orbital-plane normal (screen up).
+  // The north pole leans to the right; auto-spin turns the globe west-to-east about that tilted pole.
+  const EARTH_TILT = T.MathUtils.degToRad(23.44);
+  const startEuler = new T.Euler(0, 0, -EARTH_TILT, 'XYZ');
+  q.setFromEuler(startEuler);
+  const vel = new T.Vector3(); // angular velocity in world axes (rad/frame)
+  const AX = new T.Vector3(1, 0, 0), AY = new T.Vector3(0, 1, 0), AZ = new T.Vector3(0, 0, 1);
+  const tmpQ = new T.Quaternion();
+  function rotWorld(axis, ang) { if (!ang) return; tmpQ.setFromAxisAngle(axis, ang); q.premultiply(tmpQ); q.normalize(); }
+
+  // ---------- sliders ----------
+  const sl = { x: document.getElementById('rx'), y: document.getElementById('ry'), z: document.getElementById('rz') };
+  const out = { x: document.getElementById('ox'), y: document.getElementById('oy'), z: document.getElementById('oz') };
+  const eul = new T.Euler(0, 0, 0, 'XYZ');
+  let sliderActive = false;
+  function syncSliders() {
+    eul.setFromQuaternion(q, 'XYZ');
+    ['x', 'y', 'z'].forEach(a => {
+      const d = Math.round(T.MathUtils.radToDeg(eul[a]));
+      if (!sliderActive) sl[a].value = d;
+      out[a].textContent = d + '°';
+    });
+  }
+  function fromSliders() {
+    q.setFromEuler(new T.Euler(T.MathUtils.degToRad(+sl.x.value), T.MathUtils.degToRad(+sl.y.value), T.MathUtils.degToRad(+sl.z.value), 'XYZ'));
+    vel.set(0, 0, 0);
+  }
+  Object.values(sl).forEach(s => {
+    s.addEventListener('input', () => { sliderActive = true; setSpin(false); fromSliders(); syncSliders(); });
+    s.addEventListener('change', () => { sliderActive = false; });
+    s.addEventListener('pointerup', () => { sliderActive = false; });
+  });
+
+  // ---------- buttons ----------
+  const spinBtn = document.getElementById('spin');
+  let autoSpin = !reduceMotion;
+  function setSpin(v) { autoSpin = v; spinBtn.setAttribute('aria-pressed', String(v)); }
+  setSpin(autoSpin);
+  spinBtn.addEventListener('click', () => setSpin(!autoSpin));
+  document.querySelectorAll('.chip[data-stage]').forEach(btn => {
+    const st = btn.dataset.stage;
+    btn.querySelector('i').textContent = FLOWS.filter(f => f.st === st).length;
+    btn.addEventListener('click', () => {
+      flowGroups[st].visible = !flowGroups[st].visible;
+      btn.setAttribute('aria-pressed', String(flowGroups[st].visible));
+      tip.hidden = true; sticky = false;
+    });
+  });
+  document.querySelectorAll('.chip[data-cat]').forEach(btn => {
+    const cat = btn.dataset.cat;
+    btn.querySelector('i').textContent = SITES.filter(s => s.cat === cat).length;
+    btn.addEventListener('click', () => {
+      pinGroups[cat].visible = !pinGroups[cat].visible;
+      btn.setAttribute('aria-pressed', String(pinGroups[cat].visible));
+      tip.hidden = true; sticky = false;
+    });
+  });
+  const riskBtn = document.getElementById('riskBtn');
+  riskBtn.addEventListener('click', () => {
+    riskGroup.visible = !riskGroup.visible; riskBtn.setAttribute('aria-pressed', String(riskGroup.visible));
+    tip.hidden = true; sticky = false;
+  });
+  // spin the globe so a lat/lon faces the viewer, north kept up
+  let focusQ = null;
+  function focusOn(c) {
+    const f = ll2v(c.lat, c.lon, 1).normalize();
+    const n = new T.Vector3(0, 1, 0);
+    const u = n.clone().sub(f.clone().multiplyScalar(n.dot(f))).normalize();
+    const r = u.clone().cross(f);
+    const m = new T.Matrix4().set(r.x, r.y, r.z, 0, u.x, u.y, u.z, 0, f.x, f.y, f.z, 0, 0, 0, 0, 1);
+    focusQ = new T.Quaternion().setFromRotationMatrix(m);
+    setSpin(false); vel.set(0, 0, 0);
+    if (!riskGroup.visible) riskBtn.click();
+  }
+  document.getElementById('reset').addEventListener('click', () => { q.setFromEuler(startEuler); vel.set(0, 0, 0); camDist = 3.6; syncSliders(); });
+
+  // ---------- pointer interaction ----------
+  const pointers = new Map();
+  let lastTwist = null, lastPinch = null, rollMode = false;
+  stage.addEventListener('contextmenu', e => e.preventDefault());
+  stage.addEventListener('pointerdown', e => {
+    stage.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    rollMode = e.shiftKey || e.button === 2;
+    stage.classList.add('dragging');
+    setSpin(false); vel.set(0, 0, 0);
+    lastTwist = lastPinch = null;
+  });
+  stage.addEventListener('pointermove', e => {
+    const p = pointers.get(e.pointerId); if (!p) return;
+    const k = 0.0055 * (camDist / 3.6);
+    if (pointers.size === 1) {
+      const dx = e.clientX - p.x, dy = e.clientY - p.y;
+      if (rollMode || e.shiftKey) { vel.set(0, 0, -dx * k); rotWorld(AZ, -dx * k); }
+      else { vel.set(dy * k, dx * k, 0); rotWorld(AY, dx * k); rotWorld(AX, dy * k); }
+    }
+    p.x = e.clientX; p.y = e.clientY;
+    if (pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      const ang = Math.atan2(b.y - a.y, b.x - a.x), dist = Math.hypot(b.x - a.x, b.y - a.y);
+      if (lastTwist !== null) { let d = ang - lastTwist; if (d > Math.PI) d -= 2 * Math.PI; if (d < -Math.PI) d += 2 * Math.PI; rotWorld(AZ, -d); vel.set(0, 0, -d); }
+      if (lastPinch) camDist = T.MathUtils.clamp(camDist * lastPinch / dist, 1.8, 8);
+      lastTwist = ang; lastPinch = dist;
+    }
+    syncSliders();
+  });
+  function endPointer(e) {
+    pointers.delete(e.pointerId);
+    lastTwist = lastPinch = null;
+    if (!pointers.size) stage.classList.remove('dragging');
+  }
+  // Tooltips: hover on desktop, tap on touch. Pins take priority over airports.
+  const tip = document.getElementById('tip');
+  const tmpV = new T.Vector3(), camDir = new T.Vector3();
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  function nearest(list, cx, cy, radius) {
+    const rect = stage.getBoundingClientRect();
+    let best = null, bestD = radius;
+    for (const m of list) {
+      tmpV.copy(m.v).applyQuaternion(q);
+      camDir.copy(camera.position).sub(tmpV);
+      if (tmpV.dot(camDir) <= 0) continue; // far side of the globe
+      tmpV.project(camera);
+      const sx = (tmpV.x * 0.5 + 0.5) * rect.width, sy = (-tmpV.y * 0.5 + 0.5) * rect.height;
+      const d = Math.hypot(sx - (cx - rect.left), sy - (cy - rect.top));
+      if (d < bestD) { bestD = d; best = m; }
+    }
+    return best;
+  }
+  function pick(cx, cy, touch) {
+    const r = touch ? 26 : 14;
+    const pins = pinTargets.filter(p => pinGroups[p.site.cat].visible);
+    const flows = flowTargets.filter(p => flowGroups[p.flow.st].visible);
+    const risk = riskGroup.visible ? riskTargets : [];
+    const news = newsGroup.visible ? newsTargets : [];
+    return nearest(pins, cx, cy, r) || nearest(news, cx, cy, r) || nearest(risk.filter(x => x.kind === 'country'), cx, cy, r + 6)
+      || nearest(risk.filter(x => x.kind === 'risk'), cx, cy, touch ? 18 : 9) || nearest(flows, cx, cy, touch ? 18 : 9);
+  }
+  function showTip(hit, cx, cy) {
+    if (!hit) { tip.hidden = true; return; }
+    if (hit.kind === 'pin') {
+      const s = hit.site;
+      tip.className = 'pin';
+      tip.innerHTML = `<b>${esc(s.name)}</b><em>${CAT_LABEL[s.cat]}</em><small>${esc(s.place)}</small><div>${esc(s.note)}</div>` +
+        (s.companies ? `<small>${esc(s.companies)}</small>` : '');
+    } else if (hit.kind === 'news') {
+      const c = hit.country;
+      tip.className = 'pin newstip';
+      const tops = topTopics(c.items, 3);
+      const heads = c.items.slice().sort((a, b) => (b.alert - a.alert) || ((b.coverage || 1) - (a.coverage || 1)) || (b.score - a.score)).slice(0, 3)
+        .map(it => `<small class="hl${it.alert ? ' alert' : ''}">${esc(it.title)}</small>`).join('');
+      tip.innerHTML = `<b>${esc(c.name)}</b><em>News · ${c.items.length} ${c.items.length === 1 ? 'story' : 'stories'}` +
+        `${c.alerts ? ` · <span style="color:var(--critical)">${c.alerts} alert${c.alerts > 1 ? 's' : ''}</span>` : ''}</em>` +
+        (tops.length ? `<small>${esc(tops.join(' · '))}</small>` : '') + heads + `<small>Click to list every story</small>`;
+    } else if (hit.kind === 'risk' || hit.kind === 'country') {
+      tip.className = 'pin risktip';
+      tip.innerHTML = hit.kind === 'risk' ? pairHTML(hit.pair) : countryHTML(hit.key);
+    } else {
+      const fl = hit.flow;
+      tip.className = 'pin flowtip';
+      tip.innerHTML = `<b>${esc(fl.item)}</b><em>${STAGE_LABEL[fl.st]} · <span class="st-${fl.s}">${STATUS_LABEL[fl.s]}</span></em>` +
+        `<small>${esc(NODES[fl.f][2])} → ${esc(NODES[fl.t][2])}</small><div class="val">${esc(fl.val)}</div>` +
+        `<small>${esc(fl.per)} · ${esc(SRC[fl.src])}</small>`;
+    }
+    tip.hidden = false;
+    const w = tip.offsetWidth, h = tip.offsetHeight;
+    tip.style.left = Math.max(8, Math.min(cx + 14, window.innerWidth - w - 8)) + 'px';
+    tip.style.top = Math.max(8, Math.min(cy + 14, window.innerHeight - h - 8)) + 'px';
+  }
+  const pct = x => `${Math.round(x * 100)}%`;
+  const ym = s => new Date(s + '-01T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  function riskLine(key) {
+    const c = RISK.countries[key];
+    if (!c || !c.ratio) return '';
+    const who = c.proxy ? 'Gulf risk index (Saudi Arabia as stand-in)' : `${c.name} risk index`;
+    return `${who}: ${c.ratio.toFixed(1)}× its 2-year average`;
+  }
+  function spark(key) {
+    const c = RISK.countries[key];
+    if (!c || !c.spark) return '';
+    const v = c.spark, W = 200, H = 34, mx = Math.max(...v), mn = Math.min(...v);
+    const pts = v.map((y, i) => `${(i / (v.length - 1) * W).toFixed(1)},${(H - 3 - (y - mn) / (mx - mn || 1) * (H - 6)).toFixed(1)}`).join(' ');
+    const col = c.gprStatus === 'normal' ? 'var(--dim)' : `var(--${c.gprStatus})`;
+    const last = pts.split(' ').pop().split(',');
+    return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-label="Risk index, last 24 months">` +
+      `<polyline points="${pts}" fill="none" stroke="${col}" stroke-width="1.5"/>` +
+      `<circle cx="${last[0]}" cy="${last[1]}" r="2.5" fill="${col}"/></svg><small>Risk index, last 24 months to ${ym(RISK.gprAsof)}</small>`;
+  }
+  function sevTag(st) { return `<span class="sev s-${st}">${SEV_ICON[st]} ${SEV_LABEL[st]}</span>`; }
+  function pairHTML(p) {
+    return `<b>${esc(p.mat)}: ${esc(cname(p.sup))} → ${esc(cname(p.imp))}</b>${sevTag(p.status)}` +
+      `<div>Model: ${pct(p.score)} chance of a >50% drop in volume within 3 months</div>` +
+      `<small>${esc(cname(p.imp))} gets ${pct(p.share)} of its ${esc(p.mat.toLowerCase())} imports from ${esc(cname(p.sup))} · trade data to ${ym(p.asof)}</small>` +
+      (riskLine(p.sup) ? `<small>${esc(riskLine(p.sup))}</small>` : '') + spark(p.sup) + relatedNews(p.sup, p.mat);
+  }
+  // news that names this supplier country and this material: the story behind a risk score
+  const MAT_INPUT = m => /helium/i.test(m) ? 'helium' : /gallium/i.test(m) ? 'gallium' : /neon/i.test(m) ? 'neon' : /fluoride|HF/i.test(m) ? 'hydrogen fluoride' : null;
+  function relatedNews(key, mat) {
+    const name = cname(key), inp = mat ? MAT_INPUT(mat) : null;
+    const hits = (NEWS.items || []).filter(it => (it.countries || [it.country]).includes(name) && (!inp || (it.inputs || []).includes(inp)))
+      .sort((a, b) => (b.alert - a.alert) || (b.published > a.published ? 1 : -1)).slice(0, 2);
+    return hits.length ? `<small>In the news:</small>` + hits.map(it => `<small class="hl${it.alert ? ' alert' : ''}">${esc(it.title)} · ${esc(ago(it.published))}</small>`).join('') : '';
+  }
+  function countryHTML(key) {
+    const c = RISK.countries[key];
+    const routes = riskPairs.filter(p => p.sup === key).map(p =>
+      `<small>${SEV_ICON[p.status]} ${esc(p.mat)} → ${esc(cname(p.imp))}: ${pct(p.share)} of supply · model ${pct(p.score)}</small>`).join('');
+    const why = riskLine(key) || 'Flagged by the supplier-drop model (no country risk index for here)';
+    return `<b>${esc(c.name)}</b>${sevTag(c.status)}<div>${esc(why)}</div>` +
+      (routes ? `<small>At-risk routes from here:</small>${routes}` : '') + spark(key) + relatedNews(key, null);
+  }
+  // risk monitor list
+  (function () {
+    const list = document.getElementById('riskList');
+    const nCrit = riskPairs.filter(p => p.status === 'critical').length;
+    document.getElementById('riskCount').textContent = nCrit ? `${nCrit} critical` : '';
+    const latestTrade = riskPairs.reduce((m, p) => p.asof > m ? p.asof : m, '0000-00');
+    document.getElementById('riskFoot').textContent =
+      `Risk index to ${ym(RISK.gprAsof)} · trade data to ${ym(latestTrade)} (Korea Dec 2025, China Dec 2024) · model: phase 3 supplier-drop model`;
+    riskPairs.slice(0, 8).forEach(p => {
+      const li = document.createElement('li');
+      const b = document.createElement('button');
+      b.className = `s-${p.status}`;
+      b.innerHTML = `${sevTag(p.status)}<span class="t">${esc(p.mat)}: ${esc(cname(p.sup))} → ${esc(cname(p.imp))}</span>` +
+        `<span class="d">${pct(p.share)} of supply · model ${pct(p.score)}${RISK.countries[p.sup].ratio >= 1.4 ? ` · risk ${RISK.countries[p.sup].ratio.toFixed(1)}×` : ''}</span>`;
+      b.addEventListener('click', () => { focusOn(RISK.countries[p.sup]); });
+      li.appendChild(b); list.appendChild(li);
+    });
+    const badge = document.getElementById('riskBadge');
+    if (nCrit) { badge.textContent = nCrit; badge.hidden = false; }
+    document.getElementById('riskFab').setAttribute('aria-label', nCrit ? `Open monitor, ${nCrit} critical` : 'Open monitor');
+  })();
+  // Collapsible corner panels: icon opens, chevron or Esc collapses. On phones only one is open at a time.
+  const panelFabs = { ctrlBox: document.getElementById('ctrlFab'), riskBox: document.getElementById('riskFab') };
+  function setPanelOpen(id, open) {
+    document.getElementById(id).hidden = !open;
+    panelFabs[id].hidden = open;
+    panelFabs[id].setAttribute('aria-expanded', String(open));
+    if (open && window.innerWidth <= 520) Object.keys(panelFabs).forEach(o => { if (o !== id) setPanelOpen(o, false); });
+  }
+  (function () {
+    Object.entries(panelFabs).forEach(([id, b]) => b.addEventListener('click', () => {
+      setPanelOpen(id, true); const c = document.querySelector(`#${id} .pclose`); if (c) c.focus();
+    }));
+    document.querySelectorAll('.pclose').forEach(b => b.addEventListener('click', () => {
+      const id = b.dataset.target; setPanelOpen(id, false); panelFabs[id].focus();
+    }));
+    window.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      Object.keys(panelFabs).forEach(id => { if (!document.getElementById(id).hidden) { setPanelOpen(id, false); panelFabs[id].focus(); } });
+    });
+  })();
+  // ---------- news panel: tabs, filters, list, load-from-file ----------
+  function ago(iso) {
+    if (!iso) return '';
+    const t = Date.parse(iso.length === 17 ? iso.replace('Z', ':00Z') : iso);
+    if (isNaN(t)) return iso;
+    const h = (Date.now() - t) / 36e5;
+    return h < 1 ? 'just now' : h < 24 ? `${Math.round(h)} h ago` : h < 24 * 14 ? `${Math.round(h / 24)} d ago`
+      : new Date(t).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+  function topTopics(items, n) {
+    const ct = {}; items.forEach(it => (it.topics || []).forEach(t => ct[t] = (ct[t] || 0) + 1));
+    return Object.entries(ct).sort((a, b) => b[1] - a[1]).slice(0, n).map(x => x[0]);
+  }
+  const tabRisk = document.getElementById('tabRisk'), tabNews = document.getElementById('tabNews');
+  const paneRisk = document.getElementById('paneRisk'), paneNews = document.getElementById('paneNews');
+  function setTab(which) {
+    const news = which === 'news';
+    tabRisk.setAttribute('aria-selected', String(!news)); tabNews.setAttribute('aria-selected', String(news));
+    paneRisk.hidden = news; paneNews.hidden = !news;
+    try { localStorage.setItem('orbit-tab', which); } catch (e) {}
+  }
+  tabRisk.addEventListener('click', () => setTab('risk'));
+  tabNews.addEventListener('click', () => setTab('news'));
+  const fRegion = document.getElementById('fRegion'), fTopic = document.getElementById('fTopic');
+  const fAlerts = document.getElementById('fAlerts'), fCountry = document.getElementById('fCountry');
+  const newsList = document.getElementById('newsList'), newsFoot = document.getElementById('newsFoot');
+  const nf = { region: '', topic: '', alerts: false, country: '' };
+  function fillSelect(sel, label, values) {
+    const cur = sel.value;
+    sel.innerHTML = `<option value="">${label}</option>` + values.map(([v, n]) => `<option value="${esc(v)}">${esc(v)} (${n})</option>`).join('');
+    sel.value = values.some(([v]) => v === cur) ? cur : '';
+  }
+  function refreshFilters() {
+    const items = NEWS.items || [], reg = {}, top = {};
+    items.forEach(it => { const r = it.region || 'Global'; reg[r] = (reg[r] || 0) + 1; (it.topics || []).forEach(t => top[t] = (top[t] || 0) + 1); });
+    fillSelect(fRegion, 'All regions', Object.entries(reg).sort((a, b) => b[1] - a[1]));
+    fillSelect(fTopic, 'All topics', Object.entries(top).sort((a, b) => b[1] - a[1]));
+    document.getElementById('newsCount').textContent = items.length || '';
+  }
+  function renderNews() {
+    const all = NEWS.items || [];
+    const rows = all.filter(it => (!nf.region || (it.region || 'Global') === nf.region)
+      && (!nf.topic || (it.topics || []).includes(nf.topic)) && (!nf.alerts || it.alert)
+      && (!nf.country || it.country === nf.country || (it.countries || []).includes(nf.country)))
+      .sort((a, b) => (b.published || '').localeCompare(a.published || '')).slice(0, 80);
+    fCountry.hidden = !nf.country; fCountry.textContent = nf.country ? `${nf.country} ✕` : '';
+    newsList.innerHTML = '';
+    if (!all.length) {
+      newsList.innerHTML = `<li style="border-left-color:var(--line)"><span class="news-empty">Loading the latest stories…</span></li>`;
+    } else if (!rows.length) {
+      newsList.innerHTML = `<li style="border-left-color:var(--line)"><span class="news-empty">No stories match these filters.</span></li>`;
+    }
+    rows.forEach(it => {
+      const li = document.createElement('li'); if (it.alert) li.className = 'alert';
+      const a = document.createElement('a'); a.href = it.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = it.title;
+      const m = document.createElement('div'); m.className = 'm';
+      m.innerHTML = (it.alert ? `<span class="tag-alert">▲ Alert</span>` : '') +
+        `<span>${esc(it.source || '')}${it.coverage > 1 ? ` <span title="${esc((it.outlets || []).join(', '))}">+${it.coverage - 1} more</span>` : ''} · ${esc(ago(it.published))}${it.lang && it.lang !== 'en' ? ' · ' + esc(it.lang.toUpperCase()) : ''}</span>` +
+        ((it.topics || []).length ? `<span>${esc(it.topics.slice(0, 2).join(' · '))}</span>` : '') +
+        (it.discussion ? `<a href="${esc(it.discussion)}" target="_blank" rel="noopener" style="font-size:10.5px;color:var(--dim)">discussion</a>` : '');
+      if (it.country && newsByCountry[it.country]) {
+        const b = document.createElement('button'); b.textContent = `◎ ${it.country}`; b.title = 'Spin the globe there';
+        b.addEventListener('click', () => { focusOn(newsByCountry[it.country]); if (!newsGroup.visible) newsBtn.click(); });
+        m.appendChild(b);
+      }
+      li.append(a, m); newsList.appendChild(li);
+    });
+    const when = NEWS.generated_at ? ago(NEWS.generated_at) : 'never';
+    const src = NEWS.sources_total ? ` from ${NEWS.sources_ok} of ${NEWS.sources_total} sources` : '';
+    newsFoot.innerHTML = `${all.length} stories over ${NEWS.window_days || 30} days${src} · collected ${esc(when)}` +
+      (rows.length === 80 ? ' · showing the newest 80' : '') + `<button id="loadNews">Load news file</button>`;
+    document.getElementById('loadNews').addEventListener('click', () => document.getElementById('newsFile').click());
+  }
+  function showNewsFor(country) {
+    nf.country = country; nf.region = ''; fRegion.value = '';
+    setPanelOpen('riskBox', true); setTab('news'); renderNews();
+  }
+  fRegion.addEventListener('change', () => { nf.region = fRegion.value; nf.country = ''; renderNews(); });
+  fTopic.addEventListener('change', () => { nf.topic = fTopic.value; renderNews(); });
+  fAlerts.addEventListener('click', () => { nf.alerts = !nf.alerts; fAlerts.setAttribute('aria-pressed', String(nf.alerts)); renderNews(); });
+  fCountry.addEventListener('click', () => { nf.country = ''; renderNews(); });
+  document.getElementById('newsFile').addEventListener('change', e => {
+    const f = e.target.files && e.target.files[0]; if (!f) return;
+    const rd = new FileReader();
+    rd.onload = () => {
+      try {
+        const d = JSON.parse(rd.result);
+        if (!d || !Array.isArray(d.items)) throw new Error('not a news_latest.json file');
+        if (Array.isArray(d.sources)) { d.sources_total = d.sources.length; d.sources_ok = d.sources.filter(s => s.status === 'ok').length; }
+        NEWS = d;
+        try { localStorage.setItem('orbit-news', JSON.stringify({ ...d, sources: undefined })); } catch (err) {}
+        buildNews(); refreshFilters(); renderNews();
+      } catch (err) { newsFoot.textContent = `Could not read that file: ${err.message}`; }
+      e.target.value = '';
+    };
+    rd.readAsText(f);
+  });
+  const newsBtn = document.getElementById('newsBtn');
+  newsBtn.addEventListener('click', () => {
+    newsGroup.visible = !newsGroup.visible; newsBtn.setAttribute('aria-pressed', String(newsGroup.visible));
+    tip.hidden = true; sticky = false;
+  });
+  refreshFilters(); renderNews();
+  // Latest stories from the hourly collector (docs/data/news.json); re-checked every 10 minutes
+  function applyNews(d) {
+    if (!d || !Array.isArray(d.items)) return;
+    if (NEWS && NEWS.generated_at && d.generated_at === NEWS.generated_at && NEWS.items.length) return;
+    NEWS = d; buildNews(); refreshFilters(); renderNews();
+  }
+  function pullNews() { fetch('data/news.json', { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).then(applyNews).catch(() => {}); }
+  pullNews(); setInterval(pullNews, 10 * 60 * 1000);
+  try { if (localStorage.getItem('orbit-tab') === 'news') setTab('news'); } catch (e) {}
+
+  let sticky = false, downAt = null;
+  stage.addEventListener('pointerdown', e => { downAt = { x: e.clientX, y: e.clientY }; });
+  stage.addEventListener('pointermove', e => {
+    if (e.pointerType === 'touch' || sticky) return;
+    if (pointers.size) { tip.hidden = true; return; }
+    showTip(pick(e.clientX, e.clientY, false), e.clientX, e.clientY);
+  });
+  stage.addEventListener('pointerup', e => {
+    if (!downAt || Math.hypot(e.clientX - downAt.x, e.clientY - downAt.y) > 6) { sticky = false; tip.hidden = true; return; }
+    const hit = pick(e.clientX, e.clientY, e.pointerType === 'touch');
+    sticky = !!hit;
+    showTip(hit, e.clientX, e.clientY);
+    if (hit && hit.kind === 'news') showNewsFor(hit.country.name);
+  });
+  stage.addEventListener('pointerleave', () => { if (!sticky) tip.hidden = true; });
+  stage.addEventListener('pointerup', endPointer);
+  stage.addEventListener('pointercancel', endPointer);
+  // Plain wheel scrolls the page down to the tracker; Ctrl/Cmd + wheel (and trackpad pinch) zooms the globe
+  stage.addEventListener('wheel', e => { if (!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); camDist = T.MathUtils.clamp(camDist * Math.exp(e.deltaY * 0.001), 1.8, 8); }, { passive: false });
+  let globeOnScreen = true;
+  const globeSec = document.getElementById('globe');
+  if ('IntersectionObserver' in window) new IntersectionObserver(es => { globeOnScreen = es[0].isIntersecting && es[0].intersectionRatio > 0.25; if (!globeOnScreen) { keys.clear(); tip.hidden = true; } }, { threshold: [0, 0.25, 0.5] }).observe(globeSec);
+
+
+  // Keyboard
+  const keys = new Set();
+  window.addEventListener('keydown', e => {
+    if (e.target && e.target.tagName === 'INPUT') return;
+    if (!globeOnScreen) return;
+    if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'q', 'e', 'Q', 'E'].includes(e.key)) { keys.add(e.key.toLowerCase()); setSpin(false); e.preventDefault(); }
+  });
+  window.addEventListener('keyup', e => keys.delete(e.key.toLowerCase()));
+
+  // ---------- gizmo ----------
+  const gz = document.getElementById('gizmo'), gctx = gz.getContext('2d');
+  function drawGizmo() {
+    const w = gz.width, h = gz.height, c = w / 2, L = w * 0.36;
+    gctx.clearRect(0, 0, w, h);
+    gctx.beginPath(); gctx.arc(c, c, w * 0.46, 0, Math.PI * 2);
+    gctx.fillStyle = 'rgba(26,31,38,0.7)'; gctx.fill();
+    gctx.strokeStyle = 'rgba(124,135,148,0.35)'; gctx.lineWidth = 2; gctx.stroke();
+    const axes = [['X', new T.Vector3(1, 0, 0), '#ff6b6b'], ['Y', new T.Vector3(0, 1, 0), '#7ee08a'], ['Z', new T.Vector3(0, 0, 1), '#6aa8ff']]
+      .map(([n, v, col]) => [n, v.applyQuaternion(q), col]).sort((a, b) => a[1].z - b[1].z);
+    gctx.font = '600 22px "Chakra Petch", system-ui, sans-serif'; gctx.textAlign = 'center'; gctx.textBaseline = 'middle';
+    for (const [n, v, col] of axes) {
+      const x = c + v.x * L, y = c - v.y * L, front = v.z >= 0;
+      gctx.globalAlpha = front ? 1 : 0.45;
+      gctx.strokeStyle = col; gctx.lineWidth = 4;
+      gctx.beginPath(); gctx.moveTo(c, c); gctx.lineTo(x, y); gctx.stroke();
+      gctx.beginPath(); gctx.arc(x, y, 13, 0, Math.PI * 2); gctx.fillStyle = col; gctx.fill();
+      gctx.fillStyle = '#0B0D10'; gctx.fillText(n, x, y + 1);
+    }
+    gctx.globalAlpha = 1;
+  }
+
+  // ---------- resize / loop ----------
+  function resize() {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    renderer.setSize(w, h, false);
+    renderer.domElement.style.width = w + 'px'; renderer.domElement.style.height = h + 'px';
+    camera.aspect = w / h;
+    // Keep the whole globe visible on tall phone screens
+    camera.fov = w / h < 0.8 ? 40 / Math.max(w / h, 0.45) * 0.8 : 40;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize); resize();
+
+  const clock = new T.Clock();
+  let syncTick = 0;
+  function frame() {
+    if (!globeOnScreen) { clock.getDelta(); requestAnimationFrame(frame); return; }
+    const dt = Math.min(clock.getDelta(), 0.05), t = clock.elapsedTime;
+    const ks = 1.6 * dt;
+    if (keys.has('arrowleft')) rotWorld(AY, -ks);
+    if (keys.has('arrowright')) rotWorld(AY, ks);
+    if (keys.has('arrowup')) rotWorld(AX, -ks);
+    if (keys.has('arrowdown')) rotWorld(AX, ks);
+    if (keys.has('q')) rotWorld(AZ, ks);
+    if (keys.has('e')) rotWorld(AZ, -ks);
+    if (!pointers.size) {
+      if (vel.lengthSq() > 1e-8) { rotWorld(AX, vel.x); rotWorld(AY, vel.y); rotWorld(AZ, vel.z); vel.multiplyScalar(0.94); }
+      if (autoSpin) {
+        // spin around the globe's own polar axis
+        const pole = new T.Vector3(0, 1, 0).applyQuaternion(q);
+        rotWorld(pole, 0.12 * dt); // positive = west-to-east, counterclockwise seen from above the North Pole
+      }
+    }
+    if (focusQ) {
+      if (pointers.size) focusQ = null;
+      else { q.slerp(focusQ, 1 - Math.pow(0.002, dt)); if (q.angleTo(focusQ) < 0.002) { q.copy(focusQ); focusQ = null; } syncSliders(); }
+    }
+    globe.quaternion.copy(q);
+    camera.position.z += (camDist - camera.position.z) * 0.12;
+    arcMats.forEach(m => m.uniforms.uTime.value = t);
+    riskMats.forEach(m => m.uniforms.uTime.value = t);
+    halos.forEach(h => { const p = (t * h.userData.speed + h.userData.phase) % 1; h.scale.setScalar(1 + p * 1.6); h.material.opacity = 0.8 * (1 - p); });
+    rings.forEach(r => { const p = (t * 0.6 + r.userData.phase) % 1; r.scale.setScalar(r.userData.s * (1 + p * 2.2)); r.material.opacity = 1 - p; });
+    if ((autoSpin || vel.lengthSq() > 1e-8 || keys.size) && ++syncTick % 3 === 0) syncSliders();
+    drawGizmo();
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+  syncSliders();
+  frame();
+})();
+</script>
+<script>
+(function () {
+
+document.getElementById("toTracker").onclick = () => document.getElementById("tracker").scrollIntoView();
+document.getElementById("tk-toglobe").onclick = () => document.getElementById("globe").scrollIntoView();
+const CFG = window.SITE_CONFIG || {};
+async function getJSON(u) { const r = await fetch(u, { cache: "no-cache" }); if (!r.ok) throw new Error(u + " " + r.status); return r.json(); }
+function ago(iso) {
+  if (!iso) return "never"; const t = Date.parse(iso.replace(/Z$/, ":00Z").replace(/:00:00Z$/, ":00Z")); if (!isFinite(t)) return iso;
+  const m = Math.round((Date.now() - t) / 60000);
+  return m < 2 ? "just now" : m < 90 ? m + " min ago" : m < 36 * 60 ? Math.round(m / 60) + " h ago" : Math.round(m / 1440) + " days ago";
+}
+function showStatus(st) {
+  const el = document.getElementById("tk-status"); if (!el || !st) return;
+  const ym = s => s ? new Date(s + "-01T00:00:00Z").toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" }) : "–";
+  const parts = [];
+  if (st.news) parts.push(`News collected <b>${ago(st.news.asof || st.news.built)}</b>`);
+  if (st.prices) parts.push(`Prices through <b>${st.prices.asof}</b>`);
+  if (st.risk) parts.push(`Trade data through <b>${ym(st.risk.trade_asof)}</b>`, `Risk index through <b>${ym(st.risk.asof)}</b>`);
+  el.innerHTML = parts.map(p => `<span>${p}</span>`).join("");
+}
+function boot(D) {
+
+// ---------- live quotes (optional: needs the Cloudflare Worker in worker/ and its URL in docs/config.js)
+const LIVE_MAP = { "2330.TW": "TSM", "2303.TW": "UMC", "ASML.AS": "ASML" };   // US-listed versions trade live in New York
+const liveSym = t => LIVE_MAP[t] || (U[t].currency === "USD" && !t.startsWith("^") ? t : null);
+const liveData = {};
+function renderLive() {
+  const el = document.getElementById("tk-live"); if (!el) return;
+  const sym = liveSym(S.t), q = sym && liveData[sym];
+  if (!CFG.liveQuotesUrl) { el.innerHTML = `<i class="dot"></i>Live prices are off. Showing daily closes.`; return; }
+  if (!sym) { el.innerHTML = `<i class="dot"></i>No free live feed for this listing. Showing the last daily close.`; return; }
+  if (!q || !q.price) { el.innerHTML = `<i class="dot"></i>Waiting for a live quote for ${sym}…`; return; }
+  const when = q.time ? new Date(q.time * 1000).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "";
+  const where = LIVE_MAP[S.t] ? ` ${sym} in New York, USD` : "";
+  el.innerHTML = `<i class="dot on"></i>Live${where} <b>${fmtP(q.price)}</b> <span class="${cls(q.pct || 0)}">${fmtSigned(q.change || 0)} (${fmtPct(q.pct || 0)})</span> today <span class="t">${when}</span>`;
+}
+async function pollLive() {
+  const sym = liveSym(S.t);
+  if (!CFG.liveQuotesUrl || !sym || document.hidden) return renderLive();
+  try {
+    const r = await fetch(CFG.liveQuotesUrl.replace(/\/$/, "") + "/?symbols=" + encodeURIComponent(sym));
+    const j = await r.json(); (j.quotes || []).forEach(q => liveData[q.symbol] = q);
+  } catch (e) { /* relay unreachable: keep the last quote */ }
+  renderLive();
+}
+function startLive() { pollLive(); setInterval(pollLive, 20000); }
+
+
+
+
+const EVENT_INFO = {
+  hf_2019: {
+    short: "HF '19", title: "Japan curbs HF exports to Korea",
+    what: "Japan tightened export controls on hydrogen fluoride (HF), photoresist and fluorinated polyimide shipped to South Korea.",
+    link: "HF is the acid fabs use to clean and etch wafers. Korea got about a third of its HF from Japan; within three months China replaced Japan at the same price."
+  },
+  neon_2022: {
+    short: "Neon '22", title: "Russia invades Ukraine",
+    what: "The invasion shut Ukraine's neon purifiers in Odesa and Mariupol, a large share of the world's chip-grade neon.",
+    link: "Neon is the gas in the lasers that print chip patterns (DUV lithography). Korea's import price rose about 4x before China took over supply."
+  },
+  gallium_2023: {
+    short: "Gallium '23", title: "China licenses gallium exports",
+    what: "China announced export licences for gallium and germanium, starting August 1, 2023. China makes almost all of the world's primary gallium.",
+    link: "Gallium goes into GaAs radio chips and GaN power chips. Japan and the US imported more right after, a sign of stockpiling, and prices fell."
+  },
+  helium_2026: {
+    short: "Helium '26", title: "Qatar's helium goes offline",
+    what: "Strikes in the Gulf took Qatar's Ras Laffan gas complex offline. Qatar supplies about a third of the world's helium.",
+    link: "Fabs use helium to cool wafers and purge tools. Qatar supplies 61–85% of the helium for most big chipmakers; US buyers switched to Canada within months."
+  }
+};
+const GROUP_ORDER = ["Foundries & memory", "Equipment", "Chip designers", "Gases & materials", "Rare earths", "Benchmark"];
+const GROUP_LABEL = {"Benchmark": "ETFs & indexes"};
+const RANGES = ["5D", "1M", "3M", "6M", "YTD", "1Y", "5Y", "Max"];
+const DAY = 864e5, EPOCH = Date.UTC(2015, 0, 1);
+const TK = document.getElementById("tracker");
+const css = n => getComputedStyle(TK).getPropertyValue(n).trim();
+
+// ---------- decode
+function dec(s, d) { const o = new Array(d.length + 1); let x = s; o[0] = x; for (let i = 0; i < d.length; i++) { x += d[i]; o[i + 1] = x; } return o; }
+const RAW = {}; for (const [t, o] of Object.entries(D.p)) RAW[t] = { days: dec(o.s, o.d), c: o.c, v: o.v };
+const FX = {}; for (const [k, o] of Object.entries(D.fx)) FX[k] = { days: dec(o.s, o.d), r: o.r };
+const U = {}; D.u.forEach(u => U[u.ticker] = u);
+const EV = D.ev.map(e => ({ ...e, ...EVENT_INFO[e.key], day: (Date.parse(e.date + "T00:00:00Z") - EPOCH) / DAY }));
+
+const cache = {};
+function getSeries(t, usd) {
+  const k = t + (usd ? "|USD" : "");
+  if (cache[k]) return cache[k];
+  const r = RAW[t], cur = U[t].currency;
+  let c = r.c;
+  if (usd && cur !== "USD" && FX[cur]) {
+    const f = FX[cur]; let j = 0;
+    c = r.days.map((d, i) => { while (j + 1 < f.days.length && f.days[j + 1] <= d) j++; return r.c[i] * f.r[j]; });
+  }
+  const ma = n => { const o = new Array(c.length).fill(null); let s = 0; for (let i = 0; i < c.length; i++) { s += c[i]; if (i >= n) s -= c[i - n]; if (i >= n - 1) o[i] = s / n; } return o; };
+  return cache[k] = { days: r.days, c, v: r.v, ma5: ma(5), ma10: ma(10), ma20: ma(20), cur: usd ? "USD" : cur };
+}
+const idxOnOrAfter = (days, day) => { let lo = 0, hi = days.length; while (lo < hi) { const m = (lo + hi) >> 1; if (days[m] < day) lo = m + 1; else hi = m; } return lo; };
+const dayToDate = d => new Date(EPOCH + d * DAY);
+
+// ---------- format
+const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const WD = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+function fmtP(x) {
+  if (x == null || !isFinite(x)) return "–";
+  const a = Math.abs(x), dp = a >= 1000 ? 2 : a >= 1 ? 2 : 4;
+  return x.toLocaleString("en-US", { minimumFractionDigits: dp, maximumFractionDigits: dp });
+}
+const fmtPct = (x, dp = 2) => (x >= 0 ? "+" : "") + x.toLocaleString("en-US", { minimumFractionDigits: dp, maximumFractionDigits: dp }) + "%";
+const fmtSigned = x => (x >= 0 ? "+" : "−") + fmtP(Math.abs(x));
+function fmtVol(v) { if (v == null) return "–"; const a = Math.abs(v); return a >= 1e9 ? (v / 1e9).toFixed(2) + "B" : a >= 1e6 ? (v / 1e6).toFixed(1) + "M" : a >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v); }
+const fmtDate = d => { const t = dayToDate(d); return `${MON[t.getUTCMonth()]} ${t.getUTCDate()}, ${t.getUTCFullYear()}`; };
+const fmtDateLong = d => { const t = dayToDate(d); return `${WD[t.getUTCDay()]}, ${MON[t.getUTCMonth()]} ${t.getUTCDate()} ${t.getUTCFullYear()}`; };
+const cls = x => x >= 0 ? "up" : "down";
+const unit = (t, cur) => U[t].grp === "Benchmark" && t.startsWith("^") && cur !== "USD" ? "pts" : cur;
+
+// ---------- state
+const store = { get(k, d) { try { const v = localStorage.getItem("cst-" + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+                set(k, v) { try { localStorage.setItem("cst-" + k, JSON.stringify(v)); } catch (e) {} } };
+const S = {
+  t: store.get("t", "2330.TW"), range: store.get("range", "Max"), win: null,
+  usd: store.get("usd", false), log: store.get("log", false), ma: store.get("ma", true), ev: store.get("ev", true),
+  evSel: "helium_2026", hover: null, tab: "chart"
+};
+if (!RAW[S.t]) S.t = "2330.TW";
+if (!RANGES.includes(S.range)) S.range = "Max";
+
+function view(ser) {
+  const n = ser.c.length;
+  if (S.win) return { a: Math.max(0, S.win[0]), b: Math.min(n - 1, S.win[1]) };
+  if (S.range === "Max") return { a: 0, b: n - 1 };
+  if (S.range === "5D") return { a: Math.max(0, n - 5), b: n - 1 };
+  const last = dayToDate(ser.days[n - 1]); let cut;
+  if (S.range === "YTD") cut = Date.UTC(last.getUTCFullYear(), 0, 1);
+  else { const m = { "1M": 1, "3M": 3, "6M": 6, "1Y": 12, "5Y": 60 }[S.range]; cut = Date.UTC(last.getUTCFullYear(), last.getUTCMonth() - m, last.getUTCDate()); }
+  return { a: Math.min(n - 1, idxOnOrAfter(ser.days, (cut - EPOCH) / DAY)), b: n - 1 };
+}
+function rangeChange(t, usd) { const s = getSeries(t, usd), v = view(s); return { from: s.c[v.a], to: s.c[v.b], pct: 100 * (s.c[v.b] / s.c[v.a] - 1) }; }
+
+// ---------- picker
+const groupsEl = document.getElementById("tk-groups"), chipsEl = document.getElementById("tk-chips");
+let curGroup = U[S.t].grp;
+function renderGroups() {
+  groupsEl.innerHTML = "";
+  GROUP_ORDER.forEach(g => {
+    const b = document.createElement("button"); b.className = "grp"; b.textContent = GROUP_LABEL[g] || g;
+    b.setAttribute("aria-pressed", g === curGroup);
+    b.onclick = () => { curGroup = g; renderGroups(); renderChips(); };
+    groupsEl.appendChild(b);
+  });
+}
+function renderChips() {
+  chipsEl.innerHTML = "";
+  D.u.filter(u => u.grp === curGroup).forEach(u => {
+    const ch = rangeChange(u.ticker, S.usd);
+    const b = document.createElement("button"); b.className = "tkchip"; b.setAttribute("aria-pressed", u.ticker === S.t);
+    b.innerHTML = `<b>${u.name}</b><small>${u.ticker}</small><span class="chg ${cls(ch.pct)}">${fmtPct(ch.pct, 1)}</span>`;
+    b.onclick = () => select(u.ticker);
+    chipsEl.appendChild(b);
+  });
+}
+function select(t) { S.t = t; S.hover = null; store.set("t", t); curGroup = U[t].grp; renderAll(); pollLive(); }
+
+// ---------- header
+function renderQuote() {
+  const u = U[S.t], s = getSeries(S.t, S.usd), v = view(s), n = s.c.length;
+  document.getElementById("tk-qname").textContent = u.name;
+  const listed = s.days[0] > 60 ? ` · data from ${fmtDate(s.days[0])} (first listed)` : "";
+  document.getElementById("tk-qmeta").textContent = `${u.ticker} · ${u.country} · ${GROUP_LABEL[u.grp] || u.grp}${listed}`;
+  const i = S.hover != null ? S.hover : v.b, base = s.c[v.a], px = s.c[i];
+  document.getElementById("tk-qprice").innerHTML = `${fmtP(px)}<small>${unit(S.t, s.cur)}</small>`;
+  const d = px - base, p = 100 * (px / base - 1);
+  const lab = S.win ? "around event" : S.range === "Max" ? "since " + fmtDate(s.days[0]) : S.range;
+  document.getElementById("tk-qchg").innerHTML = `<span class="${cls(d)}">${fmtSigned(d)} (${fmtPct(p)})</span> <span style="color:var(--muted)">${lab}</span>`;
+}
+
+// ---------- ranges & toggles
+const rangesEl = document.getElementById("tk-ranges");
+function renderRanges() {
+  rangesEl.innerHTML = "";
+  RANGES.forEach(r => {
+    const b = document.createElement("button"); b.className = "rng"; b.textContent = r;
+    b.setAttribute("aria-pressed", !S.win && r === S.range);
+    b.onclick = () => { S.range = r; S.win = null; S.hover = null; store.set("range", r); renderAll(); };
+    rangesEl.appendChild(b);
+  });
+}
+function bindToggle(id, key) {
+  const b = document.getElementById(id);
+  b.setAttribute("aria-pressed", S[key]);
+  b.onclick = () => { S[key] = !S[key]; store.set(key, S[key]); b.setAttribute("aria-pressed", S[key]); renderAll(); };
+}
+bindToggle("tk-t-ev", "ev"); bindToggle("tk-t-ma", "ma"); bindToggle("tk-t-log", "log"); bindToggle("tk-t-usd", "usd");
+
+// ---------- chart
+const cv = document.getElementById("tk-chart"), ctx = cv.getContext("2d");
+let G = null; // geometry of last draw, for hit-testing
+function draw() {
+  const dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
+  if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+  const s = getSeries(S.t, S.usd), { a, b } = view(s);
+  // lay out event pills first (two rows if they collide) so the plot can start below them
+  const s0 = getSeries(S.t, S.usd), v0 = view(s0), pills = [];
+  if (S.ev) {
+    ctx.font = `600 11px ${css("--sans")}`;
+    const ends = [-1e9, -1e9], span0 = Math.max(1, v0.b - v0.a);
+    EV.forEach(e => {
+      if (e.day < s0.days[v0.a] || e.day > s0.days[v0.b]) return;
+      const i = idxOnOrAfter(s0.days, e.day); if (i > v0.b) return;
+      const x = 2 + (i - v0.a) / span0 * (W - 4), w = ctx.measureText(e.short).width + 18;
+      const px = Math.min(Math.max(x - w / 2, 2), W - 2 - w);
+      const row = px >= ends[0] + 4 ? 0 : 1; ends[row] = px + w;
+      pills.push({ e, i, x, px, w, row });
+    });
+  }
+  const rows = pills.some(p => p.row === 1) ? 2 : 1;
+  const top = 42 + (rows - 1) * 24, priceBot = Math.round(H * 0.68), volTop = priceBot + 26, volBot = H - 24, L = 2, R = W - 2;
+  const span = Math.max(1, b - a), X = i => L + (i - a) / span * (R - L);
+  let lo = Infinity, hi = -Infinity, iLo = a, iHi = a;
+  for (let i = a; i <= b; i++) { const c = s.c[i]; if (c < lo) { lo = c; iLo = i; } if (c > hi) { hi = c; iHi = i; } }
+  let ylo = lo, yhi = hi;
+  if (S.ma) for (let i = a; i <= b; i++) for (const m of [s.ma5, s.ma10, s.ma20]) { const v = m[i]; if (v != null) { if (v < ylo) ylo = v; if (v > yhi) yhi = v; } }
+  const useLog = S.log && ylo > 0;
+  const tf = v => useLog ? Math.log(v) : v;
+  let t0 = tf(ylo), t1 = tf(yhi); if (t1 - t0 < 1e-9) { t0 -= 1; t1 += 1; }
+  const pad = (t1 - t0) * 0.04; t0 -= pad; t1 += pad;
+  const Y = v => priceBot - (tf(v) - t0) / (t1 - t0) * (priceBot - top);
+  const base = s.c[a], last = s.c[b], upCol = css("--up"), dnCol = css("--down");
+  const col = last >= base ? upCol : dnCol;
+
+  // area + line
+  ctx.beginPath();
+  for (let i = a; i <= b; i++) { const x = X(i), y = Y(s.c[i]); i === a ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }
+  const linePath = new Path2D(); for (let i = a; i <= b; i++) { const x = X(i), y = Y(s.c[i]); i === a ? linePath.moveTo(x, y) : linePath.lineTo(x, y); }
+  ctx.lineTo(X(b), priceBot); ctx.lineTo(X(a), priceBot); ctx.closePath();
+  const gr = ctx.createLinearGradient(0, top, 0, priceBot); gr.addColorStop(0, hexA(col, .32)); gr.addColorStop(1, hexA(col, .02));
+  ctx.fillStyle = gr; ctx.fill();
+  ctx.strokeStyle = col; ctx.lineWidth = 1.6; ctx.lineJoin = "round"; ctx.stroke(linePath);
+
+  // moving averages
+  if (S.ma) [[s.ma20, "--ma20"], [s.ma10, "--ma10"], [s.ma5, "--ma5"]].forEach(([m, c]) => {
+    ctx.beginPath(); let on = false;
+    for (let i = a; i <= b; i++) { const v = m[i]; if (v == null) { on = false; continue; } const x = X(i), y = Y(v); on ? ctx.lineTo(x, y) : ctx.moveTo(x, y); on = true; }
+    ctx.strokeStyle = css(c); ctx.lineWidth = 1.1; ctx.stroke();
+  });
+
+  // volume
+  if (s.v) {
+    let vmax = 0; for (let i = a; i <= b; i++) vmax = Math.max(vmax, s.v[i] || 0);
+    const bw = Math.max(1, (R - L) / (span + 1) * 0.7);
+    for (let i = a; i <= b; i++) {
+      const v = s.v[i] || 0; if (!vmax || !v) continue;
+      const h = v / vmax * (volBot - volTop), up = i === 0 || s.c[i] >= s.c[i - 1];
+      ctx.fillStyle = hexA(up ? upCol : dnCol, .75); ctx.fillRect(X(i) - bw / 2, volBot - h, bw, h);
+    }
+  } else {
+    ctx.fillStyle = css("--faint"); ctx.font = `11px ${css("--sans")}`; ctx.textAlign = "left";
+    ctx.fillText("No volume reported for this index", L + 4, (volTop + volBot) / 2);
+  }
+  ctx.strokeStyle = css("--line"); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(L, volBot + .5); ctx.lineTo(R, volBot + .5); ctx.stroke();
+
+  // last price dashed line + tag
+  const yl = Y(last);
+  ctx.setLineDash([5, 5]); ctx.strokeStyle = hexA(col, .7); ctx.beginPath(); ctx.moveTo(L, yl); ctx.lineTo(R, yl); ctx.stroke(); ctx.setLineDash([]);
+  ctx.font = `500 13px ${css("--mono")}`; const tag = fmtP(last), tw = ctx.measureText(tag).width + 14;
+  const ty = Math.min(priceBot - 12, Math.max(top - 2, yl));
+  roundRect(R - tw, ty - 12, tw, 24, 6); ctx.fillStyle = css("--panel-2"); ctx.fill(); ctx.strokeStyle = css("--line"); ctx.stroke();
+  ctx.fillStyle = css("--ink"); ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.fillText(tag, R - 7, ty + 1);
+
+  // high / low labels
+  ctx.textBaseline = "alphabetic"; ctx.textAlign = "left"; ctx.font = `500 12px ${css("--mono")}`;
+  const hiTxt = `${fmtP(hi)}  ${fmtPct(100 * (hi / base - 1))}`, loTxt = `${fmtP(lo)}  ${fmtPct(100 * (lo / base - 1))}`;
+  ctx.fillStyle = hexA(upCol, .95); ctx.fillText("H " + hiTxt, L + 4, Math.max(top - 6, Y(hi) - 6));
+  ctx.fillStyle = hexA(lo < base ? dnCol : upCol, .95); ctx.fillText("L " + loTxt, L + 4, Math.min(priceBot + 17, Y(lo) + 17));
+
+  // events
+  const hits = [];
+  ctx.font = `600 11px ${css("--sans")}`; ctx.textBaseline = "middle";
+  pills.forEach(({ e, x, px, w, row }) => {
+    const sel = e.key === S.evSel, py = 4 + row * 24;
+    ctx.strokeStyle = hexA(css("--event"), sel ? .95 : .6); ctx.lineWidth = sel ? 1.4 : 1; ctx.setLineDash([2, 3]);
+    ctx.beginPath(); ctx.moveTo(x, py + 20); ctx.lineTo(x, volBot); ctx.stroke(); ctx.setLineDash([]);
+    roundRect(px, py, w, 20, 10); ctx.fillStyle = sel ? css("--event") : css("--panel-2"); ctx.fill();
+    ctx.strokeStyle = hexA(css("--event"), .8); ctx.lineWidth = 1; ctx.stroke();
+    ctx.fillStyle = sel ? css("--bg") : css("--event"); ctx.textAlign = "center"; ctx.fillText(e.short, px + w / 2, py + 10.5);
+    hits.push({ key: e.key, x, px, w, py });
+  });
+
+  // x labels
+  ctx.fillStyle = css("--muted"); ctx.font = `12px ${css("--mono")}`; ctx.textBaseline = "alphabetic";
+  const nl = W < 480 ? 3 : 5, longR = s.days[b] - s.days[a] > 400;
+  for (let k = 0; k < nl; k++) {
+    const i = Math.round(a + (b - a) * (k + 0.5) / nl), d = dayToDate(s.days[i]);
+    const txt = longR ? `${MON[d.getUTCMonth()]} '${String(d.getUTCFullYear()).slice(2)}` : `${String(d.getUTCMonth() + 1).padStart(2, "0")}/${String(d.getUTCDate()).padStart(2, "0")}`;
+    ctx.textAlign = "center"; ctx.fillText(txt, X(i), H - 6);
+  }
+
+  // crosshair
+  if (S.hover != null && S.hover >= a && S.hover <= b) {
+    const i = S.hover, x = X(i), y = Y(s.c[i]);
+    ctx.strokeStyle = hexA(css("--ink"), .45); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(x + .5, top - 8); ctx.lineTo(x + .5, volBot); ctx.moveTo(L, y + .5); ctx.lineTo(R, y + .5); ctx.stroke();
+    ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill(); ctx.strokeStyle = css("--bg"); ctx.lineWidth = 2; ctx.stroke();
+  }
+  G = { a, b, X, L, R, hits, top, volBot, span };
+}
+function hexA(hex, al) { const h = hex.replace("#", ""); const n = parseInt(h.length === 3 ? h.split("").map(c => c + c).join("") : h, 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${al})`; }
+function roundRect(x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+
+function renderLegend() {
+  const s = getSeries(S.t, S.usd), v = view(s), i = S.hover != null ? S.hover : v.b;
+  document.getElementById("tk-legend").innerHTML = S.ma
+    ? `<span>MA(5,10,20)</span><span class="m5">MA5:${fmtP(s.ma5[i])}</span><span class="m10">MA10:${fmtP(s.ma10[i])}</span><span class="m20">MA20:${fmtP(s.ma20[i])}</span>`
+    : `<span>Moving averages hidden</span>`;
+  const prev = i > 0 ? s.c[i - 1] : null, dp = prev ? 100 * (s.c[i] / prev - 1) : null;
+  document.getElementById("tk-readout").innerHTML =
+    `<span>${S.hover != null ? "" : "Last close · "}<b>${fmtDateLong(s.days[i])}</b></span>` +
+    `<span>Close <b>${fmtP(s.c[i])}</b></span>` +
+    (dp != null ? `<span>Day <b class="${cls(dp)}">${fmtPct(dp)}</b></span>` : "") +
+    `<span>Vol <b>${s.v ? fmtVol(s.v[i]) : "–"}</b></span>`;
+}
+
+function pointerIdx(ev) {
+  const r = cv.getBoundingClientRect(), x = ev.clientX - r.left;
+  if (!G) return null;
+  return Math.max(G.a, Math.min(G.b, Math.round(G.a + (x - G.L) / (G.R - G.L) * G.span)));
+}
+cv.addEventListener("pointermove", ev => { S.hover = pointerIdx(ev); draw(); renderLegend(); renderQuote(); });
+cv.addEventListener("pointerleave", () => { S.hover = null; draw(); renderLegend(); renderQuote(); });
+cv.addEventListener("click", ev => {
+  if (!G) return; const r = cv.getBoundingClientRect(), x = ev.clientX - r.left, y = ev.clientY - r.top;
+  const h = G.hits.find(h => (y >= h.py && y <= h.py + 20 && x >= h.px && x <= h.px + h.w) || (y > G.top - 10 && Math.abs(x - h.x) <= 8));
+  if (h) { S.evSel = h.key; renderEvent(); draw(); }
+});
+
+// ---------- events
+function evStats(t, e) {
+  const s = getSeries(t, false), i0 = idxOnOrAfter(s.days, e.day);
+  if (i0 === 0 || i0 >= s.c.length) return null;
+  const pre = s.c[i0 - 1], at = k => i0 + k < s.c.length ? 100 * (s.c[i0 + k] / pre - 1) : null;
+  const r = (D.react[e.key] || {})[t];
+  return { i0, p5: at(5), p20: at(20), ar5: r ? r.d5 : null, ar20: r ? r.d20 : null };
+}
+const statCell = (label, val, sub) => `<div class="stat"><span>${label}</span><b class="${val == null ? "" : cls(val)}">${val == null ? "–" : fmtPct(val, 1)}</b><em>${sub || "&nbsp;"}</em></div>`;
+const tsub = x => x ? `t = ${x[1].toFixed(1)}${Math.abs(x[1]) >= 1.96 ? " *" : ""}` : "";
+function roleTag(t, e) {
+  const r = e.role[t];
+  return r === "loser" ? `<span class="role loser">Expected loser</span>` : r === "winner" ? `<span class="role winner">Expected winner</span>` : `<span class="role">Not in a test group</span>`;
+}
+function renderEvChips() {
+  const el = document.getElementById("tk-evchips"), s = getSeries(S.t, S.usd), v = view(s);
+  el.innerHTML = "";
+  EV.forEach(e => {
+    const inView = e.day >= s.days[v.a] && e.day <= s.days[v.b];
+    const b = document.createElement("button"); b.className = "evchip" + (inView ? "" : " out");
+    b.setAttribute("aria-pressed", e.key === S.evSel);
+    b.innerHTML = `<i></i>${e.title}<small>${e.date.slice(0, 7)}</small>`;
+    b.onclick = () => { S.evSel = e.key; renderEvent(); renderEvChips(); draw(); };
+    el.appendChild(b);
+  });
+}
+function renderEvent() {
+  const e = EV.find(x => x.key === S.evSel), st = evStats(S.t, e), u = U[S.t];
+  let body;
+  if (!st) body = `<p>${u.name} was not trading yet on this date (data starts ${fmtDate(RAW[S.t].days[0])}).</p>`;
+  else body = `<div class="stats">
+      ${statCell("Price, 5 days", st.p5, "raw move")}
+      ${statCell("Price, 20 days", st.p20, "raw move")}
+      ${statCell("Abnormal, 5 days", st.ar5 && st.ar5[0], tsub(st.ar5) || "vs world market")}
+      ${statCell("Abnormal, 20 days", st.ar20 && st.ar20[0], tsub(st.ar20) || "vs world market")}
+    </div>`;
+  document.getElementById("tk-evcard").innerHTML = `
+    <div class="when">${fmtDateLong(e.day)}</div>
+    <h3>${e.title}</h3>
+    <p>${e.what}</p>
+    <div class="lbl">Supply-chain link</div>
+    <p>${e.link}</p>
+    <div class="evactions"><span class="lbl">${u.name}</span>${roleTag(S.t, e)}</div>
+    ${body}
+    <div class="evactions">
+      ${st ? `<button class="btn" id="tk-zoom">Zoom chart to this event</button>` : ""}
+      ${S.win ? `<button class="btn ghost" id="tk-unzoom">Back to ${S.range}</button>` : ""}
+    </div>`;
+  const z = document.getElementById("tk-zoom"); if (z) z.onclick = () => { S.win = [st.i0 - 60, st.i0 + 60]; S.hover = null; renderAll(); };
+  const uz = document.getElementById("tk-unzoom"); if (uz) uz.onclick = () => { S.win = null; renderAll(); };
+}
+function renderEvTable() {
+  const rows = EV.map(e => {
+    const st = evStats(S.t, e);
+    const c = (v, sub) => v == null ? `<td class="r num">–</td>` : `<td class="r num ${cls(v)}">${fmtPct(v, 1)}${sub || ""}</td>`;
+    if (!st) return `<tr data-ev="${e.key}"><td>${e.title}<br><small style="color:var(--muted)">${fmtDate(e.day)}</small></td><td>–</td><td class="r" colspan="4" style="color:var(--muted)">Not trading yet</td></tr>`;
+    const star = x => x && Math.abs(x[1]) >= 1.96 ? "*" : "";
+    return `<tr data-ev="${e.key}"><td>${e.title}<br><small style="color:var(--muted)">${fmtDate(e.day)}</small></td><td>${roleTag(S.t, e)}</td>
+      ${c(st.p5)}${c(st.p20)}${c(st.ar5 && st.ar5[0], star(st.ar5))}${c(st.ar20 && st.ar20[0], star(st.ar20))}</tr>`;
+  }).join("");
+  const t = document.getElementById("tk-evtable");
+  t.innerHTML = `<thead><tr><th>Event</th><th>Role</th><th class="r">Price 5d</th><th class="r">Price 20d</th><th class="r">Abnormal 5d</th><th class="r">Abnormal 20d</th></tr></thead><tbody>${rows}</tbody>`;
+  t.querySelectorAll("tbody tr").forEach(tr => tr.onclick = () => { S.evSel = tr.dataset.ev; setTab("chart"); renderAll(); });
+}
+
+// ---------- peers
+function spark(t) {
+  const s = getSeries(t, S.usd), v = view(s), n = Math.min(80, v.b - v.a + 1), pts = [];
+  let lo = Infinity, hi = -Infinity; const idx = [];
+  for (let k = 0; k < n; k++) { const i = Math.round(v.a + (v.b - v.a) * k / Math.max(1, n - 1)); idx.push(i); lo = Math.min(lo, s.c[i]); hi = Math.max(hi, s.c[i]); }
+  idx.forEach((i, k) => pts.push(`${(k / Math.max(1, n - 1) * 96 + 2).toFixed(1)},${(26 - (s.c[i] - lo) / ((hi - lo) || 1) * 22).toFixed(1)}`));
+  const up = s.c[v.b] >= s.c[v.a];
+  return `<svg width="100" height="30" viewBox="0 0 100 30" aria-hidden="true"><polyline fill="none" stroke="${up ? css("--up") : css("--down")}" stroke-width="1.5" points="${pts.join(" ")}"/></svg>`;
+}
+function oneYear(t) { const s = getSeries(t, S.usd), n = s.c.length, last = dayToDate(s.days[n - 1]); const i = idxOnOrAfter(s.days, (Date.UTC(last.getUTCFullYear() - 1, last.getUTCMonth(), last.getUTCDate()) - EPOCH) / DAY); return i === 0 && s.days[0] > s.days[n - 1] - 365 ? null : 100 * (s.c[n - 1] / s.c[i] - 1); }
+function renderPeers() {
+  const g = U[S.t].grp, lab = S.win ? "Event window" : S.range;
+  const rows = D.u.filter(u => u.grp === g).map(u => {
+    const s = getSeries(u.ticker, S.usd), ch = rangeChange(u.ticker, S.usd), y1 = oneYear(u.ticker);
+    return `<tr data-t="${u.ticker}" class="${u.ticker === S.t ? "sel" : ""}"><td><b>${u.name}</b><br><small class="num" style="color:var(--muted)">${u.ticker}</small></td>
+      <td class="r num">${fmtP(s.c[s.c.length - 1])} <small style="color:var(--muted)">${unit(u.ticker, s.cur)}</small></td>
+      <td class="r num ${cls(ch.pct)}">${fmtPct(ch.pct, 1)}</td><td class="r num ${y1 == null ? "" : cls(y1)}">${y1 == null ? "–" : fmtPct(y1, 1)}</td><td>${spark(u.ticker)}</td></tr>`;
+  }).join("");
+  const t = document.getElementById("tk-peertable");
+  t.innerHTML = `<thead><tr><th>${GROUP_LABEL[g] || g}</th><th class="r">Last</th><th class="r">${lab}</th><th class="r">1Y</th><th>${lab}</th></tr></thead><tbody>${rows}</tbody>`;
+  t.querySelectorAll("tbody tr").forEach(tr => tr.onclick = () => select(tr.dataset.t));
+}
+
+// ---------- tabs
+function setTab(k) {
+  S.tab = k;
+  ["chart", "events", "peers"].forEach(x => { document.getElementById("tk-tab-" + x).setAttribute("aria-selected", x === k); document.getElementById("tk-pane-" + x).hidden = x !== k; });
+  if (k === "chart") requestAnimationFrame(draw);
+}
+TK.querySelectorAll(".tab").forEach(b => b.onclick = () => setTab(b.dataset.tab));
+
+function renderAll() {
+  renderGroups(); renderChips(); renderQuote(); renderLive(); renderRanges(); renderLegend(); renderEvChips(); renderEvent(); renderEvTable(); renderPeers();
+  if (S.tab === "chart") draw();
+}
+document.getElementById("tk-asof").textContent = `Daily closes through ${fmtDate((Date.parse(D.asof + "T00:00:00Z") - EPOCH) / DAY)}`;
+document.getElementById("tk-srcline").textContent = `${D.u.length - 8} companies and 8 benchmarks · Jan 2015 to ${D.asof} · four supply shocks from the research project's event studies (phase 8, Model 4).`;
+new ResizeObserver(() => { if (S.tab === "chart") draw(); }).observe(cv);
+renderAll();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+
+startLive();
+}
+
+(async () => {
+  const msg = document.getElementById("tk-loading");
+  getJSON("data/status.json").then(showStatus).catch(() => {});
+  setInterval(() => getJSON("data/status.json").then(showStatus).catch(() => {}), 5 * 60 * 1000);
+  try {
+    const meta = await getJSON("data/meta.json");
+    const res = await Promise.allSettled([getJSON("data/fx.json"), ...meta.u.map(u => getJSON("data/prices/" + meta.files[u.ticker] + ".json"))]);
+    if (res[0].status !== "fulfilled") throw new Error("exchange rates missing");
+    const p = {}; meta.u.forEach((u, i) => { if (res[i + 1].status === "fulfilled") p[u.ticker] = res[i + 1].value; });
+    meta.u = meta.u.filter(u => p[u.ticker]);
+    msg.hidden = true;
+    boot({ ...meta, p, fx: res[0].value });
+  } catch (e) {
+    msg.textContent = "Could not load price data (" + e.message + "). If you opened this file directly from your computer, view it through the website instead.";
+  }
+})();
+
+})();
+</script>
+
+</body>
+</html>

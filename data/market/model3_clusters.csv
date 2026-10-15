@@ -1,0 +1,27 @@
+ticker,name,group,cluster,closest,closest_corr
+2330.TW,TSMC,Foundries & memory,4,MediaTek,0.485
+005930.KS,Samsung Electronics,Foundries & memory,4,SK hynix,0.619
+000660.KS,SK hynix,Foundries & memory,4,Samsung Electronics,0.619
+MU,Micron,Foundries & memory,4,SK hynix,0.599
+INTC,Intel,Foundries & memory,5,GlobalFoundries,0.365
+GFS,GlobalFoundries,Foundries & memory,5,Qualcomm,0.378
+0981.HK,SMIC,Foundries & memory,6,SUMCO,0.166
+2303.TW,UMC,Foundries & memory,4,TSMC,0.478
+ASML.AS,ASML,Equipment,5,Lam Research,0.47
+AMAT,Applied Materials,Equipment,5,Lam Research,0.801
+LRCX,Lam Research,Equipment,5,Applied Materials,0.801
+KLAC,KLA,Equipment,5,Lam Research,0.763
+8035.T,Tokyo Electron,Equipment,4,SUMCO,0.49
+NVDA,Nvidia,Chip designers,5,AMD,0.345
+AMD,AMD,Chip designers,5,Nvidia,0.345
+QCOM,Qualcomm,Chip designers,5,GlobalFoundries,0.378
+2454.TW,MediaTek,Chip designers,4,TSMC,0.485
+LIN,Linde,Gases & materials,1,Air Liquide,0.362
+APD,Air Products,Gases & materials,1,Linde,0.362
+AI.PA,Air Liquide,Gases & materials,1,Linde,0.362
+ENTG,Entegris,Gases & materials,5,Applied Materials,0.512
+4063.T,Shin-Etsu Chemical,Gases & materials,4,Tokyo Electron,0.46
+3436.T,SUMCO,Gases & materials,4,Tokyo Electron,0.49
+4091.T,Nippon Sanso,Gases & materials,2,Shin-Etsu Chemical,0.255
+MP,MP Materials,Rare earths,3,Lynas,0.392
+LYC.AX,Lynas,Rare earths,3,MP Materials,0.392

@@ -1,0 +1,27 @@
+ticker,name,group,country,home_index,world_market,chip_sector,home_market,company_specific,weeks
+2330.TW,TSMC,Foundries & memory,Taiwan,^TWII,0.2052,0.1056,0.4607,0.2285,598
+005930.KS,Samsung Electronics,Foundries & memory,South Korea,^KS11,0.2025,0.0567,0.4131,0.3278,613
+000660.KS,SK hynix,Foundries & memory,South Korea,^KS11,0.165,0.1427,0.2712,0.4211,613
+MU,Micron,Foundries & memory,United States,^GSPC,0.3014,0.2494,0.0033,0.4459,615
+INTC,Intel,Foundries & memory,United States,^GSPC,0.2394,0.1598,0.0023,0.5985,615
+GFS,GlobalFoundries,Foundries & memory,United States,^GSPC,0.3086,0.1646,0.0006,0.5262,259
+0981.HK,SMIC,Foundries & memory,China,^HSI,0.0448,0.0195,0.1245,0.8111,615
+2303.TW,UMC,Foundries & memory,Taiwan,^TWII,0.0904,0.0633,0.2165,0.6298,598
+ASML.AS,ASML,Equipment,Netherlands,,0.4111,0.1427,0.0,0.4462,615
+AMAT,Applied Materials,Equipment,United States,^GSPC,0.4365,0.281,0.0001,0.2823,615
+LRCX,Lam Research,Equipment,United States,^GSPC,0.4458,0.2793,0.0003,0.2745,615
+KLAC,KLA,Equipment,United States,^GSPC,0.3913,0.2867,0.0001,0.3219,615
+8035.T,Tokyo Electron,Equipment,Japan,^N225,0.2599,0.1409,0.1736,0.4256,612
+NVDA,Nvidia,Chip designers,United States,^GSPC,0.382,0.1884,0.0092,0.4204,615
+AMD,AMD,Chip designers,United States,^GSPC,0.2513,0.1703,0.0007,0.5778,615
+QCOM,Qualcomm,Chip designers,United States,^GSPC,0.3111,0.1735,0.0015,0.5139,615
+2454.TW,MediaTek,Chip designers,Taiwan,^TWII,0.1543,0.1003,0.2562,0.4893,598
+LIN,Linde,Gases & materials,United States,^GSPC,0.4633,0.0108,0.0,0.5259,615
+APD,Air Products,Gases & materials,United States,^GSPC,0.3251,0.0103,0.0005,0.664,615
+AI.PA,Air Liquide,Gases & materials,France,,0.3491,0.0114,0.0,0.6395,615
+ENTG,Entegris,Gases & materials,United States,^GSPC,0.3854,0.1956,0.0025,0.4165,615
+4063.T,Shin-Etsu Chemical,Gases & materials,Japan,^N225,0.3077,0.0204,0.1891,0.4828,612
+3436.T,SUMCO,Gases & materials,Japan,^N225,0.2108,0.0801,0.1355,0.5735,612
+4091.T,Nippon Sanso,Gases & materials,Japan,^N225,0.2499,0.0099,0.1157,0.6245,612
+MP,MP Materials,Rare earths,United States,^GSPC,0.1362,0.0094,0.0462,0.8083,329
+LYC.AX,Lynas,Rare earths,Australia,,0.0974,0.0,0.0,0.9025,615

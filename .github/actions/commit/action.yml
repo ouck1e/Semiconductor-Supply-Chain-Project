@@ -1,0 +1,24 @@
+name: Commit site data
+description: Commit changed files and push, retrying if another job pushed first.
+inputs:
+  message:
+    description: Commit message
+    required: true
+  paths:
+    description: Paths to stage
+    default: docs
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+        git add ${{ inputs.paths }}
+        if git diff --cached --quiet; then echo "Nothing changed."; exit 0; fi
+        git commit -m "${{ inputs.message }}"
+        for i in 1 2 3 4; do
+          if git pull --rebase -X theirs origin main && git push origin HEAD:main; then exit 0; fi
+          sleep $((i * 10))
+        done
+        echo "Push failed after 4 tries"; exit 1

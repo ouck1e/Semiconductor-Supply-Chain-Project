@@ -1,0 +1,44 @@
+# Every hour: collect chip and supply-chain news, tag it, flag alerts, publish docs/data/news.json.
+name: News (hourly)
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: site-data
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests pandas
+      - name: Restore the news archive
+        uses: actions/cache/restore@v4
+        with:
+          path: data/news/news.db
+          key: news-db-${{ github.run_id }}
+          restore-keys: news-db-
+      - name: Collect news
+        run: python news_collector.py
+      - name: Save the news archive
+        if: always() && hashFiles('data/news/news.db') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: data/news/news.db
+          key: news-db-${{ github.run_id }}
+      - run: python build_site_data.py news
+      - uses: ./.github/actions/commit
+        with:
+          message: "News update"
+  deploy:
+    needs: collect
+    uses: ./.github/workflows/deploy.yml

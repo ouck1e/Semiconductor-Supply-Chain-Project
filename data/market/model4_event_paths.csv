@@ -1,0 +1,261 @@
+event,role,day,car_pct,band_pct
+hf_2019,Expected losers,-5,0.7598,3.507
+hf_2019,Expected losers,-4,1.8059,4.9597
+hf_2019,Expected losers,-3,3.9543,6.0743
+hf_2019,Expected losers,-2,6.4091,7.014
+hf_2019,Expected losers,-1,5.8341,7.8419
+hf_2019,Expected losers,0,5.1485,8.5904
+hf_2019,Expected losers,1,4.9024,9.2787
+hf_2019,Expected losers,2,1.3759,9.9193
+hf_2019,Expected losers,3,2.2134,10.5211
+hf_2019,Expected losers,4,0.9609,11.0902
+hf_2019,Expected losers,5,-1.1716,11.6315
+hf_2019,Expected losers,6,1.3945,12.1487
+hf_2019,Expected losers,7,3.8656,12.6447
+hf_2019,Expected losers,8,6.515,13.1221
+hf_2019,Expected losers,9,6.0379,13.5826
+hf_2019,Expected losers,10,6.9695,14.0281
+hf_2019,Expected losers,11,7.5066,14.4598
+hf_2019,Expected losers,12,6.2406,14.879
+hf_2019,Expected losers,13,6.5709,15.2867
+hf_2019,Expected losers,14,9.6256,15.6839
+hf_2019,Expected losers,15,10.9587,16.0712
+hf_2019,Expected losers,16,10.9345,16.4494
+hf_2019,Expected losers,17,8.551,16.8191
+hf_2019,Expected losers,18,10.7779,17.1808
+hf_2019,Expected losers,19,10.8333,17.5351
+hf_2019,Expected losers,20,7.5322,17.8824
+hf_2019,Rest of chip universe,-5,0.028,1.3473
+hf_2019,Rest of chip universe,-4,0.1443,1.9054
+hf_2019,Rest of chip universe,-3,2.134,2.3337
+hf_2019,Rest of chip universe,-2,3.3608,2.6947
+hf_2019,Rest of chip universe,-1,3.0231,3.0127
+hf_2019,Rest of chip universe,0,4.0164,3.3003
+hf_2019,Rest of chip universe,1,2.9439,3.5647
+hf_2019,Rest of chip universe,2,1.5738,3.8108
+hf_2019,Rest of chip universe,3,1.4729,4.042
+hf_2019,Rest of chip universe,4,2.027,4.2606
+hf_2019,Rest of chip universe,5,2.1391,4.4686
+hf_2019,Rest of chip universe,6,1.9989,4.6673
+hf_2019,Rest of chip universe,7,2.2439,4.8579
+hf_2019,Rest of chip universe,8,3.3482,5.0413
+hf_2019,Rest of chip universe,9,3.3374,5.2182
+hf_2019,Rest of chip universe,10,3.5396,5.3893
+hf_2019,Rest of chip universe,11,4.1566,5.5552
+hf_2019,Rest of chip universe,12,4.6467,5.7163
+hf_2019,Rest of chip universe,13,5.9195,5.8729
+hf_2019,Rest of chip universe,14,7.2647,6.0255
+hf_2019,Rest of chip universe,15,7.5489,6.1743
+hf_2019,Rest of chip universe,16,8.2853,6.3196
+hf_2019,Rest of chip universe,17,9.0896,6.4616
+hf_2019,Rest of chip universe,18,8.2573,6.6006
+hf_2019,Rest of chip universe,19,8.0528,6.7367
+hf_2019,Rest of chip universe,20,8.6798,6.8701
+neon_2022,Expected losers,-5,0.5824,1.8252
+neon_2022,Expected losers,-4,1.4093,2.5812
+neon_2022,Expected losers,-3,0.7556,3.1614
+neon_2022,Expected losers,-2,0.852,3.6504
+neon_2022,Expected losers,-1,2.5225,4.0813
+neon_2022,Expected losers,0,0.9052,4.4708
+neon_2022,Expected losers,1,-0.503,4.8291
+neon_2022,Expected losers,2,-0.3158,5.1625
+neon_2022,Expected losers,3,-0.0525,5.4756
+neon_2022,Expected losers,4,1.3581,5.7718
+neon_2022,Expected losers,5,1.1365,6.0536
+neon_2022,Expected losers,6,-1.4073,6.3227
+neon_2022,Expected losers,7,-1.893,6.5809
+neon_2022,Expected losers,8,-1.2128,6.8293
+neon_2022,Expected losers,9,-1.9678,7.069
+neon_2022,Expected losers,10,-2.4156,7.3009
+neon_2022,Expected losers,11,-2.5488,7.5256
+neon_2022,Expected losers,12,-5.9402,7.7437
+neon_2022,Expected losers,13,-8.3087,7.9559
+neon_2022,Expected losers,14,-4.913,8.1626
+neon_2022,Expected losers,15,-5.0903,8.3642
+neon_2022,Expected losers,16,-6.1625,8.561
+neon_2022,Expected losers,17,-6.1077,8.7534
+neon_2022,Expected losers,18,-6.2366,8.9417
+neon_2022,Expected losers,19,-6.4995,9.1261
+neon_2022,Expected losers,20,-6.436,9.3068
+neon_2022,Expected winners,-5,1.4345,1.1186
+neon_2022,Expected winners,-4,1.5297,1.582
+neon_2022,Expected winners,-3,1.3439,1.9376
+neon_2022,Expected winners,-2,0.7161,2.2373
+neon_2022,Expected winners,-1,0.9259,2.5014
+neon_2022,Expected winners,0,0.0131,2.7401
+neon_2022,Expected winners,1,0.2298,2.9597
+neon_2022,Expected winners,2,-0.3988,3.164
+neon_2022,Expected winners,3,-1.0111,3.3559
+neon_2022,Expected winners,4,-1.5353,3.5375
+neon_2022,Expected winners,5,-1.675,3.7101
+neon_2022,Expected winners,6,-2.5455,3.8751
+neon_2022,Expected winners,7,-3.6211,4.0333
+neon_2022,Expected winners,8,-4.3247,4.1856
+neon_2022,Expected winners,9,-1.9039,4.3325
+neon_2022,Expected winners,10,-1.5861,4.4746
+neon_2022,Expected winners,11,-2.3127,4.6123
+neon_2022,Expected winners,12,-1.2432,4.746
+neon_2022,Expected winners,13,-0.3283,4.8761
+neon_2022,Expected winners,14,-0.8973,5.0027
+neon_2022,Expected winners,15,-0.2395,5.1263
+neon_2022,Expected winners,16,-0.2128,5.2469
+neon_2022,Expected winners,17,-0.3181,5.3648
+neon_2022,Expected winners,18,-1.0335,5.4802
+neon_2022,Expected winners,19,-0.4833,5.5932
+neon_2022,Expected winners,20,1.069,5.704
+neon_2022,Rest of chip universe,-5,0.5502,1.9701
+neon_2022,Rest of chip universe,-4,0.7715,2.7862
+neon_2022,Rest of chip universe,-3,0.4492,3.4124
+neon_2022,Rest of chip universe,-2,0.6166,3.9403
+neon_2022,Rest of chip universe,-1,0.8202,4.4054
+neon_2022,Rest of chip universe,0,2.5664,4.8259
+neon_2022,Rest of chip universe,1,2.1543,5.2125
+neon_2022,Rest of chip universe,2,2.7989,5.5724
+neon_2022,Rest of chip universe,3,2.646,5.9104
+neon_2022,Rest of chip universe,4,2.186,6.2301
+neon_2022,Rest of chip universe,5,1.3607,6.5342
+neon_2022,Rest of chip universe,6,-0.2182,6.8248
+neon_2022,Rest of chip universe,7,-0.1954,7.1035
+neon_2022,Rest of chip universe,8,1.7765,7.3716
+neon_2022,Rest of chip universe,9,1.1715,7.6303
+neon_2022,Rest of chip universe,10,1.5556,7.8806
+neon_2022,Rest of chip universe,11,1.4785,8.1231
+neon_2022,Rest of chip universe,12,-0.4626,8.3586
+neon_2022,Rest of chip universe,13,-1.4863,8.5877
+neon_2022,Rest of chip universe,14,-0.8488,8.8108
+neon_2022,Rest of chip universe,15,-1.6078,9.0283
+neon_2022,Rest of chip universe,16,-0.836,9.2408
+neon_2022,Rest of chip universe,17,-0.6259,9.4485
+neon_2022,Rest of chip universe,18,-1.2734,9.6517
+neon_2022,Rest of chip universe,19,-0.5823,9.8507
+neon_2022,Rest of chip universe,20,0.7138,10.0458
+gallium_2023,Expected winners,-5,-0.7418,3.8202
+gallium_2023,Expected winners,-4,0.07,5.4025
+gallium_2023,Expected winners,-3,0.2705,6.6167
+gallium_2023,Expected winners,-2,-0.6486,7.6403
+gallium_2023,Expected winners,-1,-1.3595,8.5422
+gallium_2023,Expected winners,0,-0.8198,9.3575
+gallium_2023,Expected winners,1,4.8406,10.1072
+gallium_2023,Expected winners,2,6.947,10.8051
+gallium_2023,Expected winners,3,7.2264,11.4605
+gallium_2023,Expected winners,4,7.8814,12.0804
+gallium_2023,Expected winners,5,7.4334,12.6701
+gallium_2023,Expected winners,6,7.2027,13.2334
+gallium_2023,Expected winners,7,6.0009,13.7738
+gallium_2023,Expected winners,8,4.0061,14.2938
+gallium_2023,Expected winners,9,4.6535,14.7954
+gallium_2023,Expected winners,10,2.3071,15.2807
+gallium_2023,Expected winners,11,0.0522,15.751
+gallium_2023,Expected winners,12,0.2205,16.2076
+gallium_2023,Expected winners,13,-0.8016,16.6517
+gallium_2023,Expected winners,14,-0.8781,17.0843
+gallium_2023,Expected winners,15,-2.0142,17.5062
+gallium_2023,Expected winners,16,-0.2705,17.9182
+gallium_2023,Expected winners,17,-1.0992,18.3209
+gallium_2023,Expected winners,18,-2.0067,18.7149
+gallium_2023,Expected winners,19,-1.8666,19.1008
+gallium_2023,Expected winners,20,-2.6005,19.4791
+gallium_2023,Rest of chip universe,-5,0.7842,1.4047
+gallium_2023,Rest of chip universe,-4,1.6413,1.9866
+gallium_2023,Rest of chip universe,-3,1.4815,2.4331
+gallium_2023,Rest of chip universe,-2,1.1189,2.8095
+gallium_2023,Rest of chip universe,-1,0.2507,3.1411
+gallium_2023,Rest of chip universe,0,0.575,3.4409
+gallium_2023,Rest of chip universe,1,-0.2533,3.7166
+gallium_2023,Rest of chip universe,2,-0.2489,3.9732
+gallium_2023,Rest of chip universe,3,-1.125,4.2142
+gallium_2023,Rest of chip universe,4,-0.6781,4.4422
+gallium_2023,Rest of chip universe,5,-1.4109,4.659
+gallium_2023,Rest of chip universe,6,-1.0667,4.8661
+gallium_2023,Rest of chip universe,7,-1.2522,5.0648
+gallium_2023,Rest of chip universe,8,-1.0509,5.256
+gallium_2023,Rest of chip universe,9,0.3765,5.4405
+gallium_2023,Rest of chip universe,10,-0.5739,5.6189
+gallium_2023,Rest of chip universe,11,-1.6373,5.7919
+gallium_2023,Rest of chip universe,12,-3.1817,5.9598
+gallium_2023,Rest of chip universe,13,-3.5825,6.1231
+gallium_2023,Rest of chip universe,14,-4.1483,6.2822
+gallium_2023,Rest of chip universe,15,-3.9424,6.4373
+gallium_2023,Rest of chip universe,16,-4.2854,6.5888
+gallium_2023,Rest of chip universe,17,-2.4923,6.7369
+gallium_2023,Rest of chip universe,18,-0.4122,6.8818
+gallium_2023,Rest of chip universe,19,-0.2031,7.0237
+gallium_2023,Rest of chip universe,20,-0.2447,7.1628
+helium_2026,Expected losers,-5,0.7381,2.5615
+helium_2026,Expected losers,-4,3.6021,3.6225
+helium_2026,Expected losers,-3,6.3259,4.4366
+helium_2026,Expected losers,-2,9.4019,5.1229
+helium_2026,Expected losers,-1,7.8377,5.7276
+helium_2026,Expected losers,0,1.0268,6.2743
+helium_2026,Expected losers,1,-5.9161,6.777
+helium_2026,Expected losers,2,-2.6035,7.2449
+helium_2026,Expected losers,3,-2.4299,7.6844
+helium_2026,Expected losers,4,-6.9394,8.1001
+helium_2026,Expected losers,5,-3.7829,8.4954
+helium_2026,Expected losers,6,-2.9341,8.8732
+helium_2026,Expected losers,7,-2.0297,9.2355
+helium_2026,Expected losers,8,-3.4777,9.5841
+helium_2026,Expected losers,9,-2.3167,9.9205
+helium_2026,Expected losers,10,-2.5402,10.2459
+helium_2026,Expected losers,11,1.6666,10.5612
+helium_2026,Expected losers,12,0.4489,10.8674
+helium_2026,Expected losers,13,-0.8714,11.1652
+helium_2026,Expected losers,14,-4.0346,11.4552
+helium_2026,Expected losers,15,-3.5456,11.7381
+helium_2026,Expected losers,16,-4.0623,12.0143
+helium_2026,Expected losers,17,-6.0937,12.2844
+helium_2026,Expected losers,18,-5.9293,12.5486
+helium_2026,Expected losers,19,-7.1471,12.8073
+helium_2026,Expected losers,20,-11.5042,13.061
+helium_2026,Expected winners,-5,1.0523,1.4411
+helium_2026,Expected winners,-4,1.0981,2.038
+helium_2026,Expected winners,-3,0.9637,2.496
+helium_2026,Expected winners,-2,0.4684,2.8821
+helium_2026,Expected winners,-1,1.6497,3.2223
+helium_2026,Expected winners,0,1.9873,3.5299
+helium_2026,Expected winners,1,0.4191,3.8127
+helium_2026,Expected winners,2,-0.5653,4.0759
+helium_2026,Expected winners,3,-0.428,4.3232
+helium_2026,Expected winners,4,-0.9763,4.557
+helium_2026,Expected winners,5,-2.6161,4.7795
+helium_2026,Expected winners,6,-1.7538,4.992
+helium_2026,Expected winners,7,-0.9712,5.1958
+helium_2026,Expected winners,8,1.2324,5.392
+helium_2026,Expected winners,9,2.5501,5.5812
+helium_2026,Expected winners,10,4.4038,5.7643
+helium_2026,Expected winners,11,3.722,5.9417
+helium_2026,Expected winners,12,3.8735,6.1139
+helium_2026,Expected winners,13,2.7774,6.2815
+helium_2026,Expected winners,14,2.7656,6.4446
+helium_2026,Expected winners,15,1.6442,6.6038
+helium_2026,Expected winners,16,3.6133,6.7592
+helium_2026,Expected winners,17,4.5307,6.9111
+helium_2026,Expected winners,18,5.3346,7.0597
+helium_2026,Expected winners,19,6.0528,7.2053
+helium_2026,Expected winners,20,5.9984,7.348
+helium_2026,Rest of chip universe,-5,0.999,2.0598
+helium_2026,Rest of chip universe,-4,1.5811,2.913
+helium_2026,Rest of chip universe,-3,2.2354,3.5677
+helium_2026,Rest of chip universe,-2,0.7079,4.1196
+helium_2026,Rest of chip universe,-1,1.5586,4.6058
+helium_2026,Rest of chip universe,0,2.3981,5.0455
+helium_2026,Rest of chip universe,1,-0.1851,5.4497
+helium_2026,Rest of chip universe,2,-0.7365,5.826
+helium_2026,Rest of chip universe,3,0.0528,6.1794
+helium_2026,Rest of chip universe,4,-1.9232,6.5137
+helium_2026,Rest of chip universe,5,-2.4351,6.8316
+helium_2026,Rest of chip universe,6,-0.4022,7.1353
+helium_2026,Rest of chip universe,7,1.3852,7.4267
+helium_2026,Rest of chip universe,8,0.6515,7.7071
+helium_2026,Rest of chip universe,9,0.9924,7.9776
+helium_2026,Rest of chip universe,10,0.9974,8.2392
+helium_2026,Rest of chip universe,11,0.7645,8.4928
+helium_2026,Rest of chip universe,12,3.3386,8.739
+helium_2026,Rest of chip universe,13,2.5352,8.9784
+helium_2026,Rest of chip universe,14,2.3385,9.2117
+helium_2026,Rest of chip universe,15,0.8255,9.4392
+helium_2026,Rest of chip universe,16,3.4577,9.6613
+helium_2026,Rest of chip universe,17,3.5177,9.8784
+helium_2026,Rest of chip universe,18,1.2435,10.0909
+helium_2026,Rest of chip universe,19,2.1615,10.299
+helium_2026,Rest of chip universe,20,-1.8838,10.5029

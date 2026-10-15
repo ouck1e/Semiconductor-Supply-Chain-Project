@@ -1,0 +1,55 @@
+# Mondays: fetch new UN Comtrade months, the Geopolitical Risk Index, rerun the supplier-risk model,
+# and refresh the globe's risk layer. Needs the COMTRADE_KEY repository secret.
+name: Trade data and risk (weekly)
+on:
+  schedule:
+    - cron: "41 9 * * 1"
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Re-download every year (uses about 360 of the 500 daily Comtrade calls)"
+        type: boolean
+        default: false
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: site-data
+  cancel-in-progress: false
+jobs:
+  trade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      COMTRADE_KEY: ${{ secrets.COMTRADE_KEY }}
+      MPLBACKEND: Agg
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Check the Comtrade key
+        run: |
+          if [ -z "$COMTRADE_KEY" ]; then
+            echo "::error::Add your Comtrade key as a repository secret named COMTRADE_KEY (Settings > Secrets and variables > Actions)."
+            exit 1
+          fi
+      - name: Fetch new months (reporting countries)
+        run: python fetch_trade.py ${{ inputs.full && '--full' || '' }}
+      - name: Fetch new months (more importers, Taiwan mirror)
+        run: python fetch_trade_extra.py ${{ inputs.full && '--full' || '' }}
+      - name: Geopolitical Risk Index
+        run: python fetch_gpr.py --refresh || echo "GPR download failed; keeping the last saved index"
+      - name: Supplier-risk model
+        run: python phase3_models.py
+      - run: python build_site_data.py risk
+      - uses: ./.github/actions/commit
+        with:
+          message: "Weekly trade data and risk"
+          paths: docs data/external/gpr_monthly.csv data/raw data/raw_mirror
+  deploy:
+    needs: trade
+    uses: ./.github/workflows/deploy.yml

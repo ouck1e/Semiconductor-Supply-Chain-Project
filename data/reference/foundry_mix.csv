@@ -1,0 +1,7 @@
+company,ticker,foundry_ticker,share,confidence,basis
+Nvidia,NVDA,2330.TW,1.00,high,"GPUs made at TSMC"
+AMD,AMD,2330.TW,0.95,medium,"CPUs/GPUs at TSMC; some legacy dies at GlobalFoundries"
+AMD,AMD,GFS,0.05,low,"Wafer supply agreement for older nodes"
+Qualcomm,QCOM,2330.TW,0.70,low,"Most Snapdragon at TSMC (assumed split)"
+Qualcomm,QCOM,005930.KS,0.30,low,"Some chips at Samsung Foundry (assumed split)"
+MediaTek,2454.TW,2330.TW,1.00,medium,"Leading-edge chips at TSMC"
