@@ -91,6 +91,9 @@ def merge_years(path: Path, new: pd.DataFrame, years: list) -> pd.DataFrame:
         return new
     old = pd.read_csv(path)
     old = old[~old["period"].astype(str).str[:4].astype(int).isin(years)]
+    old["period"] = old["period"].astype(str)
+    if len(new):
+        new = new.assign(period=new["period"].astype(str))
     return pd.concat([old, new], ignore_index=True).sort_values("period", kind="stable") if len(new) else old
 
 
