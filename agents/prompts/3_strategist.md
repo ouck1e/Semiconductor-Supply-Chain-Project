@@ -23,6 +23,20 @@ Report:
 
 If a number you need is missing, write MISSING. Do not guess. Never call a plan safe, profitable or high-probability.
 
+After your handoff block, end your reply with this block, filled in. The scoring script reads it to check later
+whether the Risk Manager's call on your plan was right, so keep the labels and use plain numbers (no % signs).
+ACTION is BUY if you propose a trade at the Day 0 close, even one you have doubts about, and NO TRADE if there is no
+setup (then the four numbers are 0).
+
+PLAN
+ACTION: <BUY | NO TRADE>
+SETUP: <setup name or none>
+SIZE_PCT: <number>
+STOP_PCT: <number>
+TARGET_PCT: <number>
+MAX_HOLD_DAYS: <number>
+END PLAN
+
 === FIXED STRATEGY RULES AND LIMITS ===
 {RULES}
 

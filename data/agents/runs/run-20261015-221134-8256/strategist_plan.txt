@@ -1,0 +1,11 @@
+Backfilled on 2026-10-15 from the Strategist's reply (the reply in the Claude Code chat (not saved)), which predates the PLAN block.
+Strategist said: No setup.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

@@ -118,6 +118,59 @@ class ParseDecision(unittest.TestCase):
         self.assertEqual(score.check_rules(score.parse_decision(GOOD), CFG), ("BUY", []))
 
 
+PLAN = """Strategist analysis...
+
+PLAN
+ACTION: BUY
+SETUP: pullback
+SIZE_PCT: 5
+STOP_PCT: 8
+TARGET_PCT: 10
+MAX_HOLD_DAYS: 20
+END PLAN
+"""
+
+
+class StrategistPlan(unittest.TestCase):
+    def test_parse_and_missing(self):
+        self.assertEqual(score.parse_plan(PLAN)["STOP_PCT"], 8.0)
+        self.assertIsNone(score.parse_plan("No plan block here."))
+        with self.assertRaises(score.DecisionError):
+            score.parse_plan(PLAN.replace("STOP_PCT: 8\n", ""))
+
+    def test_plan_and_decision_blocks_are_read_separately(self):
+        both = PLAN + "\n" + GOOD
+        self.assertEqual(score.parse_plan(both)["TARGET_PCT"], 10.0)
+        self.assertEqual(score.parse_decision(both)["TARGET_PCT"], 14.0)
+
+    def test_veto_of_a_loser_is_right(self):
+        s = series([100, 100, 95, 91, 90])                  # plan's 8% stop is hit
+        cols, pending = score.score_plan(score.parse_plan(PLAN), "x", "NO TRADE", s, s.index[0], CFG)
+        self.assertFalse(pending)
+        self.assertEqual((cols["vetoed"], cols["veto_right"], cols["plan_exit_reason"]), ("yes", "yes", "stop"))
+        self.assertAlmostEqual(cols["veto_saved_pct"], -cols["plan_ret_pct"])
+        self.assertGreater(cols["veto_saved_pct"], 0)
+
+    def test_veto_of_a_winner_is_wrong_and_approval_is_not_a_veto(self):
+        s = series([100, 100, 104, 111, 112])
+        cols, _ = score.score_plan(score.parse_plan(PLAN), "x", "NO TRADE", s, s.index[0], CFG)
+        self.assertEqual((cols["veto_right"], cols["plan_exit_reason"]), ("no", "target"))
+        self.assertLess(cols["veto_saved_pct"], 0)
+        cols, _ = score.score_plan(score.parse_plan(PLAN), "x", "BUY", s, s.index[0], CFG)
+        self.assertEqual((cols["vetoed"], cols["veto_right"]), ("no", ""))
+
+    def test_find_plan_prefers_the_saved_reply_over_the_backfill(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            d = Path(tmp)
+            self.assertEqual(score.find_plan(d), (None, ""))
+            (d / "strategist_plan.txt").write_text(PLAN.replace("ACTION: BUY", "ACTION: NO TRADE"), encoding="utf-8")
+            (d / "reply_3.txt").write_text("an old reply with no PLAN block", encoding="utf-8")
+            self.assertEqual(score.find_plan(d)[1], "strategist_plan.txt")
+            (d / "strategist.txt").write_text(PLAN, encoding="utf-8")
+            plan, src = score.find_plan(d)
+            self.assertEqual((plan["ACTION"], src), ("BUY", "strategist.txt"))
+
+
 @unittest.skipUnless(HAVE_DB, "needs data/market/market.db")
 class WithMarketData(unittest.TestCase):
     @classmethod

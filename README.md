@@ -270,11 +270,13 @@ handoff block into the next. The Boss ends with a `DECISION` block.
 on closes, fees and slippage), compares it with what the baseline earned on the same stock over the same days and with
 SOXX. It also compares every run with simply buying the stock and holding it for the whole period (same costs, no
 stop or target). That credits a NO TRADE before a fall as a "good skip" even when the baseline was out of the stock
-too. It appends to:
+too. If the Strategist's reply is saved in the run folder as `strategist.txt`, its `PLAN` block is played out as
+well, approved or not. A veto counts as right when the vetoed plan would have lost money, so the record shows whether
+the Risk Manager is helping. (Runs from before the PLAN block have a backfilled `strategist_plan.txt`.) It appends to:
 - `data/agents/trade_log.csv`: one row per run, using the guide's trade-log columns plus the scores
 - `data/agents/scoreboard.csv`: per prompt version and split: hit rate, average excess over the baseline, how often
-  it beat the baseline, average result vs holding the stock, share of skips that were good skips, worst trade,
-  longest losing streak
+  it beat the baseline, average result vs holding the stock, share of skips that were good skips, BUY plans proposed,
+  vetoes, share of vetoes that were right, total return the vetoes saved, worst trade, longest losing streak
 - `figures/agent_vs_phase8.png`: the running average excess over the baseline, run by run, coloured by prompt version
 
 Every run records a `prompts_version` (a hash of `agents/prompts/`), so changing a prompt starts a new line on the

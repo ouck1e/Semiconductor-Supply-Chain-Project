@@ -14,6 +14,11 @@ a NO TRADE before a fall is a "good skip", and vs_buy_and_hold_pct shows the los
 A BUY the rules did not allow (no approval, Risk Manager rejected, size or stop over the limit) is logged as a broken
 rule and counted as NO TRADE.
 
+The Strategist's PLAN block (from strategist.txt, reply_3.txt or a backfilled strategist_plan.txt in the run folder)
+is played out too, approved or not. When the team vetoed a BUY plan, the veto is right if that plan would have lost
+money, and veto_saved_pct is the loss it avoided (negative when it blocked a winner). This is how the record shows
+whether the Risk Manager is helping.
+
 Writes  data/agents/trade_log.csv     one row per run (the guide's trade-log columns plus the scores)
         data/agents/scoreboard.csv    totals per prompt version and split: hit rate, excess vs baseline, losing streak
         figures/agent_vs_phase8.png   running average excess return over the phase 8 baseline, run by run
@@ -46,7 +51,10 @@ LOG_COLS = [
     # scoring
     "run_id", "split", "blind", "prompts_version", "baseline_version", "decision_date", "action", "entry_date",
     "exit_date", "exit_reason", "agent_ret_pct", "baseline_ret_pct", "soxx_ret_pct", "excess_vs_baseline_pct",
-    "stock_hold_ret_pct", "vs_buy_and_hold_pct", "good_skip", "status",
+    "stock_hold_ret_pct", "vs_buy_and_hold_pct", "good_skip",
+    # the Strategist's plan, played out whether or not it was approved, so each veto can be judged
+    "plan_source", "plan_action", "plan_setup", "plan_size_pct", "plan_stop_pct", "plan_target_pct", "plan_hold_days",
+    "plan_ret_pct", "plan_exit_reason", "vetoed", "veto_right", "veto_saved_pct", "status",
 ]
 
 
@@ -54,33 +62,71 @@ class DecisionError(ValueError):
     pass
 
 
-def parse_decision(text):
-    """Read the Boss's DECISION block. Raises DecisionError rather than guessing when it is missing or malformed."""
-    m = re.search(r"^\s*\**DECISION\**\s*$(.*?)^\s*\**END DECISION\**\s*$", text, re.S | re.M | re.I)
-    if not m:
-        raise DecisionError("No DECISION ... END DECISION block found at the end of the Boss's reply.")
+NUMBERS = ("SIZE_PCT", "STOP_PCT", "TARGET_PCT", "MAX_HOLD_DAYS")
+# Where the Strategist's reply may be saved, in order: by hand, by an automated run, or backfilled for old runs.
+PLAN_FILES = ("strategist.txt", "reply_3.txt", "strategist_plan.txt")
+
+
+def read_block(text, name):
+    """The fields of the last NAME ... END NAME block in text, or None when there is no such block."""
+    found = re.findall(rf"^\s*\**{name}\**\s*$(.*?)^\s*\**END {name}\**\s*$", text, re.S | re.M | re.I)
+    if not found:
+        return None
     d = {}
-    for line in m.group(1).splitlines():
+    for line in found[-1].splitlines():
         k, sep, v = line.strip().strip("*").partition(":")
         k = k.strip().strip("*").upper().replace(" ", "_")
         if sep and k in FIELDS:
             d[k] = v.strip().strip("*").strip()
-    missing = [k for k in REQUIRED if not d.get(k)]
+    return d
+
+
+def check_numbers_and_action(d, name, required):
+    missing = [k for k in required if not d.get(k)]
     if missing:
-        raise DecisionError(f"DECISION block is missing: {', '.join(missing)}")
-    d["FINAL_STATUS"] = d["FINAL_STATUS"].upper()
+        raise DecisionError(f"{name} block is missing: {', '.join(missing)}")
     d["ACTION"] = d["ACTION"].upper().replace("_", " ")
-    if d["FINAL_STATUS"] not in STATUSES:
-        raise DecisionError(f"FINAL_STATUS must be one of {sorted(STATUSES)}, got {d['FINAL_STATUS']!r}")
     if d["ACTION"] not in {"BUY", "NO TRADE"}:
         raise DecisionError(f"ACTION must be BUY or NO TRADE (long-only), got {d['ACTION']!r}")
-    for k in ("SIZE_PCT", "STOP_PCT", "TARGET_PCT", "MAX_HOLD_DAYS"):
+    for k in NUMBERS:
         try:
             d[k] = float(d[k].replace("%", "").replace(",", ""))
         except ValueError:
             raise DecisionError(f"{k} must be a plain number, got {d[k]!r}") from None
+    return d
+
+
+def parse_decision(text):
+    """Read the Boss's DECISION block. Raises DecisionError rather than guessing when it is missing or malformed."""
+    d = read_block(text, "DECISION")
+    if d is None:
+        raise DecisionError("No DECISION ... END DECISION block found at the end of the Boss's reply.")
+    d = check_numbers_and_action(d, "DECISION", REQUIRED)
+    d["FINAL_STATUS"] = d["FINAL_STATUS"].upper()
+    if d["FINAL_STATUS"] not in STATUSES:
+        raise DecisionError(f"FINAL_STATUS must be one of {sorted(STATUSES)}, got {d['FINAL_STATUS']!r}")
     d["RISK_DECISION"] = d.get("RISK_DECISION", "").upper()
     return d
+
+
+def parse_plan(text):
+    """Read the Strategist's PLAN block: None if there isn't one, DecisionError if it is malformed."""
+    d = read_block(text, "PLAN")
+    return None if d is None else check_numbers_and_action(d, "PLAN", ["ACTION", *NUMBERS])
+
+
+def find_plan(run_dir):
+    """(plan, source note) from the first file in the run folder that holds a PLAN block."""
+    for name in PLAN_FILES:
+        p = run_dir / name
+        if p.exists():
+            try:
+                plan = parse_plan(p.read_text(encoding="utf-8"))
+            except DecisionError as e:
+                return None, f"{name}: unreadable PLAN ({e})"
+            if plan is not None:
+                return plan, name
+    return None, ""
 
 
 def check_rules(d, cfg):
@@ -113,10 +159,36 @@ def baseline_held(ticker, out_dir):
     return (w[ticker] > 0).astype(float).shift(1).fillna(0), w.index
 
 
+def score_plan(plan, source, action, price, D, cfg):
+    """Play out the Strategist's plan on the prices that followed and judge the veto, if there was one.
+    A veto is right when the vetoed plan would have lost money after costs; veto_saved_pct is the loss it avoided
+    (negative when it blocked a winner)."""
+    out = dict(plan_source=source, plan_action="", plan_setup="", plan_size_pct=None, plan_stop_pct=None,
+               plan_target_pct=None, plan_hold_days=None, plan_ret_pct=None, plan_exit_reason="", vetoed="",
+               veto_right="", veto_saved_pct=None)
+    if plan is None:
+        return out, False
+    out.update(plan_action=plan["ACTION"], plan_setup=plan.get("SETUP", ""))
+    if plan["ACTION"] != "BUY":
+        return out, False
+    hold = int(min(max(plan["MAX_HOLD_DAYS"], 1), cfg["max_hold_days"]))
+    p = sim.simulate_trade(price, D, "BUY", plan["SIZE_PCT"], plan["STOP_PCT"], plan["TARGET_PCT"], hold, cfg)
+    out.update(plan_size_pct=plan["SIZE_PCT"], plan_stop_pct=plan["STOP_PCT"], plan_target_pct=plan["TARGET_PCT"],
+               plan_hold_days=hold, vetoed="yes" if action == "NO TRADE" else "no")
+    if p["status"] != "closed":
+        return out, True
+    out.update(plan_ret_pct=p["ret_pct"], plan_exit_reason=p["exit_reason"])
+    if action == "NO TRADE":
+        out.update(veto_right="yes" if p["ret_pct"] < 0 else "no", veto_saved_pct=-p["ret_pct"])
+    return out, False
+
+
 def score(key, decision, cfg, usd, out_dir):
     t, D = key["ticker"], pd.Timestamp(key["decision_date"])
     price = usd[t]
     action, broken = check_rules(decision, cfg)
+    plan, source = find_plan(out_dir / "runs" / key["run_id"])
+    plan_cols, plan_pending = score_plan(plan, source, action, price, D, cfg)
     hold = int(decision["MAX_HOLD_DAYS"]) if action == "BUY" else cfg["max_hold_days"]
     o = sim.simulate_trade(price, D, action, decision["SIZE_PCT"], decision["STOP_PCT"], decision["TARGET_PCT"], hold, cfg)
     if action == "BUY":
@@ -130,8 +202,8 @@ def score(key, decision, cfg, usd, out_dir):
         agent = 0.0
     # what simply buying at the next close and holding for the whole period would have done (no stop, no target)
     bh = sim.simulate_trade(price, D, "BUY", 0, 1e9, 1e9, hold, cfg)
-    pending = pending or bh["status"] != "closed"
-    row = dict(status="pending" if pending else "scored", action=action, entry_date=start, exit_date=end,
+    pending = pending or bh["status"] != "closed" or plan_pending
+    row = dict(**plan_cols,status="pending" if pending else "scored", action=action, entry_date=start, exit_date=end,
                exit_reason=o["exit_reason"] if action == "BUY" else "no position",
                agent_ret_pct=None, baseline_ret_pct=None, soxx_ret_pct=None, excess_vs_baseline_pct=None,
                stock_hold_ret_pct=None, vs_buy_and_hold_pct=None, good_skip="")
@@ -181,6 +253,7 @@ def scoreboard(log):
     groups += [(("all versions", s), g) for s, g in done.groupby("split")]
     for (ver, split), g in groups:
         buys, skips = g[g.action == "BUY"], g[g.action != "BUY"]
+        vetoes = g[(g.vetoed == "yes") & g.plan_ret_pct.notna()]
         ex = g.excess_vs_baseline_pct.dropna()
         rows.append(dict(
             prompts_version=ver, split=split, runs=len(g), buys=len(buys), no_trades=len(g) - len(buys),
@@ -191,6 +264,10 @@ def scoreboard(log):
             beat_baseline_pct=100 * (ex > 0).mean() if len(ex) else np.nan,
             avg_stock_hold_ret_pct=g.stock_hold_ret_pct.mean(), avg_vs_buy_and_hold_pct=g.vs_buy_and_hold_pct.mean(),
             good_skip_pct=100 * (skips.good_skip == "yes").mean() if len(skips) else np.nan,
+            # the Risk Manager's record: BUY plans it vetoed, how many of those would have lost, the total it saved
+            plans_buy=int((g.plan_action == "BUY").sum()), vetoes=len(vetoes),
+            veto_right_pct=100 * (vetoes.veto_right == "yes").mean() if len(vetoes) else np.nan,
+            total_veto_saved_pct=vetoes.veto_saved_pct.sum() if len(vetoes) else np.nan,
             worst_trade_pct=buys.agent_ret_pct.min() if len(buys) else np.nan,
             longest_losing_streak=longest_streak(buys.agent_ret_pct), first_run=g.date_time.min()[:10],
             last_run=g.date_time.max()[:10]))
@@ -280,6 +357,16 @@ def main():
                   f" | agent minus baseline {f(row['excess_vs_baseline_pct'])}")
             print(f"  holding the stock instead: {f(row['stock_hold_ret_pct'])} | agent minus holding "
                   f"{f(row['vs_buy_and_hold_pct'])}" + (f" | good skip: {row['good_skip']}" if row["good_skip"] else ""))
+            if row["plan_action"] == "BUY":
+                verdict = (f"veto {'right' if row['veto_right'] == 'yes' else 'wrong'}, saved {f(row['veto_saved_pct'])}"
+                           if row["vetoed"] == "yes" else "approved")
+                print(f"  Strategist's plan ({row['plan_source']}): BUY {row['plan_size_pct']:g}% size, "
+                      f"-{row['plan_stop_pct']:g}% stop, +{row['plan_target_pct']:g}% target -> would have made "
+                      f"{f(row['plan_ret_pct'])} ({row['plan_exit_reason']}); {verdict}")
+            elif row["plan_source"]:
+                print(f"  Strategist's plan ({row['plan_source']}): {row['plan_action'] or 'unreadable'}")
+            else:
+                print("  Strategist's plan: not saved (save its reply as strategist.txt to judge the Risk Manager)")
     else:
         raise SystemExit("Give a run id, or --update.")
     board = pd.read_csv(out / "scoreboard.csv")

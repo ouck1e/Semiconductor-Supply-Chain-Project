@@ -1,0 +1,11 @@
+Backfilled on 2026-10-15 from the Strategist's reply (reply_3.txt), which predates the PLAN block.
+Plan: BUY at the Day 1 close, 5% size, stop -8%, target +14%, 20-day max hold.
+
+PLAN
+ACTION: BUY
+SETUP: range-floor rebound
+SIZE_PCT: 5
+STOP_PCT: 8
+TARGET_PCT: 14
+MAX_HOLD_DAYS: 20
+END PLAN
