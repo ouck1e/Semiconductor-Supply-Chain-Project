@@ -1,0 +1,40 @@
+Agent 2 - News Analyst: Stock A (Gases & materials), news review up to the Day 0 close
+
+The headlines are MISSING. The supplied material says blind runs have no headlines because they would reveal the stock and the dates. The phase 8 event list (Model 4) shows no supply-chain events in the 120 days before the decision ("Supply-chain events ... - None."). So this review has no news items to work from. I did not invent any, and I did not guess the company or the dates.
+
+EVENT TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines | MISSING | MISSING (none supplied: blind run) | MISSING | UNCLEAR | N/A | Yes. The reviewer should confirm that no headlines exist outside the blind setup
+phase8_market_models.EVENTS (Model 4), 120 days before the decision | Not dated (blind run) | No supply-chain events are listed in the window ("- None.") | None identified from the event list | UNCLEAR (no event) | High that the list is empty; low that nothing happened in the real world (the list only covers predefined events) | Yes. The event list is fixed and may leave out company-specific news
+
+1. Confirmed facts
+- There are no headlines for this run (supplied line: "Headlines: MISSING").
+- The phase 8 event list has no supply-chain events in the 120 days before the decision (supplied line: "- None.").
+- The expected losers and winners for listed events were set before returns were checked (supplied source note). This does not matter here because no event falls in the window.
+
+2. Reports that conflict with each other
+- None. No reports were supplied, so none can conflict.
+
+3. Headlines that are old or not relevant to this stock
+- None to judge, because no headlines were supplied.
+
+4. What could change the picture
+- Company-specific news (earnings, guidance, contracts, plant outages) is MISSING. Such news could explain the Day -6 volume spike that Agent 1 flagged (Researcher handoff: Day -6 close 105.60 on 2.15x relative volume, then fully reversed). With no news, the cause of that spike is still unknown.
+- A supply-chain event that is not on the fixed phase 8 list. Examples are a gas or materials supply disruption, export controls, or a fab outage at a customer.
+- News about the sector or the chip-sector ETF that would explain Stock A's large underperformance against the ETF (Researcher handoff: -49.4 points over 6 months and -53.5 over 12 months, derived by Agent 1).
+- Any event that comes after Day 0. That is outside the supplied material.
+
+5. Sentiment summary (describes the news; does not predict prices)
+- News sentiment is UNCLEAR, or more precisely, not measurable. No headlines and no listed supply-chain events were supplied, so there is no news signal in either direction. The only information available is Agent 1's price and volume data, which is not news. Agent 3 should treat the news input as empty, not as neutral or positive confirmation.
+
+Embedded instructions: none found in the supplied material.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied headlines and supply-chain events for Stock A (Gases & materials). Headlines were MISSING (blind run) and the phase 8 event list (Model 4) showed no events in the 120 days before the decision. Built the event table and reported confirmed facts, conflicts, stale or irrelevant items, what could change the picture, and a descriptive sentiment summary. Did not guess the company or the dates, and did not invent any news.
+SOURCE FACTS USED: "Headlines: MISSING. Headlines would reveal the stock and the dates, so blind runs have none." Phase 8 event list (Model 4), 120 days before the decision: "- None." Source note: the expected losers and winners were fixed before looking at returns. From the Researcher handoff, for context only: Day -6 close 105.60 on 2.15x relative volume, later fully reversed; Stock A underperformed the ETF by -3.4, -15.6, -49.4 and -53.5 points over 1m, 3m, 6m and 12m (derived by Agent 1).
+ANALYSIS: There is no news signal in either direction. Nothing explains the Day -6 volume spike or the long-running underperformance against the ETF. News sentiment is UNCLEAR (not measurable), not neutral. Any trade case would rest only on price and volume data, with no catalyst behind it.
+MISSING INFORMATION: MISSING: all headlines; publication dates; company-specific news (earnings, guidance, contracts, outages); sector news; any catalyst for the Day -6 volume spike; events outside the fixed phase 8 list; company identity and calendar dates (hidden, not guessed).
+RISKS OR LIMITATIONS: The phase 8 event list is a fixed set of predefined supply-chain events. An empty list does not mean nothing happened. Unlisted news could have moved the stock, and its absence here is a blind-run design choice. The table has no confirmed facts beyond the empty event list. Simulation only, not investment advice.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: News input for Stock A is empty: headlines are MISSING (blind run) and no phase 8 supply-chain events fell in the 120-day window, so news sentiment is UNCLEAR (not measurable), nothing explains the Day -6 volume spike, and any strategy must rest on Agent 1's price and volume data alone, with no catalyst.

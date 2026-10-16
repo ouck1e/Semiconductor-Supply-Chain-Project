@@ -1,0 +1,67 @@
+Agent 3, Strategist: conditional simulation plan for Stock A (Equipment), decision at the Day 0 close
+
+Note on the material: none of the supplied material contained instructions aimed at me. Nothing to flag.
+
+SOURCE FACTS (copied from the supplied lines, not my analysis)
+- Researcher: close 100.00. 20/50/200-day averages 97.16 / 92.98 / 76.80. 20-day high/low 101.07 / 94.75. 252-day high 101.07, so the close is 1.1% below it. RSI 64.9. Volatility 20-day 31.5%, 120-day 24.2%. 5-day volume 1.21x. Resistance 100.0 to 101.07. Support 97.16, 94.75 to 96.2, 92.98. Data completeness 72/100. The fresh closing high was followed by a down close.
+- Researcher: returns 1m/3m/6m/12m 11.1% / 15.5% / 47.9% / 121.1%, against the ETF's 4.3% / 15.5% / 25.3% / 58.6%.
+- News Analyst: headlines MISSING (blind run). Model 4 event list: none in the 120 days before Day 0. Catalysts for the Day -19/-18 and Day -3 volume moves unidentified.
+- Model 1: alpha 16.7% a year, t-stat 0.88, rank 10 of 24. The phase 8 baseline holds only the top 5 by this t-stat, so this stock is not in the baseline portfolio. Market beta 1.25. ETF beta 1.05 in up weeks, 0.98 in down weeks.
+- Model 4: one shock 198 days before (export curbs on chip-making chemicals). This stock is in neither group.
+- Exposure model: MISSING for this stock.
+- Fixed rules: $100,000 portfolio, long-only, max position 10%, max stop 15%, max hold 20 trading days, fees 0.1% + slippage 0.1% on each side, stops and targets checked on daily closes only, BUY fills at the next close.
+
+1. SETUP NAME
+"Closing breakout above the 20-day / 12-month closing high" (trend continuation). Plain-language idea: the stock is in an uptrend and pinned under its range top. A close above that top would show buyers absorbed the supply at 100 to 101.07. Until that close happens, there is no setup.
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND IS IT TRUE ON DAY 0?
+a) Close above 101.07, the 20-day and 252-day closing high. NOT TRUE: Day 0 close 100.00 < 101.07 (Researcher line).
+b) Trend intact: close above the 20- and 50-day averages, with the averages rising in order. TRUE: 100.00 > 97.16 > 92.98 > 76.80.
+c) Volume confirmation: the breakout day's volume multiple at or above 1.2x. Not testable, because no breakout day exists. The Day 0 5-day figure is 1.21x.
+d) No known negative event in the window. TRUE only by absence: headlines are MISSING, so this cannot really be confirmed.
+Result: the key trigger (a) fails, so the entry condition is NOT met at the Day 0 close.
+
+3. ENTRY RULE
+BUY only if a daily close is above 101.07 and conditions b) to d) still hold. The fill is the next day's close, plus 0.1% fee and 0.1% slippage. Because the decision is made at the Day 0 close and (a) is false, the rule gives NO ENTRY on Day 0. Any later trigger would need a new packet and a new team decision.
+
+4. STOP RULE
+7% below the entry fill, on a daily close. Why: 101.07 x 0.93 = 94.0, just under the 20-day low of 94.75. A close there would mean the whole range failed. That is within the 15% maximum. Warning: stops are checked on closes only, so a gap could take the exit well past -7%.
+
+5. TARGET / EXIT RULE AND HOLDING PERIOD
+Target: 14% above the entry fill, on a daily close. There is no supplied resistance above 101.07 (it is the 252-day high), so the target is set as 2x the stop rather than at a chart level. Time exit: close the position at the close of trading day 20 if neither the stop nor the target has been hit.
+
+6. REWARD-TO-RISK
+Gross: 14% / 7% = 2.0.
+With costs (0.2% per side, 0.4% round trip): reward 14% - 0.4% = 13.6%, risk 7% + 0.4% = 7.4%, so 13.6 / 7.4 = 1.84 (rounded).
+
+7. POSITION SIZE
+5% of the portfolio = $5,000, half the 10% maximum. Loss at the stop, including costs: $5,000 x 7.4% = $370, or 0.37% of the portfolio. Reasons for the half size: 20-day volatility (31.5%) is about 1.3x the 120-day level (24.2%), beta is 1.25, headlines are MISSING, data completeness is 72/100, and the alpha t-stat of 0.88 is not statistically meaningful.
+
+8. WHAT WOULD CANCEL THE SETUP
+- A close below 94.75 (the 20-day low) before any trigger, which breaks the range.
+- A close below the 50-day average (92.98), which breaks the trend.
+- A breakout close on volume below 1.2x, which is unconfirmed.
+- Any newly supplied headline or event that is negative for the stock or for equipment names.
+- An extension too far to fit the stop: if the trigger close sits more than about 7% above 94.75, the 7% stop no longer sits below range support, and the plan would have to be redone.
+
+9. MISSING INPUTS
+MISSING: the Day 1 and later closes (so the entry fill price is unknown); all headlines and scheduled events (earnings, policy) in the 20-day window; the catalyst for the Day -19/-18 and Day -3 moves; intraday high, low and open; raw volume; ETF price series and correlation; exposure-model rows; fundamentals; real dates.
+
+10. REASONS TO SKIP IT
+- The trigger is not met on Day 0. The close is 100.00, under 101.07, and the last test of 101.07 was followed by a down close.
+- Price is stretched 30.2% above the 200-day average, with RSI 64.9 and rising short-term volatility.
+- Over 3 months the stock matched the ETF (15.5% vs 15.5%), so its recent strength may be the sector, not the stock.
+- Model 1 alpha is not significant (t 0.88), and the stock is not in the phase 8 baseline top 5.
+- The news layer is blind, so event risk inside a 20-day hold cannot be judged.
+- With close-only stops, a gap can exceed the planned 7% loss.
+
+STRATEGIST CONCLUSION FOR THE RISK MANAGER: On the Day 0 close there is no active setup. The breakout trigger (close above 101.07) is false, so the plan above calls for NO ENTRY now. The parameters (7% stop, 14% target, 20-day hold, 5% size, 1.84 cost-adjusted reward-to-risk) only apply if a later close triggers it, and that would need a new review. The Risk Manager and the Boss make the decision. This is a simulation for learning only, not investment advice. No plan here is safe or certain.
+
+AGENT: Agent 3, Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into one conditional plan ("Closing breakout above the 20-day / 12-month closing high"). Checked the entry conditions against the Day 0 close: the trigger is not met, so the plan gives no entry at Day 0.
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200-day averages 97.16/92.98/76.80; 20-day high/low 101.07/94.75; 252-day high 101.07; RSI 64.9; volatility 31.5% (20-day) vs 24.2% (120-day); 5-day volume 1.21x; 3m return 15.5% vs ETF 15.5%; completeness 72/100. News Analyst: headlines MISSING, no Model 4 events in 120 days, unidentified catalysts on Day -19/-18 and Day -3. Model 1: alpha t-stat 0.88, rank 10 of 24 (baseline holds the top 5), beta 1.25. Model 4: one shock 198 days before, stock in neither group. Exposure: MISSING. Fixed strategy rules (10% max size, 15% max stop, 20-day max hold, 0.2% costs per side).
+ANALYSIS: Entry needs a close above 101.07 with the trend intact and volume at 1.2x or more. On Day 0 the close is 100.00, so the trigger is false and the plan says NO ENTRY. If triggered later: stop 7% below the fill (101.07 x 0.93 = 94.0, under the 94.75 range low), target 14%, max hold 20 trading days. Reward-to-risk 14/7 = 2.0 gross, (14-0.4)/(7+0.4) = 1.84 after costs. Size 5% ($5,000), so the loss at the stop is about $370 (0.37% of the portfolio).
+MISSING INFORMATION: MISSING: Day 1 and later closes (the fill price); headlines and scheduled events; the catalysts for the Day -19/-18 and Day -3 moves; intraday high, low and open; raw volume; ETF series and correlation; exposure rows; fundamentals; real dates.
+RISKS OR LIMITATIONS: The trigger is not met. Price is 30.2% above the 200-day average with rising volatility. 3m strength equals the sector's. Alpha is not significant and the stock is outside the baseline top 5. News is blind. Close-only stops can gap past -7%. The target is a 2x-stop rule, not a chart level. A simulation for learning only, not investment advice.
+NEXT AGENT: Agent 5, Risk Manager (Agent 4, Coder, skipped in manual runs)
+HANDOFF SUMMARY: The breakout setup for Stock A requires a close above 101.07, and the Day 0 close of 100.00 does not meet it, so the plan gives NO ENTRY at Day 0. If a later close triggers it, the parameters are a 7% stop, a 14% target, a 20-day maximum hold, a 5% position and a cost-adjusted reward-to-risk of 1.84, all of which would need a new review.

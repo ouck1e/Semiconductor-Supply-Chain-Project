@@ -1,0 +1,11 @@
+{
+  "run_id": "run-20261015-222542-39c9",
+  "ticker": "AMD",
+  "name": "AMD",
+  "decision_date": "2019-04-25",
+  "blind": true,
+  "split": "dev",
+  "prompts_version": "fea4d1f9",
+  "seed": 1792124742,
+  "created": "2026-10-15T22:25:42"
+}

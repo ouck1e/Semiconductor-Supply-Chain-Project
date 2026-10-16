@@ -1,0 +1,88 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Gases & materials), decision at the Day 0 close
+
+Note on the source material: I found no embedded instructions in the supplied material. Nothing in it tried to direct my actions.
+
+1. Setup name
+No setup.
+
+I checked the two long-only setups the supplied data could support. Neither has its entry conditions met on Day 0.
+
+(a) Support bounce at 20-day support
+- Needs: price holding at support plus some sign of buying, such as a close back above recent resistance, a catalyst, or relative strength.
+- Facts (Researcher handoff): the close is 100.00, just above the 20-day low of 99.13 (Day -1 closed at 99.13). The 60-day low is 97.15. RSI is 41.4, which is neutral-weak, not oversold.
+- The only high-volume rally (Day -6, 105.60 on 2.15x) was fully reversed.
+- News Analyst handoff: no catalyst, and sentiment is UNCLEAR.
+- Day 0 status: NOT MET. Price is sitting on support, but nothing confirms a bounce. The trend is still lower highs and lower lows.
+
+(b) Trend or factor-driven long
+- Needs: price reclaiming its averages, or the stock qualifying under the phase 8 baseline rule (top 5 by alpha t-stat).
+- Facts: the close is below the 20-, 50- and 200-day averages (104.05 / 105.04 / 110.72, Researcher handoff). Model 1 gives alpha t-stat 0.54, rank 12 of 24 (Model 1 facts). The baseline rule holds only the top 5.
+- Day 0 status: NOT MET. Price is below every average, and rank 12 is outside the top 5. A t-stat of 0.54 means the 8.9% a year alpha is not statistically distinguishable from zero.
+
+2. What must be true for entry, and whether it is true on Day 0
+- Close above the 20-day average 104.05 (trend reclaim): FALSE (100.00 is -3.9% below, Researcher).
+- A catalyst or supply-chain event behind the move: FALSE. There are no headlines, and Model 4 shows no events in the last 120 days (News Analyst). The only shock listed was 445 days before, and this stock was in neither group (Model 4 facts).
+- Relative strength against the chip-sector ETF: FALSE. Stock A underperformed in every period: -3.4, -15.6, -49.4 and -53.5 points (derived by Agent 1).
+- Phase 8 baseline selection (top 5 by alpha t-stat): FALSE (rank 12, Model 1).
+- Price holding at support: TRUE, narrowly (100.00 vs 99.13). On its own this is not enough.
+
+3. Entry rule
+None. No BUY is proposed. For reference only: under the fixed rules a BUY decided at the Day 0 close would fill at the Day 1 close, and that price is MISSING because it is not knowable at the decision.
+
+4. Stop rule
+Not applicable (no setup). For reference only: a stop just under the 60-day support of 97.15 would be about 2.9% below a 100.00 entry. That figure is arithmetic on supplied levels: (100.00 - 97.15) / 100.00 = 2.85%. The real entry price (Day 1 close) is MISSING, so the actual stop percent cannot be fixed. With 20-day volatility at 33.5% annualised (Researcher), a stop that tight would probably be hit by ordinary noise. That is an observation from the supplied number, not a measured probability.
+
+5. Target or exit rule and holding period
+Not applicable (no setup). For reference only: the nearest resistance band is 104-105.6 (Researcher), about +4% to +5.6% above a 100.00 reference price. The maximum holding period allowed is 20 trading days.
+
+6. Reward-to-risk ratio
+Not applicable, because there is no setup. Reference arithmetic on the hypothetical levels above, before costs:
+- Gross: target 4.0% ÷ stop 2.85% = 1.40.
+- Fees and slippage are 0.1% + 0.1% on each side, so 0.4% per round trip (fixed rules).
+- Net reward: 4.0 - 0.4 = 3.6%. Net risk: 2.85 + 0.4 = 3.25%.
+- Net ratio: 3.6 ÷ 3.25 = about 1.11.
+This is a thin ratio, and it does not account for the missing Day 1 fill price.
+
+7. Position size
+0% of the simulated portfolio (NO TRADE). The rule maximum would be 10% ($10,000 of $100,000).
+
+8. What would cancel the setup, or what would create one later
+There is no setup to cancel. A future review could reconsider if any of these happened:
+- A close above the 20-day average (104.05) and the 104-105.6 resistance band on volume.
+- A supplied catalyst or Model 4 event that puts Stock A in an expected-winner group.
+- Stock A entering the top 5 by alpha t-stat.
+A daily close below 97.15 (60-day support) would make the downtrend case worse.
+
+9. Missing inputs
+MISSING:
+- Day 1 close (the fill price)
+- all headlines and catalysts
+- an explanation for the Day -6 volume spike
+- supply exposure rows for this stock (exposure model: none before the decision year)
+- fundamentals
+- intraday highs and lows
+- absolute volume
+- the ETF name and its daily series
+- calendar dates and company identity (hidden, not guessed)
+- the full 252-day close series
+
+10. Reasons to skip
+- Price is below all three averages, and the averages are stacked bearishly. The highs and lows keep getting lower (Researcher).
+- There is no catalyst, and news sentiment is UNCLEAR (News Analyst).
+- The alpha t-stat of 0.54 is not significant, and rank 12 is outside the baseline top 5 (Model 1).
+- Market beta is 1.58. Beta to the ETF is 1.31 in down weeks vs 1.03 in up weeks (Model 1), so the stock has historically fallen harder than the sector on down weeks.
+- Underperformance against the ETF is persistent and large in every period.
+- Volatility is high (20-day 33.5%, 120-day 39.4%), and the only nearby stop level is tight, so the reference reward-to-risk is thin (about 1.11 net).
+- The exposure model has no rows for this stock, so the supply-chain angle cannot be assessed.
+- Data completeness is 72/100 (Researcher).
+
+This is a simulation for research and learning, not investment advice. No real trade is placed.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Combined the Researcher and News Analyst handoffs with the phase 8 and exposure model facts. Tested support-bounce and trend/factor long setups against the Day 0 close and found neither met. Concluded "No setup" (NO TRADE, 0% position). Reference stop, target and reward-to-risk arithmetic is shown for transparency only.
+SOURCE FACTS USED: From the Researcher: close 100.00; 20/50/200-day averages 104.05 / 105.04 / 110.72; 20-day low 99.13; 60-day low 97.15; resistance at 104-105.6, 108.9, 110.7 and 112.5; RSI 41.4; volatility 33.5% (20-day) and 39.4% (120-day); Day -6 105.60 on 2.15x, reversed; underperformance against the ETF of -3.4/-15.6/-49.4/-53.5 points (derived by Agent 1); completeness 72/100. From the News Analyst: headlines MISSING; no Model 4 events in 120 days; sentiment UNCLEAR. From Model 1: alpha 8.9% a year, t-stat 0.54, rank 12 of 24; baseline holds the top 5; market beta 1.58; ETF beta 1.03 up and 1.31 down. From Model 4: the only shock was 445 days before, and this stock was in neither group. Exposure: MISSING. Fixed rules: max 10% position, max 15% stop, 20-day hold, 0.1% + 0.1% costs per side.
+ANALYSIS: No entry condition is met on Day 0 except a narrow hold above 20-day support, with no confirmation behind it. The trend is down, there is no catalyst, alpha is not significant and the stock is outside the baseline top 5, downside beta is high, and relative strength is weak. Reference levels (stop near 97.15, about -2.85%; target 104, about +4.0%) give a gross reward-to-risk of 1.40 (4.0 ÷ 2.85) and about 1.11 net of the 0.4% round-trip costs ((4.0 - 0.4) ÷ (2.85 + 0.4)). That is thin, and the stop is tight relative to 33.5% volatility.
+MISSING INFORMATION: MISSING: Day 1 fill price; headlines and catalysts; the cause of the Day -6 spike; supply exposure rows; fundamentals; intraday highs and lows; absolute volume; the ETF name and series; full close history; dates and identity (hidden, not guessed).
+RISKS OR LIMITATIONS: Levels are based on closes only; the reference arithmetic uses 100.00 as a stand-in for the unknown Day 1 fill; the empty event list does not mean nothing happened; a NO TRADE could miss a rebound from support. Simulation only, not investment advice, and nothing here claims any outcome is likely.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 - Coder is skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A: price is in a downtrend below all averages with no catalyst, an insignificant alpha (t 0.54, rank 12, outside the baseline top 5) and high downside beta, so the plan is NO TRADE at 0% size; the only reference long (bounce off 97.15 support toward 104) would have a thin reward-to-risk of about 1.40 gross and 1.11 net.

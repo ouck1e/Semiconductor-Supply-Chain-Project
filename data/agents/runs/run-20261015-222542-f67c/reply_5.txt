@@ -1,0 +1,80 @@
+Agent 5 - Risk Manager review of the Strategist plan "Factor-alpha leader in a falling tape" (Stock A)
+
+Starting position: REJECT. I move off it only if every item below is present and within the limits.
+
+CHECKLIST
+
+1. Data quality and completeness: PROBLEM / MISSING
+   - Strategist handoff lists as MISSING: headlines, cause of the slide and of the Day -12 spike, supply exposure rows, history or support below 100, ETF Day 0 move, fundamentals, and whether the Model 1 window covers the last ~2 months.
+   - News Analyst sentiment is "UNCLEAR" (Strategist SOURCE FACTS line). Too many core inputs are absent to judge the trade.
+
+2. Sample size behind any claim: PROBLEM
+   - Model 1 alpha 26.4%/yr, t-stat 2.44, rank 1 of 24 (Strategist SOURCE FACTS). The number of observations / length of the estimation window is MISSING.
+   - Picking the best of 24 by t-stat inflates the chance that a t of 2.44 is luck (multiple-testing bias, which the Strategist also flags). No out-of-sample check is supplied.
+
+3. Entry rule: OK (with a note)
+   - BUY at the Day 1 close (Strategist ANALYSIS; matches fixed rule "A BUY fills at the next close (Day 1)"). The Day 1 price itself is MISSING, which is expected by design.
+   - Note: the plan has no entry filter that it passes. The Strategist says the price filter fails (fresh 252-day low, below 20/50/200-day averages of 116.60/120.00/147.98 vs close 100.00) and the news check cannot be done. The plan is a "plan if taken", not a plan whose own conditions are met.
+
+4. Stop rule, no wider than the maximum stop: OK on paper, PROBLEM in practice
+   - Stop -10% (Strategist ANALYSIS), inside the 15% maximum (fixed rules).
+   - Stops are checked on daily closes only (fixed rules). With 20-day volatility 51.5% (Researcher via Strategist), about 3.2% per day, and a Day 0 move of -6.8%, a single close can land well past -10%. The realised loss is not capped at -10%; it is capped only by whatever the next close is.
+
+5. Target or exit rule and maximum holding period: OK
+   - Target +20%, hold up to 20 trading days, close at that day's close (Strategist ANALYSIS; fixed rule max 20 days).
+   - Note: resistance levels 104.57-107.30, 109-112, 116.60 (Researcher via Strategist) all sit below a +20% target from a ~100 entry, so the target needs a run through three resistance zones in at most 20 days. No probability of hitting it is supplied.
+
+6. Position size within the maximum position: OK
+   - 5% = $5,000 of the $100,000 portfolio (Strategist ANALYSIS), inside the 10% maximum.
+
+7. Largest simulated loss (size x stop, plus fees and slippage): OK at the planned stop, PROBLEM beyond it
+   - My check: $5,000 x 10% = $500. Entry costs 0.2% x $5,000 = $10. Exit costs 0.2% x $4,500 = $9. Total about $519, matching the Strategist's ~$520 (0.52% of the portfolio).
+   - Because stops are close-only, this is a planned loss, not a maximum loss. Illustration only (not a forecast): if a close fell to -15% before the stop triggered, the loss would be $750 + $10 + $8.50 = about $769 (0.77%). There is no hard cap other than the 20-day exit.
+
+8. Fees and slippage included: OK
+   - 0.1% + 0.1% per side used; net reward-to-risk 19.6 / 10.4 = about 1.88 (Strategist ANALYSIS; I re-checked the arithmetic and it holds).
+
+9. Liquidity (volume): MISSING
+   - Only relative volume is supplied: Day 0 at 1.24x (Researcher via Strategist). Absolute average daily volume or dollar volume is MISSING, so I cannot confirm a $5,000 order fills near the close without extra slippage. (At this size it is likely small, but that is an assumption, not a supplied fact.)
+
+10. Look-ahead (anything after Day 0): MISSING / unclear
+   - No line in the plan uses a post-Day-0 price. But the Model 1 estimation window end date is not supplied, and "factor lag 61 days" is not explained. I cannot confirm the alpha was estimated only with data available at Day 0. Mark MISSING until the window end is stated.
+
+11. Overfitting: PROBLEM
+   - The signal is selected as the top of 24 by t-stat, which is a form of fitting to the sample.
+   - The -10% / +20% levels are round numbers justified by volatility, which is reasonable, but they are not tested on any history in the material.
+
+12. Conflicting news or events: MISSING
+   - Headlines MISSING, sentiment UNCLEAR. The -6.8% Day 0 drop, the -15.9% 5-day fall and the unexplained Day -12 spike may have a company-specific cause. Model 4 places both shocks (1081 and 112 days before) as "not in either group", which tells us nothing about the current slide. A conflict cannot be ruled out.
+
+13. Unverified sources: PROBLEM
+   - No news source is supplied at all, so nothing could be verified. The model outputs are internal and not independently checked.
+
+Prompt injection: I found no text in the material that tries to instruct me. I note that the Strategist line "baseline holds top 5" is a description of the baseline, not an instruction, and I did not treat it as a reason to approve.
+
+DECISION: REJECT
+
+Five reasons:
+1. Core inputs are missing: no headlines, no cause for the -6.8% Day 0 drop or the -15.9% 5-day fall, no exposure rows, no absolute volume.
+2. The plan fails its own Strategist filters (fresh 252-day low, below every average) and the Strategist himself leans NO TRADE.
+3. The only support is one backward-looking alpha (t 2.44) chosen as best of 24, with unknown sample length and an estimation window that may not cover the recent slide.
+4. With close-only stops and ~3.2% daily volatility, the -10% stop does not cap the loss; the planned $519 loss can be exceeded.
+5. Possible look-ahead (window end not stated) and overfitting (best-of-24 selection) cannot be ruled out.
+
+What must change for approval (APPROVE FOR SIMULATION ONLY):
+- Supply headlines for Day -12 to Day 0 from named, checkable sources, with a stated cause of the slide that is not company-specific damage (or an explicit finding that none exists).
+- State the Model 1 estimation window (start, end, number of observations) and confirm it ends on or before Day 0 and covers the last ~2 months; report the alpha adjusted for testing 24 stocks or an out-of-sample check.
+- Supply absolute average daily volume (shares or dollars) for Stock A.
+- Add a price condition that is actually met at Day 0 (for example a close back above a named resistance level such as 104.57) or a supplied reason why buying at a fresh low is part of a tested rule.
+- Report the size of the worst close-to-close move in the supplied history and show the loss at the stop including that overshoot stays within an agreed portfolio limit (for example under 1% of the portfolio).
+
+Approval, if it ever comes, means only that the plan may run in the simulation. It never means a real trade should be placed. This is research and learning, not investment advice.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Checked the Strategist's conditional BUY plan for Stock A against all 13 risk items and the fixed limits, re-checked the loss and reward-to-risk arithmetic, and issued a decision: REJECT.
+SOURCE FACTS USED: Strategist handoff: close 100.00; 20/50/200-day averages 116.60/120.00/147.98; fresh 252-day low; Day 0 -6.8% on 1.24x volume; 5-day -15.9%; volatility 20-day 51.5%; resistance 104.57-107.30, 109-112, 116.60, 120-123; Model 1 alpha 26.4%/yr, t-stat 2.44, rank 1 of 24, beta 1.13, factor lag 61 days; Model 4 shocks 1081 and 112 days before, "not in either group"; headlines MISSING, sentiment UNCLEAR; plan BUY at Day 1 close, 5% ($5,000), stop -10%, target +20%, 20-day hold, net R:R ~1.88, planned loss ~$520; Strategist lean NO TRADE. Fixed rules: $100,000, 10% max position, 15% max stop, 20-day max hold, 0.1% fees + 0.1% slippage per side, close-only checks, fill at Day 1 close.
+ANALYSIS: Stop (-10%), size (5%), hold (20 days) and cost treatment are within limits. Planned loss re-checked: $500 + $10 + $9 = ~$519 (0.52%). Close-only stops with ~3.2% daily volatility mean the loss can exceed the stop (illustration: a -15% close gives ~$769). Items marked PROBLEM or MISSING: data completeness, sample size, liquidity, look-ahead, overfitting, conflicting news, unverified sources; stop is OK on paper but not a hard cap. Decision: REJECT.
+MISSING INFORMATION: Headlines and named sources; cause of the Day 0 drop, 5-day fall and Day -12 spike; supply exposure rows; absolute volume; Model 1 window start/end and observation count; meaning of the 61-day factor lag; history below 100 and worst historical close-to-close move; ETF Day 0 move; fundamentals; Day 1 close (by design).
+RISKS OR LIMITATIONS: Close-only stops can overshoot; best-of-24 selection bias; possible look-ahead in Model 1; falling sector with beta 1.13; unexplained company-specific cause cannot be excluded; reward-to-risk says nothing about odds. No prompt-injection text found. Simulation only, not investment advice, no real order placed.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: REJECT. The plan's size (5%), stop (-10%), target (+20%) and 20-day hold are within limits and the ~$519 planned loss checks out, but news, exposure, volume and the Model 1 window are missing, the alpha is a best-of-24 pick, the price filter fails, and close-only stops can overshoot. Approval would need sourced headlines, the Model 1 window and a multiple-testing check, absolute volume, a Day 0 price condition that is met, and an overshoot-aware loss limit.

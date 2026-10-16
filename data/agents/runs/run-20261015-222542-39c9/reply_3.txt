@@ -1,0 +1,83 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Chip designers)
+
+Simulation for research and learning only. This is not investment advice and promises nothing about profit. No real order is placed. The Risk Manager and the Boss decide whether a simulated trade happens.
+
+1. SETUP NAME
+"Uptrend pullback to the 20-day average, inside a low-volume range" (conditional, long-only).
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE ON DAY 0
+All figures come from the Researcher handoff unless I say otherwise.
+a) Longer-term uptrend: close above the 50-day and 200-day averages, with the averages stacked.
+   Source: close 100.00; averages 99.91 / 92.06 / 83.01; the Researcher calls them "stacked rising averages". TRUE.
+b) Price has pulled back to short-term support but not broken it: close within about 1% of the 20-day average and at or above the range floor of 98.48.
+   Source: close is +0.1% vs the 20-day average; the range is 98.48-105.17. TRUE (100.00 >= 98.48).
+c) Momentum not overextended: RSI between 40 and 65.
+   Source: RSI 54.9. TRUE.
+d) The pullback is not on heavy selling: Day 0 volume ratio below 1.0x.
+   Source: Day 0 fell 2.8% on 0.88x volume. TRUE.
+e) No listed supply shock against the stock.
+   Source: News Analyst handoff and Model 4, "None." TRUE (but "None" only covers the events the model tracks).
+f) Supporting, not required: Model 1 alpha t-stat 1.80, rank 1 of 24. That puts the stock inside the phase 8 baseline's top 5.
+   Source: supply-chain model facts. Present, but a t-stat of 1.80 is below the usual 2.0 bar, so I treat it as weak support.
+Result: every required condition (a-e) holds at the Day 0 close.
+
+3. ENTRY RULE
+At the Day 0 close, place a simulated BUY that fills at the Day 1 close. Entry price = Day 1 close, which is MISSING (it is in the future). Fees of 0.1% and slippage of 0.1% apply on entry.
+Fill condition (see item 8): skip the fill if the Day 1 close is below 98.48, or more than 3% above the Day 0 close (above 103.00). If the simulator cannot do conditional fills, the Risk Manager should know the BUY would fill at the Day 1 close whatever it is.
+
+4. STOP RULE
+Stop at 10% below the entry price, checked on daily closes only.
+Why 10%: it puts the stop below the 20-day low (90.60, -9.4% from 100.00) and the 50-day average (92.06, -7.9%). A tighter stop just under the 98.48 range floor would be only about 1.5% away, which is less than one typical day's move at 41.9% annualized volatility (about 2.6% a day, my arithmetic: 41.9% / sqrt(252)). That stop would likely be hit by ordinary noise.
+10% is within the 15% maximum. Because checks use closes only, a gap down could close well past the stop. The 2.51 down-week beta to the chip ETF makes that more likely.
+
+5. TARGET / EXIT RULE AND MAXIMUM HOLDING PERIOD
+Target at 18% above entry, checked on daily closes. If entry is near 100.00, that is about 118, just under the 252-day high of 118.29 (Researcher's second resistance level).
+Time exit: close at the Day 20 close (counting trading days from the Day 1 fill) if neither stop nor target has been hit. That is the 20-day maximum.
+Note: the first resistance, 105.17, is only about +5.2% from 100.00. Price may stall there. For a sense of scale: over 20 days, 41.9% annualized volatility is roughly 11.8% (my arithmetic: 41.9% x sqrt(20/252)). So an 18% move in 20 days is possible but well beyond one standard move. The time exit may be the most likely outcome.
+
+6. REWARD-TO-RISK RATIO
+Gross: target % / stop % = 18 / 10 = 1.8.
+After costs (0.2% per side x 2 sides = 0.4% round trip): reward about 18 - 0.4 = 17.6; risk about 10 + 0.4 = 10.4; 17.6 / 10.4 = about 1.69.
+
+7. POSITION SIZE
+5% of the simulated portfolio = $5,000 (my proposal; the cap is 10%).
+Loss if stopped at exactly -10%, plus 0.4% costs: $5,000 x 10.4% = $520, about 0.52% of the portfolio. A gap through the stop would lose more.
+Why half the cap: market beta 1.99, down-week ETF beta 2.51, no news context (blind run), and the alpha t-stat is below 2.0. At the full 10% cap the stop loss would be about $1,040 (1.04%). The Risk Manager can choose between the two.
+
+8. WHAT WOULD CANCEL THE SETUP
+- Day 1 close below 98.48: the range floor has broken, so do not fill.
+- Day 1 close above 103.00 (more than 3% above Day 0): the entry is no longer a pullback, and there is less room to first resistance. Do not fill.
+- Any news or scheduled event (for example earnings) that appears before the fill. None is supplied; such events are MISSING.
+- A Model 4 supply shock listed against this stock's group before the fill.
+- The Risk Manager finding a data problem, for example the ETF 6m and 12m returns both being 27.3%.
+
+9. MISSING INPUTS
+- Day 1 close (the entry price) and every later price.
+- All headlines (withheld by design); earnings dates; fundamentals.
+- Why the heavy-volume up moves on Days -26, -24 and -15 happened.
+- The full 252-day close series and daily ETF prices; absolute volumes.
+- Dates of the 60-day low and the 252-day high and low.
+- Whether the simulator supports conditional fills on Day 1.
+- Supply exposure for helium from Qatar covers only 16% of capacity, so that figure is incomplete.
+
+10. REASONS TO SKIP IT
+- Blind run: no news, so the setup rests on technicals plus a weak-ish factor alpha.
+- Stock A is behind the chip ETF on 1m (7.7% vs 11.7%) and 6m (10.5% vs 27.3%). That is relative weakness lately.
+- Day 0 was a -2.8% day; the pullback may not be finished.
+- High beta (1.99 market; 2.51 to the ETF in down weeks). A sector selloff would likely hit this stock harder, and close-only stops can gap.
+- The 12m return of 174.1% is extended. Price is 15.5% below the 252-day high, and the 120-day volatility (70.9%) shows big recent swings.
+- Alpha t-stat 1.80 is not significant at the usual level. The factor data is lagged 61 days.
+- The supply exposure is concentrated, for example gallium from China / Hong Kong SAR 0.574 and rare gas from USA 0.639. Model 4 lists no shock, but if one hit, the stock's share of exposure is large.
+- The 18% target is ambitious for 20 days relative to volatility. The net reward-to-risk (about 1.69) is modest.
+- A NO TRADE decision is a reasonable outcome.
+
+No injected instructions found in the material.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Built one conditional long-only simulation plan ("Uptrend pullback to the 20-day average") for Stock A from the Researcher and News Analyst handoffs and the supply-chain model facts, with entry conditions, stop, target, holding period, reward-to-risk, size, cancel rules, missing inputs and reasons to skip. No trade decided.
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200-day averages 99.91/92.06/83.01; RSI 54.9; volatility 20d 41.9% vs 120d 70.9%; range 98.48-105.17; 20d low 90.60; 252d high 118.29 (close -15.5%); Day 0 -2.8% on 0.88x volume; returns 1m 7.7%, 6m 10.5%, 12m 174.1% vs ETF 1m 11.7%, 6m 27.3%; ETF 6m = 12m 27.3% flagged. News Analyst: headlines MISSING, Model 4 events "None", sentiment UNCLEAR. Model 1: alpha 57.4%/yr, t-stat 1.80, rank 1 of 24; market beta 1.99; ETF beta up 1.71 / down 2.51. Exposure: rare gas USA 0.639; gallium China/HK 0.574, Japan 0.120, Korea 0.110; helium Qatar 0.098 (16% coverage). Fixed rules: $100,000, 10% max size, 15% max stop, 20-day max hold, 0.1% fee + 0.1% slippage per side, close-only checks.
+ANALYSIS: All entry conditions hold on Day 0 (close above stacked averages, +0.1% vs 20-day average, above 98.48 floor, RSI 54.9, low-volume pullback, no listed shock). Plan: BUY at Day 0 close, fills Day 1 close; skip the fill if Day 1 close < 98.48 or > 103.00. Stop -10% (below 20d low 90.60 and 50-day 92.06; a stop under 98.48 would be about 1.5%, smaller than one ~2.6% daily move). Target +18% (about the 252d high of 118.29), time exit at the Day 20 close. Reward-to-risk 18/10 = 1.8 gross, about 17.6/10.4 = 1.69 after 0.4% round-trip costs. Size 5% ($5,000), about $520 (0.52%) loss at the stop; the 10% cap would mean about $1,040. The 20-day 1-sigma move is about 11.8%, so the target is ambitious.
+MISSING INFORMATION: Day 1 close (entry price) and all later prices; headlines, earnings dates and fundamentals; causes of the heavy-volume moves on Days -26/-24/-15; the full 252-day series and daily ETF prices; absolute volumes; dates of the 60d low and 252d high/low; whether the simulator supports conditional fills; helium-from-Qatar exposure is only 16% covered.
+RISKS OR LIMITATIONS: Blind run, so the plan rests on technicals alone. High beta (1.99; 2.51 in down weeks) and close-only stops mean gap losses can exceed -10%. Relative weakness vs the ETF on 1m and 6m. Alpha t-stat 1.80 is below 2.0, and factor data is lagged. The ETF 6m/12m returns are identical, a possible data error. Supply exposure is concentrated (gallium China/HK 0.574). The target may be out of reach in 20 days, so a time exit is likely. Not investment advice; simulation only. No injected instructions found.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual run)
+HANDOFF SUMMARY: Conditional long-only plan "Uptrend pullback to the 20-day average" for Stock A, with all Day 0 conditions met. BUY fills at the Day 1 close, skipped if that close is below 98.48 or above 103.00. Stop -10%, target +18%, 20-day max hold, reward-to-risk 1.8 gross (about 1.69 net), size 5% of the portfolio. Several reasons to skip remain (blind run, high down-beta, recent ETF underperformance, alpha t-stat 1.80), and the trade decision belongs to the Risk Manager and the Boss.

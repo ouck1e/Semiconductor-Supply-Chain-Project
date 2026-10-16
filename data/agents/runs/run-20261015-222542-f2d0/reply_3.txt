@@ -1,0 +1,67 @@
+Agent 3 Strategist: simulation plan for Stock A (Rare earths), decision at the Day 0 close
+
+Note on the material: I found no text in the supplied material that tries to give me instructions. Everything below uses only the two handoffs, the fixed strategy rules and the supply-chain model facts. This is a simulation for research and learning, not investment advice, and no real trade is placed.
+
+1. Setup name
+No setup on Day 0.
+The candidate I checked is "Pullback to 200-day support inside a longer uptrend". Its entry conditions are not all met on Day 0 (see item 2), so I recommend NO TRADE at the Day 0 close. Items 3 to 7 below describe the reference plan, so that the Risk Manager can see the numbers it would have used. They are not a request to trade.
+
+2. What must be true for entry, and whether it is true on Day 0
+a) The longer trend is up: close above the 200-day average. TRUE. Close 100.00 vs 200d 96.01, +4.2% (Researcher handoff).
+b) Momentum is washed out but not collapsing: RSI in the 30s. TRUE. RSI 34.7 (Researcher handoff).
+c) Price is near a defined support level, so a stop can sit below it within the 15% limit. TRUE. Supports at 100.00, about 96.01 and 90.36 (Researcher handoff).
+d) Signs that selling is ending: a close that turns back up off the low, or down days on shrinking volume. NOT TRUE. Day 0 is itself a new 20-day low (20d low 100.00 = close). Day 0 volume of 1.06x is lower than the earlier down days (2.02x on Day -15, 1.43x on Day -4), but a single lighter day at a new low is not a reversal (Researcher handoff, last-30 table).
+e) The cause of the drop is known and does not look lasting. NOT TRUE / MISSING. Headlines are MISSING, the phase 8 event list shows no events in the 120 days, and sentiment is UNKNOWN (News Analyst handoff).
+f) The model layer gives some support. MISSING. Model 1 has fewer than 104 weeks of history. Exposure model has no rows. The only Model 4 shock is 941 days old, and this stock is in neither group (model facts).
+Result: 3 of 6 conditions are true, 1 is false and 2 are missing. Condition (d), the trigger, fails, so there is no entry at the Day 0 close.
+
+3. Entry rule (reference only)
+BUY at the Day 1 close (the next close after a Day 0 decision) only if conditions (a) to (e) are all true at the decision close. Not met on Day 0, so no entry.
+
+4. Stop rule
+12% below the entry price, checked on daily closes. For an entry near 100.00 this puts the stop at about 88.00, below the 90.36 support from the 60-day low (Researcher handoff). This is within the 15% maximum. The actual entry price would be the Day 1 close, which is MISSING, so the stop price is MISSING until then. Only the percentage is fixed.
+
+5. Target or exit rule
+Target 17% above entry, checked on daily closes. For an entry near 100.00 that is about 117.00, the bottom of the 117-119 resistance zone (20d/50d averages 118.76/117.13, Researcher handoff). Maximum holding period: 20 trading days. If neither the stop nor the target is hit, close at the Day-20 close (fixed rules).
+
+6. Reward-to-risk ratio
+Gross: 17% / 12% = 1.42.
+After costs (fees 0.1% + slippage 0.1% per side = 0.2% per side, 0.4% round trip, from the fixed rules): reward about 17% - 0.4% = 16.6%, risk about 12% + 0.4% = 12.4%, so 16.6 / 12.4 = 1.34.
+This is a modest ratio for a stock this volatile.
+
+7. Position size
+0% now, because there is no setup.
+If the setup did trigger later, I would suggest 5% of the portfolio ($5,000), half the 10% maximum, because of the very high volatility. Worst case at the stop: $5,000 x 12.4% = about $620, or 0.62% of the $100,000 portfolio. That ignores gaps: stops are checked on closes only, so a close can land well below the stop.
+
+8. What would cancel the setup
+- A close below the 200-day average (about 96.01). This breaks condition (a).
+- A close below 90.36. This breaks the support the stop is built around.
+- News showing a lasting negative cause (policy, demand, company-specific).
+- A further high-volume down day, which would extend the selling pattern.
+- Fewer than 20 trading days left in the simulation window. MISSING whether this applies.
+
+9. Missing inputs
+- The Day 1 close (the actual entry price), so stop and target prices are MISSING.
+- All headlines and the catalyst for the Day -16/-15 spike and reversal and the Day -4 drop.
+- Rare-earth policy or supply news, and how well the phase 8 event list covers rare earths.
+- Model 1 factor betas (fewer than 104 weeks of history).
+- Supply exposure rows (none before the decision year).
+- Intraday highs and lows, absolute volume, the full 252-day series, and an ETF better suited to rare earths than the chip ETF.
+- Any backtest of how this pullback rule has done on this stock or its peers. Without one, the 1.34 ratio says nothing about how often the target is reached.
+
+10. Reasons to skip it
+- The entry trigger (d) is not met. Day 0 is a fresh 20-day low with no reversal close.
+- The drop of about 26% from 134.58 has no known cause. The News Analyst says to treat this as uncertainty, not as a neutral signal.
+- Volatility is very high (20d 69.9%, 120d 66.2%). My own analysis, not a supplied number: scaling 69.9% annual volatility to 20 trading days gives about 69.9% x sqrt(20/252) = about 19.7%. A 12% stop is well inside one typical 20-day move, so it could easily be hit by noise.
+- The after-cost reward-to-risk of 1.34 is thin for that level of noise.
+- None of the three models adds evidence for or against this stock.
+- The chip ETF is an imperfect benchmark, so "the drop looks sector-wide" is not confirmed.
+
+AGENT: Agent 3 Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the model facts into a conditional plan for Stock A (Rare earths). I tested a "pullback to 200-day support" setup, found its entry trigger not met and its catalyst MISSING, and recommend No setup / NO TRADE at the Day 0 close. A reference plan with numbers is included for the Risk Manager.
+SOURCE FACTS USED: Researcher: close 100.00; 200d average 96.01 (+4.2%); 20d/50d averages 118.76/117.13; RSI 34.7; volatility 20d 69.9%, 120d 66.2%; 20d low 100.00 (equal to the close); supports 100.00 / 96.01 / 90.36; resistance 117-119; 252d high 134.58 (-25.7%); last-30 volumes 2.02x on Day -15, 1.43x on Day -4, 1.06x on Day 0. News Analyst: headlines MISSING, no phase 8 events in 120 days, sentiment UNKNOWN. Model facts: Model 1 MISSING (fewer than 104 weeks); the only Model 4 shock is 941 days old and this stock is in neither group; exposure MISSING. Fixed rules: 10% maximum position, 15% maximum stop, 20-day maximum hold, 0.1% fees + 0.1% slippage per side, closes only.
+ANALYSIS: 3 of 6 entry conditions are true (trend above the 200-day, RSI in the 30s, defined support), 1 is false (no reversal; Day 0 is a new 20-day low) and 2 are missing (cause of the drop, model support). Reference plan: 12% stop, 17% target, 20-day hold. Reward-to-risk 17/12 = 1.42 gross, 16.6/12.4 = 1.34 after 0.4% round-trip costs. Size 0% now (5% if it triggered later, worst case about 0.62% of the portfolio, excluding gaps). My own estimate: about 19.7% expected 20-day volatility, larger than the 12% stop.
+MISSING INFORMATION: Day 1 close (entry price), so stop and target prices; all headlines and catalysts; rare-earth news coverage; Model 1 betas; exposure rows; intraday OHLC; absolute volume; full series; a suitable rare-earths benchmark; any backtest of the rule.
+RISKS OR LIMITATIONS: Very high volatility makes a 12% close-only stop easy to hit and open to gap losses. The drop has no known cause, so a lasting negative driver cannot be ruled out. The ratio is thin after costs. Levels come from closes only. The plan has not been backtested. This is a simulation for research and learning, not investment advice. A person reviews every output.
+NEXT AGENT: Agent 5 Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close: the pullback-to-200-day idea fails its reversal trigger (Day 0 is a fresh 20-day low) and the cause of the drop of about 26% is unknown, so I recommend NO TRADE. The reference plan (12% stop, 17% target, 20-day hold, 1.34 reward-to-risk after costs, 5% size) is included only for the Risk Manager to review.

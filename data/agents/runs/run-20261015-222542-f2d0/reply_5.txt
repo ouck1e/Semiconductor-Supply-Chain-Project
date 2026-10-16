@@ -1,0 +1,44 @@
+Agent 5 Risk Manager: review of the Strategist plan for Stock A (Rare earths), decided at the Day 0 close
+
+I started from REJECT. All numbers below come from the STRATEGIST HANDOFF or the FIXED STRATEGY RULES AND LIMITS. The supplied material contains no embedded instructions to ignore.
+
+CHECKLIST
+
+- Data quality and completeness: PROBLEM. The Strategist lists as MISSING: headlines and catalysts, Model 1 betas (fewer than 104 weeks), exposure rows, intraday OHLC, absolute volume, the full series and a suitable benchmark. Volume is given only as multiples (2.02x on Day -15, 1.43x on Day -4, 1.06x on Day 0).
+- Sample size behind any claim: MISSING. The handoff says "any backtest of the rule" is MISSING and the plan "has not been backtested". The only Model 4 shock is 941 days old, and this stock is in neither group. No sample supports the 12% stop or 17% target.
+- Entry rule: PROBLEM. The pullback-to-200-day setup scores 3 of 6 conditions true, 1 false (no reversal: Day 0 close 100.00 equals the 20-day low of 100.00) and 2 missing (the cause of the drop, model support). The trigger is not met, and the Strategist's own size is 0%.
+- Stop rule, no wider than the maximum stop: OK on the limit, PROBLEM on how it fits the stock. A 12% stop is inside the 15% maximum. But the Strategist's estimate of expected 20-day volatility is about 19.7% (from 20-day volatility of 69.9%), which is larger than the stop. A close-only stop is therefore likely to be hit by normal noise, and gaps could push the loss past it. Stop price: MISSING, because the Day 1 entry close is MISSING.
+- Target or exit rule and maximum holding period: OK on structure. The 17% target and 20-day hold match the 20-day maximum. Target price: MISSING (needs the Day 1 close). Resistance at 117-119 is about 17-19% above the 100.00 close, so the target sits at the bottom of that resistance band.
+- Position size, within the maximum position: OK. Reference size is 5% ($5,000 of $100,000), inside the 10% maximum. The recommended size now is 0%.
+- Largest simulated loss on this trade: OK within limits, computed (my arithmetic): $5,000 x 12% = $600; entry costs 0.2% of $5,000 = $10; exit costs 0.2% of about $4,400 = about $8.80; total about $618.80, or about 0.62% of the portfolio. This matches the Strategist's "about 0.62%". Gap losses beyond the stop are not included and could make it larger.
+- Fees and slippage included: OK. 0.1% + 0.1% per side, 0.4% round trip, used in the after-cost ratio 16.6/12.4 = 1.34.
+- Liquidity (volume): MISSING. Only relative volume is supplied; absolute volume and dollar volume are MISSING, so I cannot confirm a $5,000 order fills near the close.
+- Look-ahead: OK. The analysis uses data up to the Day 0 close only. The Day 1 close is correctly marked MISSING and not assumed.
+- Overfitting: PROBLEM (moderate). The stop and target were picked for this chart (12% and 17%, set against the 117-119 resistance) with no backtest or out-of-sample test behind them.
+- Conflicting news or events: MISSING. Headlines MISSING, sentiment UNKNOWN, no phase 8 events in 120 days. The cause of a drop of about 25.7% from the 252-day high (134.58) is unknown, so a lasting negative driver cannot be ruled out.
+- Unverified sources: MISSING. No headlines or links were supplied, so nothing could be checked.
+
+DECISION: REJECT
+
+1. The entry trigger is not met. Day 0 is a fresh 20-day low (close 100.00 = 20-day low), so there is no reversal, and the Strategist recommends NO TRADE with 0% size.
+2. The 12% close-only stop is smaller than the estimated 19.7% 20-day volatility, so normal moves are likely to stop out the trade, and gap risk is not covered.
+3. The reward-to-risk is thin: 1.34 after costs, with no backtest showing the rule's win rate. At 1.34, the rule needs a win rate above roughly 43% just to break even, and that rate is unknown.
+4. Key inputs are MISSING: the cause of the drop, all headlines, model betas, exposure, absolute volume and the Day 1 entry price (so the stop and target prices).
+5. The size and maximum loss (5%, about $619 or 0.62%) are within limits, but staying within limits does not make up for the missing trigger and missing evidence.
+
+WHAT MUST CHANGE FOR APPROVAL (for simulation only)
+- A confirmed reversal on daily closes above the 100.00 support (for example, a close back above the prior day's close after the low holds), recorded before entry, with no look-ahead.
+- The cause of the drop identified from supplied, verifiable headlines, with no unresolved negative catalyst.
+- A backtest of the pullback-to-200-day rule on a stated sample, showing the win rate and the average after-cost result for this stop and target.
+- A stop sized to the volatility (up to the 15% maximum) or a smaller position, so that the worst case including a gap allowance stays acceptable; stop and target prices stated from the actual Day 1 close.
+- Absolute volume showing a $5,000 order is easy to fill.
+Even if approved later, approval would mean simulation only. No real trade should be placed.
+
+AGENT: Agent 5 Risk Manager
+TASK COMPLETED: Reviewed the Strategist's NO TRADE recommendation and its reference plan for Stock A (Rare earths) against all 13 checklist items and the fixed limits. Decision: REJECT.
+SOURCE FACTS USED: Strategist handoff: close 100.00; 20d low 100.00; 200d average 96.01; supports 100.00/96.01/90.36; resistance 117-119; 252d high 134.58 (-25.7%); RSI 34.7; volatility 20d 69.9%, 120d 66.2%; estimated 20-day volatility about 19.7%; relative volume 2.02x (Day -15), 1.43x (Day -4), 1.06x (Day 0); 3 of 6 entry conditions true, 1 false, 2 missing; reference plan 12% stop, 17% target, 20-day hold, 5% size, 1.34 after-cost reward-to-risk; headlines MISSING, no phase 8 events in 120 days, Model 1 MISSING, exposure MISSING, Model 4 shock 941 days old; no backtest. Fixed rules: $100,000 portfolio, 10% max position, 15% max stop, 20-day max hold, 0.1% fees + 0.1% slippage per side, closes only, fill at Day 1 close.
+ANALYSIS: Checklist: OK on stop limit, position size, maximum loss, fees and slippage, look-ahead and exit structure; PROBLEM on data quality, entry trigger (not met), stop versus volatility (12% stop under 19.7% expected move) and overfitting; MISSING on sample size or backtest, liquidity, news or conflicting events and source verification. Largest simulated loss (my arithmetic): $5,000 x 12% = $600 + about $18.80 costs = about $618.80 (about 0.62% of the portfolio), excluding gaps. Break-even win rate at 1.34 reward-to-risk is about 43% (1 / (1 + 1.34)); the actual win rate is unknown.
+MISSING INFORMATION: Day 1 close (so stop and target prices); all headlines, catalysts and the cause of the drop; Model 1 betas; exposure rows; absolute volume; intraday OHLC; full price series; a rare-earths benchmark; any backtest of the rule.
+RISKS OR LIMITATIONS: High volatility makes a close-only 12% stop easy to hit, and gaps can exceed it. Unknown cause of the drop. Stop and target were fitted to this chart without testing. Closes-only data. My review depends only on the Strategist's handoff; I could not check the Researcher or News Analyst numbers directly. This is a simulation for research and learning, not investment advice; no real trade is placed and a person reviews every output.
+NEXT AGENT: Agent 6 Boss
+HANDOFF SUMMARY: REJECT. I agree with the Strategist's NO TRADE: the reversal trigger is not met (Day 0 is a new 20-day low), the 12% stop is smaller than the estimated 19.7% 20-day move, the 1.34 after-cost ratio has no backtest behind it, and the cause of the about 26% drop, headlines, betas and absolute volume are MISSING. Size (5%) and worst-case loss (about $619, 0.62%) are within limits, but that does not offset the missing trigger and evidence. Approval for simulation would need a confirmed reversal, a known catalyst, a backtest, a volatility-sized stop and liquidity data.

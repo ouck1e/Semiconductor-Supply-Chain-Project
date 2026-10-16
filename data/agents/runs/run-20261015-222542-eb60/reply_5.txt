@@ -1,0 +1,47 @@
+Agent 5, Risk Manager: review of the Strategist plan for Stock A ("Closing breakout above the 20-day / 12-month closing high")
+
+I started from REJECT. The only material I used is the Strategist handoff and the fixed strategy rules in this packet. I found no embedded instructions in the source material.
+
+CHECKLIST
+
+1. Data quality and completeness: PROBLEM. The Strategist says the Researcher scored completeness at 72/100. Headlines, scheduled events, exposure rows, raw volume, the ETF series, fundamentals and intraday open/high/low are all MISSING (Strategist, MISSING INFORMATION).
+2. Sample size behind any claim: PROBLEM. No backtest or hit rate for this breakout rule was supplied. The Model 1 alpha t-stat is 0.88, which is not significant. Model 4 has one shock, and Stock A was in neither group. The plan rests on no tested evidence.
+3. Entry rule: PROBLEM. "Close above 101.07 ... volume at 1.2x or more" is stated, but "trend intact" is not defined. On Day 0 the close is 100.00, below 101.07, so the trigger is false. I agree with the plan's own NO ENTRY.
+4. Stop rule, no wider than 15%: OK on width, PROBLEM on anchoring. The 7% stop is within the 15% maximum. But the plan calls it "7% below the fill" and then computes it from the trigger level (101.07 x 0.93 = 94.0, which I re-checked as 93.995). The fill is the Day 1 close, which is MISSING, so the stop price will not be 94.0 unless the fill happens to be exactly 101.07.
+5. Target or exit rule and max hold: OK. The target is +14% and the maximum hold is 20 trading days, which matches the fixed rule. The target is a 2x-stop rule, not a level drawn from the data (Strategist, RISKS).
+6. Position size within the maximum: OK. 5% ($5,000) is within the 10% maximum ($10,000).
+7. Largest simulated loss: OK if triggered. My check: $5,000 x 7% = $350. Entry costs are 0.2% x $5,000 = $10, and exit costs are 0.2% x about $4,650 = about $9.30, for a total of about $369, or 0.37% of $100,000. That matches the Strategist's figure of about $370. Because stops are checked on closes only, a gap can push the real loss beyond -7%, and that excess is not bounded.
+8. Fees and slippage included: OK. The reward-to-risk is (14 - 0.4)/(7 + 0.4) = 13.6/7.4 = 1.84, which I re-checked.
+9. Liquidity (volume): MISSING / PROBLEM. Only a ratio was supplied (5-day volume 1.21x). Raw volume and dollar volume are MISSING, so I cannot confirm a $5,000 order fills near the close.
+10. Look-ahead: OK at Day 0. Nothing uses post-Day-0 data, because the plan does not enter. Any later trigger depends on Day 1+ closes, which are MISSING here and would need a new packet.
+11. Overfitting: PROBLEM (mild). The trigger is set exactly at the current 20-day/252-day high of 101.07, picked from this one chart. The rule itself is generic, but there is no out-of-sample evidence for it.
+12. Conflicting news or events: MISSING. Headlines are MISSING, and catalysts behind the Day -19/-18 and Day -3 moves are unidentified (News Analyst via Strategist). An unknown event could explain the run-up.
+13. Unverified sources: PROBLEM. No headline or link was supplied to verify. The exposure model output is MISSING.
+
+DECISION: REJECT
+
+Five reasons:
+1. The entry trigger is not met. The Day 0 close is 100.00 against a required close above 101.07, so there is nothing to approve at Day 0. NO TRADE is the correct outcome.
+2. The evidence is weak. The alpha t-stat is 0.88 (not significant), the stock ranks 10 of 24 and sits outside the baseline top 5, its 3m return of 15.5% only equals the ETF's 15.5%, and the breakout rule has no backtest.
+3. The news is blind. Headlines are MISSING and the Day -19/-18 and Day -3 catalysts are unexplained, so conflicting events cannot be ruled out.
+4. Extension and volatility risk is high. Price is 30.2% above the 200-day average (100 / 76.80 = 1.302, re-checked), and 20-day volatility of 31.5% is above the 120-day figure of 24.2%. Close-only stops can gap past -7%.
+5. Parts of the spec are incomplete. "Trend intact" is undefined, the stop price is tied to the trigger level instead of the actual fill, and raw volume/liquidity is MISSING.
+
+What must change before this could be approved for simulation only (in a new review packet):
+- A later supplied close above 101.07, with volume at 1.2x or more, actually triggers the entry, and the Day 1 fill close is supplied.
+- "Trend intact" is defined as a testable rule (for example, a stated moving-average condition) before it is checked.
+- The stop and target are recomputed from the actual fill price (stop = fill x 0.93, target = fill x 1.14), with the loss recalculated including 0.2% costs per side.
+- Raw volume is supplied, showing a $5,000 order is small relative to daily volume.
+- Headlines for the window are supplied and checked for conflicting events, including the Day -19/-18 and Day -3 catalysts.
+- Some supplied evidence (a backtest or event-study count) shows the breakout rule has worked on more than this one chart.
+
+Even if all of this is met, approval would mean approval for simulation only. It never means a real trade should be placed. This is not investment advice.
+
+AGENT: Agent 5, Risk Manager
+TASK COMPLETED: Reviewed the Strategist's conditional breakout plan for Stock A against all 13 risk items and the fixed limits, re-checked the arithmetic, and issued a decision: REJECT. This is consistent with the plan's own NO ENTRY at Day 0.
+SOURCE FACTS USED: From the Strategist handoff: Day 0 close 100.00; 20-day/252-day high 101.07; 20-day low 94.75; 200-day average 76.80; volatility 31.5% (20-day) vs 24.2% (120-day); 5-day volume 1.21x; 3m return 15.5% vs ETF 15.5%; completeness 72/100; alpha t-stat 0.88, rank 10 of 24, beta 1.25; Model 4 one shock 198 days before, stock in neither group; headlines MISSING; unidentified catalysts Day -19/-18 and Day -3; plan parameters of 7% stop, 14% target, 20-day hold, 5% size, about $370 loss, 1.84 net reward-to-risk. From the fixed rules: $100,000 portfolio, 10% max position, 15% max stop, 20-day max hold, 0.1% fee + 0.1% slippage per side, Day 1 close fill, close-only checks.
+ANALYSIS: Trigger false (100.00 < 101.07), so there is no entry. Re-checked: 101.07 x 0.93 = 93.995; loss = $350 + $10 + about $9.30 = about $369 (0.37%); net R:R = 13.6/7.4 = 1.84; 100/76.80 = 1.302 (30.2% above the 200-day). Size and stop are within limits. Problems: undefined "trend intact", a stop anchored to the trigger rather than the fill, no backtest, an insignificant alpha, blind news, no raw volume, a trigger level picked from this one chart, and gap risk with close-only stops.
+MISSING INFORMATION: MISSING: Day 1+ closes and the fill price; headlines and scheduled events; catalysts for the Day -19/-18 and Day -3 moves; raw/dollar volume; ETF series and correlation; exposure rows; fundamentals; intraday open/high/low; any backtest or hit rate for the breakout rule; a definition of "trend intact"; real dates.
+RISKS OR LIMITATIONS: Close-only stops can gap beyond -7%, so the true worst-case loss is unbounded above about $369. The stock is extended (30.2% above the 200-day) while volatility is rising. Unknown catalysts may conflict with the setup. My review is limited to the supplied handoff and cannot verify upstream numbers independently. Simulation for learning only, not investment advice; no real trade is placed.
+NEXT AGENT: Agent 6, Boss
+HANDOFF SUMMARY: REJECT. The plan's trigger (a close above 101.07) is not met by the Day 0 close of 100.00, so the outcome is NO TRADE. Size (5%) and stop (7%) are within limits, and the about $369 loss math checks out. But the evidence is weak (alpha t 0.88, no backtest), news is MISSING, raw volume is MISSING, "trend intact" is undefined and the stop is not tied to the actual fill. Any future trigger needs a new packet with the fill price, a recomputed stop and target, raw volume, headlines and supporting evidence before it could be approved for simulation only.

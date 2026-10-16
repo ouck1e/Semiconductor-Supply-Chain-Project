@@ -1,0 +1,77 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Equipment), decision at the Day 0 close
+
+Note on the material: I found no text in the supplied material that tries to give me instructions. Every number below is either quoted from a named supplied line or marked as my own arithmetic.
+
+1. SETUP NAME
+"Factor-alpha leader in a falling tape" (conditional). This is the phase 8 baseline signal with a price-trend filter that it fails on Day 0. The setup exists, but most of its conditions are NOT met on Day 0. My overall lean is NO TRADE (see section 10). The final call belongs to the Risk Manager and the Boss.
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE ON DAY 0
+a) Model signal: the stock is in the top 5 by Model 1 alpha t-stat, as the baseline rule requires.
+   Source: Model 1 says "Alpha 26.4% a year, t-stat 2.44 (156 weeks). Rank 1 of 24" and "The phase 8 baseline rule holds the top 5 by this t-stat each month."
+   Day 0: TRUE.
+b) The alpha is statistically meaningful (t-stat above about 2).
+   Source: t-stat 2.44 (Model 1).
+   Day 0: TRUE, but only just. Rank 1 of 24 also brings a multiple-testing problem: the best of 24 estimates tends to be overstated.
+c) Price is not in a fresh breakdown. My filter: the close is at or above the 20-day average, or at least not at a new 252-day low.
+   Source: Researcher handoff gives close 100.00 against a 20-day average of 116.60 (-14.2%), and a 20/60/252-day low of 100.00, so Day 0 is a fresh 252-day low.
+   Day 0: FALSE.
+d) The supplied news does not point to a company-specific negative cause.
+   Source: News Analyst handoff says "Headlines: MISSING", sentiment UNCLEAR, and the recent slide is unexplained.
+   Day 0: UNKNOWN. It cannot be checked.
+e) The supply-shock model gives no direct negative exposure.
+   Source: Model 4 lists both shocks (hydrogen fluoride/photoresist curbs 1081 days before; neon war 112 days before) with "this stock: not in either group". Exposure model: "MISSING: no exposure rows."
+   Day 0: TRUE for Model 4. Exposure is MISSING.
+Summary: the model signal (a, b, e) is in place. The price filter (c) fails, and the news check (d) cannot be done.
+
+3. ENTRY RULE
+At the Day 0 close, decide BUY or NO TRADE. If BUY, the order fills at the Day 1 close, whatever that price is (MISSING at decision time). There are no limit orders and no waiting for confirmation, because the framework allows one decision, at the Day 0 close only.
+Analysis: under these rules a "wait for a bounce back above 107.30" rule cannot be carried out. That is why condition (c) is a pass/fail filter today, not a trigger for later.
+
+4. STOP RULE
+Stop 10% below the entry price (Day 1 close). It is checked on daily closes only.
+Why 10% (my arithmetic): the 20-day volatility is 51.5% a year (Researcher). The daily figure is 51.5% / sqrt(252) = 51.5 / 15.87 ≈ 3.2%. A 10% stop is about 3.1 daily standard deviations away, so normal noise is less likely to trigger it, and it stays inside the 15% maximum. Because stops are checked on closes only, the actual exit can land well below -10% on a large down day. Day 0 alone was -6.8% (Researcher).
+
+5. TARGET OR EXIT RULE AND HOLDING PERIOD
+Target 20% above entry, checked on daily closes. Maximum hold is 20 trading days, and the position closes at the Day 20 close if neither the stop nor the target has been hit.
+Context (Researcher resistance levels): from an entry near 100, a 20% target sits in or just under the 120-123 resistance zone, and 104.57-107.30, 109-112 and 116.60 must be cleared on the way up. The actual entry price is MISSING (Day 1 close), so these levels are approximate.
+
+6. REWARD-TO-RISK RATIO
+Gross: 20% ÷ 10% = 2.0.
+After costs (my arithmetic): fees 0.1% plus slippage 0.1% is 0.2% per side, or 0.4% for the round trip. The approximate net gain at the target is 20% - 0.4% = 19.6%. The approximate net loss at the stop is 10% + 0.4% = 10.4%. Net ratio ≈ 19.6 ÷ 10.4 ≈ 1.88.
+This ratio says nothing about how likely each outcome is.
+
+7. POSITION SIZE
+5% of the simulated portfolio = $5,000. That is half the 10% maximum, because conditions (c) and (d) fail or are unknown.
+Planned loss at the stop (my arithmetic): $5,000 × 10.4% ≈ $520, about 0.52% of the $100,000 portfolio. A close-only gap through the stop could make it larger.
+
+8. WHAT WOULD CANCEL THE SETUP
+- Any supplied company-specific negative news (earnings, guidance, orders, export rules) behind the -15.9% five-day slide or the Day -12 volume spike of 2.35x.
+- A recalculated Model 1 t-stat below about 2, or the stock leaving the top 5 at the next monthly baseline rebalance.
+- New exposure data placing the stock in a loser group for an active supply shock.
+- The Risk Manager or the Boss deciding the falling-knife pattern (fresh low, averages stacked 20 < 50 < 200) outweighs the model signal.
+
+9. MISSING INPUTS
+- The Day 1 close (entry price), which is unknown at decision time by design.
+- All headlines, and the cause of the Day -4 to Day 0 slide and the Day -12 spike.
+- Supply exposure rows (exposure_model.py has none).
+- Any price history or support below 100.00, and intraday highs and lows.
+- The ETF's Day 0 move and its daily series.
+- How much of the most recent price action is inside the Model 1 window. Factor data is lagged 61 days, so the regression may leave out roughly the last 2 months, which includes the recent slide (my interpretation of the supplied lag note).
+- Fundamentals. Calendar dates are hidden by design.
+
+10. REASONS TO SKIP IT
+- Price structure points down: a fresh 252-day low, -46.8% from the 252-day high, below all averages, a failed bounce from 109.23 to 127.16 and then down to 100.00, and selling on above-average volume (Researcher). There is no support below 100 in the data.
+- The cause is unexplained (News Analyst). A company-specific problem cannot be ruled out.
+- The alpha is a 156-week backward-looking estimate with a borderline t-stat (2.44), chosen as the best of 24. It may also leave out the recent weeks because of the 61-day factor lag. Over 12 months the stock lagged the ETF by 12.7 points (Researcher), which does not fit a current "alpha leader" picture.
+- The sector itself is falling hard (ETF 3m -23.9%, 6m -34.5%), and market beta is 1.13, so the stock tends to move more than the market.
+- Stops are checked on closes only, and 20-day volatility is 51.5% a year, so losses can overshoot the 10% stop.
+- Strategist lean: NO TRADE. If the team chooses to follow the baseline signal anyway, use the plan above at no more than 5%.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into one conditional simulation plan ("Factor-alpha leader in a falling tape"): entry conditions checked against Day 0, entry, stop, target, holding period, reward-to-risk ratio, size, cancel conditions, missing inputs and reasons to skip. My lean is NO TRADE. No trade decision made.
+SOURCE FACTS USED: Model 1 alpha 26.4%/yr, t-stat 2.44, rank 1 of 24, baseline holds top 5, beta 1.13 (ETF beta up weeks 0.88 / down weeks 0.83), factor lag 61 days. Model 4 shows both shocks (1081 and 112 days before) with "not in either group". Exposure: MISSING. Researcher: close 100.00; 20/50/200-day averages 116.60/120.00/147.98; fresh 252-day low; -46.8% from the high; Day 0 -6.8% on 1.24x volume; 5-day -15.9%; RSI 30.9; volatility 20-day 51.5%; resistance 104.57-107.30, 109-112, 116.60, 120-123; 12m -12.7 points vs the ETF; ETF 3m -23.9%, 6m -34.5%. News Analyst: headlines MISSING, sentiment UNCLEAR. Fixed rules: $100,000 portfolio, 10% maximum position, 15% maximum stop, 20-day maximum hold, 0.1% fees + 0.1% slippage per side, close-only checks, fill at the Day 1 close.
+ANALYSIS: The model signal (rank 1 by alpha t-stat, no supply-shock group) supports the baseline hold. The price filter fails (fresh 252-day low, below all averages), and the news check cannot be done. Plan if taken: BUY at the Day 1 close, stop -10% (about 3.1 daily standard deviations, from 51.5%/sqrt(252) ≈ 3.2%), target +20%, hold up to 20 days. Gross reward-to-risk 20/10 = 2.0; after 0.4% round-trip costs, 19.6/10.4 ≈ 1.88. Size 5% ($5,000), planned loss at the stop about $520 (0.52% of the portfolio). Lean: NO TRADE.
+MISSING INFORMATION: Day 1 close (entry price); headlines and the cause of the slide and the Day -12 spike; supply exposure rows; history or support below 100; intraday highs and lows; ETF Day 0 move; whether the Model 1 window covers the last ~2 months; fundamentals; calendar dates (hidden by design).
+RISKS OR LIMITATIONS: Close-only stops can overshoot -10% (Day 0 alone was -6.8%). The alpha is backward-looking, borderline, best of 24 (multiple-testing bias), and may leave out the recent slide. The sector is falling sharply and beta is 1.13. A company-specific negative cause cannot be ruled out. The reward-to-risk ratio says nothing about the odds of each outcome. No prompt-injection text was found. Simulation only, not investment advice, and no real order is placed.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4, the Coder, is skipped in manual runs)
+HANDOFF SUMMARY: Stock A ranks 1 of 24 by Model 1 alpha t-stat (2.44), so the baseline signal says hold, but it sits at a fresh 252-day low below all averages with an unexplained slide and no headlines. The conditional plan is BUY at the Day 1 close, 5% size, stop -10%, target +20%, 20-day maximum hold, reward-to-risk 2.0 gross / ~1.88 net, and the Strategist leans NO TRADE.

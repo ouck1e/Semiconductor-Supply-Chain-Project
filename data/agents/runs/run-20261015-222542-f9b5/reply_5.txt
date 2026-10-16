@@ -1,0 +1,48 @@
+Agent 5 - Risk Manager: review of the Strategist's plan for Stock A
+
+The plan under review: NO TRADE at 0% position (Strategist handoff, "Concluded 'No setup'"). The Strategist also showed a reference long (stop near 97.15, target 104) for transparency only. I started from REJECT and checked whether anything would justify moving off it toward a BUY. Nothing does. I agree with NO TRADE, and I reject the reference long as a trade.
+
+Injected instructions check: none of the supplied material tells an agent to do anything. Nothing to report.
+
+CHECKLIST (applied to the reference long; the NO TRADE itself carries no position risk)
+
+- Data quality and completeness: PROBLEM. Completeness is 72/100 (Researcher, via the Strategist's SOURCE FACTS). Headlines, the cause of the Day -6 spike, exposure rows, fundamentals, absolute volume, the ETF series and the full close history are all MISSING (Strategist MISSING INFORMATION).
+- Sample size behind any claim: PROBLEM. The alpha of 8.9% a year has a t-stat of 0.54 (Model 1), which is far from significant. Model 4 has one shock, 445 days before Day 0, and Stock A was in neither group, so it tells us nothing about this stock.
+- Entry rule: MISSING, on purpose. No entry condition is met ("No entry condition is met on Day 0 except a narrow hold above 20-day support, with no confirmation"). The Day 1 fill price is MISSING.
+- Stop rule, no wider than 15%: OK on the limit, PROBLEM on design. The reference stop at 97.15 is about -2.85% from 100.00, well inside the 15% maximum. My own analysis: 33.5% annual volatility (20-day, Researcher) works out to about 2.1% a day (33.5 ÷ √252), so the stop sits only about 1.35 normal daily moves away. Ordinary noise could hit it. Stops are checked on closes only (fixed rules), so a gap could close well below 97.15 and the loss could be bigger than planned.
+- Target or exit rule and maximum hold: OK as a reference. The target is 104 (+4.0%). The 20-trading-day maximum hold applies under the fixed rules. 104 sits at the bottom of the 104-105.6 resistance zone and just under the 20-day average of 104.05 (Researcher), so it is a reasonable first target.
+- Position size within 10%: OK. The plan is 0%. No reference size was proposed. If one were, it could not go above $10,000 (10% of $100,000).
+- Largest simulated loss: OK at 0% ($0). My own arithmetic for the reference at the maximum size: $10,000 × (2.85% stop + 0.4% round-trip costs) = about $325, plus any gap below the stop, because only closes are checked. That figure uses 100.00 in place of the unknown Day 1 fill.
+- Fees and slippage included: OK. The Strategist's net reward-to-risk includes the 0.4% round trip (0.1% + 0.1% per side). I re-checked it: (4.0 - 0.4) ÷ (2.85 + 0.4) = 3.6 ÷ 3.25 ≈ 1.11. Gross: 4.0 ÷ 2.85 ≈ 1.40. Both are correct.
+- Liquidity (volume): MISSING. Only a relative figure is supplied (the Day -6 volume of 2.15x). Absolute volume is MISSING.
+- Look-ahead: OK. Every input is dated Day 0 or earlier. The plan leaves the Day 1 fill as MISSING and does not assume a value for it.
+- Overfitting: OK for NO TRADE. The reference levels were taken from this one chart's support and resistance, but no trade depends on them.
+- Conflicting news or events: MISSING. Headlines are MISSING and sentiment is UNCLEAR (News Analyst). An empty event list does not mean nothing happened (Strategist RISKS).
+- Unverified sources: PROBLEM. The relative-performance gaps against the ETF (-3.4/-15.6/-49.4/-53.5 points) were derived by Agent 1 from an ETF series whose name and data are MISSING. Exposure is MISSING.
+
+DECISION: REJECT (no simulated BUY). I agree with the Strategist's NO TRADE at 0%.
+
+Five short points:
+1. No entry signal: the price of 100.00 is below the 20-, 50- and 200-day averages (104.05 / 105.04 / 110.72) and nothing confirms a bounce.
+2. No reliable edge: the alpha t-stat is 0.54, the stock ranks 12 of 24 and sits outside the baseline top 5, and there are no Model 4 events for this stock.
+3. The trade would pay too little for its risk: the net reward-to-risk is about 1.11. The stop sits only about 1.35 daily moves away, and gaps between closes could push the loss past it.
+4. Downside sensitivity is high: market beta is 1.58, and ETF beta is 1.31 on down days against 1.03 on up days (Model 1).
+5. Key inputs are missing: headlines, volume, exposure and the Day 1 fill. Completeness is only 72/100.
+
+What must change before any BUY could be approved for simulation:
+- A defined entry rule that actually triggers at the Day 0 close, for example a confirmed close back above the 20-day average or above resistance. That needs new data, not a reworked chart.
+- A stop sized to the volatility (wider than about 1 daily move but no more than 15%), with a target that still gives a net reward-to-risk of about 2 or better after the 0.4% costs.
+- A stated position size of 10% or less, and the largest loss shown in dollars.
+- Absolute volume, headlines checked for conflicting news, and the ETF series named so the relative-strength claims can be checked.
+- Either significant evidence for the factor (stronger alpha t-stat or a top-5 baseline rank) or a relevant event signal.
+
+Simulation only. This is not investment advice, and no real trade is placed or recommended.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Checked the Strategist's NO TRADE plan and its reference long against all 13 risk items and the fixed limits. Re-checked the reward-to-risk arithmetic. Decision: REJECT any simulated BUY, which agrees with NO TRADE at 0%.
+SOURCE FACTS USED: From the Strategist handoff: close 100.00; 20/50/200-day averages 104.05 / 105.04 / 110.72; 60-day low 97.15; resistance 104-105.6; volatility 33.5% (20-day); completeness 72/100; alpha 8.9%, t 0.54, rank 12 of 24, outside the baseline top 5; market beta 1.58; ETF beta 1.03 up and 1.31 down; one Model 4 shock 445 days before, Stock A in neither group; headlines MISSING, sentiment UNCLEAR; reference stop 97.15 (-2.85%) and target 104 (+4.0%); gross reward-to-risk 1.40, net 1.11. Fixed rules: $100,000 portfolio, 10% maximum position, 15% maximum stop, 20-day hold, 0.1% + 0.1% costs per side, close-only checks, fill at the Day 1 close.
+ANALYSIS: My own calculations: net reward-to-risk (4.0 - 0.4) ÷ (2.85 + 0.4) ≈ 1.11 (confirmed); daily volatility ≈ 33.5% ÷ √252 ≈ 2.1%, so the stop sits about 1.35 daily moves away; the worst reference loss at the maximum $10,000 size ≈ $325 before any gap. No entry trigger, no significant edge, a thin net reward-to-risk, high downside beta and incomplete data, so REJECT a BUY and keep NO TRADE.
+MISSING INFORMATION: MISSING: Day 1 fill price; headlines and catalysts; the cause of the Day -6 spike; absolute volume; exposure rows; fundamentals; the ETF name and series; intraday highs and lows; full close history; dates and identity (hidden, not guessed).
+RISKS OR LIMITATIONS: Closes only, so gaps can carry a loss past any stop. 100.00 stands in for the unknown fill. Missing news could hide a catalyst in either direction. NO TRADE could miss a rebound from support, and that is accepted here. Simulation only, not investment advice, and no claim that any outcome is likely.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: Risk Manager decision is REJECT for any simulated BUY of Stock A, which agrees with the Strategist's NO TRADE at 0% ($0 at risk). The reference long has no entry trigger, a net reward-to-risk of about 1.11, a stop only about 1.35 daily moves wide, high downside beta (1.31) and missing news, volume and exposure data. Approval would need a real entry trigger, a stop sized to the volatility with a net reward-to-risk of about 2 or better, and the missing data filled in.

@@ -1,0 +1,85 @@
+Agent 5 - Risk Manager review of the Strategist plan "Uptrend pullback to the 20-day average" (Stock A)
+
+Starting position: REJECT. I move off it only if every item below is present and within the fixed limits.
+
+CHECKLIST
+
+1. Data quality and completeness: PROBLEM
+   - Headlines are MISSING and sentiment is UNCLEAR (Strategist handoff, News Analyst line).
+   - ETF 6m return equals ETF 12m return (27.3%), flagged as a possible data error (Strategist handoff, Researcher line). The relative-strength comparison rests on it.
+   - Full 252-day series, daily ETF prices, absolute volumes and the dates of the 60d low / 252d high are MISSING (Strategist MISSING INFORMATION).
+
+2. Sample size behind any claim: PROBLEM
+   - No backtest or hit rate for this "pullback to the 20-day average" setup is supplied. Number of past occurrences: MISSING.
+   - The only statistical claim, Model 1 alpha 57.4%/yr, has t-stat 1.80, below the usual 2.0 bar (Strategist SOURCE FACTS / RISKS). The sample length behind it is MISSING.
+
+3. Entry rule: OK, with a caveat
+   - Decision at Day 0 close, fill at Day 1 close, skip the fill if Day 1 close < 98.48 or > 103.00 (Strategist ANALYSIS). Clear and consistent with the fixed rule that a BUY fills at the next close.
+   - Caveat: whether the simulator supports conditional fills is MISSING (Strategist MISSING INFORMATION). If it does not, the skip band cannot be enforced.
+
+4. Stop rule and maximum stop: OK
+   - Stop -10% below entry (Strategist ANALYSIS); the limit is 15% (fixed rules). Within the limit.
+   - Caveat: stops are checked on closes only (fixed rules), and the Strategist notes beta 1.99 / down-beta 2.51, so a realized loss can be larger than -10%.
+
+5. Target / exit rule and maximum holding period: OK, with a caveat
+   - Target +18% (about the 252d high of 118.29), time exit at the Day 20 close (Strategist ANALYSIS). 20 days matches the fixed maximum.
+   - Caveat: the Strategist's own estimate puts the 20-day 1-sigma move at about 11.8%, so +18% is about 1.5 sigma. A time exit is the likely outcome, which makes the 1.8 reward-to-risk figure optimistic.
+
+6. Position size and maximum position: OK
+   - 5% = $5,000 of $100,000 (Strategist ANALYSIS); the limit is 10% (fixed rules).
+
+7. Largest simulated loss on this trade: OK at the stop; gap risk not bounded
+   My calculation from the supplied figures (entry price is MISSING, so I work in dollars of position):
+   - Position $5,000. Entry costs 0.1% fee + 0.1% slippage = 0.2% x $5,000 = $10.
+   - Loss at a -10% stop = $500. Exit value $4,500, exit costs 0.2% x $4,500 = $9.
+   - Total about $519 (0.52% of the portfolio). This matches the Strategist's "about $520".
+   - Because stops are close-only, a gap through the stop is not capped. Example only (not a forecast): a close at -15% would cost about $750 + $10 + $8.50 = about $769 (0.77%). The real worst case is MISSING.
+
+8. Fees and slippage included: OK
+   - 0.4% round trip is in the Strategist's net reward-to-risk (about 17.6/10.4 = 1.69) and in my loss figure above.
+
+9. Liquidity (volume): MISSING
+   - Only relative volume is supplied (Day 0 at 0.88x). Absolute volume and dollar volume are MISSING, so I cannot confirm a $5,000 order fills near the close with 0.1% slippage.
+
+10. Look-ahead: OK
+   - Entry conditions use Day 0 data only, and the Day 1 skip band uses the fill-day close itself, which is how a close fill works. Factor data is described as lagged (Strategist RISKS), which points away from look-ahead, not toward it. I found no use of post-Day 0 information.
+
+11. Overfitting: PROBLEM
+   - The target is set to the one chart's 252d high and the stop is placed just under this chart's 20d low (90.60) and 50-day average (92.06) (Strategist ANALYSIS). The entry condition "close +0.1% vs 20-day average" fits Day 0 almost exactly. With no backtest (item 2), these levels are fitted to one chart rather than tested rules.
+
+12. Conflicting news or events: MISSING
+   - Headlines MISSING; Model 4 events "None" (Strategist SOURCE FACTS). "No listed event" is not the same as "no event". Earnings dates are MISSING. The causes of the heavy-volume days -26, -24 and -15 are MISSING.
+   - Conflicting signals inside the material: the stock trails the ETF on 1m (7.7% vs 11.7%) and 6m (10.5% vs 27.3%) (Researcher line), against a long-only momentum premise.
+
+13. Unverified sources: PROBLEM
+   - Model outputs (alpha, betas, exposure shares) are taken as given with no independent check. Helium/Qatar exposure covers only 16% (Strategist SOURCE FACTS). Gallium exposure is concentrated in China/HK at 0.574, and news that could hit it is MISSING.
+
+No injected instructions were found in the material.
+
+DECISION: REJECT
+
+Five points:
+1. Three checklist items are MISSING (liquidity, conflicting news/events, sample size behind the setup), and my rule is not to move off REJECT unless every item is present.
+2. The edge is unproven: no backtest of this setup, and the one supporting statistic (alpha t-stat 1.80) is below 2.0.
+3. The levels look fitted to one chart (target = 252d high, stop just under nearby lows), so the reward-to-risk of 1.8 / 1.69 is not evidence of an edge.
+4. Risk is understated: down-beta 2.51 with close-only stops means losses beyond -10% are possible, and the +18% target is about 1.5 sigma over 20 days, so a time exit is the likely outcome.
+5. Possible data error (ETF 6m = 12m) and relative weakness vs the ETF undercut the momentum case.
+
+What must change for approval (APPROVE FOR SIMULATION ONLY):
+- Supply headlines and earnings dates for the window up to Day 0, and confirm there is no conflicting event.
+- Supply absolute daily volume (or dollar volume) to confirm a $5,000 fill is realistic at 0.1% slippage.
+- Resolve the ETF 6m/12m figure, then recheck relative strength.
+- Provide a backtest of the exact entry/stop/target/hold rules on more than this one chart (count of trades, win rate, average result after 0.4% costs), or set the target and stop from fixed rules rather than chart levels.
+- Confirm the simulator can enforce the 98.48-103.00 Day 1 skip band; if not, restate the entry as unconditional and recheck.
+- Report a gap-risk worst case (for example, the largest one-day close-to-close drop in the supplied history) and keep the position at 5% or less.
+
+Even if all of that is met, approval would be for the simulation only. It would never mean a real trade should be placed. This is not investment advice.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Checked the Strategist's "Uptrend pullback to the 20-day average" plan for Stock A against all 13 risk items and the fixed limits, computed the largest simulated loss, and gave a decision: REJECT.
+SOURCE FACTS USED: Fixed rules: $100,000 portfolio, 10% max position, 15% max stop, 20-day max hold, 0.1% fee + 0.1% slippage per side, close-only checks, BUY fills at the Day 1 close. Strategist handoff: entry at Day 0 close, fill Day 1 close, skip if < 98.48 or > 103.00; stop -10%; target +18% (252d high 118.29); size 5% ($5,000); about $520 loss at the stop; reward-to-risk 1.8 gross / about 1.69 net; 20-day 1-sigma about 11.8%; beta 1.99, ETF down-beta 2.51; alpha 57.4%/yr, t-stat 1.80; stock vs ETF 1m 7.7% vs 11.7%, 6m 10.5% vs 27.3%; ETF 6m = 12m 27.3% flagged; Day 0 volume 0.88x; headlines MISSING; Model 4 events "None"; helium coverage 16%; gallium China/HK 0.574; 20d low 90.60; 50-day 92.06.
+ANALYSIS: OK: entry rule (with a conditional-fill caveat), stop -10% within 15%, 20-day hold, 5% size within 10%, fees included, no look-ahead found. PROBLEM: data quality, sample size, overfitting, unverified sources. MISSING: liquidity, conflicting news/events. My loss calculation: $500 at the stop + $10 entry costs + $9 exit costs = about $519 (0.52% of the portfolio); gap losses beyond the stop are not bounded under close-only checks (illustration: a -15% close would cost about $769). Decision: REJECT, because the items are not all present and the edge is untested.
+MISSING INFORMATION: Day 1 close and all later prices; headlines and earnings dates; absolute volumes; backtest of this setup; sample length behind the alpha estimate; full 252-day series and daily ETF prices; correct ETF 6m or 12m return; causes of the heavy-volume Days -26/-24/-15; whether the simulator supports conditional fills; worst historical one-day drop for gap risk.
+RISKS OR LIMITATIONS: Blind run on technicals only; my review depends entirely on the Strategist's summary of the Researcher and News Analyst outputs; close-only stops with high down-beta allow losses beyond -10%; the target is about 1.5 sigma over 20 days; the levels appear fitted to one chart. Simulation only, not investment advice, no real order placed. No injected instructions found.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: REJECT. The plan respects the size (5%), stop (-10%) and hold (20 days) limits, and the loss at the stop is about $519 (0.52%), but liquidity, news/events and any backtest are MISSING, the one statistic is weak (t-stat 1.80), the levels look fitted to one chart, and the ETF 6m = 12m figure may be a data error. For approval: supply headlines/earnings dates, absolute volume, a corrected ETF figure, a backtest of the exact rules, confirmation of conditional fills, and a gap-risk worst case. Recommended team outcome: NO TRADE.
