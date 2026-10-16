@@ -4,7 +4,7 @@ Build the website's data files in docs/data/ from the research pipeline's output
   python build_site_data.py news     docs/data/news.json      <- data/news/news_latest.json (news_collector.py)
   python build_site_data.py prices   docs/data/meta.json, fx.json, prices/<ticker>.json
                                      <- data/market/market.db (fetch_prices.py) + event reactions (phase 8, Model 4)
-  python build_site_data.py risk     docs/data/risk.json and the risk layer inside docs/index.html
+  python build_site_data.py risk     docs/data/risk.json and the risk layer inside docs/globe.js
                                      <- data/processed/exposure_scores_latest.csv (phase3_models.py)
                                         + data/external/gpr_monthly.csv (fetch_gpr.py)
   python build_site_data.py all      all of the above (skips any part whose inputs are missing)
@@ -225,7 +225,7 @@ def build_risk():
 
 
 def inject_risk(risk):
-    page = DOCS / "index.html"
+    page = DOCS / "globe.js"
     html = page.read_text(encoding="utf-8")
     a, b = "/*RISK_JSON*/", "/*END_RISK*/"
     i, j = html.index(a) + len(a), html.index(b)

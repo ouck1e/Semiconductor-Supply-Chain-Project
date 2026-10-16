@@ -15,7 +15,7 @@ Each job then redeploys the site. Your PC is not needed.
 |---|---|---|---|
 | `News (hourly)` | every hour at :17 | `news_collector.py` | `docs/data/news.json`: about 40 feeds, tagged by country, topic and input, with alerts |
 | `Stock prices (daily)` | weekdays 22:23 | `fetch_prices.py` | `docs/data/prices/*.json`, `meta.json` (incl. each stock's reaction to the four shocks), `fx.json` |
-| `Trade data and risk (weekly)` | Mondays 09:41 | `fetch_trade.py`, `fetch_trade_extra.py`, `fetch_gpr.py`, `phase3_models.py` | `docs/data/risk.json` and the risk layer in `docs/index.html` |
+| `Trade data and risk (weekly)` | Mondays 09:41 | `fetch_trade.py`, `fetch_trade_extra.py`, `fetch_gpr.py`, `phase3_models.py` | `docs/data/risk.json` and the risk layer in `docs/globe.js` |
 | `Deploy website` | after each job, and on any push to `docs/` | | GitHub Pages |
 
 `docs/data/status.json` records when each part last updated; the page shows it under the tracker title.

@@ -9,10 +9,11 @@ The owner is a student learning as he builds. Explain changes in plain language,
 ## Where things are
 
 - **The website is `docs/`.** `docs/index.html` is the one live page: the 3D supply-chain globe (three.js r128)
-  on top, the chip stock tracker below. `docs/config.js` holds site settings (`liveQuotesUrl`).
+  on top, the chip stock tracker below. Its code is split into `docs/styles.css`, `docs/globe.js` and
+  `docs/tracker.js`. `docs/config.js` holds site settings (`liveQuotesUrl`).
   Edit only `docs/` for website work. `globe/` and any other copies of the globe or tracker are old drafts.
 - **Site data is generated.** `docs/data/*.json` and `docs/data/prices/*.json` are written by `build_site_data.py`
-  from the research outputs. Do not edit them by hand. The risk layer is also injected into `docs/index.html`
+  from the research outputs. Do not edit them by hand. The risk layer is also injected into `docs/globe.js`
   between the `/*RISK_JSON*/` and `/*END_RISK*/` markers; keep those markers.
 - **Research pipeline (Python):**
   - `fetch_trade.py`, `fetch_trade_extra.py`: UN Comtrade imports to `data/raw/` and `data/raw_mirror/`
