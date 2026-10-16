@@ -240,3 +240,45 @@ wafer cost, so markets treat the shocks as sector-wide news rather than company-
 
 Known gaps: US helium shares count imports only (the US produces most of its own); several capacity shares are
 low-confidence estimates; Taiwan HF is missing until the mirror pull finishes (TSMC, UMC and the designers show *).
+
+## AI agent team (simulation)
+A six-role Claude team, following the structure of the SebAI "6 Claude Agents Simulation-First Trading Team Guide":
+Researcher → News Analyst → Strategist → (Coder) → Risk Manager → Boss. Research and learning only: nothing places a
+real order, and no broker is connected. The goal is to beat the phase 8 baseline below, and to record whether
+the agents improve as their prompts change.
+
+**1. The opponent.** `python phase8_baseline.py` (or `run_phase8_baseline.bat`) turns phase 8 into a fixed,
+walk-forward, long-only rule: each month hold the top 5 companies by trailing 3-year Fama-French alpha t-stat (Model 1,
+using only data available that day), and around Model 4's supply shocks swap expected losers for expected winners for
+20 days. Fees and slippage included. Writes `data/agents/baseline_*.csv` and `figures/phase8_baseline.png`.
+Result so far: it trails both SOXX and an equal-weight basket in the dev years (2018-2022) and the test years, so it is
+a low bar. The scoreboard therefore also shows SOXX.
+
+**2. A packet.** `python agent_packets.py --sample 1 --split dev` (or `run_agent_packet.bat`), or
+`--ticker 2330.TW --date 2022-03-15`. Writes six ready-to-paste prompts to `data/agents/runs/<run_id>/` with fact sheets
+built only from data up to the decision date: price indicators (Researcher), headlines and supply shocks (News Analyst),
+phase 8 and exposure facts (Strategist). Past dates are **blind**: "Stock A", "Day 0", prices rebased to 100, no
+headlines, because Claude remembers market history and would otherwise answer from memory. (The supply shocks are kept
+and described without names or dates, which still hints at the period. That's a known limit.) The real stock and date go to
+`data/agents/keys/`; never paste those into Claude.
+
+**3. Run it by hand.** Follow `00_HOW_TO_RUN.txt` in the run folder: one Claude chat per agent, pasting each
+handoff block into the next. The Boss ends with a `DECISION` block.
+
+**4. Score it.** Save the Boss's reply as `boss.txt` in the run folder, then `python agent_score.py <run_id>`
+(or `run_agent_score.bat`). It simulates the decision on the prices that followed (next-close entry, stop/target/max hold
+on closes, fees and slippage), compares it with what the baseline earned on the same stock over the same days and with
+SOXX, and appends to:
+- `data/agents/trade_log.csv`: one row per run, using the guide's trade-log columns plus the scores
+- `data/agents/scoreboard.csv`: per prompt version and split: hit rate, average excess over the baseline, how often
+  it beat the baseline, worst trade, longest losing streak
+- `figures/agent_vs_phase8.png`: the running average excess over the baseline, run by run, coloured by prompt version
+
+Every run records a `prompts_version` (a hash of `agents/prompts/`), so changing a prompt starts a new line on the
+scoreboard. Honest-testing rules from the guide: tune prompts on **dev** dates only, score **test** dates rarely,
+log rejected and NO TRADE runs too, and never describe simulated results as real ones. Forward runs (after the model's
+training cutoff, `blind_before` in `agents/config.json`) are the cleanest test; score them later with
+`python agent_score.py --update` once the prices exist.
+
+Settings: `agents/config.json` (portfolio, position and stop limits, fees, slippage, splits). Tests:
+`python -m unittest discover tests`.

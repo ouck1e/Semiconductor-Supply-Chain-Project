@@ -1,0 +1,11 @@
+{
+  "run_id": "run-20261015-221134-8256",
+  "ticker": "APD",
+  "name": "Air Products",
+  "decision_date": "2021-08-09",
+  "blind": true,
+  "split": "dev",
+  "prompts_version": "42c55623",
+  "seed": 1792123894,
+  "created": "2026-10-15T22:11:34"
+}

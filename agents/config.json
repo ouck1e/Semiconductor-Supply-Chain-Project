@@ -1,0 +1,24 @@
+{
+  "_note": "Settings for the simulated AI agent team. Simulation only: nothing here places real orders.",
+  "portfolio_usd": 100000,
+  "max_position_pct": 10,
+  "fee_pct_per_side": 0.10,
+  "slippage_pct_per_side": 0.10,
+  "max_hold_days": 20,
+  "require_stop_and_target": true,
+  "max_stop_pct": 15,
+  "long_only": true,
+  "splits": {
+    "dev": ["2018-01-01", "2022-12-31"],
+    "test": ["2023-01-01", "2026-06-30"]
+  },
+  "blind_before": "2026-07-01",
+  "baseline": {
+    "version": "v1",
+    "top_n": 5,
+    "lookback_weeks": 156,
+    "min_weeks": 104,
+    "factor_lag_days": 61,
+    "shock_hold_days": 20
+  }
+}

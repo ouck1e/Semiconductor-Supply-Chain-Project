@@ -24,6 +24,11 @@ The owner is a student learning as he builds. Explain changes in plain language,
     `phase8_market_models.py`, `exposure_model.py`: the models (README.md explains each)
   - `data/reference/`: hand-sourced inputs (fab capacity by country, foundry mix, trade overrides). Keep the
     source column filled in for every row.
+- **AI agent team (simulation only, not on the website):** six Claude roles from the SebAI guide, run by hand.
+  `agents/prompts/` and `agents/config.json`; `agent_packets.py` builds the paste-in prompts (blind by default for past
+  dates), `agent_score.py` scores the Boss's DECISION block against `phase8_baseline.py` (the frozen opponent), all on
+  `agent_sim.py`. Records live in `data/agents/` (trade_log.csv, scoreboard.csv); `data/agents/keys/` holds answers to
+  blind runs. Never add live order execution or broker credentials. Tests: `python -m unittest discover tests`.
 - **Scheduled jobs (`.github/workflows/`):** news hourly, prices weekdays after the US close, trade data and risk
   on Mondays. Each runs a script, then `build_site_data.py`, then `.github/actions/commit`, then `deploy.yml`
   (GitHub Pages). Their commits land on `main` every hour.
