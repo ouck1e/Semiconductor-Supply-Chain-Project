@@ -1,0 +1,50 @@
+Agent 3 - Strategist: plan for Stock A (Gases & materials), decision at the Day 0 close
+
+Note on source material: none of the supplied material contains embedded instructions to act on. Nothing to flag.
+
+I looked at two possible setups and checked each against what is true at the Day 0 close.
+
+Candidate A - "Breakout above resistance / reclaim of the 50d average"
+- Needs: Day 0 close above the 20d high 102.52 and above the 50d average 103.11 (Researcher handoff).
+- Day 0: close 100.00 (Researcher handoff). 100.00 < 102.52 and 100.00 < 103.11, so this is NOT true on Day 0. The Researcher also says "rebound not confirmed above the 50d average or 102.52." A plan that waits for a break on Day 1 or later is not allowed (entry cannot depend on Day 1 or later), so this setup is out.
+
+Candidate B - "Oversold-bounce continuation (mean reversion)"
+- Needs: a confirmed low, price above short-term support, a known or resolved cause for the decline, and room to resistance that is large compared with a stop that fits within 15%.
+- Day 0: the low 81.27 (Day -6) and the close above the 20d average (100.00 vs 94.47, +5.9%) are true. But:
+  - The cause of the -44.6% 6m / -33.5% 3m fall is MISSING (News Analyst: "its cause stays MISSING and is the key unknown"). An unresolved stock-specific catalyst may still be active.
+  - Overhead resistance is close: 101.5-102.5 and 103.11 (Researcher). From 100.00 that is +2.5% to +3.1% (my arithmetic: 102.52/100.00 - 1 = 2.52%; 103.11/100.00 - 1 = 3.11%). The next level, 132.05, is +32.1% away, with nothing in the data saying it can be reached in 20 days.
+  - Volatility is very high: 20d 84.1% annualized (Researcher). My arithmetic: 84.1% / sqrt(252) = 84.1 / 15.87 = about 5.3% per day. The nearest logical stop, below the ~94.5 support (20d average 94.47), is about 5.5-6% below entry, which is roughly one normal day's move. A stop below the 81.27 low would be about 18.7% below 100.00 (1 - 81.27/100.00), which is over the 15% maximum.
+  - Reward-to-risk with the nearest levels: target +3.1% (the 50d average) ÷ stop 6% = 0.52. After round-trip costs of about 0.4% (0.1% fee + 0.1% slippage, each side), the net target is about 2.7% and the net loss at the stop about 6.4%, so roughly 0.42. That is well under 1.
+  - Pushing the target to +12% (inside the 132.05 level, but above the 103.11 and ~105 resistance) gives 12 ÷ 6 = 2.0 on paper, but there is no supplied fact to support it reaching that level through three resistance levels in 20 days, so I won't build the plan on it.
+- Conclusion: the conditions for B are not met on Day 0 either.
+
+1. Setup name: No setup.
+2. What must be true for entry, and whether it is true on Day 0: For a breakout, a close above 102.52 and 103.11: NOT true (close 100.00). For a mean-reversion bounce, a known/resolved cause of the decline and reward-to-risk of at least about 1.5 inside a 15% stop: NOT true (cause MISSING; nearest-resistance R:R about 0.5).
+3. Entry rule: None. No entry at the Day 0 close.
+4. Stop rule: N/A (no trade). For reference, a stop that makes sense here would be about 6% below entry (under ~94.5 support). The structural stop under 81.27 would be about 18.7%, over the 15% limit.
+5. Target / exit rule and max holding: N/A (no trade). For reference, nearest resistance is +2.5% to +3.1%; the max hold would have been 20 trading days.
+6. Reward-to-risk: For the reference plan, 3.1 ÷ 6 = 0.52 (gross); about 2.7 ÷ 6.4 = 0.42 after about 0.4% round-trip costs. Too low.
+7. Position size: 0% (no trade). If a setup existed, the 84.1% volatility and unexplained decline would argue for well under the 10% maximum.
+8. What would cancel the setup: There is no setup to cancel. What could create one in a later decision (not this one): a close above 103.11 on more volume, a supplied explanation for the decline showing it was resolved, or 20d volatility falling back toward the 120d level (48.1%) so a stop within 15% sits outside normal noise.
+9. Missing inputs: Cause of the 3-12 month decline (MISSING). Reason for the Day -8 2.40x volume spike and the rebound (MISSING). Whether Day -20 0.00x volume is an error or a halt (MISSING). Supply exposure rows (MISSING, exposure_model.py). Raw prices / absolute volumes and closes older than 30 days (MISSING). Headlines: N/A BY DESIGN. Backtest of the plan: N/A BY DESIGN.
+10. Reasons to skip it: Deep long-term downtrend (close -33.2% vs the 200d average, -51.7% vs the 252d high); price just under nearby resistance; very high volatility (84.1% 20d vs 48.1% 120d) puts any stop within 15% in the noise; reward-to-risk to the nearest resistance is about 0.5; the main driver of the decline is unknown; Model 1 alpha is weak (6.0% a year, t-stat 0.26, rank 18 of 24, so not in the baseline's top 5); the beta asymmetry (1.58 up / 0.92 down vs the ETF) helps only if the sector rises, and the ETF is falling (1m -6.6%, 3m -12.0%).
+
+This is a research and learning simulation, not investment advice. No real trade is placed.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Checked two possible setups (breakout/50d reclaim and oversold-bounce continuation) against the Day 0 facts and the fixed limits; found neither met at the Day 0 close; result is No setup / NO TRADE, with reference stop, target and R:R arithmetic shown.
+SOURCE FACTS USED: Researcher: close 100.00; 20d avg 94.47; 50d avg 103.11; 200d avg 149.71 (-33.2%); 20d high/low 102.52/81.27; 60d high 132.05; -51.7% vs 252d high; returns 3m -33.5%, 6m -44.6%; ETF 1m -6.6%, 3m -12.0%; RSI 53.0; vol 20d 84.1% / 120d 48.1%; resistance 101.5-102.5, 103.11, ~105; "rebound not confirmed above the 50d average or 102.52". News Analyst: no headlines (N/A BY DESIGN); no phase 8 events; cause of decline MISSING. Model facts: alpha 6.0%/yr, t 0.26, rank 18 of 24; beta 1.25; ETF up/down beta 1.58/0.92; Model 4 shocks: none; exposure: MISSING. Rules: max stop 15%, max size 10%, max hold 20 days, costs 0.1% + 0.1% each side.
+ANALYSIS: (My own work.) Breakout trigger not met (100.00 < 102.52 and < 103.11). Daily vol about 84.1/sqrt(252) = 5.3%. Reasonable stop about 6% (under ~94.5); structural stop under 81.27 = 18.7% (> 15% limit). Nearest target +3.1% gives R:R 3.1/6 = 0.52 gross, about 0.42 net of 0.4% round-trip costs. A larger target has no supporting fact. Weak alpha, falling ETF and unknown cause add to the case against.
+MISSING INFORMATION: Cause of the decline; reason for the Day -8 volume spike; Day -20 0.00x volume (error or halt); supply exposure rows; raw prices/volumes and history beyond 30 closes. Headlines and plan backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Based only on supplied summary numbers; support/resistance less reliable at 84% volatility; by passing, the plan may miss a continued rebound. That is a deliberate trade-off, not a forecast. Daily-close-only stop checks could mean losses go past the stop. Simulation only, not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup. At the Day 0 close Stock A (100.00) sits below the 20d high 102.52 and the 50d average 103.11, so there is no breakout. A bounce trade gives about 0.5 reward-to-risk (+3.1% to resistance vs about a 6% stop, with 84.1% volatility), and the 81.27 low would need an 18.7% stop, over the 15% cap. The cause of the -44.6% 6m fall is MISSING. Proposed action: NO TRADE, size 0.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

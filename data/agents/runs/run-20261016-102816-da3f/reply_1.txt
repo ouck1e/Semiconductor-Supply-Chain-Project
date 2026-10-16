@@ -1,0 +1,81 @@
+AGENT 1 - RESEARCHER REPORT (simulated, educational; not investment advice)
+
+1. Stock, sector, timeframe
+- Stock A, sector group "Foundries & memory" (MARKET DATA header).
+- Daily closes rebased so Day 0 close = 100.00; at least 252 closes up to Day 0, nothing after (Timeframe / Source lines).
+- Decision point: close of Day 0. Real stock identity and calendar dates are hidden; I make no attempt to guess them.
+
+2. Structure: long-term uptrend, short-term downtrend (a pullback inside the bigger uptrend)
+Source facts:
+- Close 100.00 vs 200-day average 80.59: +24.1% above (200-day line).
+- Close vs 20-day average 105.98: -5.6%; vs 50-day average 107.08: -6.6% (20-day / 50-day lines).
+- 20-day average (105.98) is below the 50-day average (107.08) (same lines).
+- 12m return +114.2%, 6m +38.0% (Returns line).
+- Close vs 252-day high (118.50): -15.6% (last indicator line).
+- Day 0 close of 100.00 equals the 20-day closing low (20-day high/low line).
+Analysis:
+- Last-30-day closes show a sequence of lower highs: 116.12 (Day -24), 112.78 (Day -18), 110.12 (Day -15), 107.69 (Day -8), 103.47 (Day -1), then a new 20-day low at Day 0. That is a short-term downtrend.
+- The long-term trend remains up: price is well above the 200-day average and up more than double over 12 months.
+- Overall label: short-term downtrend / pullback within a longer-term uptrend.
+
+3. Momentum
+Source facts (Returns and RSI lines): 1m -12.6%, 3m +13.5%, 6m +38.0%, 12m +114.2%; RSI(14) 36.4.
+Analysis:
+- Momentum has turned negative over the last month while the 3-, 6- and 12-month figures remain positive.
+- RSI 36.4 is weak (below 50) but not below the common 30 "oversold" threshold.
+- Day 0 alone: close fell from 103.47 (Day -1) to 100.00, about -3.4% (my calculation from the last-30 table).
+
+4. Volume
+Source facts: last 5 days vs 50-day average 0.88x (Volume line). Day 0 volume 1.74x the 50-day average (last-30 table). Days -8 to -1 mostly ran 0.47x-0.67x, except Day -3 at 1.18x.
+Analysis:
+- The pullback has mostly happened on below-average volume, which is a quieter drift lower.
+- The exception is Day 0: a -3.4% drop on 1.74x average volume, the heaviest day since Day -17 (2.03x, also a down day from 112.78 to 107.19). Heavy-volume down days at Day -17 and Day 0 point to selling pressure at those moments.
+
+5. Volatility
+Source facts: annualised 20-day volatility 32.6% vs 120-day 28.3% (Volatility line).
+Analysis: short-term volatility is about 1.15x the longer-term level (32.6 / 28.3, my calculation), so volatility is modestly rising during the pullback.
+
+6. Support and resistance (only levels the supplied numbers back up)
+Support:
+- 100.00: Day 0 close, the current 20-day closing low (20-day high/low line). Already being tested.
+- 88.83: 60-day closing low (60-day high/low line).
+- 80.59: 200-day average (200-day line).
+- 39.69: 252-day closing low, far below (252-day line).
+Resistance:
+- 103.31-103.77: closes on Days -11/-10 and Day -1 at 103.47 (last-30 table) - a nearby congestion zone.
+- 105.98: 20-day average.
+- 107.08: 50-day average (also near Day -8 close 107.69).
+- 112.78: 20-day closing high.
+- 118.50: 60-day and 252-day closing high.
+
+7. Comparison with the chip-sector ETF
+Source facts (ETF returns line vs Returns line):
+- 1m: Stock A -12.6% vs ETF -4.0% (stock 8.6 points worse)
+- 3m: +13.5% vs +7.7% (5.8 points better)
+- 6m: +38.0% vs +36.2% (1.8 points better)
+- 12m: +114.2% vs +100.4% (13.8 points better)
+Analysis: Stock A has outperformed the sector over 3-12 months but has clearly underperformed over the last month, so its recent weakness is larger than the sector's. The whole sector also fell over 1 month.
+
+8. Strongest facts and biggest uncertainties
+Three strongest facts:
+- Long-term uptrend: close +24.1% above the 200-day average, 12m +114.2%, ahead of the ETF's +100.4%.
+- Short-term downtrend: close below 20- and 50-day averages, lower highs over 30 days, Day 0 at a new 20-day low, 1m -12.6% vs ETF -4.0%.
+- Day 0 was a -3.4% drop on 1.74x average volume, breaking to the bottom of the 20-day range.
+Three biggest uncertainties:
+- Whether Day 0's high-volume drop marks the start of a deeper decline toward 88.83 / 80.59 or a capitulation-type low; the data stop at Day 0, so this cannot be known.
+- The cause of the decline is unknown: headlines are N/A BY DESIGN in this blind run, so I cannot tell company-specific news from sector moves.
+- Only closing prices and relative volume are given: no intraday highs/lows, no absolute volume, no ETF price path, which limits how precisely support/resistance and relative strength can be judged.
+
+9. Data completeness score: 85 / 100
+Reason: all requested indicators, returns, ETF comparison, volatility, volume ratios and 30 closes are supplied. Deductions: no intraday high/low/open, no absolute volume, no ETF daily series, no full 252-day close series (only summaries). Headlines are N/A BY DESIGN and not counted against the score.
+
+No embedded instructions were found in the source material.
+
+AGENT: Agent 1 Researcher
+TASK COMPLETED: Described Stock A's trend, momentum, volume, volatility, support/resistance and sector comparison from the supplied market data; no trading recommendation made.
+SOURCE FACTS USED: Close 100.00; 20-day avg 105.98 (-5.6%); 50-day avg 107.08 (-6.6%); 200-day avg 80.59 (+24.1%); returns 1m -12.6%, 3m +13.5%, 6m +38.0%, 12m +114.2%; ETF 1m -4.0%, 3m +7.7%, 6m +36.2%, 12m +100.4%; RSI 36.4; vol 20d 32.6% vs 120d 28.3%; 5-day volume 0.88x; 20-day high/low 112.78/100.00; 60-day 118.50/88.83; 252-day 118.50/39.69; -15.6% from 252-day high; last-30 closes table incl. Day 0 1.74x volume and Day -1 close 103.47.
+ANALYSIS: Short-term downtrend (lower highs, below 20/50-day averages, 20-day avg under 50-day, new 20-day low at Day 0) inside a long-term uptrend (well above 200-day, +114% 12m). Day 0 fell about 3.4% on 1.74x volume. Volatility modestly rising (ratio about 1.15). Outperformed ETF over 3-12m, underperformed by 8.6 points over 1m. Support 100.00 / 88.83 / 80.59; resistance 103.3-103.8 / 105.98 / 107.08 / 112.78 / 118.50.
+MISSING INFORMATION: Intraday open/high/low; absolute volume; ETF daily price series; full 252-day close series. Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Closes only; data end at Day 0 so follow-through is unknowable; cause of the drop is unknown without news; RSI and moving-average levels are descriptive, not predictive. Simulation only, not investment advice.
+NEXT AGENT: Agent 2 News Analyst
+HANDOFF SUMMARY: Stock A (Foundries & memory) is in a sharp one-month pullback (-12.6% vs ETF -4.0%, RSI 36.4, new 20-day low at 100.00 on 1.74x volume) within a strong long-term uptrend (+24.1% above 200-day, +114.2% 12m); data completeness 85/100, headlines N/A BY DESIGN.

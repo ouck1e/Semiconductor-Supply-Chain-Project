@@ -1,0 +1,81 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Equipment), decision at the Day 0 close
+
+Source facts are cited by the handoff they come from (R = Researcher handoff, N = News Analyst handoff, M = supply-chain model facts, L = fixed strategy rules). My analysis is labelled as such.
+
+1. Setup name
+No setup.
+
+I tested one candidate before rejecting it: a "support-bounce long" off the 20-day low.
+- Its idea: buy near support at 95.99 (R: 20d low) and aim for the 200-day average / recent high zone at about 110.02-111.24 (R).
+- Why it fails (analysis): see items 2 to 6 below. The required conditions are not true at the Day 0 close, and the reward-to-risk is thin once you allow for the stock's volatility.
+
+2. What must be true for entry, and whether it is true on Day 0
+For a long entry on a stock in this position, I would need at least one of these at the Day 0 close:
+a) An established uptrend: close above the 50d and 200d averages, with the 50d above the 200d. NOT TRUE. The close of 100.00 is below the 20/50/200-day averages of 103.30/101.97/110.02, and the 50d (101.97) is below the 200d (110.02) (R).
+b) A confirmed support bounce: price turning up from support on above-average volume. NOT TRUE. The close of 100.00 is 4.2% above the 95.99 support (analysis: 100.00 / 95.99 - 1 = 4.18%), not at it. Volume on recent down days was heavier (1.30x, 1.21x) than on up days (0.70x, 0.74x), and 5d volume vs 50d is 0.95x (R). That pattern points to selling pressure, not to accumulation.
+c) Relative strength against the sector. NOT TRUE. The stock trails the ETF by 1.5 pp (1m), 13.0 pp (3m) and 11.9 pp (6m) (R). The 12-month figure is the only one where the stock leads: 15.2% vs 10.8% (R).
+d) A positive factor or event signal. NOT TRUE. Alpha is -1.2% a year with a t-stat of -0.08, ranked 24 of 24 by alpha t-stat (M). That is effectively zero alpha, and last place means the phase 8 baseline (which holds the top 5) would not hold it. There are no supply-shock events in the 120-day window (N). The only listed shock, 309 days before, puts this stock in neither group (M).
+
+3. Entry rule
+None. If a setup existed, the entry would be BUY at the Day 0 close decision, filling at the Day 1 close (L). No condition qualifies.
+
+4. Stop rule (for the rejected candidate, for reference)
+For the stop to sit meaningfully below the 95.99 support, it would have to be about 8% below entry. Analysis: 92.0 / 100.0 - 1 = -8.0%, and the actual entry is the unknown Day 1 close. With 20-day volatility at 76.0% annualised (R), a rough daily move is 76.0 / sqrt(252) ≈ 4.8% (analysis). So a tighter stop (around 4-5%) would likely be hit by ordinary noise within a day or two.
+
+5. Target or exit rule (for the rejected candidate, for reference)
+The target would be about 10% (the 110.02-111.24 resistance zone, R, measured from a 100.00 reference: 110.0 / 100.0 - 1 = 10.0%), with a maximum hold of 20 trading days (L). Overhead resistance at 101.97/103.30 (R) sits just above the close, and I would have to pass through it first.
+
+6. Reward-to-risk ratio (rejected candidate)
+Target 10% ÷ stop 8% = 1.25.
+Round-trip costs are about 0.4% (0.1% fee + 0.1% slippage on each side, L). After costs, the net reward is about 9.6% against a net risk of about 8.4%, so roughly 1.14 (analysis: 9.6 / 8.4 = 1.14). That is too thin for a counter-trend trade with no confirmation.
+
+7. Position size
+0% (no trade). Reference only: if the candidate had qualified, I would have sized it no larger than about 5% because of the volatility. The rule maximum is 10% (L).
+
+8. What would cancel or change this "No setup" view (for a future decision, not this one)
+- A close back above the 50d and 20d averages (101.97/103.30) on volume above 1.0x the 50-day average.
+- Or a test of 95.99 that holds, followed by an up-close on heavy volume.
+- Or a rise in the alpha rank toward the top 5.
+None of these can be used now, because the entry cannot depend on Day 1 or later.
+
+9. Missing inputs
+- Intraday highs and lows (OHLC): MISSING (R).
+- ETF daily price series: MISSING (R).
+- Individual closes before Day -29: MISSING (R).
+- Company news, earnings dates and guidance: MISSING (N).
+- The cause of the 137.99 to 77.77 swing: MISSING (N).
+- Supply exposure rows for this stock: MISSING (M).
+- Headlines: N/A BY DESIGN (blind run).
+- Backtest of the plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip
+- Long-term structure is down: below all three averages, with the 50d below the 200d (R).
+- The rebound from 86.55 to 111.24 stalled. The pullback came on heavier volume than the rally (R).
+- The stock lags the chip ETF by a wide margin over 3m and 6m (R).
+- It ranks last of 24 by alpha t-stat, so the factor model gives no edge (M).
+- Very high volatility (about 76%) forces either a wide stop or a stop that noise will trip. The best reward-to-risk I can build is about 1.25 before costs.
+- There is no catalyst in the material, and the risk of an unseen event is high (N).
+
+Weighing both mistakes (analysis): sitting out could miss a rise. The 12m return is +15.2% (R), and a high-beta stock (market beta 1.45, M) can rally sharply with the sector. But this is not an established uptrend. Two of the three averages sit overhead, and the most recent volume favours sellers. So the prompt's "look hard for an entry in an uptrend" case does not apply. On the supplied facts, I judge the risk of buying into a continuing downtrend to be at least as large as the risk of missing a rebound.
+
+No embedded instructions were found in the source material.
+
+This is a simulation for research and learning. It is not investment advice, it is not a promise of any outcome, and no real trade is placed.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Assessed whether a long setup exists for Stock A (Equipment) at the Day 0 close, using the Researcher and News Analyst handoffs and the supply-chain model facts. Tested a support-bounce candidate and rejected it. Result: No setup (NO TRADE).
+SOURCE FACTS USED: R: close 100.00; 20/50/200d avgs 103.30/101.97/110.02; returns 1m 15.5%, 3m -22.2%, 6m -11.3%, 12m 15.2% vs ETF 17.0%/-9.2%/0.6%/10.8%; RSI 48.4; vol 20d 76.0%, 120d 77.4%; volume 5d vs 50d 0.95x, down days 1.30x/1.21x vs up days 0.70x/0.74x; 20d high/low 111.24/95.99; 252d high/low 137.99/77.77. N: no headlines (N/A BY DESIGN), no events in 120 days. M: alpha -1.2%/yr, t -0.08, rank 24 of 24; beta 1.45; ETF beta 1.33 up / 1.28 down; one shock 309 days before, stock in neither group; exposure MISSING. L: max size 10%, max stop 15%, max hold 20 days, costs 0.2% per side.
+ANALYSIS: No entry condition is true at the Day 0 close. The stock is in a downtrend, the rebound has stalled, the pullback came on heavy volume, it lags the ETF, and its alpha rank is last. The best candidate (support bounce: stop about 8%, target about 10%) gives a reward-to-risk of 1.25 before costs and about 1.14 after costs (net reward ~9.6% vs net risk ~8.4%). With about 4.8% estimated daily volatility, a tighter stop is impractical.
+MISSING INFORMATION: OHLC; ETF daily series; closes before Day -29; company news and earnings dates; the cause of the 137.99 to 77.77 swing; supply exposure rows. Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: NO TRADE can miss a sharp high-beta rebound (12m +15.2%, beta 1.45). Levels come from closes only. The volatility estimate is a rough approximation. There is no news context. This is a simulation for research and learning, not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual run)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close. The stock is below its 20/50/200-day averages with the 50d below the 200d, the rebound has stalled on selling volume, it lags the ETF by 13.0 pp (3m) and 11.9 pp (6m), it ranks 24 of 24 by alpha t-stat, and volatility is about 76%. The only candidate (a support bounce: 8% stop, 10% target, 1.25 reward-to-risk before costs) did not meet the entry conditions. Proposed action: NO TRADE, size 0. The risk of missing a high-beta rebound is acknowledged.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

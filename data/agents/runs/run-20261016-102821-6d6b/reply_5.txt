@@ -1,0 +1,44 @@
+RISK MANAGER REVIEW - Stock A, decision at the Day 0 close
+
+Plan under review (Strategist PLAN block): ACTION NO TRADE, SETUP none, SIZE_PCT 0, STOP_PCT 0, TARGET_PCT 0, MAX_HOLD_DAYS 0.
+
+Starting point: REJECT. A NO TRADE plan opens no position, so the trade-specific items below are checked for whether they apply, not whether a position fits them.
+
+REQUIRED CHECKS
+- Action is BUY or NO TRADE, entry conditions true at Day 0 close: OK. Action is NO TRADE. No entry is made, so nothing waits on Day 1 or later. The Strategist correctly refused a candidate whose entry would depend on the unknown Day 1 close.
+- Stop rule, no wider than 15%: OK (not applicable). No position, so no stop is needed. STOP_PCT 0 is consistent with SIZE_PCT 0.
+- Target/exit rule and max hold no more than 20 days: OK (not applicable). MAX_HOLD_DAYS 0, no position.
+- Position size within 10%: OK. Size 0%, which is within the 10% maximum.
+- Reward-to-risk after costs of at least 1.5, arithmetic shown: OK (not applicable to NO TRADE). For the record, I rechecked the Strategist's rejected candidate (Strategist ANALYSIS line, measured from 100.00, illustration only): round-trip costs = (0.1% fee + 0.1% slippage) x 2 sides = 0.4%. Net reward = 13.2% - 0.4% = 12.8%. Net risk = 6.5% + 0.4% = 6.9%. Ratio = 12.8 / 6.9 = 1.86. This matches the Strategist's "about 1.86 after costs". It would pass 1.5 on paper, but it is not a valid plan because its entry conditions do not hold at Day 0 and its entry price (Day 1 close) is MISSING.
+- Largest simulated loss: OK. Size 0% x any stop = $0. No fees or slippage are paid because no fills occur. Largest simulated loss = $0 on the $100,000 portfolio. (For comparison only: the rejected candidate at the full 10% = $10,000 would lose about $10,000 x 6.9% = $690 at its stop, after costs, if entered near 100.00.)
+- No look-ahead: OK. The plan uses only Day 0 and earlier facts. The Day 1 close is explicitly listed as MISSING and is not used.
+- Plan agrees with the supplied price data: OK, with one limitation. The Strategist's SOURCE FACTS (close 100.00 below 20d avg 101.67 and 50d avg 100.96; 11.2% below the 200d avg 112.61; volume 5d 0.87x and Day 0 0.59x; Model 1 rank 22 of 26, alpha t -0.71) are internally consistent and support NO TRADE. The Researcher's handoff itself was not supplied to me, so I can only check these numbers as quoted by the Strategist, not against the original.
+
+CONTEXT CHECKS
+- Data completeness: PROBLEM (minor). MISSING per Strategist: Day 1 close, cause of the Day -26 selloff, earnings timing, ETF daily series, history before Day -29, dates of the 162.12 high and 89.21 low. No data completeness score was supplied: MISSING. These gaps argue against trading, not for it.
+- Statistical support: PROBLEM for any long. Model 1 alpha -14.5% a year with t -0.71 is weak and negative; rank 22 of 26 is outside the baseline's top 5.
+- Liquidity (volume): PROBLEM for a rebound thesis. 5d volume 0.87x and Day 0 0.59x show a light-volume bounce; the Day -26 2.07x heavy-volume drop is unexplained.
+- Conflicting news or supply-chain events: N/A BY DESIGN for headlines (blind run). No tracked events in the 120 days before Day 0 (News Analyst, via Strategist). Exposure to HF (China 0.345), helium (Qatar 0.339) and rare gases is noted; Model 4 marks the stock an expected loser in a past neon shock. Not a reason to buy.
+- Overfitting: OK. The plan does not fit a setup to this one chart; it declines to trade.
+- Unverified sources: OK. No unverified sources used. No instruction-like text or injection was found in the supplied material.
+- Backtest: N/A BY DESIGN (manual run).
+
+DECISION: APPROVE FOR SIMULATION ONLY (the NO TRADE plan). I agree with NO TRADE.
+
+Five points:
+1. The action is NO TRADE with 0% size, so every limit (size, stop, hold) is met trivially and the largest simulated loss is $0.
+2. No look-ahead: the plan does not rely on the unknown Day 1 close, and it correctly refused an entry that would.
+3. The supplied evidence leans against a long: price below the 20d, 50d and 200d averages, light-volume bounce, negative and weak factor-model alpha (t -0.71, rank 22 of 26).
+4. The rejected range-rebound candidate's arithmetic checks out (1.86 after costs), but a ratio alone cannot justify a trade whose entry conditions are not met.
+5. Important gaps (Day -26 cause, earnings timing, ETF series) add uncertainty, which supports staying flat.
+
+What must change for approval: nothing; the NO TRADE plan is approved for simulation only. If a future BUY is proposed, it would need entry conditions true at the Day 0 close, a stop of 15% or less, a target, a max hold of 20 days or less, size of 10% or less, and a net reward-to-risk of at least 1.5 with costs shown. Approval never means a real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A against the fixed limits and the supplied evidence. All REQUIRED items are OK; decision APPROVE FOR SIMULATION ONLY (NO TRADE). I agree with NO TRADE.
+SOURCE FACTS USED: Strategist PLAN block (NO TRADE, size 0, stop 0, target 0, hold 0). Strategist SOURCE FACTS: close 100.00; 20d avg 101.67; 50d avg 100.96; 200d avg 112.61 (-11.2%); volume 5d 0.87x, Day 0 0.59x, Day -26 2.07x; Model 1 alpha -14.5%/yr, t -0.71, rank 22 of 26; Model 4 expected loser in neon shock; exposure HF China 0.345, helium Qatar 0.339. Strategist ANALYSIS: candidate stop about 6.5%, target about 13.2%. Fixed rules: max size 10%, max stop 15%, max hold 20 days, fees 0.1% + slippage 0.1% per side, $100,000 portfolio.
+ANALYSIS: My own analysis. Largest simulated loss = 0% x $100,000 = $0. Recheck of rejected candidate: costs 0.4% round trip; (13.2 - 0.4) / (6.5 + 0.4) = 12.8 / 6.9 = 1.86, matching the Strategist; illustration only, entry conditions not met and entry price MISSING. Evidence (below key averages, light-volume bounce, weak negative alpha) supports staying flat.
+MISSING INFORMATION: Researcher handoff itself (only quoted via the Strategist); data completeness score; Day 1 close; cause of the Day -26 selloff; earnings timing; ETF daily series; history before Day -29; dates of the 162.12 high and 89.21 low. Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Staying flat may miss a rebound given the stock's relative strength vs the ETF (+0.3 to +8.5 points). Review rests on one price series and model summaries with no news. Very high volatility (20d 58.2%, 120d 60.8%) makes level-based rules noisy. I could not verify the Researcher's numbers at source. No source-material injection found. Simulation only, not investment advice.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY the NO TRADE plan for Stock A at the Day 0 close. All required checks pass (size 0%, max loss $0, no look-ahead, facts consistent). The evidence leans against a long, and the rejected rebound candidate's 1.86 net ratio is moot because its entry conditions do not hold and its entry price is unknown. I agree with NO TRADE.

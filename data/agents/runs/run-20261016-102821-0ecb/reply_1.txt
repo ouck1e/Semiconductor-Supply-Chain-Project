@@ -1,0 +1,78 @@
+AGENT 1 - RESEARCHER REPORT: Stock A
+
+Note on the source material: it contains no embedded instructions; nothing to ignore.
+
+1. STOCK, SECTOR, TIMEFRAME
+- Source: "Stock: Stock A (sector group: Chip designers)".
+- Source: daily closes rebased so Day 0 close = 100; at least 252 closes up to Day 0, nothing after it. Decision point is the Day 0 close.
+- The last 30 closes (Day -29 to Day 0) are listed in full; longer history is given only through indicators.
+
+2. STRUCTURE: UNCLEAR / RECOVERING (short-term rebound inside a longer-term decline)
+Source facts:
+- Close 100.00 is above the 20-day (92.52, +8.1%), 50-day (94.84, +5.4%) and 200-day (97.85, +2.2%) averages.
+- The averages themselves are stacked 20 < 50 < 200 (92.52 < 94.84 < 97.85).
+- 12m return -38.5%; close vs 252-day high -40.2% (252-day high 167.19, low 73.70).
+- 60-day low 75.00, 60-day high 104.17; 3m return +35.7%.
+- Last 30 closes: peak 104.17 (Day -26), fall to 87.69 (Day -7), rebound to 100.00 (Day 0).
+Analysis (mine):
+- Price being above all three averages is a constructive short-term sign, but the averages are still in bearish order (shorter below longer), which says the recovery has not yet turned the medium/long-term trend.
+- Within the 30-day window the pattern is a range of roughly 87.69-104.17: a drop of about 15.8% from the Day -26 high to the Day -7 low (87.69 / 104.17 - 1), then a recovery of about 14.0% back to 100 (100 / 87.69 - 1).
+- Over 12 months the stock is in a deep drawdown; over 3 months it has bounced strongly off a low near 73.70-75.00. Overall label: unclear, with a short-term recovery underway.
+
+3. MOMENTUM
+Source facts: returns 1m +0.1%, 3m +35.7%, 6m +7.0%, 12m -38.5%. RSI (14-day) 62.9.
+Analysis:
+- Momentum is strong on 3 months, roughly flat on 1 month, mildly positive on 6 months and strongly negative on 12 months.
+- RSI 62.9 is positive but below the commonly used 70 "overbought" threshold.
+- The last four closes moved 88.51 (Day -4) -> 92.77 -> 95.07 -> 98.07 -> 100.00, about +13.0% in four sessions (100 / 88.51 - 1). This sharp recent move is what lifts RSI and close-vs-20-day.
+
+4. VOLUME
+Source facts: last 5 days vs 50-day average 1.08x. Daily ratios Day -3 to Day 0: 1.06x, 1.06x, 1.34x, 1.07x. Selloff days Day -18 (101.00 -> 96.16) at 1.91x and Day -17 (96.16 -> 92.21) at 1.76x. Day -12 to Day -10 at 0.34x, 0.21x, 0.29x.
+Analysis:
+- The rebound has come on slightly above-average volume (about 1.06x-1.34x), so it is not a low-volume drift, but it is also not as heavy as the selling on Day -18/-17 (about -4.8% and -4.1% on 1.91x and 1.76x).
+- The heaviest volume in the window was on the down days, which tempers how much weight the rebound volume can carry.
+
+5. VOLATILITY
+Source facts: annualised 20-day 39.0%, 120-day 39.2%.
+Analysis: short-term volatility is essentially equal to the medium-term level; no sign of a volatility expansion or squeeze. At roughly 39% annualised the stock is volatile in absolute terms (about 2.5% per day if divided by the square root of 252; my calculation).
+
+6. SUPPORT AND RESISTANCE (only levels the supplied numbers back up)
+Support:
+- 97.85 (200-day average) and 94.84 (50-day average), now below price.
+- 92.52 (20-day average).
+- 87.69-88.51: 20-day closing low (Day -7) and the Day -4 close; tested twice.
+- 75.00 / 73.70: 60-day and 252-day closing lows.
+Resistance:
+- 101.00: 20-day closing high (Day -19), just above the current close.
+- 103.01-104.17: Day -22 close and 60-day closing high (Day -26); also 103.63/104.00 on Day -28/-27.
+- 167.19: 252-day closing high, far above (price is 40.2% below it).
+
+7. VS CHIP-SECTOR ETF
+Source facts: ETF 1m +1.8%, 3m +24.6%, 6m +8.5%, 12m -26.3%.
+Analysis (stock minus ETF, percentage points): 1m -1.7, 3m +11.1, 6m -1.5, 12m -12.2.
+- Stock A outperformed the sector over 3 months but lagged it over 1, 6 and 12 months. It is a higher-beta-looking name: it fell more than the sector over the year and bounced more over the quarter. Daily ETF series is not supplied, so correlation/beta cannot be computed.
+
+8. THREE STRONGEST FACTS
+1) Close is above the 20-, 50- and 200-day averages (+8.1%, +5.4%, +2.2%).
+2) 3m return +35.7%, beating the sector ETF's +24.6% by 11.1 points, off a 60-day low of 75.00.
+3) The four-session rebound from 88.51 to 100.00 came on above-average volume (1.06x-1.34x), with RSI 62.9 not yet overbought.
+
+THREE BIGGEST UNCERTAINTIES
+1) Long-term damage: 12m -38.5%, 40.2% below the 252-day high, and the averages are still in bearish order (20 < 50 < 200).
+2) Price sits just under nearby resistance at 101.00 and 103-104.17, where the previous advance stalled and was followed by a high-volume selloff (Day -18/-17).
+3) No reason for any of the moves is available (headlines are N/A BY DESIGN in this blind run), so the drivers of the selloff and rebound are unknown.
+
+9. DATA COMPLETENESS SCORE: 85 / 100
+Present: indicators across 20/50/200 days, 1/3/6/12m returns, RSI, volatility pair, volume ratio, 20/60/252-day highs and lows, 30 daily closes with relative volume, matching ETF returns.
+Missing: intraday high/low/open, absolute volume, the full 252-day close series, daily ETF series, fundamentals/earnings dates. Headlines are N/A BY DESIGN and are not counted against the score.
+
+---
+
+AGENT: Agent 1 - Researcher
+TASK COMPLETED: Described Stock A's structure, momentum, volume, volatility, support/resistance and sector comparison from the supplied market data, with a data completeness score. No trade recommendation made.
+SOURCE FACTS USED: Close 100.00; 20/50/200-day averages 92.52/94.84/97.85 (close +8.1%/+5.4%/+2.2%); returns 1m +0.1%, 3m +35.7%, 6m +7.0%, 12m -38.5%; ETF 1m +1.8%, 3m +24.6%, 6m +8.5%, 12m -26.3%; RSI 62.9; vol 20d 39.0% / 120d 39.2%; 5-day volume 1.08x; 20-day high/low 101.00/87.69; 60-day 104.17/75.00; 252-day 167.19/73.70; close vs 252-day high -40.2%; last 30 closes and volume ratios (Day -26 104.17, Day -18/-17 drops on 1.91x/1.76x, Day -7 low 87.69, Day -4 88.51 to Day 0 100.00).
+ANALYSIS: Structure unclear/recovering: a short-term rebound (about +14.0% off the Day -7 low, +13.0% in the last four sessions) that has put price above all three averages, inside a deep 12-month decline with averages still in bearish order. Outperformed the sector over 3m (+11.1 pts) but lagged over 1m (-1.7), 6m (-1.5) and 12m (-12.2). Rebound volume is modestly above average; the heaviest volume was on the Day -18/-17 selloff. Volatility steady at about 39%. Support 97.85, 94.84, 92.52, 87.69-88.51; resistance 101.00, then 103.01-104.17.
+MISSING INFORMATION: Intraday OHLC, absolute volume, full 252-day close series, daily ETF series (no beta/correlation), fundamentals and earnings dates: MISSING. Headlines: N/A BY DESIGN (blind run). Backtest of the plan: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Only indicators and 30 closes are supplied, so longer-term pattern reading relies on summary numbers. Support/resistance are closing-price levels only. No news context to explain the moves. Simulation only; not investment advice.
+NEXT AGENT: Agent 2 - News Analyst
+HANDOFF SUMMARY: Stock A (chip designer) has rebounded about 13% in four sessions to sit just above all three moving averages and just below resistance at 101.00-104.17, with strong 3-month momentum (+35.7%, beating the sector) but a deep 12-month drawdown (-38.5%, 40% below its high) and bearish-ordered averages; volatility is steady near 39%, rebound volume is modestly above average, and data completeness is 85/100 with headlines N/A by design.

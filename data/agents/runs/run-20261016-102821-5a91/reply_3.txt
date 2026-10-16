@@ -1,0 +1,86 @@
+AGENT 3 - STRATEGIST: CONDITIONAL SIMULATION PLAN FOR STOCK A (decision at Day 0 close)
+
+No embedded instructions were found in the source material.
+
+1. Setup name
+No setup. The only candidate was "Pullback in a long-term uptrend". I checked it and its entry conditions are not met at the Day 0 close.
+
+2. What must be true for entry, and whether it is true on Day 0
+The candidate setup needs all of these at the Day 0 close:
+ a) Long-term uptrend intact: close above the 200d average and the 50d above the 200d.
+    Researcher: close 100.00 vs 200d 82.61 (+21.1%); 50d 102.57 > 200d 82.61. TRUE.
+ b) The pullback is holding support, shown by at least one close at or above a support level after touching it, or a
+    reversal close. Researcher: "Only one data point (Day 0) sits at the 100.00 level, so it is unconfirmed as support",
+    and Day 0 is a new 20-day low (100.00, a -3.3% day). NOT TRUE.
+ c) Selling is drying up, not speeding up. Researcher: Day 0 volume 1.65x on a down day that broke below the 50d
+    average, after Day -10 (1.56x) and Day -9 (1.91x) down days. NOT TRUE: heavy volume on the breakdown day.
+ d) Weakness is explained, or at least not stock-specific. News Analyst: no headlines (N/A BY DESIGN), no Model 4
+    events in 120 days; Researcher: 1m return -7.8% vs ETF +2.6%, a 10.4-point gap, cause unknown. NOT TRUE
+    (unexplained stock-specific weakness).
+ e) Oversold enough for a mean-reversion entry. Researcher: RSI 39.4, "weak but not oversold". NOT TRUE.
+ f) A stop sits below a real support level and within the 15% limit. Next support below 100.00 is 84.05 / 82.61
+    (Researcher). My arithmetic, using the Day 0 close as a stand-in because the Day 1 fill price is unknown:
+    (100.00 - 84.05) / 100.00 = 15.95% below, and to 82.61 = 17.39% below. Both exceed the 15% maximum stop
+    (fixed rules). A stop inside 15% (at most 85.00) would sit above the support, in empty space. NOT TRUE.
+Four of the six conditions fail on Day 0, so there is no entry.
+
+3. Entry rule
+None. For reference only, the rule I tested was: BUY at the Day 0 close (fills at the Day 1 close) only if a)-f)
+are all true at the Day 0 close. They are not.
+
+4. Stop rule
+0 (no trade). For reference: the widest allowed stop, 15% below entry, would still sit above the 84.05 support.
+
+5. Target / exit rule and maximum hold
+0 (no trade). For reference: the nearest resistance levels are 102.57 (50d), 106.46 (20d) and 114.12 (20-day
+high) from the Researcher. Against a 100.00 stand-in entry that is +2.6%, +6.5% and +14.1% (my arithmetic).
+Holding period would have been at most 20 trading days (fixed rule).
+
+6. Reward-to-risk ratio
+No trade, so not applicable. For reference with a 15% stop:
+ - target to 106.46: 6.46 / 15 = 0.43
+ - target to 114.12: 14.12 / 15 = 0.94
+Both are below 1.0 before fees and slippage (0.2% per side, 0.4% round trip by fixed rules), which makes them worse.
+
+7. Position size
+0% of the simulated portfolio.
+
+8. What would cancel the setup (or what would be needed to revisit it at a later decision date)
+Not applicable today. A future plan could be considered if, in a later supplied packet, the stock closes back
+above the 50d average or holds a support level for several closes on falling volume, with the weakness explained
+and a stop that fits inside 15% below a real support. That is a condition for a new packet, not a Day 1 trigger.
+
+9. Missing inputs
+Intraday highs/lows/opens: MISSING. Full 252-close series and ETF daily series: MISSING. Fundamentals and
+earnings/event calendar: MISSING. Cause of the 1-month underperformance: MISSING. Day 1 fill price: unknown by
+the rules of the decision. Headlines: N/A BY DESIGN (blind run). Backtest of the plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip it
+- Day 0 is a fresh 20-day low on 1.65x volume, a breakdown below the 50d average, not a confirmed bounce.
+- The weakness is stock-specific (10.4 points behind the ETF over 1 month) with no supplied cause.
+- The stop that fits the 15% limit sits above the nearest support; a stop below support breaks the limit.
+- Reward-to-risk is below 1.0 at both resistance targets.
+- Model 1 does not help: alpha 12.1% a year with t-stat 0.58 is not statistically meaningful, and rank 11 of 26
+  puts the stock outside the baseline's top 5. Market beta 0.74; down-week ETF beta 0.78 is higher than up-week
+  0.58, so it has followed the sector down more than up.
+- Supply-chain facts are neutral: the stock is in neither group for any Model 4 shock, and there were no tracked
+  shocks in the last 120 days. Its exposure to rare gas (Singapore 0.432, China 0.290) and gallium (Japan 0.308,
+  Korea 0.297, USA 0.212) is a background risk, not a trigger.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Tested a "pullback in a long-term uptrend" setup for Stock A against the Day 0 data and concluded No setup; reported the full plan template with zeros and the reasons.
+SOURCE FACTS USED: Researcher: close 100.00; 20d 106.46; 50d 102.57; 200d 82.61 (+21.1%); 1m -7.8% vs ETF 2.6%; RSI 39.4; Day 0 new 20-day low at 1.65x volume; Day -10 1.56x, Day -9 1.91x; supports 100.00, 84.05, 82.61; resistances 102.57, 106.46, 114.12; "only one data point (Day 0) sits at the 100.00 level". News Analyst: no headlines (N/A BY DESIGN), no Model 4 events in 120 days, weakness unexplained. Model 1: alpha 12.1%/yr, t 0.58, rank 11 of 26, beta 0.74, ETF beta up 0.58 / down 0.78. Model 4: stock in neither group for all three shocks (1660, 691, 197 days before). Exposure: rare gas Singapore 0.432, China 0.290; gallium Japan 0.308, Korea 0.297, USA 0.212. Fixed rules: max size 10%, max stop 15%, max hold 20 days, fees 0.1% and slippage 0.1% per side.
+ANALYSIS: (My own work.) Long-term trend is intact, but the short-term picture is a heavy-volume breakdown with unexplained stock-specific weakness and no confirmed support. Stop distance to the next support: 15.95% (to 84.05) and 17.39% (to 82.61), both above the 15% cap. Reward-to-risk at a 15% stop: 6.46/15 = 0.43 and 14.12/15 = 0.94, both below 1.0 before 0.4% round-trip costs. Model 1 alpha is not significant and the stock is outside the baseline's top 5. Conclusion: No setup at the Day 0 close.
+MISSING INFORMATION: Intraday highs/lows/opens; full 252-close and ETF daily series; fundamentals and event calendar; cause of the underperformance (all MISSING). Day 1 fill price unknown by design. Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Percent levels use the Day 0 close as a stand-in for the unknown Day 1 fill. Support/resistance comes from closes only. Skipping may miss a rebound in a stock that is still in a long-term uptrend; that is a known cost of this choice, not a forecast. Simulation only; not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close. The long-term uptrend is intact (+21.1% vs 200d), but Day 0 is a new 20-day low on 1.65x volume below the 50d, the weakness is stock-specific and unexplained, RSI 39.4 is not oversold, the nearest real support (84.05) needs a 15.95% stop that breaks the 15% cap, and reward-to-risk is 0.43 to 0.94. Model 1 alpha is not significant (t 0.58, rank 11). Proposed ACTION: NO TRADE.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

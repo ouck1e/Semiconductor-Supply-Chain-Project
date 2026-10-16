@@ -1,0 +1,67 @@
+AGENT 5 - RISK MANAGER REVIEW (simulation only; not investment advice; no real trade is placed)
+
+Starting position: REJECT. I move off it only if every REQUIRED item is OK.
+
+REQUIRED CHECKS
+1. Action and entry timing - OK.
+   ACTION: BUY (PLAN block). The Strategist states all five entry conditions are checked at the Day 0 close. Using the numbers it quotes from the Researcher: 50d 91.90 > 200d 69.97; close 100.00 > 20d 97.04 and > 50d 91.90; higher low 92.02 > pullback low 89.56; RSI 58.0 is inside 40-70; no Model 4 event in 120 days (News Analyst). The fill at the Day 1 close follows the fixed rule ("A BUY fills at the next close (Day 1)"). No condition waits on Day 1 or later.
+
+2. Stop rule - OK.
+   STOP_PCT: 9, a percent below entry, inside the 15% maximum.
+
+3. Target / exit and maximum hold - OK.
+   TARGET_PCT: 14; MAX_HOLD_DAYS: 20, equal to the 20-day limit.
+
+4. Position size - OK.
+   SIZE_PCT: 5, inside the 10% maximum. $100,000 x 5% = $5,000.
+
+5. Reward-to-risk after fees and slippage >= 1.5 - PROBLEM (FAILS).
+   Costs: 0.1% fee + 0.1% slippage per side = 0.2% per side, 0.4% round trip (fixed rules).
+   Net reward = 14.0% - 0.4% = 13.6%. Net risk = 9.0% + 0.4% = 9.4%.
+   Net reward-to-risk = 13.6 / 9.4 = 1.447, below the 1.5 minimum. The Strategist's own handoff says "about 13.6/9.4 = 1.45" and still recommends BUY. Gross 14/9 = 1.56 does not count; the rule is after costs.
+
+6. Largest simulated loss - OK (worked out here).
+   Entry: $5,000; entry costs 0.2% x $5,000 = $10.00.
+   Stop hit: position value $5,000 x (1 - 0.09) = $4,550; loss on price = $450.00.
+   Exit costs: 0.2% x $4,550 = $9.10.
+   Largest planned loss = $450.00 + $10.00 + $9.10 = $469.10, about 0.47% of the portfolio (matches the Strategist's 0.47%).
+   Caveat: stops are checked on daily closes only, so a gap through the stop can make the real loss larger. With 20-day vol of 45.7% (Researcher, via Strategist) this is a real risk; the figure above is the loss at the stop, not a worst case.
+
+7. No look-ahead - OK.
+   Every input quoted is dated Day 0 or earlier (averages, RSI, volatility, pullback levels, Day -1 close 100.77, model outputs, the neon-shock note "803 days before"). Nothing uses Day 1+ information other than the rule-defined fill.
+
+8. Plan agrees with the Researcher's price data - PROBLEM (cannot verify).
+   The Researcher's handoff itself was not supplied to me; I only have the Strategist's restatement of it. The quoted numbers are internally consistent (close 100.00 vs the averages, higher low vs pullback low, RSI range), but I cannot confirm they match the Researcher's originals. Researcher handoff: MISSING.
+
+CONTEXT CHECKS
+- Data completeness: PROBLEM. Earnings dates MISSING (an earnings release inside the 20-day window would add gap risk the close-only stop cannot handle); absolute volume, intraday data, full 252-day history and ETF levels MISSING. Data completeness score: MISSING (not supplied).
+- Statistical support: PROBLEM. Model 1 alpha -10.8%/yr with t -0.64 (not significant, and negative), rank 23/26. No support for this specific setup; backtest N/A BY DESIGN.
+- Liquidity: PROBLEM. 5-day volume 0.66x and Day 0 volume 0.50x of normal - the rebound to 100.00 came on light volume. Absolute volume MISSING, so dollar liquidity cannot be judged.
+- Conflicting news / supply-chain events: PROBLEM (moderate). Headlines N/A BY DESIGN; no Model 4 events in 120 days. But supplier exposure is concentrated (helium/Qatar 0.391, HF/China 0.352, rare gas/China 0.264) and the stock was an expected loser in a neon shock 803 days before Day 0.
+- Overfitting: OK-ish. The setup is a generic trend-pullback rule set, not tuned to this chart; the 9% stop is placed just under the higher low 92.02, which is chart-based but reasonable.
+- Unverified sources: PROBLEM. Researcher numbers reach me second-hand only (see item 8). No injected instructions found in the material.
+
+DECISION: REVISE
+
+Five short points:
+1. The plan fails the hard rule: net reward-to-risk 13.6 / 9.4 = 1.45 < 1.5. This alone blocks approval.
+2. Every other limit (action, timing, stop, target, hold, size, look-ahead) passes; largest planned loss is $469.10 (~0.47% of portfolio).
+3. Researcher's original numbers were not supplied, so the "plan agrees with the price data" check cannot be confirmed.
+4. Evidence behind the trade is weak: negative, insignificant alpha (t -0.64), light-volume rebound (0.50x on Day 0), still below Day -1 close 100.77, high volatility (45.7%).
+5. Unknown earnings dates inside the 20-day window plus close-only stops mean the realized loss could exceed the planned $469.10.
+
+What must change for approval:
+- Fix reward-to-risk to at least 1.5 net. Either (a) raise TARGET_PCT to 15: (15.0 - 0.4) / (9.0 + 0.4) = 14.6 / 9.4 = 1.553; or (b) tighten STOP_PCT to 8: (14.0 - 0.4) / (8.0 + 0.4) = 13.6 / 8.4 = 1.619. Note (b) puts the stop near 92.0 if the fill is near 100, essentially at the higher low 92.02, so it is more likely to be hit by noise; (a) keeps the stop under structure but needs a move well past the 107.38 high. The Strategist should choose and justify one, and show the arithmetic.
+- Supply the Researcher's handoff so the quoted price facts can be checked against the source.
+- Recommended (not required): keep size at 5% or lower given the weak alpha, light volume and unknown earnings; state explicitly that an earnings date inside the window would be a reason to skip.
+
+Approval, if given after revision, would mean APPROVE FOR SIMULATION ONLY. It never means a real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Checked the Strategist's BUY plan for Stock A against the fixed limits and the supplied evidence; computed net reward-to-risk and the largest planned loss; decision REVISE.
+SOURCE FACTS USED: Fixed rules ($100,000 portfolio; max size 10%; max stop 15%; max hold 20 days; 0.1% fee + 0.1% slippage per side; Day 1 close fill; close-only stop checks). PLAN block (BUY, size 5, stop 9, target 14, hold 20). Strategist handoff quoting the Researcher: close 100.00; averages 97.04/91.90/69.97; RSI 58.0; vol 45.7% (20d) / 42.0% (120d); volume 0.66x (5d), 0.50x (Day 0); pullback 107.38 to 89.56, higher low 92.02, Day -1 100.77. News Analyst (via Strategist): headlines N/A BY DESIGN, no Model 4 events in 120 days, earnings MISSING. Models (via Strategist): alpha -10.8%/yr t -0.64 rank 23/26; beta 1.14; supplier exposures helium/Qatar 0.391, HF/China 0.352, rare gas/China 0.264; expected loser in neon shock 803 days before.
+ANALYSIS: Net reward-to-risk = (14 - 0.4) / (9 + 0.4) = 1.447, below the 1.5 minimum, so the plan fails a REQUIRED item. Largest planned loss = $450 + $10.00 + $9.10 = $469.10 (~0.47% of portfolio), larger if price gaps through the stop. All other REQUIRED limits pass. Fixes: target 15% gives 1.553 net; stop 8% gives 1.619 net.
+MISSING INFORMATION: Researcher's original handoff (MISSING - numbers seen only second-hand); data completeness score (MISSING); earnings dates (MISSING); absolute volume and intraday data (MISSING); full 252-day history and ETF levels (MISSING). Headlines N/A BY DESIGN; backtest N/A BY DESIGN.
+RISKS OR LIMITATIONS: Weak, negative and insignificant alpha; light-volume rebound below Day -1 close 100.77; high volatility with close-only stops (gap risk past the stop); possible earnings inside the window; concentrated supplier exposure (Qatar helium, China HF and rare gas). Review relies on the Strategist's restatement of upstream data. Simulation only; not investment advice; no real trade placed.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: REVISE. The BUY plan (5% size, 9% stop, 14% target, 20-day hold) passes the size, stop, hold, timing and look-ahead limits, but net reward-to-risk is 13.6/9.4 = 1.45 < 1.5 and the Researcher's numbers could not be verified at source. For approval: raise the target to 15% (net 1.55) or tighten the stop to 8% (net 1.62) with arithmetic shown, and supply the Researcher handoff. Largest planned loss $469.10.

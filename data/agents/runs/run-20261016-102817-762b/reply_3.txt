@@ -1,0 +1,59 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Gases & materials), decision at the Day 0 close
+
+Note on the source material: none of the supplied material contains instructions aimed at the agents, so there is nothing to ignore or flag.
+
+SOURCE FACTS (with where each comes from)
+- Researcher handoff: Day 0 close 100.00, down 2.4% on 1.48x volume. 20/50/200-day averages 97.78 / 100.95 / 100.55. RSI 52.2. 20-day volatility 22.0% vs 120-day 17.1%. Returns 1m +2.9%, 3m -3.1%, 6m -3.4%, 12m +1.6%. ETF 1m -4.2%, 3m -12.6%, 6m -13.5%, 12m -9.0%. Support 97.8 to 98.5, then 93.13. Resistance 100.55 to 100.95, then 102.48, then about 106.5. Day -18 12-month closing low 93.13 on 2.13x volume; Day -16 2.48x volume; Day -1 102.48. Data completeness 80/100.
+- News Analyst handoff: headlines N/A BY DESIGN (blind run); Model 4 event list shows no events in the 120 days before Day 0; the high-volume selloff and the Day 0 drop have no supplied explanation.
+- Model 1: alpha -1.1% a year, t-stat -0.19, rank 20 of 24 by alpha t-stat. Market beta 1.11. ETF beta in up weeks 0.29, in down weeks 0.57. The phase 8 baseline holds the top 5 by this t-stat.
+- Model 4 supply shocks: none. Supply exposure: MISSING.
+- Fixed rules: max position 10%, max stop 15%, max hold 20 trading days, fees 0.1% and slippage 0.1% each side, checks on daily closes only, fill at the Day 1 close.
+
+REPORT
+
+1. Setup name: No setup.
+
+2. What would have to be true for entry, and whether it is true on Day 0. I checked the two setups the data could support:
+   a) Range breakout (a close back above the 50-day and 200-day averages, 100.55 to 100.95, with momentum). Not true on Day 0: the close of 100.00 is below both, and Day 0 was a 2.4% drop on higher volume (1.48x) after the stock failed at 102.48 on Day -1. (Analysis.)
+   b) Pullback to support (a close in the 97.8 to 98.5 support zone that holds). Not true on Day 0: the close of 100.00 is above that zone, and the stock has not yet tested it. (Analysis.)
+   Neither condition holds at the Day 0 close, and an entry cannot depend on Day 1 or later, so there is no valid entry.
+
+3. Entry rule: none (NO TRADE). For reference only, it would have been "BUY at the Day 1 close if the Day 0 close is above 100.95", which is not met.
+
+4. Stop rule: not applicable (0). For reference: the logical stop under the 93.13 low is about 7% below a 100.00 entry ((100.00 - 93.13) / 100.00 = 6.9%). A stop at the closer support (97.8) would be about 2.2% below, which is inside one normal day's move given 22.0% annualised volatility (about 22.0 / sqrt(252) = 1.4% a day), so it would likely be hit by noise. (Analysis.)
+
+5. Target and hold: not applicable (0). For reference: the nearest resistance is 100.55 to 100.95 (about +0.6% to +1.0%), then 102.48 (+2.5%), then about 106.5 (+6.5%), all measured from 100.00. Actual entry would be at the Day 1 close, which is MISSING, so all these percentages are approximate. (Analysis.)
+
+6. Reward-to-risk (illustrative, not a plan): target 6.5% ÷ stop 6.9% = 0.94. With the nearer target, 2.5% ÷ 6.9% = 0.36. Round-trip costs of about 0.4% (0.1% fees + 0.1% slippage, each side) make both worse. Neither reaches a reward-to-risk of 1.0, which is too thin. (Analysis.)
+
+7. Position size: 0% (NO TRADE).
+
+8. What would cancel the setup: there is no setup to cancel. A future review could reconsider if, on a later decision date, (a) the stock closes above 100.95 and then 102.48 with volume, or (b) it pulls back into 97.8 to 98.5 and holds there with falling volume. These are notes for a later run, not conditions for this one.
+
+9. Missing inputs: the Day 1 fill price (MISSING, by the rules of the simulation). Intraday high/low/open (MISSING). Absolute volumes (MISSING). The ETF price series (MISSING). Daily rows before Day -29 (MISSING). Fundamentals and the cause of the Day -20 to -16 selloff and the Day 0 drop (MISSING). Supply exposure rows (MISSING). Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN.
+
+10. Reasons to skip:
+   - The price is in the middle of its range (about 51% of the 12-month range per the Researcher), below flat 50-day and 200-day averages, with neutral RSI (52.2): no clear trend in either direction.
+   - Day 0 was a rejection: a 2.4% drop on 1.48x volume, one day after the 102.48 high, just under resistance.
+   - Reward-to-risk from the supplied levels is below 1.0 (0.94 at best, before costs).
+   - Model 1 gives no support: the alpha t-stat is -0.19 (essentially zero), ranked 20 of 24, so the stock is not among the baseline's top 5.
+   - High-volume moves (2.13x, 2.48x, 1.48x) have no explanation, and short-term volatility is high (22.0% vs 17.1%).
+   - Outperforming a falling ETF (7 to 11 points in every period) is relative strength, not a rising price; the 12-month return is only +1.6%.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into a plan decision for the Day 0 close. Result: No setup (NO TRADE). Neither a breakout nor a pullback-to-support entry condition is true at the Day 0 close, and the reward-to-risk from the supplied levels is below 1.0.
+SOURCE FACTS USED: Researcher: close 100.00 (-2.4% on 1.48x volume), 20/50/200-day averages 97.78 / 100.95 / 100.55, RSI 52.2, volatility 22.0% vs 17.1%, support 97.8 to 98.5 and 93.13, resistance 100.55 to 100.95, 102.48 and about 106.5, Day -1 close 102.48, 12m return +1.6%, ETF 7 to 11 points weaker in every period. News Analyst: no headlines (N/A BY DESIGN), no Model 4 events, unexplained high-volume moves. Model 1: alpha -1.1% a year, t-stat -0.19, rank 20 of 24, market beta 1.11, ETF beta up 0.29 / down 0.57. Supply exposure: MISSING. Fixed rules: max 10% size, max 15% stop, max 20-day hold, 0.1% fees and 0.1% slippage each side.
+ANALYSIS: The stock is range-bound and closed just below its flat 50-day and 200-day averages after a higher-volume rejection from 102.48. A breakout entry needs a close above 100.95 (not met); a pullback entry needs a close in 97.8 to 98.5 (not met). Illustrative levels: a stop under 93.13 is about 6.9% below 100.00 and the best target (about 106.5) is about +6.5%, so reward-to-risk is 6.5 ÷ 6.9 = 0.94 before roughly 0.4% round-trip costs; the nearer target 102.48 gives 2.5 ÷ 6.9 = 0.36. A tighter stop at 97.8 (2.2%) sits inside roughly 1.5 normal daily moves (daily volatility about 22.0 / sqrt(252) = 1.4%). Model 1 shows no edge (t-stat -0.19, not top 5). Relative strength vs the ETF is real but the stock's own trend is flat.
+MISSING INFORMATION: Day 1 fill price (MISSING by design of the fill rule). Intraday OHLC, absolute volumes, ETF price series, rows before Day -29, fundamentals, the cause of the Day -20 to -16 selloff and the Day 0 drop, supply exposure rows (all MISSING). Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Levels come from closing prices only, and the fill happens at an unknown Day 1 close, so all percentages are approximate. Skipping can miss a move: the stock could break above 102.48 without the team. The Model 1 alpha is statistically indistinguishable from zero, so it does not argue strongly either way. Unexplained high-volume days may hide company news. This is a simulation for learning, not investment advice; no real trade is placed and a person reviews this output.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 - Coder is skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close. The 100.00 close is below the flat 50-day and 200-day averages (100.95 / 100.55) after a 2.4% higher-volume drop from 102.48, and above the 97.8 to 98.5 support zone, so neither a breakout nor a pullback entry is true on Day 0. Illustrative reward-to-risk is below 1.0 (6.5% ÷ 6.9% = 0.94 at best, before costs), Model 1 shows no edge (alpha t-stat -0.19, rank 20 of 24), there is no news or event input, and supply exposure is MISSING. Proposed action: NO TRADE, size 0. The Risk Manager and the Boss make the final call.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

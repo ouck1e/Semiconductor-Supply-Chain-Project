@@ -1,0 +1,78 @@
+AGENT 1 - RESEARCHER REPORT
+Stock A (sector group: Gases & materials). Simulation for research and learning only, not investment advice.
+
+1. STOCK, SECTOR, TIMEFRAME
+- Stock: Stock A, sector group Gases & materials (source: "Stock:" line).
+- Timeframe: daily closes, rebased so the Day 0 close = 100, at least 252 closes up to Day 0, nothing after it (source: "Timeframe:" and "Source:" lines). Decision point is the Day 0 close.
+- I have not tried to identify the stock or the calendar dates.
+
+2. STRUCTURE
+Source facts:
+- Close 100.00; 20-day avg 94.47 (close +5.9% vs it); 50-day avg 103.11 (close -3.0%); 200-day avg 149.71 (close -33.2%).
+- 252-day closing high 206.88, low 81.27; close is -51.7% vs the 252-day high.
+- 60-day high / low 132.05 / 81.27.
+Analysis:
+- The longer averages are stacked downward (20-day 94.47 < 50-day 103.11 < 200-day 149.71), and the close is far below the 200-day. On a 3-to-12-month view this is a downtrend.
+- Short term, the picture is a rebound inside that downtrend: the close sits above the 20-day average but still below the 50-day.
+- The last 30 closes show a range of roughly 98-105 from Day -29 to Day -10 (with a dip to 91.91 on Day -19), then a sharp drop to 81.27 on Day -6, then a fast recovery to 100.00 by Day 0. My calculation: Day -6 to Day 0 = 100.00 / 81.27 - 1 = +23.0%. Day -1 to Day 0 = 100.00 / 101.56 - 1 = -1.5%.
+- Overall label: DOWNTREND (long-term), with an unclear / rebounding short-term structure.
+
+3. MOMENTUM
+Source facts: returns 1m -0.3%, 3m -33.5%, 6m -44.6%, 12m -42.8%; RSI (14-day) 53.0.
+Analysis:
+- Medium and long-term momentum is strongly negative (3m, 6m, 12m all worse than -33%).
+- 1-month momentum is flat (-0.3%). Check against the table: Day -21 close 100.26 to Day 0 100.00 is about -0.3%, consistent.
+- RSI 53.0 is neutral: neither overbought nor oversold after the 6-day rebound.
+
+4. VOLUME
+Source fact: volume, last 5 days vs 50-day average: 1.21x.
+Analysis: recent volume is about 21% above its 50-day average, so the last week's rebound came on somewhat elevated, not extreme, volume. Daily volume for each of the last 30 days is MISSING, so I cannot tell whether the volume was concentrated on the down days (Day -8 to -6) or the up days (Day -5 to -1).
+
+5. VOLATILITY
+Source facts: annualised volatility 20-day 84.1%, 120-day 48.1%.
+Analysis: short-term volatility is about 1.75x the 120-day level (84.1 / 48.1). The table shows why: daily moves such as Day -9 to -8 (96.85 to 86.64, about -10.5%) and Day -2 to -1 (94.53 to 101.56, about +7.4%). Volatility is elevated and rising.
+
+6. SUPPORT AND RESISTANCE (only levels the supplied numbers back up)
+Support:
+- 94.47: 20-day average; also near the Day -3 / Day -2 closes (94.74, 94.53).
+- 91.91-92.79: Day -19 and Day -17 closes, a short-term floor that held before the drop.
+- 81.27: the 20-day, 60-day and 252-day closing low (Day -6). This is the key support and is a 52-week low set six trading days before Day 0.
+Resistance:
+- 101.56-103.11: Day -1 close 101.56, 20-day closing high 102.52 (Day -13), 50-day average 103.11.
+- 104.8-105.3: Day -29 to Day -22 closes (105.31 high in the table).
+- 132.05: 60-day closing high.
+- 149.71: 200-day average.
+- 206.88: 252-day closing high.
+
+7. COMPARISON WITH THE CHIP-SECTOR ETF
+Source facts: ETF returns 1m -6.6%, 3m -12.0%, 6m -6.0%, 12m -4.3%.
+Analysis (stock return minus ETF return, percentage points):
+- 1m: -0.3 - (-6.6) = +6.3 pts (Stock A outperformed over the last month).
+- 3m: -33.5 - (-12.0) = -21.5 pts.
+- 6m: -44.6 - (-6.0) = -38.6 pts.
+- 12m: -42.8 - (-4.3) = -38.5 pts.
+Stock A has badly underperformed the sector over 3-12 months; only the most recent month shows relative strength. The sector itself has also been weak across all four periods.
+
+8. THREE STRONGEST FACTS
+- Deep long-term weakness: close -33.2% vs the 200-day average and -51.7% vs the 252-day high; 12m return -42.8% vs ETF -4.3%.
+- A fresh 52-week low at 81.27 on Day -6, followed by a +23.0% rebound to 100.00 by Day 0 on 1.21x average volume.
+- Volatility is very high and rising: 20-day 84.1% vs 120-day 48.1%.
+
+THREE BIGGEST UNCERTAINTIES
+- Whether the 6-day rebound is a lasting turn or a short bounce inside the downtrend; the close is still below the 50-day average (103.11) and the 20-day high (102.52).
+- Why the stock fell from 101.96 (Day -10) to 81.27 (Day -6) and recovered so fast: no news or company information is supplied (headlines: N/A BY DESIGN in a blind run).
+- Day-by-day volume is MISSING, so the quality of the selling and of the rebound cannot be judged.
+
+9. DATA COMPLETENESS SCORE: 85 / 100
+All requested indicators (averages, returns, ETF comparison, RSI, volatility, aggregate volume, highs/lows, 30 closes) are supplied. Points off because per-day volume for all 30 rows is MISSING and there are no daily highs/lows (closes only). Headlines are N/A BY DESIGN and are not counted against the score.
+
+Note: the source material contained no embedded instructions to ignore.
+
+AGENT: Agent 1 - Researcher
+TASK COMPLETED: Described Stock A's (Gases & materials) structure, momentum, volume, volatility, support/resistance and ETF comparison from the supplied market data; gave a data completeness score. No trade view given.
+SOURCE FACTS USED: Close 100.00; 20/50/200-day averages 94.47 / 103.11 / 149.71 (close +5.9% / -3.0% / -33.2%); returns 1m -0.3%, 3m -33.5%, 6m -44.6%, 12m -42.8%; ETF 1m -6.6%, 3m -12.0%, 6m -6.0%, 12m -4.3%; RSI 53.0; volatility 20d 84.1%, 120d 48.1%; volume 5d vs 50d 1.21x; 20d high/low 102.52/81.27; 60d 132.05/81.27; 252d 206.88/81.27; close -51.7% vs 252d high; last 30 closes Day -29 to Day 0.
+ANALYSIS: Long-term downtrend (averages stacked downward, close far below 200-day). Short-term rebound of +23.0% from the 81.27 52-week low (Day -6) to 100.00, but still under the 50-day average. Relative to the ETF: +6.3 pts over 1m, -21.5 / -38.6 / -38.5 pts over 3m / 6m / 12m. RSI neutral. Volatility ratio about 1.75x. Support 94.47, ~92, 81.27; resistance 101.56-103.11, ~105, 132.05, 149.71.
+MISSING INFORMATION: Per-day volume for all 30 closes (MISSING); intraday highs/lows (MISSING); headlines and company news (N/A BY DESIGN, blind run).
+RISKS OR LIMITATIONS: Closes only, rebased, no fundamentals. The rebound covers only 6 days, and high volatility (84.1%) makes short-term levels unreliable. Descriptive only; not investment advice.
+NEXT AGENT: Agent 2 - News Analyst
+HANDOFF SUMMARY: Stock A is in a deep long-term downtrend (-42.8% over 12m vs ETF -4.3%, close -33.2% below its 200-day) but has bounced +23.0% in six days from a fresh 52-week low of 81.27 on 1.21x volume, with neutral RSI 53.0, very high and rising volatility (84.1% vs 48.1%), resistance at 101.56-103.11 and key support at 81.27; data completeness 85/100.

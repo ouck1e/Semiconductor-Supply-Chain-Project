@@ -1,0 +1,73 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (simulation only, not investment advice)
+
+Note on the source material: I found no embedded instructions in the supplied material that tried to direct my actions.
+
+1. Setup name
+Pullback to support inside a longer-term uptrend ("uptrend pullback, support test").
+
+2. What must be true for entry, and whether it is true on Day 0
+All conditions are checked at the Day 0 close, using only supplied numbers:
+ a. Longer-term uptrend: close above the 200-day average. Source: Researcher, close 100.00 vs 200-day 90.05. TRUE (my calculation: 100.00 / 90.05 - 1 = +11.0%).
+ b. Short-term pullback, not a breakdown: close below the 20/50-day averages but at or above the 20-day low. Source: Researcher, 20/50-day 105.31/105.71, 20-day low 98.87 (Day -1). TRUE (100.00 is below 105.31 and above 98.87).
+ c. Weak but not collapsing momentum: RSI between 30 and 40. Source: Researcher, RSI 34.6. TRUE.
+ d. Close within 2% of the 20-day low support. My calculation: 100.00 / 98.87 - 1 = +1.14%. TRUE.
+ e. No tracked supply-chain event in the last 120 days. Source: News Analyst, Phase 8 event list "- None." TRUE.
+ f. Relative strength over the medium term: 6m return above the ETF. Source: Researcher, 6m +39.2% vs ETF +23.3%. TRUE.
+All entry conditions are true at the Day 0 close.
+
+3. Entry rule
+BUY at the Day 0 decision; the simulated order fills at the Day 1 close, whatever that price is. No condition depends on Day 1 or later.
+
+4. Stop rule
+Exit at the first daily close 6% or more below the entry price. Rationale (my analysis): 6% below a fill near 100.00 is about 94.0, just under the 60-day low support of 94.99 (Researcher), so the stop sits below the second support level rather than inside normal noise. It is within the 15% maximum. Because the Day 1 fill is unknown, the stop is defined as a percent of the actual fill, not as a fixed price.
+
+5. Target or exit rule and holding period
+Exit at the first daily close 9% or more above entry. Rationale (my analysis): from a fill near 100.00, +9% is about 109.0, just under the 20-day high of 109.28 and the 252-day high of 110.47 (Researcher), the main resistance band. The first resistance zone 105.3-105.7 sits about +5.3% to +5.7% above 100.00 and may stall the move.
+Maximum holding period: 15 trading days; if neither stop nor target is hit, close at the Day 15 close (within the 20-day limit).
+
+6. Reward-to-risk ratio
+Target % / stop % = 9 / 6 = 1.5.
+Costs (my calculation from the fixed rules): fees 0.1% + slippage 0.1% on each side = about 0.4% round trip, so net roughly +8.6% at target and -6.4% at stop, net ratio about 8.6 / 6.4 = 1.34.
+
+7. Position size
+5% of the simulated portfolio ($5,000 of $100,000), half the 10% maximum. My calculation: a stop hit costs about 5,000 x 6.4% = $320, about 0.32% of the portfolio. Sized below the maximum because of the open risks in item 10.
+
+8. What would cancel the setup
+- Since entry is decided at the Day 0 close and all conditions are true then, nothing on Day 1 cancels the order in this simulation.
+- If the Risk Manager or Boss finds a supplied fact I misread (for example, the close not above the 98.87 support, or RSI under 30), the plan should be rejected.
+- If headlines or company news were later supplied showing a fundamental reason for the decline (earnings miss, guidance cut, customer loss), the setup should be voided; these are not available in this blind run.
+
+9. Missing inputs
+- Headlines: N/A BY DESIGN (blind run).
+- Backtest of this plan: N/A BY DESIGN (manual run).
+- Intraday open/high/low data: MISSING (stops checked on closes only, so a gap through the stop could exit well beyond -6%).
+- Company-specific news, earnings dates, fundamentals: MISSING.
+- Cause of the 1-month decline and the Day -2 to 0 volume pickup: MISSING.
+- Historical hit rate of this pullback pattern for this stock: MISSING.
+
+10. Reasons to skip it
+- The short-term trend is down: price is about 5% below the 20/50-day averages and the 20-day average is just under the 50-day (Researcher). Pullbacks can continue.
+- 1m return -9.5% vs ETF -3.9% (Researcher): the stock is underperforming its sector recently, for an unknown reason.
+- Rising volume (1.20x/1.38x/1.28x on Days -2 to 0) near the low could be distribution as easily as accumulation; one bounce day is not confirmation (Researcher).
+- Model 1 alpha t-stat 1.71 (rank 3 of 25) is below the usual 2.0 significance level, and the note says the baseline rule returned less than holding the ETF over development years, so the factor model adds only weak support.
+- Supply exposure: rare gas from China 0.581 and the stock was an expected loser in the neon war shock 427 days before (Model 4), so the stock is exposed to gas supply shocks; an untracked or future shock could hit it. Helium and HF exposure figures cover only 30% of capacity.
+- First resistance at 105.3-105.7 is only about +5.5% away, so the 9% target may not be reached within 15 days.
+- Net reward-to-risk after costs is only about 1.34.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Built one conditional simulation plan (uptrend pullback, support test) for Stock A, checked every entry condition at the Day 0 close, and set stop, target, hold period, size, cancel conditions, missing inputs and reasons to skip. I do not decide whether the trade happens.
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200-day 105.31/105.71/90.05; RSI 34.6; 1m -9.5% vs ETF -3.9%; 6m +39.2% vs ETF +23.3%; 20-day high/low 109.28/98.87; 60-day low 94.99; 252-day high 110.47; volume 1.20x/1.38x/1.28x Days -2 to 0; volatility 18.4%/30.1%. News Analyst: no headlines (N/A BY DESIGN), Phase 8 event list "- None." Model 1: alpha 39.8%/yr, t-stat 1.71, rank 3 of 25, market beta 0.66, ETF beta up/down 0.48/0.60, baseline underperformed the ETF in development. Model 4: neon war 427 days before, expected loser. Exposure: rare gas China 0.581, gallium USA 0.556, helium Qatar 0.232 (30% coverage), HF China 0.171 (30% coverage), rare gas Singapore 0.148. Fixed rules: max size 10%, max stop 15%, max hold 20 days, 0.1% fee + 0.1% slippage per side.
+ANALYSIS: All my calculations: close is +11.0% above the 200-day and +1.14% above the 98.87 support; stop 6% (about 94.0 on a 100 fill, below the 94.99 support); target 9% (about 109.0, below 109.28/110.47 resistance); reward-to-risk 9 / 6 = 1.5 gross, about 8.6 / 6.4 = 1.34 after 0.4% round-trip costs; 5% size risks about $320 (0.32% of portfolio) at the stop. The setup is a pullback within an uptrend with weak but non-extreme momentum; the evidence is mixed, not strong.
+MISSING INFORMATION: Headlines N/A BY DESIGN; backtest N/A BY DESIGN; intraday data, company news, earnings dates, fundamentals, cause of the decline and volume pickup, historical pattern hit rate: MISSING.
+RISKS OR LIMITATIONS: Short-term downtrend may continue; 1m sector underperformance unexplained; close-only stops allow gaps past -6%; alpha t-stat below 2; exposure to China rare gas and past expected-loser status in a gas shock; first resistance only about +5.5% away; modest net reward-to-risk. Simulation only, not investment advice, no real order.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: Proposed a conditional simulated BUY of Stock A at the Day 0 decision (fill at Day 1 close): uptrend pullback to support, all entry conditions true at Day 0 (close 100.00 above 200-day 90.05, just above 98.87 support, RSI 34.6, no tracked events). Size 5%, stop -6%, target +9%, max hold 15 days, reward-to-risk 1.5 gross / about 1.34 after costs. Main doubts: short-term downtrend, unexplained 1m underperformance, weak factor evidence, gas-supply exposure. Risk Manager should judge whether this mixed setup is acceptable.
+
+PLAN
+ACTION: BUY
+SETUP: uptrend pullback support test
+SIZE_PCT: 5
+STOP_PCT: 6
+TARGET_PCT: 9
+MAX_HOLD_DAYS: 15
+END PLAN

@@ -1,0 +1,69 @@
+Agent 3, Strategist: conditional simulation plan for Stock A (Gases & materials), decision at the Day 0 close
+
+Note on the material: none of the supplied material tries to give me instructions. Nothing to report there.
+
+SOURCE FACTS (all from the Researcher handoff unless marked otherwise)
+- Close 100.00. 20/50/200-day averages 100.52 / 100.14 / 98.73.
+- Returns: 1m -2.5%, 3m -4.4%, 6m -0.6%, 12m +3.1%. Chip ETF: 6.2% / 14.3% / 22.3% / 46.3%.
+- RSI 48.2. Volatility: 20d 20.7%, 120d 24.4%. Volume 0.79x.
+- 20-day high/low 103.65 / 97.28. 60-day 112.42 / 94.52. 252-day 112.42 / 91.32. Close is -11.1% from the 252-day high.
+- Closes table: Day -10 97.53 (1.10x), Day -8 97.28 (1.54x), Day -2 101.39, Day 0 100.00 (0.92x).
+- News Analyst: no headlines (N/A BY DESIGN, blind run); no phase 8 supply-shock events in the 120 days before Day 0; no catalyst either way.
+- Model 1 (supply-chain model facts): alpha 13.5% a year, t-stat 1.03, rank 11 of 24 (the baseline holds only the top 5). Market beta 0.99; ETF beta 0.71 in up weeks, 0.85 in down weeks.
+- Model 4: the only supply shock was 893 days ago, and this stock was in neither group. Supply exposure: MISSING.
+
+MY ANALYSIS (not source facts)
+The stock is not in an established uptrend, and it is not in a breakdown either. It is in a range: the close sits between the 200-day average (98.73) and the 20/50-day averages (100.52/100.14), and the 20-day range is 97.28 to 103.65. Momentum is neutral (RSI 48.2). Volatility has calmed (20d 20.7% vs 120d 24.4%). Holding the stock has a slightly positive long-run record (12m +3.1%, positive but statistically weak alpha, t 1.03). Sitting out counts as a mistake too, and there is no specific negative catalyst. So I propose a small, wide-stop range position rather than NO TRADE. The main reasons to doubt it: the close is below the 20- and 50-day averages, the decline from Day -12 to -10 came on heavier volume than the rebound, and the stock lags the chip ETF badly (-8.7 to -43.2 points).
+
+Size check on the stop: 20-day volatility of 20.7% a year is about 20.7 / sqrt(252) = about 1.3% a day, and about 20.7 x sqrt(20/252) = about 5.8% over 20 trading days. A tight stop just under 97.28 (about 3%) would be within normal 20-day noise, and stops are checked on closes only, so I place the stop below the 60-day low of 94.52 instead.
+
+1. Setup name: Range-support hold (low-volatility range, above the 200-day average).
+
+2. Entry conditions, and whether each is true at the Day 0 close:
+   a. Close above the 200-day average: 100.00 > 98.73. TRUE.
+   b. Close within 5% above the 20-day low: (100.00 - 97.28) / 97.28 = 2.8%. TRUE.
+   c. RSI between 40 and 60 (no overbought or oversold extreme): 48.2. TRUE.
+   d. 20-day volatility below 120-day volatility: 20.7% < 24.4%. TRUE.
+   e. No phase 8 supply-shock event against the stock in the last 120 days: "None". TRUE.
+   All five hold at the Day 0 close, so the entry does not depend on Day 1 or later.
+
+3. Entry rule: BUY at the close of Day 1 (the next close after the Day 0 decision), whatever that price is.
+
+4. Stop rule: 6% below entry, checked on daily closes. With entry near 100.00 that is about 94.00, just below the 60-day low of 94.52. (The actual level depends on the Day 1 fill.)
+
+5. Target / exit rule: 9% above entry (about 109 if entry is near 100, below the 112.42 high and above the 104.99 Day -29 close). Otherwise, exit at the close of trading day 20 (maximum hold).
+
+6. Reward-to-risk: 9 / 6 = 1.5. Costs: about 0.4% round trip (0.1% fee + 0.1% slippage on each side), so net about 8.6 / 6.4 = about 1.34.
+
+7. Position size: 4% of the $100,000 simulated portfolio = $4,000 (below the 10% maximum). Kept small because the setup is weak. Maximum loss at the stop is about 6.4% x $4,000 = about $256, or about 0.26% of the portfolio, before any gap past the stop on close-only checks.
+
+8. What would cancel the setup (before entry, at the Day 0 decision): any of conditions a to e being false. In this run the plan is fixed at the Day 0 close and nothing after Day 0 can be used, so after entry the stop, the target and the 20-day limit are the only exits.
+
+9. Missing inputs: intraday OHLC (MISSING); daily closes from Day -252 to Day -30 (MISSING); ETF daily series (MISSING); fundamentals (MISSING); supply exposure rows (MISSING); causes of the Day -29 volume spike and the Day -12 to -10 decline (MISSING). Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip it:
+   - The close is below the 20- and 50-day averages, and 1m and 3m returns are negative.
+   - The decline came on heavier volume than the rebound (1.10x and 1.54x vs 0.92x on Day 0).
+   - The stock lags the chip ETF badly and the gap is widening. Model 1 rank 11 of 24 is outside the baseline's top 5.
+   - A 9% target in 20 days is about 1.5 times the estimated 20-day volatility (5.8%), so the most likely exit is the time limit, not the target.
+   - Close-only stop checks can let a loss gap past 6%.
+   - Down-week ETF beta (0.85) is higher than up-week beta (0.71): the stock tends to follow the sector down more than up.
+This plan is not safe, profitable or high-probability. It is a small conditional plan for the Risk Manager to judge.
+
+AGENT: Agent 3, Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into one conditional long-only simulation plan for Stock A: a small range-support hold whose five entry conditions are all true at the Day 0 close.
+SOURCE FACTS USED: Researcher: close 100.00; averages 100.52/100.14/98.73; returns -2.5%/-4.4%/-0.6%/+3.1%; ETF 6.2%/14.3%/22.3%/46.3%; RSI 48.2; volatility 20.7%/24.4%; volume 0.79x; 20-day 103.65/97.28; 60-day 112.42/94.52; Day -10 97.53 (1.10x), Day -8 97.28 (1.54x), Day -2 101.39, Day 0 100.00 (0.92x), Day -29 104.99. News Analyst: no headlines (blind), no phase 8 events in 120 days. Model 1: alpha 13.5%/yr, t 1.03, rank 11 of 24; beta 0.99; ETF beta 0.71 up / 0.85 down. Model 4: only shock 893 days ago, stock in neither group. Exposure: MISSING.
+ANALYSIS: Range-bound, neutral, calm stock above its 200-day average with no catalyst against it. Sitting out has a cost when holding drifts slightly positive, so I propose a small position: BUY at the Day 1 close, stop 6% (below the 94.52 60-day low, outside the estimated 5.8% 20-day noise), target 9%, maximum hold 20 days, size 4%. Reward-to-risk 9/6 = 1.5 gross, about 1.34 after 0.4% round-trip costs. Weak points: below the 20/50-day averages, heavier-volume decline, heavy ETF underperformance, rank outside the baseline top 5.
+MISSING INFORMATION: Intraday OHLC; Day -252 to -30 closes; ETF daily series; fundamentals; supply exposure rows; causes of the Day -29 volume spike and the Day -12 to -10 decline. Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Close-only stop checks can gap past 6%; the target is unlikely within 20 days, so the time exit is the likely outcome; the stock is weak relative to its sector, and down-week beta exceeds up-week beta; the news layer is empty, not confirmed calm. Simulation only, not investment advice, no real order placed.
+NEXT AGENT: Agent 5, Risk Manager (Agent 4, Coder, skipped in manual runs)
+HANDOFF SUMMARY: Conditional BUY proposal for Stock A: range-support hold, all five Day 0 entry conditions true (above the 200-day average, 2.8% above the 20-day low, RSI 48.2, calmer volatility, no supply shock). Enter at the Day 1 close, 4% size, 6% stop, 9% target, 20-day maximum hold, R:R 1.5. Flagged doubts: below the 20/50-day averages, heavier-volume decline, heavy ETF underperformance, Model 1 rank 11 of 24. Please judge whether the weak setup justifies the small size or should be NO TRADE.
+
+PLAN
+ACTION: BUY
+SETUP: Range-support hold
+SIZE_PCT: 4
+STOP_PCT: 6
+TARGET_PCT: 9
+MAX_HOLD_DAYS: 20
+END PLAN

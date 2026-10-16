@@ -1,0 +1,50 @@
+AGENT 5 - RISK MANAGER: REVIEW OF THE STRATEGIST PLAN (Stock A, Day 0 close)
+
+Plan under review (Strategist PLAN block): ACTION NO TRADE, SETUP none, SIZE_PCT 0, STOP_PCT 0, TARGET_PCT 0, MAX_HOLD_DAYS 0.
+
+Starting position: REJECT. I move off it only if every REQUIRED item is OK. For a NO TRADE plan, the items about stops, targets, size and hold are checked as "no position is opened, so no limit can be broken".
+
+REQUIRED CHECKS
+1. Action is BUY or NO TRADE, entry conditions true at Day 0 close: OK. Action is NO TRADE. Nothing waits on Day 1 or later. The Strategist checked both entry setups at the Day 0 close and found neither true: breakout needs a close above 100.95, Day 0 close is 100.00; pullback needs a close in 97.8 to 98.5, Day 0 close is 100.00 (Strategist SOURCE FACTS and ANALYSIS, from the Researcher's numbers).
+2. Stop rule no wider than 15%: OK (not applicable to a position of size 0). For reference, the Strategist's illustrative stop under 93.13 is (100.00 - 93.13) / 100.00 = 6.87% below a 100.00 reference, inside the 15% limit.
+3. Target/exit rule and maximum hold of 20 days or less: OK (no position, hold 0 days).
+4. Position size within 10%: OK. Size 0%.
+5. Reward-to-risk after fees and slippage of at least 1.5, arithmetic shown: OK for NO TRADE, and it confirms the decision. My check of the best illustrative setup, using the 100.00 close as a stand-in for the unknown Day 1 fill:
+   - Round-trip costs: (0.1% fee + 0.1% slippage) x 2 sides = 0.4%.
+   - Best target about 106.5: gross reward (106.5 - 100.00) / 100.00 = 6.5%; net reward 6.5% - 0.4% = 6.1%.
+   - Stop at 93.13: gross risk 6.87%; net risk 6.87% + 0.4% = 7.27%.
+   - Net reward-to-risk = 6.1 / 7.27 = 0.84, below 1.5.
+   - Nearer target 102.48: net reward 2.48% - 0.4% = 2.08%; 2.08 / 7.27 = 0.29.
+   - Tighter stop at 97.8 with target 106.5: net risk 2.2% + 0.4% = 2.6%; 6.1 / 2.6 = 2.35, which would pass on paper, but that stop is about 1.6 daily standard deviations away (daily volatility about 22.0% / sqrt(252) = 1.39%, so 2.2 / 1.39 = 1.6) and no entry condition is true anyway. The Strategist's 0.94 (before costs) matches my numbers.
+   Any BUY with the supplied levels would fail this check, so NO TRADE is the consistent answer.
+6. Largest simulated loss: OK. Size 0 x any stop = $0, plus no fees or slippage = $0. (For comparison, a hypothetical 10% position of $10,000 with the 6.87% stop would lose about $10,000 x 7.27% = $727 including costs.)
+7. No look-ahead: OK. The plan uses only Day 0 and earlier closes and Model 1 statistics as supplied; the Day 1 fill price is marked MISSING, not guessed.
+8. Plan agrees with the supplied price data: OK. The facts cited (close 100.00, -2.4% on 1.48x volume, averages 97.78 / 100.95 / 100.55, support 97.8 to 98.5 and 93.13, resistance 100.55 to 100.95, 102.48, about 106.5) are the Researcher's numbers as relayed in the Strategist handoff. I did not receive the Researcher handoff directly, so I can only confirm internal consistency (for example, -2.4% from 102.48 to 100.00: (100.00 - 102.48) / 102.48 = -2.42%, consistent).
+
+CONTEXT CHECKS
+- Data completeness: PROBLEM (minor). Supply exposure, intraday OHLC, absolute volumes, ETF price series, fundamentals and the cause of the Day 0 drop are MISSING. No completeness score was supplied (MISSING). This supports staying out, not entering.
+- Statistical support: PROBLEM for any BUY. Model 1 alpha -1.1% a year, t-stat -0.19, rank 20 of 24: no edge.
+- Liquidity: MISSING (only relative volume 1.48x is given, no absolute volume). Irrelevant at size 0.
+- Conflicting news or supply-chain events: headlines N/A BY DESIGN (blind run); no Model 4 events; unexplained high-volume moves are a caution flag, not a trade signal.
+- Overfitting: OK. NO TRADE is not tailored to the chart; the Strategist did not stretch levels to manufacture a setup.
+- Unverified sources: OK. No outside sources used. No embedded instructions found in the supplied material.
+
+DECISION: APPROVE FOR SIMULATION ONLY (the NO TRADE plan). I agree with NO TRADE.
+
+Five points:
+1. No entry condition is true at the Day 0 close: 100.00 is below the 100.95 breakout level and above the 97.8 to 98.5 pullback zone.
+2. Net reward-to-risk on the best supplied levels is 6.1 / 7.27 = 0.84, well under the 1.5 minimum.
+3. Model 1 shows no edge (t-stat -0.19, rank 20 of 24), so there is no statistical reason to override the chart.
+4. Largest simulated loss is $0; no limit (10% size, 15% stop, 20-day hold) can be broken.
+5. Key inputs (supply exposure, cause of the high-volume drop) are MISSING, which argues for caution, not for a position.
+
+What must change for approval: nothing; the NO TRADE plan is approved as is. A future BUY would need a Day 0 close that meets an entry condition (close above 100.95, or close in 97.8 to 98.5), a stop within 15%, and net reward-to-risk of at least 1.5 after the 0.4% round-trip costs. Approval is for the simulation only and never means a real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A against the fixed limits and the supplied evidence. Decision: APPROVE FOR SIMULATION ONLY (agree with NO TRADE).
+SOURCE FACTS USED: Strategist handoff and PLAN block: close 100.00, Day -1 close 102.48, -2.4% on 1.48x volume, 20/50/200-day averages 97.78 / 100.95 / 100.55, support 97.8 to 98.5 and 93.13, resistance 100.55 to 100.95, 102.48, about 106.5, volatility 22.0%, Model 1 alpha -1.1% a year with t-stat -0.19 and rank 20 of 24, no Model 4 events, supply exposure MISSING. Fixed rules: $100,000 portfolio, max 10% size, max 15% stop, max 20-day hold, 0.1% fees and 0.1% slippage each side, fill at Day 1 close.
+ANALYSIS: Neither entry condition is true at the Day 0 close. Net reward-to-risk on the best levels: (6.5% - 0.4%) / (6.87% + 0.4%) = 6.1 / 7.27 = 0.84 < 1.5; nearer target gives 0.29. A tighter 97.8 stop would give 2.35 on paper but sits about 1.6 daily standard deviations away and no entry is triggered. Largest simulated loss of the plan: $0. All REQUIRED checks are OK for a NO TRADE plan.
+MISSING INFORMATION: Day 1 fill price (by design of the fill rule), data completeness score, absolute volumes, intraday OHLC, ETF price series, fundamentals, supply exposure rows, cause of the Day 0 high-volume drop, the Researcher handoff itself (only relayed via the Strategist). Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Percentages use the 100.00 close as a stand-in for the unknown Day 1 fill. Levels come from closes only. Staying out can miss a move above 102.48. I could not cross-check the Researcher's numbers directly. Simulation for research and learning only; not investment advice; no real trade is placed; a person reviews this output.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: Risk Manager approves the Strategist's NO TRADE for Stock A (simulation only). No entry condition is true at the Day 0 close (100.00 vs breakout 100.95 and pullback 97.8 to 98.5), net reward-to-risk on the best supplied levels is 0.84 after 0.4% round-trip costs (minimum 1.5), Model 1 shows no edge (t-stat -0.19), and key inputs are MISSING. Size 0, largest simulated loss $0, no limits breached. Recommend the Boss records NO TRADE.

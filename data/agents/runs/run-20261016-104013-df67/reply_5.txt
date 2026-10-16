@@ -1,0 +1,47 @@
+AGENT 5 - RISK MANAGER REVIEW (simulation only, not investment advice)
+
+Plan under review: ACTION NO TRADE, SETUP none, SIZE_PCT 0, STOP_PCT 0, TARGET_PCT 0, MAX_HOLD_DAYS 0 (Strategist PLAN block).
+
+REQUIRED CHECKS
+- Action is BUY or NO TRADE, conditions true at Day 0 close: OK. NO TRADE is an allowed action and needs no future entry trigger.
+- Stop rule (max 15%): OK, not applicable. No position is opened, so there is nothing to stop out. STOP_PCT 0 is consistent with size 0.
+- Target / exit and max hold (max 20 days): OK, not applicable for the same reason. MAX_HOLD_DAYS 0.
+- Position size within 10%: OK. 0% of $100,000 = $0.
+- Reward-to-risk after costs >= 1.5: OK as a test of the decision not to buy. I re-checked the Strategist's reference trade from the Researcher's numbers:
+  - Stop just under the 93.13 low (Researcher 1-year low): (100.00 - 93.13) / 100.00 = 6.87% risk, plus ~0.4% round-trip fees and slippage (0.1% + 0.1% each side, fixed rules) = ~7.27%.
+  - Target at the 106.5 resistance (Researcher): (106.5 - 100.00) / 100.00 = 6.5% gross, minus ~0.4% = ~6.1%.
+  - Reward-to-risk after costs = 6.1 / 7.27 = ~0.84. To the 102.5 resistance: (2.5 - 0.4) / 7.27 = ~0.29.
+  - Both are far below 1.5, so a BUY would have failed this item. NO TRADE is the consistent answer. (Uses 100.00 as a stand-in for the unknown Day 1 fill, as the Strategist noted.)
+- Largest simulated loss: OK. Size $0, so the loss is $0 (no fees or slippage either).
+- No look-ahead: OK. Every fact cited is Day 0 or earlier.
+- Plan agrees with the supplied price data: OK. I checked the Strategist's facts against the Researcher handoff: close 100.00 below the 50-day (100.95) and 200-day (100.55) averages; about 51% of the 93.13-106.61 range; Day 0 -2.4% on 1.48x volume; rebound 100.00 / 93.13 - 1 = +7.4% from the Day -18 low; RSI 52.2; volatility 22.0% vs 17.1%. All match.
+
+CONTEXT CHECKS
+- Data completeness: OK. Researcher score 85/100; missing items (intraday highs/lows, absolute volume, ETF daily series, cause of the volume spike) do not change a NO TRADE call.
+- Statistical support: PROBLEM for any BUY case, which supports NO TRADE. Model 1 alpha -1.1% a year with t-stat -0.19 (Strategist, from Model 1) is indistinguishable from zero; no edge is shown.
+- Liquidity: MISSING (no absolute volume), but irrelevant at size 0. Volume ratio 5-day 1.14x of 50-day.
+- Conflicting news / supply-chain events: headlines N/A BY DESIGN (blind run); no phase 8 events in 120 days (News Analyst via Strategist); exposure rows MISSING. The Day 0 high-volume drop is unexplained.
+- Overfitting: OK. The Strategist tested three standard setups and found none triggered, rather than tailoring a rule to this chart.
+- Unverified sources: OK. Nothing external is relied on. No embedded instructions were found in the material.
+
+DECISION: APPROVE FOR SIMULATION ONLY (I agree with NO TRADE)
+
+Five points:
+1. No entry condition is true at the Day 0 close: below flat 50/200-day averages (no trend), mid-range (no support bounce), below 100.6-102.5 resistance after a -2.4% high-volume day (no breakout).
+2. The best reasonable reference BUY has reward-to-risk of about 0.84 after costs, well under the 1.5 minimum, so a BUY could not pass review.
+3. A tight stop under 97.8 (~2.2%) is only about 1.6 daily moves at 22% annualised volatility (~1.4% a day), so it would likely be hit by noise.
+4. Statistical support is absent (alpha t-stat -0.19), and the down-week ETF beta (0.57) exceeds the up-week beta (0.29) in a falling sector.
+5. The main way this could be wrong is a continued rise driven by strong relative strength vs the ETF (+7 to +11 points every period). That is a real opportunity cost against buy-and-hold, but it does not create a valid entry with acceptable reward-to-risk at Day 0.
+
+What would change the call: nothing needs to change for approval of NO TRADE. For a future BUY to be approved, it would need an entry condition true at a Day 0 close (for example a close above ~102.5 resistance, or a close near 93.13-98.5 support), a stop within 15%, size within 10%, and reward-to-risk of at least 1.5 after the 0.4% round-trip costs, with the arithmetic shown.
+
+Approval means only that the simulated NO TRADE stands. No real trade is placed or implied.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A against all required limits and context items; checked its facts against the Researcher's numbers and recomputed the reference reward-to-risk with costs. Decision: APPROVE FOR SIMULATION ONLY (agree with NO TRADE).
+SOURCE FACTS USED: Researcher: close 100.00; 50/200-day averages 100.95 / 100.55; 1-year range 93.13-106.61 (~51%); resistance 100.6-102.5 and 106.5; support 97.8-98.5 and 93.13; Day 0 -2.4% on 1.48x volume; RSI 52.2; volatility 22.0% vs 17.1%; ETF returns -4.2% / -12.6% / -13.5% / -9.0%; data completeness 85/100. Strategist: Model 1 alpha -1.1%/yr, t-stat -0.19; ETF beta 0.29 up / 0.57 down; no phase 8 events in 120 days; PLAN block (NO TRADE, size 0). Fixed rules: max 10% size, 15% stop, 20 days, 0.1% fee + 0.1% slippage each side, $100,000 portfolio.
+ANALYSIS: Reference BUY (stop under 93.13, target 106.5): risk 6.87% + 0.4% costs = 7.27%; reward 6.5% - 0.4% = 6.1%; R:R ~0.84 (to 102.5: ~0.29), both below 1.5. All Strategist facts match the Researcher. No look-ahead. Largest simulated loss $0 at size 0. NO TRADE is consistent with the evidence; the main risk is missing a rise driven by relative strength.
+MISSING INFORMATION: Intraday highs/lows; absolute volume; ETF daily series; cause of the Day -20 to -9 volume spike and the Day 0 drop; supply exposure rows. Headlines: N/A BY DESIGN (blind run). Backtests: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Opportunity cost vs buy-and-hold if relative strength continues; reward-to-risk uses 100.00 as a stand-in for the unknown Day 1 fill; closing data only; blind run. Simulation only, not investment advice; no real trade is placed.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY of NO TRADE on Stock A. No entry condition is true at the Day 0 close, the best reference BUY gives reward-to-risk of about 0.84 after costs (minimum 1.5), and statistical support is nil (t-stat -0.19). All facts match the Researcher. The risk of this call is missing a rise from strong relative strength vs a falling ETF.

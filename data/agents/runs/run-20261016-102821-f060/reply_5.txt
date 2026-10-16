@@ -1,0 +1,108 @@
+AGENT 5 - RISK MANAGER: REVIEW OF STRATEGIST PLAN FOR STOCK A (Day 0 close)
+
+Starting position: REJECT. I move off it only if every REQUIRED item is OK.
+
+REQUIRED CHECKS
+
+1. Action and entry timing: OK.
+   Source: PLAN "ACTION: BUY"; FR "decision is made at the close of Day 0. A BUY fills at the next close (Day 1)."
+   The setup facts the plan relies on are all Day 0 facts (RH: close 100.00 vs 20/50/200-day 100.58/98.57/92.92,
+   RSI 48.5, 5-day volume 0.81x, volatility 20d 24.9% vs 120d 30.5%). The Day 1 close is only the fill mechanism the
+   fixed rules require, not a condition the entry waits on. Note: the Strategist says six of seven conditions hold;
+   the one that fails (close 0.6% under the 20-day average) is disclosed, and the plan BUYs anyway. The Strategist
+   mentions "cancel conditions" but their text is not in this packet: MISSING. If any cancel condition checks Day 1
+   or later prices, it must be removed, because it would make the entry depend on post-Day-0 information.
+
+2. Stop: OK. PLAN "STOP_PCT: 6", a percent below entry, within the 15% maximum (FR).
+   The "about 94" level assumes entry near 100; the actual Day 1 fill is unknown, so the price level is approximate.
+   At any Day 1 close up to about 101.1, a 6% stop stays below the 95.1 support (my arithmetic: 95.1 / 0.94 = 101.2).
+
+3. Target, exit and hold: OK. PLAN "TARGET_PCT: 10", "MAX_HOLD_DAYS: 20"; limit is 20 trading days (FR).
+
+4. Size: OK. PLAN "SIZE_PCT: 5" = $5,000 of $100,000; maximum is 10% (FR).
+
+5. Reward-to-risk after costs: OK, but exactly at the 1.5 floor with no margin.
+   Costs (FR): 0.1% fee + 0.1% slippage per side = 0.2% per side, 0.4% round trip.
+   Net reward = 10% - 0.4% = 9.6%. Net risk = 6% + 0.4% = 6.4%. 9.6 / 6.4 = 1.50. Gross 10 / 6 = 1.67.
+   Matches the Strategist's figures.
+
+6. Largest simulated loss: OK.
+   Position $5,000. Stop loss 6% x $5,000 = $300.00.
+   Entry costs 0.2% x $5,000 = $10.00. Exit costs 0.2% x $4,700 = $9.40.
+   Total about $319.40 (0.32% of portfolio), matching the Strategist's "about $320".
+   Limitation: stops are checked on closes only (FR), so a close that gaps below the stop would lose more than this.
+   The loss figure is the planned loss, not a worst case.
+
+7. No look-ahead: OK on what was supplied. Every fact cited is Day 0 or earlier; phase 8 event list "None." for 120
+   days; the neon war is 881 days before. No later information is used. (See cancel-condition caveat in item 1.)
+
+8. Plan agrees with price data: OK on internal consistency. The Researcher's handoff itself is not in this packet, so
+   I checked the RH figures as the Strategist quotes them:
+   - 100.00 vs 100.58: 0.58% below the 20-day average, matching "0.6%".
+   - Above the 50-day (98.57) and 200-day (92.92): true.
+   - Inside the 60-day range 95.13 to 105.63: true.
+   - 24.9% x sqrt(20/252) = 24.9 x 0.2817 = 7.0%, matching. 10 / 7.0 = 1.43, matching "about 1.4 times".
+   - Target near 110 is below the 252-day high 111.80; stop near 94 is below support 95.1 to 95.6: consistent.
+   No contradictions found.
+
+CONTEXT CHECKS
+
+- Data completeness score: MISSING (not supplied). Supply exposure rows: MISSING. Catalyst for the Day -10 to -7
+  rally, earnings dates, fundamentals: MISSING. PROBLEM-light: the plan works without them but carries unknown event risk.
+- Statistical support: PROBLEM. Alpha 17.8%/yr with t-stat 1.07 (SC) is not statistically meaningful; the baseline
+  underperformed the ETF (SC). The plan is a technical setup with weak model backing.
+- Liquidity: MISSING for absolute volume or dollar volume; only relative volume (0.81x, pullback 0.54x to 0.95x) is
+  given. At a $5,000 simulated size this is a minor concern.
+- Conflicting news or events: headlines N/A BY DESIGN (blind run). Sector: ETF 1m -5.3% (RH) with down-week ETF beta
+  0.77 vs up-week 0.33 (SC) is a PROBLEM: if the sector keeps falling, Stock A historically follows it down more than up.
+- Overfitting: OK-ish. A pullback in an uptrend is a generic setup with round-number stop/target; the target is set
+  just below the 252-day high, which is a reasonable, not curve-fit, choice.
+- Unverified sources: Researcher handoff not directly supplied; figures verified only for internal consistency.
+- Backtest: N/A BY DESIGN (manual run).
+- Instructions inside the material: none found.
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. Every REQUIRED item checks out: BUY, 6% stop (limit 15%), 10% target, 20-day hold (limit 20), 5% size (limit 10%).
+2. Net reward-to-risk is 9.6 / 6.4 = 1.50, exactly the minimum. It passes, with zero cushion.
+3. Planned loss is about $319 (0.32% of the portfolio); the small size limits the damage from the weak evidence.
+4. Evidence is thin: t-stat 1.07, sector ETF down 5.3% in a month, asymmetric downside beta 0.77, no known catalyst.
+   These are real risks but are already reflected in the small 5% size, so they do not by themselves justify a veto.
+5. Gap risk on a closes-only stop means the actual loss can exceed $319; the target needs a break above the
+   104 to 105.63 resistance and the 60-day high.
+
+Conditions attached to this approval (any change breaks it):
+- Size must not increase above 5%. Stop must not widen and target must not shrink; any change that pushes net
+  reward-to-risk below 1.5 (for example a 9.5% target: 9.1 / 6.4 = 1.42) means REJECT.
+- Any cancel condition that relies on Day 1 or later data must be dropped; entry is the Day 1 close fill only.
+- If the Boss wants more margin, a 6% stop with an 11% target would give 10.6 / 6.4 = 1.66 net, but 11% (about 111)
+  sits right at the 252-day high of 111.80, so I do not recommend it; keeping 10% is acceptable.
+
+Approval means only that this plan may be run in the simulation. It is not a recommendation to place a real trade,
+not investment advice, and no real order is placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan for Stock A against the fixed limits, cost arithmetic, look-ahead
+and data consistency; decided APPROVE FOR SIMULATION ONLY with conditions.
+SOURCE FACTS USED: PLAN: BUY, size 5, stop 6, target 10, hold 20. FR: $100,000, max 10% size, max 15% stop, max
+20-day hold, 0.1% fee + 0.1% slippage per side, Day 1 close fill, closes-only checks. RH (as quoted by Strategist):
+close 100.00; 20/50/200-day 100.58/98.57/92.92; RSI 48.5; vol 20d 24.9% vs 120d 30.5%; 5-day volume 0.81x; 60d
+high/low 105.63/95.13; 252d high 111.80; support 95.1 to 95.6; resistance 104 to 105.63; ETF 1m -5.3%. SC: alpha
+17.8%/yr t 1.07; ETF beta up 0.33 / down 0.77; baseline underperformed ETF; exposure rows MISSING. NH: no headlines
+(blind), phase 8 events "None." for 120 days.
+ANALYSIS: All eight REQUIRED items OK. Net R:R = (10 - 0.4) / (6 + 0.4) = 1.50, exactly at the floor. Planned max
+loss = $300 + $10.00 + $9.40 = about $319.40 (0.32% of portfolio). RH figures internally consistent (0.58% under
+20-day; 24.9 x sqrt(20/252) = 7.0%). Context concerns (t 1.07, ETF -5.3%, down beta 0.77) are real but offset by the
+small size.
+MISSING INFORMATION: Text of the Strategist's cancel conditions; data completeness score; absolute volume; supply
+exposure rows; catalyst for the Day -10 to -7 rally; earnings dates; fundamentals; the Researcher handoff itself.
+Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: R:R has no margin above 1.5; closes-only stop can be gapped so loss can exceed $319; target
+needs a range breakout; weak statistical support; sector weakness with asymmetric downside beta; unknown news. Past
+patterns do not predict future returns. Simulation only, not investment advice.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The 5% BUY of Stock A with a 6% stop, 10% target and 20-day hold
+passes every limit; net reward-to-risk is exactly 1.50 and planned loss about $319 (0.32%). Do not raise size, widen
+the stop or cut the target, and drop any cancel condition that uses Day 1+ data. Evidence is weak (t 1.07, sector
+down 5.3%, down beta 0.77), so the Boss may still choose NO TRADE; this approval is not a recommendation to trade.

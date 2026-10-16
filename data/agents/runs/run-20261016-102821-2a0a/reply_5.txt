@@ -1,0 +1,53 @@
+AGENT 5 - RISK MANAGER REVIEW (simulation only, not investment advice, no real order)
+
+Plan under review (from STRATEGIST HANDOFF, PLAN block): ACTION BUY, SETUP uptrend pullback support test, SIZE_PCT 5, STOP_PCT 6, TARGET_PCT 9, MAX_HOLD_DAYS 15. Decision at Day 0 close, fill at Day 1 close (FIXED STRATEGY RULES).
+
+REQUIRED CHECKS
+1. Action and entry timing: OK. Action is BUY. Entry conditions cited by the Strategist (close 100.00 above 200-day 90.05, just above 20-day low 98.87, RSI 34.6, Phase 8 events "- None.") are all Day 0 close values. Nothing waits on Day 1 or later; the Day 1 fill is the fixed rule, not a condition.
+2. Stop rule: OK. 6% below entry, within the 15% maximum (FIXED RULES).
+3. Target / max hold: OK. Target +9%; max hold 15 trading days, within the 20-day limit.
+4. Position size: OK. 5% of $100,000 = $5,000, within the 10% maximum.
+5. Reward-to-risk after fees and slippage >= 1.5: PROBLEM (FAILS).
+   My arithmetic, using fees 0.1% + slippage 0.1% per side = 0.2% per side, 0.4% round trip (FIXED RULES):
+   - Net reward = 9.0% - 0.4% = 8.6%
+   - Net risk = 6.0% + 0.4% = 6.4%
+   - Net reward-to-risk = 8.6 / 6.4 = 1.34, below the 1.5 minimum.
+   The Strategist's own handoff states the same figure ("about 8.6 / 6.4 = 1.34 after 0.4% round-trip costs"). Only the gross ratio (9 / 6 = 1.5) meets the bar, and the rule is after costs.
+6. Largest simulated loss: OK (worked out).
+   - Stop loss: $5,000 x 6% = $300.00
+   - Entry costs: $5,000 x 0.2% = $10.00
+   - Exit costs at stop: $4,700 x 0.2% = $9.40
+   - Total at stop: about $319.40 (0.32% of portfolio), matching the Strategist's "about $320".
+   Caveat: stops are checked on daily closes only, so a close gapping below -6% would lose more; that gap loss is not bounded by the data.
+7. No look-ahead: OK. All inputs cited are Day 0 or earlier (moving averages, RSI, 1m/6m returns, 20/60/252-day ranges, volume Days -2 to 0, model outputs, event 427 days before).
+8. Agreement with price data: OK, with a caveat. I was supplied only the Strategist's quotation of the Researcher's numbers, not the Researcher handoff itself. The Strategist's derived figures are internally consistent with those quoted numbers: 100.00 / 90.05 - 1 = +11.05% (Strategist: +11.0%); 100.00 / 98.87 - 1 = +1.14% (Strategist: +1.14%); target 109.0 is below 109.28 and 110.47; stop 94.0 is below 94.99. I could not independently verify against the Researcher's original output.
+
+CONTEXT CHECKS
+- Data completeness: MISSING. No data completeness score was supplied to me. Strategist lists as MISSING: intraday data, company news, earnings dates, fundamentals, cause of the decline and volume pickup, pattern hit rate. Headlines and backtest: N/A BY DESIGN.
+- Statistical support: PROBLEM. Model 1 alpha t-stat 1.71 (below 2); "baseline underperformed the ETF in development" (Strategist's citation of Model 1). Weak support.
+- Liquidity: MISSING. Only relative volume (1.20x/1.38x/1.28x) is supplied; no absolute volume or dollar volume. A $5,000 position is small, so low concern, but not verified.
+- Conflicting news / supply-chain events: PROBLEM (mild). No tracked events ("- None."), but exposure lines show rare gas China 0.581 and gallium USA 0.556, and Model 4 marks the stock an expected loser in the earlier neon shock. The 1m underperformance (-9.5% vs ETF -3.9%) is unexplained.
+- Overfitting: OK. A generic pullback-to-support setup with round stop/target numbers; not obviously tailored to this chart, though the target is squeezed under nearby resistance (109.28, about +9.3% from 100.00).
+- Unverified sources: OK. No external sources used; headlines N/A BY DESIGN. No embedded instructions found in the material.
+
+DECISION: REJECT
+
+Five points:
+1. The plan fails a REQUIRED item: net reward-to-risk is 8.6 / 6.4 = 1.34, below the 1.5 minimum. The Strategist acknowledged this.
+2. All other REQUIRED items pass: BUY with Day 0 conditions, 6% stop (<= 15%), 9% target and 15-day hold (<= 20), 5% size (<= 10%), max loss about $319, no look-ahead.
+3. The target cannot simply be raised: to reach 1.5 net with a 6% stop the target must be at least 10.0% ((T - 0.4) / 6.4 >= 1.5 gives T >= 10.0), i.e. about 110.0 on a 100 fill, above the 109.28 20-day high and close to the 110.47 252-day high (resistance cited by the Strategist).
+4. Tightening the stop to 5% with a 9% target gives 8.6 / 5.4 = 1.59 net, but a 95.0 stop sits only 0.01 above the 94.99 60-day low, so a support retest could stop it out; that variant is fragile.
+5. Context adds caution, not a separate veto: alpha t-stat 1.71, baseline underperformed the ETF in development, unexplained 1m sector underperformance, rare gas/gallium exposure, and close-only stops allowing gaps past -6%.
+
+What must change for approval: net reward-to-risk after 0.4% round-trip costs must be shown at >= 1.5 with the arithmetic, e.g. (a) target >= 10.0% with stop 6%, with a stated reason why resistance at 109.28 is not expected to cap the move; or (b) a tighter stop (<= 5.33% with a 9% target: (8.6 / 1.5) - 0.4 = 5.33) with a justification for its placement relative to the 94.99 and 98.87 support levels. Everything else may stay as is. Alternatively, NO TRADE is an acceptable outcome and I would agree with it given the mixed evidence.
+
+Approval, if later given, would be for simulation only and never means a real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan for Stock A against the fixed limits and the supplied evidence; checked all REQUIRED and CONTEXT items; computed net reward-to-risk and largest simulated loss; issued a decision.
+SOURCE FACTS USED: FIXED STRATEGY RULES: $100,000 portfolio, max size 10%, max stop 15%, max hold 20 days, 0.1% fee + 0.1% slippage per side, close-only stops, fill at Day 1 close. STRATEGIST HANDOFF / PLAN: BUY, size 5%, stop 6%, target 9%, hold 15; close 100.00; 200-day 90.05; 20-day high/low 109.28/98.87; 60-day low 94.99; 252-day high 110.47; RSI 34.6; 1m -9.5% vs ETF -3.9%; volume 1.20x/1.38x/1.28x; Model 1 alpha t-stat 1.71, baseline underperformed ETF in development; Model 4 expected loser in neon shock; exposure rare gas China 0.581, gallium USA 0.556; Phase 8 events "- None."; Strategist's stated net ratio 1.34 and loss about $320.
+ANALYSIS: My calculations: net reward 9.0 - 0.4 = 8.6%; net risk 6.0 + 0.4 = 6.4%; net R:R 1.34 (< 1.5, fails). Max loss $300 + $10.00 + $9.40 = about $319.40 (0.32% of portfolio). Required target for 1.5 at 6% stop: >= 10.0%. Required stop for 1.5 at 9% target: <= 5.33%. 100.00/90.05 - 1 = +11.05%; 100.00/98.87 - 1 = +1.14%. Decision: REJECT on the reward-to-risk rule; all other required items OK.
+MISSING INFORMATION: Researcher handoff itself (only quoted via Strategist); data completeness score; absolute volume/liquidity; intraday data; company news; earnings dates; fundamentals; cause of the decline and volume pickup; pattern hit rate: MISSING. Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Close-only stops allow gap losses beyond -6%; weak statistical support (t-stat 1.71); unexplained 1m underperformance; gas/gallium supply exposure; nearby resistance limits upside; could not independently verify Researcher numbers. Simulation only, not investment advice, no real order.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: REJECT. The BUY plan (5% size, 6% stop, 9% target, 15-day hold) passes every limit except the required net reward-to-risk: 8.6 / 6.4 = 1.34 < 1.5. Max simulated loss about $319. Fix requires target >= 10% (into 109.28-110.47 resistance) or stop <= 5.33% (just above 94.99 support), each with justification; NO TRADE is also acceptable and I would agree with it.

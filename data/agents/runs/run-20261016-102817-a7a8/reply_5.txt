@@ -1,0 +1,47 @@
+RISK MANAGER REVIEW - Stock A, decision at the Day 0 close
+
+Starting position: REJECT. The plan is NO TRADE, so I check whether staying out is consistent with the limits and the evidence, and whether the rejected BUY candidate really fails.
+
+REQUIRED ITEMS
+1. Action is BUY or NO TRADE, entry conditions true at Day 0 close: OK. Action is NO TRADE (PLAN block). No entry waits on Day 1 or later.
+2. Stop rule within 15% maximum: OK (N/A for NO TRADE; STOP_PCT 0, no position to protect). The candidate's 6% stop would also have been inside the 15% limit.
+3. Target/exit rule and max hold within 20 days: OK (N/A for NO TRADE; TARGET_PCT 0, MAX_HOLD_DAYS 0).
+4. Position size within 10% maximum: OK. SIZE_PCT 0.
+5. Reward-to-risk after fees and slippage of at least 1.5: OK for NO TRADE (no trade, no ratio needed). I also re-checked the candidate with costs, which the Strategist showed only before costs:
+   - Round-trip cost = (0.1% fee + 0.1% slippage) x 2 sides = 0.4% (Fixed Rules).
+   - To 109.83: reward 9.83% - 0.4% = 9.43%; risk 6.0% + 0.4% = 6.4%; R:R = 9.43 / 6.4 = 1.47. Below 1.5.
+   - To first resistance 104.44: reward 4.44% - 0.4% = 4.04%; risk 6.4%; R:R = 4.04 / 6.4 = 0.63.
+   So the candidate fails this test after costs even to its best target. That backs the NO TRADE.
+6. Largest simulated loss: OK. Size 0 x stop 0 + no fees = $0. (For reference only, the candidate at 10% size would have been $10,000 x 6.4% = about $640, measured from Day 0 close because the Day 1 fill is MISSING.)
+7. No look-ahead: OK. Everything cited is at or before Day 0 (Strategist SOURCE FACTS). The Model 4 neon event is 139 days before Day 0.
+8. Plan agrees with the supplied price data: OK with one small note. Close 100.00 equals the 20-day low 100.00, and averages 104.44/104.94/114.17 sit above price, matching the Strategist's reading. Note: the Strategist calls 100.00 the "60-day low", but the numbers passed to me show only a 20-day low and a 252-day low; the 60-day figure is not in my material (MISSING to me). It does not change the decision.
+
+CONTEXT ITEMS
+- Data completeness: PROBLEM (minor). Day 1 fill, intraday highs/lows, raw volume, fundamentals, cause of decline and supply exposure rows are MISSING (Strategist MISSING INFORMATION). This argues for caution, which NO TRADE already is. No completeness score was supplied to me: MISSING.
+- Statistical support: PROBLEM for a BUY. Model 1 alpha -7.0%/yr, t -0.57, rank 22 of 24 (Strategist). Weak and negative; no support for a long.
+- Liquidity: OK as far as supplied. Day -1 volume 1.85x, Day 0 0.78x of average (Researcher via Strategist). Raw volume MISSING.
+- Conflicting news / supply-chain events: N/A BY DESIGN for headlines. No Model 4 events in the last 120 days; the neon war "expected winner" tag is 139 days old and unconfirmed.
+- Overfitting: OK. The plan declines to force a bounce trade onto one chart.
+- Unverified sources: OK. No outside sources used. No embedded instructions were found in the material.
+
+DECISION: APPROVE FOR SIMULATION ONLY (the NO TRADE plan). I agree with NO TRADE.
+
+Five points:
+1. Every REQUIRED item is OK; a NO TRADE plan carries zero size, zero stop exposure and a $0 maximum loss.
+2. The BUY candidate fails the 1.5 reward-to-risk floor once costs are counted: 1.47 to 109.83 and 0.63 to the first resistance at 104.44.
+3. Price is at its 20-day low (100.00) below all three moving averages with no reversal shown at the Day 0 close, so no entry condition is met.
+4. Model 1 alpha is negative and not significant (t -0.57, rank 22 of 24), so there is no statistical edge to lean on.
+5. Missing data (Day 1 fill, intraday range, exposure rows) adds risk to any entry; staying flat is the conservative choice.
+
+What must change for approval: nothing for NO TRADE. A future BUY on Stock A would need an entry signal true at the Day 0 close, a stop of 15% or less, and a target that gives at least 1.5 R:R after the 0.4% round-trip cost (with a 6% stop, a target of at least about 10.0% above entry: 1.5 x 6.4% + 0.4% = 10.0%). The Strategist should also cite only lookback windows that the Researcher actually supplied.
+
+Approval is for the simulation only. No real trade should be placed. This is not investment advice.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A against the fixed limits and the evidence, re-checked the rejected BUY candidate with fees and slippage, and approved NO TRADE for simulation only.
+SOURCE FACTS USED: Fixed Rules: $100,000 portfolio, 10% max position, 15% max stop, 20-day max hold, 0.1% fee + 0.1% slippage per side. Strategist handoff: close 100.00; 20/50/200-day averages 104.44/104.94/114.17; 20-day high/low 109.83/100.00; 252-day low 94.49; RSI 36.7; volume Day -1 1.85x, Day 0 0.78x; Model 1 alpha -7.0%/yr, t -0.57, rank 22 of 24, beta 0.92; Model 4 neon event 139 days before, no events in 120 days; candidate stop 6.0%, target 9.83%, first resistance 4.44%. PLAN block: NO TRADE, all values 0.
+ANALYSIS: Round-trip cost 0.4%. Candidate R:R after costs: (9.83 - 0.4) / (6.0 + 0.4) = 1.47 to 109.83; (4.44 - 0.4) / 6.4 = 0.63 to 104.44. Both under 1.5. NO TRADE maximum loss $0. Breakeven target for 1.5 R:R with a 6% stop: 1.5 x 6.4 + 0.4 = 10.0%.
+MISSING INFORMATION: Day 1 fill price; intraday highs and lows; raw volume; fundamentals and earnings; cause of the decline; supply exposure rows; data completeness score; the 60-day low the Strategist cites. Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: NO TRADE may miss a rebound from support (relative strength vs the ETF is positive). Levels use closes only. Candidate figures are measured from Day 0, not the unknown Day 1 fill. Simulation only; not investment advice; no real order.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY the NO TRADE plan for Stock A. All required checks pass with zero exposure. The rejected BUY candidate fails reward-to-risk after costs (1.47 to 109.83, 0.63 to first resistance), price sits at its 20-day low below all averages, and Model 1 alpha is negative (t -0.57). Recommend the Boss records NO TRADE.

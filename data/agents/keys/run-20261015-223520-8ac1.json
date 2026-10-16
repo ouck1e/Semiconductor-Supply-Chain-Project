@@ -7,5 +7,7 @@
   "split": "dev",
   "prompts_version": "50302f80",
   "seed": 1792125320,
-  "created": "2026-10-15T22:35:20"
+  "created": "2026-10-15T22:35:20",
+  "eval_set": "",
+  "runner": "Claude Code sub-agents (Opus 5.5)"
 }

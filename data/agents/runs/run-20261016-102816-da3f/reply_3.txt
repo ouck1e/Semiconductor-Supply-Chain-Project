@@ -1,0 +1,85 @@
+AGENT 3 STRATEGIST - CONDITIONAL SIMULATION PLAN FOR STOCK A (decision at Day 0 close)
+
+Note on the material: none of the supplied material contains instructions aimed at me. Nothing to flag.
+
+SOURCE FACTS (quoted from the handoffs and model facts; no outside knowledge used)
+- Researcher: Close 100.00; 20-day avg 105.98 (-5.6%); 50-day avg 107.08 (-6.6%); 200-day avg 80.59 (+24.1%).
+- Researcher: returns 1m -12.6%, 3m +13.5%, 6m +38.0%, 12m +114.2%; ETF 1m -4.0%, 3m +7.7%, 6m +36.2%, 12m +100.4%.
+- Researcher: RSI 36.4; vol 20d 32.6% vs 120d 28.3%; 5-day volume 0.88x; Day 0 volume 1.74x; Day -1 close 103.47 (Day 0 fell about 3.4%).
+- Researcher: 20-day high/low 112.78/100.00 (Day 0 is the new 20-day low); 60-day 118.50/88.83; 252-day 118.50/39.69; -15.6% from 252-day high.
+- Researcher: support 100.00 / 88.83 / 80.59; resistance 103.3-103.8 / 105.98 / 107.08 / 112.78 / 118.50.
+- News Analyst: headlines N/A BY DESIGN (blind run); no phase 8 supply-chain events in the 120 days before Day 0; sentiment NEUTRAL/UNKNOWN; cause of the Day 0 drop MISSING.
+- Model 1: alpha 26.2% a year, t-stat 1.73 (154 weeks), rank 3 of 24 by alpha t-stat; the phase 8 baseline holds the top 5 by this t-stat each month. Market beta 0.62; ETF beta up weeks 0.38, down weeks 0.62.
+- Model 4: only shock is 632 days before; this stock was in neither group.
+- Exposure model: top suppliers rare gas USA 0.557, gallium USA 0.276, rare gas Singapore 0.193, gallium China/Hong Kong SAR 0.172, gallium Rep. of Korea 0.147 (100% trade coverage each).
+- Fixed rules: max position 10%; max stop 15%; max hold 20 trading days; fees 0.1% + slippage 0.1% each side; closes only; fill at Day 1 close.
+
+1. SETUP NAME
+Pullback inside a long-term uptrend, backed by factor alpha ("Uptrend pullback, high-alpha name"). I propose it with real doubts (see section 10); it is a weak setup, not a strong one.
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE AT THE DAY 0 CLOSE
+a) Long-term uptrend: close above the 200-day average. Day 0: 100.00 vs 80.59 (+24.1%). TRUE.
+b) A meaningful pullback: 1m return of -10% or worse. Day 0: -12.6%. TRUE.
+c) Close still above the 60-day low (the uptrend has not broken its prior swing low). Day 0: 100.00 vs 88.83. TRUE.
+d) Model 1 alpha t-stat in the top 5 of 24 (the same group the phase 8 baseline holds). Day 0: rank 3. TRUE.
+e) No listed supply shock against the stock. Model 4: none in the window; the only shock (632 days before) did not include this stock. TRUE.
+f) No visible bad news. Headlines N/A BY DESIGN; the News Analyst found nothing. Treated as UNKNOWN, not as a pass.
+All required conditions (a-e) are true at the Day 0 close. Note what is NOT present: any reversal signal. Day 0 is a new 20-day low on 1.74x volume, which is a sign of selling pressure, not of a bottom.
+
+3. ENTRY RULE
+BUY at the Day 1 close (the next close after the Day 0 decision), whatever that price is. The entry is fixed by the Day 0 conditions above; nothing about Day 1 can be used to decide.
+
+4. STOP RULE
+Exit at the first daily close 8% or more below the entry price. Reasoning (my analysis): an 8% stop sits about 8 below a ~100 entry, i.e. near 92, between the 100.00 low and the 88.83 60-day low. With 20-day volatility of 32.6% a year, one daily standard deviation is about 32.6 / sqrt(252) = 32.6 / 15.87 = about 2.05%, so 8% is about 3.9 daily moves. Because checks are on closes only, a gap can make the real loss larger than 8%.
+
+5. TARGET / EXIT RULE
+Exit at the first daily close 12% or more above entry (around 112, near the 20-day high of 112.78 if entry is near 100). Otherwise exit at the close of trading day 20 after entry (the maximum hold).
+
+6. REWARD-TO-RISK
+Gross: target 12 / stop 8 = 1.5.
+After costs (my arithmetic): round-trip cost = (0.1 fee + 0.1 slippage) x 2 sides = 0.4%. Net reward 12 - 0.4 = 11.6; net risk 8 + 0.4 = 8.4; 11.6 / 8.4 = about 1.38.
+
+7. POSITION SIZE
+5% of the simulated portfolio = $5,000 of $100,000 (half the 10% maximum, because the cause of the drop is unknown and there is no reversal signal). Loss at the stop: 5,000 x 8.4% = about $420, or about 0.42% of the portfolio. Gain at the target: 5,000 x 11.6% = about $580.
+
+8. WHAT WOULD CANCEL THE SETUP
+- Any of conditions a-e being false at the Day 0 close (for example a corrected close at or below 88.83, or a different alpha rank). As supplied, all are true.
+- A later-revealed cause of the Day 0 drop that is company-specific and lasting (only knowable to a reviewer with headlines; not available here).
+- Risk Manager or Boss rejection.
+After entry, only the stop, target and 20-day limit end the trade; there is no discretionary exit.
+
+9. MISSING INPUTS
+- Cause of the Day 0 high-volume drop: MISSING.
+- ETF daily series (to tell a sector-wide move from a company move): MISSING.
+- Intraday high/low/open: MISSING (stops checked on closes only by rule).
+- Absolute volume and full 252-day close series: MISSING.
+- Day 1 fill price: unknowable at the decision by design.
+- Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. REASONS TO SKIP IT
+- No reversal: Day 0 is a fresh 20-day low on 1.74x volume; the short-term trend (below 20 and 50-day averages, 20-day under 50-day) is down. Buying here is buying a falling price.
+- The 100.00 "support" is just the Day 0 close itself, not a tested level; the next real support (88.83) is 11.2% below.
+- RSI 36.4 is weak but not deeply oversold, so more downside room is plausible.
+- Volatility is rising (20d 32.6% vs 120d 28.3%), which makes an 8% stop on closes easier to hit.
+- Underperformed the ETF by 8.6 points over 1m (-12.6 vs -4.0), hinting the problem may be company-specific.
+- Alpha t-stat 1.73 is below the usual 2.0 threshold for statistical significance; past alpha does not guarantee future alpha.
+- Net reward-to-risk of about 1.38 is modest.
+This plan is not safe, not profitable by design and not high-probability. It is simply a defined, small, rule-bound test of a pullback in a stock the phase 8 baseline would also hold.
+
+AGENT: Agent 3 Strategist
+TASK COMPLETED: Built one conditional long-only simulation plan (uptrend pullback, high-alpha name) for Stock A at the Day 0 close, with entry conditions checked, stop, target, hold limit, reward-to-risk, size, cancel conditions, missing inputs and reasons to skip.
+SOURCE FACTS USED: Researcher: close 100.00, 200-day avg 80.59 (+24.1%), 20/50-day avgs 105.98/107.08, 1m -12.6% vs ETF -4.0%, RSI 36.4, vol 32.6% vs 28.3%, Day 0 1.74x volume and new 20-day low, 60-day low 88.83, 20-day high 112.78. News Analyst: no headlines (N/A BY DESIGN), no phase 8 events, cause MISSING. Model 1: alpha t-stat 1.73, rank 3 of 24 (baseline holds top 5), beta 0.62. Model 4: no shock involving this stock. Fixed rules: 10% max size, 15% max stop, 20-day max hold, 0.1% + 0.1% costs per side.
+ANALYSIS: All entry conditions (above 200-day, 1m pullback beyond -10%, above 60-day low, alpha rank top 5, no listed shock) are true at Day 0. Plan: BUY at Day 1 close, stop 8% below entry, target 12% above, max hold 20 days. Gross R:R 12/8 = 1.5; net of 0.4% round-trip costs 11.6/8.4 = about 1.38. Size 5% ($5,000), risking about $420 (0.42% of portfolio) at the stop. Daily vol about 2.05% (32.6/15.87), so the stop is about 3.9 daily moves away.
+MISSING INFORMATION: Cause of the Day 0 drop; ETF daily series; intraday prices; absolute volume; full 252-day series; Day 1 fill price (unknowable by design). Headlines N/A BY DESIGN; backtest N/A BY DESIGN.
+RISKS OR LIMITATIONS: No reversal signal; fresh 20-day low on high volume; nearest tested support 11.2% below; rising volatility; 1m underperformance vs ETF may be company-specific; alpha t-stat below 2; closes-only stops can gap through. Simulation only, not investment advice; a person reviews every output.
+NEXT AGENT: Agent 5 Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: Weak but rule-valid BUY plan for Stock A at the Day 0 close: uptrend pullback in a rank-3 alpha name, 5% size, 8% stop, 12% target, 20-day max hold, gross R:R 1.5 (net about 1.38); main concern is the unexplained high-volume breakdown to a new 20-day low with no reversal sign.
+
+PLAN
+ACTION: BUY
+SETUP: Uptrend pullback, high-alpha name
+SIZE_PCT: 5
+STOP_PCT: 8
+TARGET_PCT: 12
+MAX_HOLD_DAYS: 20
+END PLAN

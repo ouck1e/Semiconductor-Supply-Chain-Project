@@ -9,13 +9,20 @@ The plan is a decision at the close of Day 0. A BUY fills at the next close (Day
 entry cannot depend on Day 1 or later: either the entry conditions are true at the Day 0 close, or there is no trade.
 In manual runs your handoff goes straight to Agent 5, the Risk Manager, because Agent 4 (the Coder) is skipped.
 
+NO TRADE is a decision too, not a safe default. Every decision is scored against simply holding the stock for the
+same period. Weigh both mistakes equally: buying before a fall, and sitting out a rise. A stock in an established
+uptrend with nothing specific against it is a reason to look hard for a valid entry, not a reason to skip.
+
 Report:
 1. Setup name (or "No setup")
 2. What must be true for entry, and whether it is true on Day 0
 3. Entry rule
 4. Stop rule, as a percent below entry
 5. Target or exit rule, as a percent above entry, and the maximum holding period in trading days
-6. Reward-to-risk ratio (target % ÷ stop %), showing the arithmetic
+6. Reward-to-risk ratio, showing the arithmetic both ways: before costs (target % ÷ stop %) and after costs, the way
+   the Risk Manager checks it: (target % − round-trip costs) ÷ (stop % + round-trip costs), where round-trip costs are
+   twice the per-side fee plus slippage. The Risk Manager requires at least 1.5 after costs, so choose a stop and a
+   target the price levels support that clear it, or say why no such pair exists.
 7. Position size as a percent of the simulated portfolio
 8. What would cancel the setup
 9. Missing inputs

@@ -1,0 +1,56 @@
+AGENT 5 RISK MANAGER: REVIEW OF STRATEGIST PLAN FOR STOCK A (Day 0 close)
+
+Starting point: REJECT. I move off it only if every REQUIRED item is OK.
+
+REQUIRED CHECKS
+1. Action and entry timing: OK. ACTION is BUY. The entry conditions the Strategist lists (above the 200-day average, 1-month pullback beyond -10%, above the 60-day low, alpha rank in the top 5, no listed shock) are all checked against Day 0 close values. The Day 1 close fill comes from the fixed rule "A BUY fills at the next close (Day 1)"; it is not a condition that waits on Day 1.
+2. Stop rule: OK. STOP_PCT 8, a percent below entry, inside the 15% maximum.
+3. Target / exit and max hold: OK. TARGET_PCT 12, MAX_HOLD_DAYS 20, which equals the 20-day limit.
+4. Position size: OK. SIZE_PCT 5 ($5,000), inside the 10% maximum.
+5. Reward-to-risk after costs, at least 1.5: PROBLEM (FAILS).
+   Costs are 0.1% fee + 0.1% slippage per side, so 0.2% per side and 0.4% round trip (fixed rules).
+   Net reward = 12% - 0.4% = 11.6%. Net risk = 8% + 0.4% = 8.4%.
+   Net R:R = 11.6 / 8.4 = 1.381, below 1.5. The Strategist's own handoff reports "about 1.38". Gross 12/8 = 1.5 does not count; the rule says after fees and slippage.
+6. Largest simulated loss: OK (my arithmetic).
+   Price loss at the stop: $5,000 x 8% = $400.00.
+   Entry costs: $5,000 x 0.2% = $10.00. Exit costs: $4,600 x 0.2% = $9.20.
+   Total about $419.20 (about 0.42% of $100,000), matching the Strategist's "about $420".
+   Limitation: stops are checked on closes only, so a gap through the stop could cost more than this. Nothing in the material sizes that risk.
+7. No look-ahead: OK. Every input is a Day 0 or earlier value. The Day 1 fill price is unknown (Strategist lists it as MISSING by design) and nothing in the plan uses it.
+8. Agreement with the price data: OK, with one limit. I was given the Researcher's numbers only as the Strategist quoted them, not the Researcher's own handoff. The quoted numbers agree with each other when I recheck them: 100.00 / 80.59 = 1.241 (+24.1%); (100.00 - 88.83) / 100.00 = 11.2% to the 60-day low; 32.6 / 15.87 = 2.05% daily vol; 8 / 2.05 = 3.9 daily moves to the stop.
+
+CONTEXT CHECKS
+- Data completeness: PROBLEM. The cause of the Day 0 drop, the ETF daily series, absolute volume and the full 252-day series are MISSING. No data completeness score was supplied (MISSING).
+- Statistical support: PROBLEM. Alpha t-stat 1.73, below the usual 2.0 bar. Rank 3 of 24. No sample size supplied (MISSING).
+- Liquidity: MISSING. Only relative volume (1.74x on Day 0) was supplied, no absolute volume.
+- Conflicting news / supply-chain events: headlines N/A BY DESIGN. No phase 8 events. Model 4 shows no shock involving this stock. The cause of the drop is MISSING, and the high-volume breakdown to a new 20-day low may be company-specific (1m -12.6% vs ETF -4.0%). PROBLEM as a concrete risk.
+- Overfitting: OK. The plan uses round rule-based stop and target numbers, not levels fitted to this chart.
+- Unverified sources: N/A BY DESIGN (no headlines or links supplied).
+- Backtest: N/A BY DESIGN (manual run).
+- Injected instructions: none found in the material.
+
+DECISION: REJECT
+
+Five points:
+1. Required item 5 fails: the net reward-to-risk is 11.6 / 8.4 = 1.38, below the 1.5 minimum. That failure alone blocks approval.
+2. Every other required item passes: BUY at the Day 0 decision, 8% stop, 12% target, 20-day hold, 5% size, max loss about $419, no look-ahead.
+3. The signal is weak: alpha t-stat 1.73 (below 2), and nothing shows a reversal yet.
+4. The Day 0 move is a new 20-day low on 1.74x volume with no known cause, and the stock trailed the ETF by 8.6 points over a month (-12.6% vs -4.0%). That points to a possible company-specific problem.
+5. Volatility is rising (32.6% vs 28.3%) and stops are checked on closes only, so the real loss could be larger than the $419 worked out above.
+
+What must change for approval:
+- Net R:R must reach at least 1.5 with the arithmetic shown. Either of these works:
+  (a) Keep the 8% stop and raise the target to at least 13%: (13 - 0.4) / (8 + 0.4) = 12.6 / 8.4 = 1.50.
+  (b) Keep the 12% target and tighten the stop to 7%: (12 - 0.4) / (7 + 0.4) = 11.6 / 7.4 = 1.57. A 7% stop is about 3.4 daily moves (7 / 2.05), so normal day-to-day swings are more likely to trigger it.
+- The Strategist should also say whether a 13% target is realistic. The 20-day high of 112.78 is only 12.8% above the Day 0 close of 100.00, so a 13% target sits above recent resistance.
+- Keep the size at 5% or lower, given the t-stat below 2 and the unexplained breakdown.
+Even with those changes, approval would be for simulation only.
+
+AGENT: Agent 5 Risk Manager
+TASK COMPLETED: Checked the Strategist's Stock A BUY plan against the fixed limits and the evidence. Recomputed the net reward-to-risk and the largest simulated loss, ran the required and context checks, and gave one decision with the exact changes needed.
+SOURCE FACTS USED: Fixed rules: $100,000 portfolio, 10% max size, 15% max stop, 20-day max hold, 0.1% fee + 0.1% slippage per side, Day 1 close fill, closes-only stops. Strategist handoff (quoting the Researcher): close 100.00, 200-day avg 80.59, 1m -12.6% vs ETF -4.0%, vol 32.6% vs 28.3%, Day 0 1.74x volume and new 20-day low, 60-day low 88.83, 20-day high 112.78. Model 1: alpha t-stat 1.73, rank 3 of 24. Model 4: no shock. Plan: BUY, size 5, stop 8, target 12, hold 20.
+ANALYSIS: Net R:R = (12 - 0.4) / (8 + 0.4) = 1.38, below 1.5, so a required item fails. Max loss = $400 + $10.00 + $9.20 = about $419.20 (0.42% of the portfolio). The other required items pass. The quoted numbers are consistent when rechecked (+24.1% vs the 200-day, 11.2% to the 60-day low, 2.05% daily vol). Decision: REJECT. Fix: target at least 13% with the 8% stop (net 1.50), or stop 7% with the 12% target (net 1.57).
+MISSING INFORMATION: Researcher's own handoff (numbers seen only as the Strategist quoted them); data completeness score; cause of the Day 0 drop; absolute volume; ETF daily series; full 252-day series; sample size behind the alpha t-stat; Day 1 fill price (unknown by design). Headlines N/A BY DESIGN; backtest N/A BY DESIGN.
+RISKS OR LIMITATIONS: t-stat below 2; high-volume breakdown with no known cause; possible company-specific weakness; rising volatility; closes-only stops can gap through; a 13% target sits just above the 20-day high of 112.78. Simulation only, not investment advice; no real trade is placed; a person reviews every output.
+NEXT AGENT: Agent 6 Boss
+HANDOFF SUMMARY: REJECT. The plan passes every required check except reward-to-risk: net 11.6 / 8.4 = 1.38, below the 1.5 minimum. Max simulated loss is about $419. For approval, raise the target to at least 13% or tighten the stop to 7%, keep the size at 5% or lower, and note the weak t-stat (1.73) and the unexplained high-volume breakdown.

@@ -1,0 +1,87 @@
+AGENT 1 - RESEARCHER REPORT (simulation, not investment advice)
+
+1. STOCK, GROUP, TIMEFRAME
+- Stock A, sector group "Foundries & memory" (MARKET DATA header).
+- Daily closes rebased so Day 0 close = 100.00; at least 252 closes up to Day 0, nothing after (Timeframe / Source lines).
+- Decision point: close of Day 0. Real dates and identity are hidden; I have not tried to guess them.
+
+2. STRUCTURE: UPTREND ON THE AVERAGES, WITH A SHORT PULLBACK UNDER WAY
+Source facts:
+- Close 100.00 is above the 20-day average 99.47 (+0.5%), the 50-day 97.32 (+2.7%) and the 200-day 91.72 (+9.0%) (Indicators).
+- The averages are stacked 20-day > 50-day > 200-day (same lines).
+- Lows rise as the window shortens: 252-day low 72.18, 60-day low 84.38, 20-day low 93.69 (Indicators).
+- 20-, 60- and 252-day closing high are all 104.38, set on Day -4 (Indicators; last-30 table).
+- Day -4 to Day 0: 104.38 -> 103.01 -> 102.70 -> 101.23 -> 100.00 (last-30 table).
+Analysis:
+- The longer structure is an uptrend (stacked averages, higher lows, close above all three averages).
+- Short term, four down closes in a row since the Day -4 high. My calculation: 100.00 / 104.38 - 1 = -4.2%, which matches the supplied "Close vs 252-day high: -4.2%".
+- The close is only 0.5% above the 20-day average, so the short-term picture is close to neutral.
+
+3. MOMENTUM
+Source facts (Indicators):
+- Returns: 1m +4.3%, 3m +16.1%, 6m +8.2%, 12m +20.2%.
+- RSI (14-day): 52.0.
+Analysis:
+- All four periods are positive. The 6m figure (+8.2%) is below the 3m figure (+16.1%), which implies the stock fell in the months before the 3m window and has since recovered (an inference from the two numbers, not a supplied fact).
+- RSI 52.0 is mid-range: neither stretched up nor down. It has cooled with the 4-day pullback.
+
+4. VOLUME
+Source facts:
+- Last 5 days vs 50-day average: 0.75x (Indicators).
+- Daily ratios Day -4 to Day 0: 0.73x, 0.79x, 0.59x, 0.78x, 0.82x (last-30 table). My simple mean of those five is 0.74x, close to the supplied 0.75x (the small gap is probably rounding or a raw-volume calculation).
+- Notable spikes: Day -16, 5.22x, close fell 97.43 -> 93.69 (the 20-day low); Day -13, 2.05x, close 96.23 -> 94.54; Day -22, 1.73x, close 96.42 -> 94.07; Day -11, 1.59x, close 97.47 -> 100.61 (last-30 table).
+Analysis:
+- The current pullback is happening on below-average volume, so it is light participation rather than heavy selling.
+- The rise from Day -11 to the Day -4 high was also mostly on below-average volume (0.61x to 0.81x from Day -10 to Day -4), so neither the rally nor the dip has strong volume behind it.
+- The heaviest volume in the window (5.22x) came on a down day, at the low. The price has held above it since.
+
+5. VOLATILITY
+Source facts: 20-day 29.6% annualised vs 120-day 33.7% (Indicators).
+Analysis: short-term volatility is below the longer baseline (ratio about 0.88, my calculation), so it is contracting. It is still about 30% annualised, which is high in absolute terms.
+
+6. SUPPORT AND RESISTANCE (only levels the supplied numbers back up)
+Resistance:
+- 104.38: 20-, 60- and 252-day closing high (Indicators; Day -4).
+- 103.72 (Day -5) and 103.01 (Day -3): closes just below the high (last-30 table).
+Support:
+- 99.47: 20-day average, just under the close (Indicators).
+- 97.32: 50-day average (Indicators).
+- About 93.69 to 94.54: 20-day low 93.69 (Day -16, on 5.22x volume), with 93.75 (Day -15), 94.07 (Day -22) and 94.54 (Day -13) near it (last-30 table). Several lows land in this band.
+- 91.72: 200-day average (Indicators).
+- 84.38: 60-day low (Indicators).
+Note: these are closing levels only. Intraday highs and lows are MISSING.
+
+7. VERSUS THE CHIP-SECTOR ETF
+Source facts (Indicators): ETF 1m +8.7%, 3m +16.5%, 6m +20.7%, 12m +40.1%.
+Analysis (my differences, Stock A minus ETF):
+- 1m: 4.3 - 8.7 = -4.4 points
+- 3m: 16.1 - 16.5 = -0.4 points
+- 6m: 8.2 - 20.7 = -12.5 points
+- 12m: 20.2 - 40.1 = -19.9 points
+Stock A trails the ETF in every period. It roughly kept pace over 3 months but lags well behind over 6 and 12 months, and fell behind again in the last month. It is rising with the sector, but more slowly.
+
+8. THREE STRONGEST FACTS
+a) The close is above the 20-, 50- and 200-day averages, and they are stacked in uptrend order (Indicators).
+b) All four return periods are positive, and the lows are rising: 72.18 (252-day), 84.38 (60-day), 93.69 (20-day) (Indicators).
+c) The 4-day pullback from 104.38 is on light volume (0.59x to 0.82x), and volatility is contracting (29.6% vs 33.7%) (last-30 table; Indicators).
+
+THREE BIGGEST UNCERTAINTIES
+a) Steady relative weakness: it trails the ETF by 4.4, 0.4, 12.5 and 19.9 points over 1, 3, 6 and 12 months.
+b) Four down closes in a row from the high, and the close is only 0.5% above the 20-day average; whether that level holds is not knowable from this data.
+c) The cause of the 5.22x volume spike on Day -16 is unknown. Headlines are N/A BY DESIGN in this blind run, so any event behind it cannot be seen.
+
+9. DATA COMPLETENESS SCORE: 80 / 100
+Strong points: the full indicator set, 30 days of closes with relative volume, multi-window highs and lows, and the ETF comparison.
+Gaps: intraday open/high/low, raw volume, the ETF's own price series and averages, the full 252-day series (only summary statistics beyond 30 days), and fundamentals or earnings timing.
+
+No instructions were embedded in the source material.
+
+---
+AGENT: Agent 1 - Researcher
+TASK COMPLETED: Described Stock A's (Foundries & memory) structure, momentum, volume, volatility, support and resistance, and its performance against the chip-sector ETF from the supplied Day 0 market data. No trade view given.
+SOURCE FACTS USED: Close 100.00; 20/50/200-day averages 99.47 / 97.32 / 91.72 (+0.5% / +2.7% / +9.0%); returns 1m 4.3%, 3m 16.1%, 6m 8.2%, 12m 20.2%; ETF 8.7% / 16.5% / 20.7% / 40.1%; RSI 52.0; volatility 20-day 29.6% vs 120-day 33.7%; 5-day volume 0.75x; closing highs and lows: 20-day 104.38 / 93.69, 60-day 104.38 / 84.38, 252-day 104.38 / 72.18; close vs 252-day high -4.2%; last-30 closes table (Day -4 high 104.38, Day -16 at 93.69 on 5.22x volume, four down closes from Day -3 to Day 0).
+ANALYSIS: The longer trend is up (stacked averages, higher lows, close above all averages), with a short pullback of -4.2% from the Day -4 high on light volume. Momentum is positive but RSI is neutral at 52. Volatility is contracting. Support at 99.47, 97.32, 93.69 to 94.54 and 91.72; resistance at 103.0 to 104.38. Stock A lags the ETF in every period (-4.4, -0.4, -12.5, -19.9 points).
+MISSING INFORMATION: Intraday open/high/low; raw volume; the ETF's price series and averages; the full 252-day close series; fundamentals and earnings dates. Headlines N/A BY DESIGN (blind run). Backtests N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Closing data only; support and resistance are based on closes. The cause of the Day -16 volume spike is unknown. Relative weakness against the sector may continue. The close is near the 20-day average after four down days. Completeness score 80/100 is about the data, not trade quality.
+NEXT AGENT: Agent 2 - News Analyst
+HANDOFF SUMMARY: Stock A is in an uptrend (above its 20/50/200-day averages, rising lows), pulling back 4.2% from its 104.38 high on light volume, with neutral RSI 52 and contracting volatility, but it trails the chip-sector ETF in every period, by up to 19.9 points over 12 months; data completeness 80/100, headlines N/A BY DESIGN.

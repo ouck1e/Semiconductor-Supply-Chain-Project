@@ -1,0 +1,40 @@
+AGENT 2 - NEWS ANALYST: REVIEW FOR STOCK A (BLIND RUN)
+
+There are no headlines in this run (N/A BY DESIGN: blind run). The phase 8 event list (Model 4) shows no supply-chain events in the 120 days before the decision. So there is no news input to classify.
+
+HEADLINE / EVENT TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines | N/A BY DESIGN | None supplied ("Headlines: MISSING ... blind runs have none") | None can be assessed | UNCLEAR | N/A | No (unavailable by design)
+phase8_market_models.EVENTS (Model 4) | 120-day window before Day 0 | "None." No listed supply-chain events in the window | No event-driven effect in the supplied event list | UNCLEAR (no events) | Medium: the list says none, but it only covers the events the model tracks | Yes: the event list is not a full news feed
+
+1. CONFIRMED FACTS
+- No supply-chain events from the phase 8 event list (Model 4) fall in the 120 days before the decision (source: "Supply-chain events ... - None.").
+- That event list's expected losers and winners were fixed before returns were looked at (source line: "the expected losers and winners were fixed before looking at returns").
+- Headlines are withheld by design in this blind run.
+
+2. REPORTS THAT CONFLICT WITH EACH OTHER
+- None. There are no headlines or events to compare.
+
+3. HEADLINES THAT ARE OLD OR NOT RELEVANT TO THIS STOCK
+- None supplied, so none to flag.
+
+4. WHAT COULD CHANGE THE PICTURE
+- Company-specific news (earnings, guidance, product news, customer wins or losses) is MISSING and could explain the moves the Researcher found: the Day -18/-17 selloff on heavy volume (1.91x/1.76x) and the roughly 13% rebound from Day -4 to Day 0 (Researcher handoff). Nothing supplied here explains either move.
+- Earnings dates are MISSING (Researcher handoff). An earnings report close to Day 0 would be a major unknown.
+- Sector or policy news (export controls, tariffs, supply disruptions) not on the Model 4 list could still matter. "None" on the event list does not mean nothing happened.
+- A new supply-chain event after Day 0 would fall outside this window.
+
+5. SENTIMENT SUMMARY (describes the news, not prices)
+- Neutral or unknown. There is no supplied news flow and no tracked supply-chain events, so the news side gives no bullish or bearish signal. Any read of Stock A has to rest on the Researcher's market data alone. The price moves have no supplied news explanation.
+
+No embedded instructions were found in the source material.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied headlines and supply-chain events for Stock A. Headlines are N/A BY DESIGN (blind run), and the phase 8 event list (Model 4) has no events in the 120-day window. Built the table and the five-part report, keeping confirmed facts apart from interpretation.
+SOURCE FACTS USED: "Headlines: MISSING ... blind runs have none"; "Supply-chain events from the phase 8 event list (Model 4) in the 120 days before the decision: None."; "the expected losers and winners were fixed before looking at returns". From the Researcher handoff: the Day -18/-17 drops on 1.91x/1.76x volume, the rebound from Day -4 88.51 to Day 0 100.00, and earnings dates MISSING.
+ANALYSIS: There are no news or event inputs, so news sentiment is neutral or unknown and gives no directional signal. The Day -18/-17 selloff and the recent rebound that the Researcher found have no supplied news explanation. The event list covers only the events Model 4 tracks, so "None" is not proof that nothing happened.
+MISSING INFORMATION: Headlines: N/A BY DESIGN (blind run). Company news, earnings dates, guidance, and sector or policy news outside the Model 4 list: MISSING. Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: News that was never supplied could explain or reverse the recent moves, and an earnings date near Day 0 is an unknown. Confidence that there are no relevant events is limited to what Model 4 covers. Simulation only; not investment advice.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: There is no news input for Stock A: headlines are N/A by design and the Model 4 list has no supply-chain events in the 120-day window. News sentiment is neutral or unknown, so the Strategist must rely on the Researcher's market data, and should note that the Day -18/-17 heavy-volume selloff, the roughly 13% four-day rebound and the possibility of a nearby earnings date all lack a supplied news explanation.

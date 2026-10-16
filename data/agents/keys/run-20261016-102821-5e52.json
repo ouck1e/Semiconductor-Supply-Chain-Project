@@ -1,0 +1,13 @@
+{
+  "run_id": "run-20261016-102821-5e52",
+  "ticker": "MU",
+  "name": "Micron",
+  "decision_date": "2024-05-07",
+  "blind": true,
+  "split": "test",
+  "prompts_version": "7108011e",
+  "seed": null,
+  "eval_set": "exam",
+  "runner": "Claude Code sub-agents (Opus 5.5)",
+  "created": "2026-10-16T10:28:21"
+}

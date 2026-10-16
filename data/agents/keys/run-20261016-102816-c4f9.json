@@ -1,0 +1,13 @@
+{
+  "run_id": "run-20261016-102816-c4f9",
+  "ticker": "3436.T",
+  "name": "SUMCO",
+  "decision_date": "2018-11-05",
+  "blind": true,
+  "split": "dev",
+  "prompts_version": "7108011e",
+  "seed": null,
+  "eval_set": "practice",
+  "runner": "Claude Code sub-agents (Opus 5.5)",
+  "created": "2026-10-16T10:28:16"
+}

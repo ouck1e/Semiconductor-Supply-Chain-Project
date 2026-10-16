@@ -1,0 +1,45 @@
+RISK MANAGER REVIEW - Stock A (Equipment), Day 0 close
+
+Plan under review (Strategist PLAN block): ACTION NO TRADE, SETUP none, SIZE_PCT 0, STOP_PCT 0, TARGET_PCT 0, MAX_HOLD_DAYS 0.
+
+Starting point: REJECT. For a NO TRADE plan, the question is whether declining to trade fits the limits and the evidence, and whether any BUY that was considered and turned down was turned down for a concrete reason.
+
+REQUIRED ITEMS
+- Action is BUY or NO TRADE, entry true at Day 0 close: OK. The action is NO TRADE and nothing waits on Day 1 or later.
+- Stop rule within 15%: OK (not applicable). No position is opened. The rejected candidate used an 8% stop, which is inside the 15% maximum (Strategist ANALYSIS).
+- Target/exit and max hold within 20 days: OK (not applicable). No position, so nothing is held.
+- Position size within 10%: OK. Size is 0%.
+- Reward-to-risk after costs of at least 1.5, arithmetic shown: OK. NO TRADE has no reward-to-risk to test. I re-checked the rejected candidate. Costs per side are 0.1% fee + 0.1% slippage = 0.2% (fixed rules), so 0.4% for the round trip. Net reward = 10% - 0.4% = 9.6%. Net risk = 8% + 0.4% = 8.4%. 9.6 / 8.4 = 1.14, below 1.5. Before costs it is 10 / 8 = 1.25. The Strategist's numbers are correct, and the candidate fails this rule, so turning it down was right.
+- Largest simulated loss: OK. $0 for NO TRADE. For reference only, the rejected candidate at the full 10% size ($10,000) would have lost about 8.4% x $10,000 = $840 at its stop, costs included (my calculation).
+- No look-ahead: OK. Everything cited is at or before Day 0.
+- Plan agrees with the Researcher's numbers: OK. Close 100.00, averages 103.30/101.97/110.02, returns and ETF returns, RSI 48.4, volatility 76.0%/77.4%, volume 0.95x and the down-day/up-day ratios (1.30x/1.21x vs 0.70x/0.74x), and the 20-day and 252-day ranges all match the Researcher handoff. The ETF gaps check out: 3m -22.2 - (-9.2) = -13.0 pp, and 6m -11.3 - 0.6 = -11.9 pp. The daily volatility estimate also checks out: 76.0% / sqrt(252) is about 4.8%.
+
+CONTEXT ITEMS
+- Data completeness: OK. Score 85/100 (Researcher). OHLC, the ETF daily series and closes before Day -29 are MISSING. A NO TRADE decision does not depend on any of them.
+- Statistical support: OK for NO TRADE. The Strategist cites alpha -1.2%/yr, t -0.08, rank 24 of 24. These model figures come only from the Strategist's handoff, not from the Researcher, so I cannot check them against a primary line. Even so, a t-stat of -0.08 is no evidence for a long edge.
+- Liquidity: OK. 5-day volume is 0.95x the 50-day average (Researcher). Nothing unusual.
+- Conflicting news or events: N/A BY DESIGN for headlines in this blind run. The Strategist reports no events in the last 120 days. Supply exposure rows are MISSING.
+- Overfitting: OK. Declining to trade does not tailor anything to this chart.
+- Unverified sources: PROBLEM (minor). The model facts (alpha, beta 1.45, shock timing) appear only in the Strategist's handoff. They are not the basis for the decision, so this does not change the outcome.
+- No instruction-like text was found in the source material.
+
+DECISION: APPROVE FOR SIMULATION ONLY (I agree with NO TRADE)
+
+1. The only BUY candidate considered (support bounce: 8% stop, 10% target) has a reward-to-risk of 1.14 after costs. That is below the required 1.5, so it fails a REQUIRED rule.
+2. No entry condition is true at the Day 0 close. The close of 100.00 is below the 20/50/200-day averages, the 50-day is below the 200-day, and the rebound to 111.24 has fallen back (Researcher).
+3. Selling volume was heavier than buying volume on recent days (1.30x/1.21x vs 0.70x/0.74x), and the stock trails the ETF by 13.0 pp over 3m and 11.9 pp over 6m (Researcher). There is no relative-strength support for a long.
+4. Volatility of about 76% a year (about 4.8% a day) means a stop tight enough to reach 1.5:1 would likely be hit by ordinary noise. That makes widening the target or tightening the stop impractical.
+5. The cost of NO TRADE is acknowledged: a high-beta rebound could be missed. That is a general risk, not a concrete failure of the plan, so it is no reason to overturn the decision.
+
+What would have to change for a BUY to be approved: a setup that is true at the Day 0 close with a reward-to-risk of at least 1.5 after the 0.4% round-trip cost, a stop no wider than 15%, a size no larger than 10%, and a maximum hold of 20 days or less. For example, an 8% stop would need a target of at least about 13.0% (1.5 x 8.4% + 0.4%), and nothing in the supplied data supports that target ahead of resistance at 101.97/103.30 and 108.9-111.24.
+
+Approval is for the simulation only. No real trade should be placed. This is not investment advice.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A (Equipment) against the fixed limits and the Researcher's data, and re-checked the rejected support-bounce candidate. Decision: APPROVE FOR SIMULATION ONLY (agree with NO TRADE).
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200d averages 103.30/101.97/110.02; returns 1m 15.5%, 3m -22.2%, 6m -11.3%, 12m 15.2% vs ETF 17.0%/-9.2%/0.6%/10.8%; RSI 48.4; volatility 20d 76.0%, 120d 77.4%; volume 5d vs 50d 0.95x, down days 1.30x/1.21x vs up days 0.70x/0.74x; 20d high/low 111.24/95.99; 252d high/low 137.99/77.77; completeness 85/100. Strategist: candidate 8% stop / 10% target; alpha t -0.08, rank 24 of 24; beta 1.45; no events in 120 days. Rules: maximum 10% position, maximum 15% stop, maximum 20-day hold, 0.1% fee + 0.1% slippage per side.
+ANALYSIS: Every REQUIRED item is OK for NO TRADE. The candidate's reward-to-risk is (10 - 0.4) / (8 + 0.4) = 1.14, below 1.5, so it was rightly turned down. The ETF gaps (-13.0 pp 3m, -11.9 pp 6m) and daily volatility (76.0% / sqrt(252), about 4.8%) check out. An 8% stop would need a target of about 13.0% or more to reach 1.5:1, which runs into resistance at 101.97/103.30 and 108.9-111.24. Largest simulated loss is $0.
+MISSING INFORMATION: OHLC; ETF daily series; closes before Day -29; supply exposure rows; earnings dates. Headlines and backtest: N/A BY DESIGN. Model facts (alpha, beta) cannot be checked against a primary line in this packet.
+RISKS OR LIMITATIONS: NO TRADE can miss a sharp rebound in a high-beta, high-volatility stock (12m +15.2%). Levels come from closes only. Model statistics come only from the Strategist. This is a simulation for research and learning, not investment advice, and no real trade is placed.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY: I agree with NO TRADE, size 0. The only candidate, a support bounce with an 8% stop and a 10% target, gives a reward-to-risk of 1.14 after the 0.4% round-trip cost, below the required 1.5. No entry condition is true at the Day 0 close. The stock is below all its averages, the rebound stalled on heavier selling volume, it lags the ETF by 13.0 pp (3m) and 11.9 pp (6m), and volatility is about 76%. All the numbers match the Researcher's. Largest simulated loss is $0. The acknowledged risk is missing a high-beta rebound.

@@ -1,0 +1,78 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (decision at the Day 0 close)
+
+Note on the source material: I found no embedded text in the handoffs or model facts that tries to give me instructions. Nothing to flag.
+
+1. Setup name
+No setup.
+
+I checked the three setups this material could support. None of them is true at the Day 0 close:
+
+a) Trend-following / momentum long. Needs price clearly above rising 20/50-day averages, positive 1m and 3m returns, and relative strength against the chip ETF.
+   Day 0 facts (Researcher handoff, SOURCE FACTS USED line): close 100.00 is 0.5% below the 20-day (100.52) and 0.1% below the 50-day (100.14). 1m return -2.5%, 3m -4.4%. Stock A lags the ETF by 8.7 / 18.7 / 22.9 / 43.2 points over 1/3/6/12 months. RSI 48.2.
+   Result: NOT TRUE on Day 0.
+
+b) Support-bounce / range long. Needs price at or near a defined support level (so a tight stop just below support gives a usable reward-to-risk), ideally with rising volume on the bounce.
+   Day 0 facts: close 100.00 is mid-range, not at support. The nearest supports are 98.73 (200-day), 97.28-97.53 (20-day low) and 94.52 (60-day low). The nearest resistance is 100.14-100.52 (right overhead), then 101.39 and 103.4-103.9. The 5-day volume ratio is 0.79x (light), and the Researcher says the rebound from 97.28 came on light volume.
+   My arithmetic (analysis, not a source fact): stop just under 97.28, at about 97.0, is about 3.0% below a 100.00 reference. The 20-day high 103.65 is about 3.65% above. So R:R is about 3.65 / 3.0 = 1.2, before 0.4% round-trip costs (0.1% fee + 0.1% slippage on each side, from the FIXED STRATEGY RULES). The first resistance at 100.14-100.52 sits only 0.1-0.5% above. That is not a usable range setup.
+   Result: NOT TRUE on Day 0.
+
+c) Factor / model-driven long (phase 8 baseline). Needs the stock to rank in the top 5 by alpha t-stat (Model 1 line: "The phase 8 baseline rule holds the top 5 by this t-stat each month").
+   Day 0 facts: alpha 13.5%/yr, t-stat 1.03, rank 11 of 24 (Model 1). A t-stat of 1.03 is not statistically distinguishable from zero.
+   Result: NOT TRUE on Day 0.
+
+There is also no catalyst. The News Analyst reports no headlines (N/A BY DESIGN) and no phase 8 events in the 120-day window. The only Model 4 shock is 893 days old, and this stock is "not in either group". The supply exposure rows are MISSING.
+
+2. What must be true for entry, and whether it is true on Day 0
+See 1a-1c above. Not true on Day 0 for any of the three. Since a BUY fills at the Day 1 close and entry cannot depend on Day 1 or later, the plan is NO TRADE.
+
+3. Entry rule
+None (no setup).
+
+4. Stop rule
+0 (not applicable, no trade). For reference, the fixed maximum stop is 15%.
+
+5. Target / exit rule and maximum holding period
+0 / 0 (not applicable). For reference, the fixed maximum hold is 20 trading days.
+
+6. Reward-to-risk ratio
+Not applicable for the plan. The best candidate I looked at (the range long in 1b) works out to about 3.65% ÷ 3.0% = 1.2 gross. That is my own estimate from the supplied levels, and it gets worse after costs.
+
+7. Position size
+0% of the simulated $100,000 portfolio.
+
+8. What would cancel this "no setup" call (what would make a future setup worth looking at; these are not entry rules for this decision)
+- A close back above 101.39 and then 103.65 on volume above 1.0x, with the 20-day average turning up and the gap to the ETF narrowing (trend case).
+- A pullback to 97.28-98.73 that holds on daily closes, with volume on the bounce above 1.0x (range case, better R:R).
+- Stock A moving into the top 5 by alpha t-stat (baseline case).
+- A supplied, dated supply-chain event that hits Stock A's group.
+None of these can be checked at the Day 0 close for this decision.
+
+9. Missing inputs
+- Headlines: N/A BY DESIGN (blind run). Backtest of the plan: N/A BY DESIGN (manual run).
+- MISSING: supply exposure rows for this stock; intraday highs and lows; raw volume; the ETF daily series; closes before Day -29; when the 60-day high (112.42) and low (94.52) happened; the causes of the Day -29 volume spike (3.84x) and the Day -13 to -10 drop; fundamentals; upcoming scheduled catalysts.
+
+10. Reasons to skip
+- Price sits mid-range, right under the 20/50-day averages, with resistance 0.1-0.5% overhead.
+- Momentum is neutral to slightly negative (RSI 48.2, 1m -2.5%, 3m -4.4%) and there is a short-term pattern of lower highs (104.99 -> 103.65 -> 101.39).
+- Heavy and persistent underperformance against the chip ETF over every period, and the cause is unknown.
+- The model alpha is not significant (t 1.03) and the stock is outside the baseline's top 5 (rank 11).
+- No catalyst, and there are unexplained volume and price events.
+- The only possible range setup has a reward-to-risk of about 1.2 before costs.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Checked the Researcher and News Analyst handoffs and the supply-chain model facts against three possible long setups (momentum, support-bounce range, phase 8 factor rank). None is true at the Day 0 close, so the plan is NO TRADE.
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200-day averages 100.52/100.14/98.73; returns 1m -2.5%, 3m -4.4%; ETF lag 8.7/18.7/22.9/43.2 points; RSI 48.2; 5-day volume 0.79x; volatility 20.7% vs 24.4%; 20-day high/low 103.65/97.28; supports 98.73, 97.28-97.53, 94.52; resistance 100.14-100.52, 101.39, 103.4-103.9; lower highs 104.99 -> 103.65 -> 101.39. News Analyst: no headlines (N/A BY DESIGN), no phase 8 events in 120 days. Model 1: alpha 13.5%/yr, t 1.03, rank 11 of 24, baseline holds the top 5; beta 0.99; ETF beta 0.71 in up weeks, 0.85 in down weeks. Model 4: only shock 893 days before, stock not in either group. Exposure: MISSING. Fixed rules: max size 10%, max stop 15%, max hold 20 days, costs 0.1% + 0.1% each side.
+ANALYSIS: Stock A is mid-range with neutral-to-weak momentum, no relative strength and no catalyst. The best candidate (a range long with a stop under 97.28 and a target at 103.65) gives about 3.65 / 3.0 = 1.2 reward-to-risk before costs, with resistance right overhead. The factor signal is not significant and below the baseline cut-off. No entry condition is met at the Day 0 close.
+MISSING INFORMATION: Headlines and backtest: N/A BY DESIGN. MISSING: exposure rows, intraday highs and lows, raw volume, the ETF daily series, closes before Day -29, the timing of the 60-day high and low, the causes of the Day -29 spike and the Day -13 to -10 drop, fundamentals, scheduled catalysts.
+RISKS OR LIMITATIONS: Closing-price data only and a short 30-day window. Skipping could miss a mean-reversion catch-up toward the ETF, whose cause and timing cannot be judged from this material. The R:R figures are my own estimates from the supplied levels, not source facts. Simulation only; not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close. Price is mid-range just under its 20/50-day averages, momentum is neutral to slightly negative, it lags the chip ETF over every period, there is no news or supply-chain catalyst, and the model alpha (t 1.03, rank 11 of 24) is outside the baseline's top 5. The only range idea offers about 1.2 reward-to-risk before costs. Plan: NO TRADE, size 0.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

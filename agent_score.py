@@ -40,7 +40,7 @@ import agent_sim as sim
 import phase8_market_models as pm
 
 FIELDS = ["FINAL_STATUS", "ACTION", "SETUP", "RESEARCH_CONFIDENCE", "RISK_DECISION", "SIZE_PCT", "STOP_PCT",
-          "TARGET_PCT", "MAX_HOLD_DAYS"]
+          "TARGET_PCT", "MAX_HOLD_DAYS", "APPLIED_FIX"]
 REQUIRED = ["FINAL_STATUS", "ACTION", "SIZE_PCT", "STOP_PCT", "TARGET_PCT", "MAX_HOLD_DAYS"]
 STATUSES = {"REJECT", "INCOMPLETE", "APPROVE FOR SIMULATION ONLY"}
 LOG_COLS = [
@@ -49,7 +49,7 @@ LOG_COLS = [
     "stop_rule", "exit_rule", "simulated_size", "fees_and_slippage", "risk_decision", "boss_decision", "outcome",
     "rules_followed", "notes",
     # scoring
-    "run_id", "split", "blind", "prompts_version", "baseline_version", "decision_date", "action", "entry_date",
+    "run_id", "split", "blind", "prompts_version", "eval_set", "runner", "baseline_version", "decision_date", "action", "entry_date",
     "exit_date", "exit_reason", "agent_ret_pct", "baseline_ret_pct", "soxx_ret_pct", "excess_vs_baseline_pct",
     "stock_hold_ret_pct", "vs_buy_and_hold_pct", "good_skip",
     # the Strategist's plan, played out whether or not it was approved, so each veto can be judged
@@ -135,7 +135,9 @@ def check_rules(d, cfg):
     if d["ACTION"] == "BUY":
         if d["FINAL_STATUS"] != "APPROVE FOR SIMULATION ONLY":
             broken.append(f"BUY with final status {d['FINAL_STATUS']}")
-        if d["RISK_DECISION"].startswith("REJECT") or d["RISK_DECISION"].startswith("REVISE"):
+        # A REVISE can become a BUY only when the Boss applied the Risk Manager's stated fix (prompt v5 and later).
+        fixed = d.get("APPLIED_FIX", "").strip().lower() not in ("", "none", "n/a")
+        if d["RISK_DECISION"].startswith("REJECT") or (d["RISK_DECISION"].startswith("REVISE") and not fixed):
             broken.append(f"BUY although the Risk Manager said {d['RISK_DECISION']}")
         if not 0 < d["SIZE_PCT"] <= cfg["max_position_pct"]:
             broken.append(f"size {d['SIZE_PCT']}% outside 0-{cfg['max_position_pct']}%")
@@ -234,7 +236,7 @@ def score(key, decision, cfg, usd, out_dir):
                  f"({'good skip' if bh['ret_pct'] < 0 else 'missed gain'})"),
         rules_followed="yes" if not broken else "no: " + "; ".join(broken),
         notes="", run_id=key["run_id"], split=key["split"], blind=key["blind"], prompts_version=key["prompts_version"],
-        baseline_version=cfg["baseline"]["version"], decision_date=key["decision_date"])
+        eval_set=key.get("eval_set", ""), runner=key.get("runner", ""), baseline_version=cfg["baseline"]["version"], decision_date=key["decision_date"])
     return row
 
 

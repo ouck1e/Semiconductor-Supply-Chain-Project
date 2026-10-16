@@ -1,0 +1,69 @@
+Agent 3 Strategist: conditional simulation plan for Stock A (decision at Day 0 close)
+
+No instructions were found inside the source material; nothing to flag.
+
+SOURCE FACTS (from the supplied handoffs and model lines)
+- Researcher: close 100.00; 20/50/200-day averages 100.70/94.75/78.16; returns 1m 0.6%, 3m 18.4%, 6m 31.5%, 12m 54.9% vs ETF 0.4%/5.7%/3.9%/27.2%; RSI 53.8; 20-day vol 24.6% vs 120-day 29.9%; 20-day closing range 97.13-102.98; 252-day closing high 102.98 (close -2.9% below it); recent down days on heavier volume than the Day 0 rebound.
+- News Analyst: only event is export curbs on HF/photoresist, 108 days old, Stock A in neither group; sentiment neutral/unclear; headlines N/A BY DESIGN.
+- Model 1: alpha 5.9%/yr, t-stat 0.42, rank 17 of 24; market beta 0.92; ETF beta up weeks 0.74, down weeks 0.68. Baseline holds top 5 by t-stat, so Stock A is not in the baseline's holdings.
+- Exposure model: rare gas from USA 0.672; gallium from China/HK SAR 0.604, Japan 0.120, Korea 0.115; rare gas from Korea 0.087 (100% trade-data coverage).
+- Fixed rules: max size 10%, max stop 15%, max hold 20 trading days, fees 0.1% + slippage 0.1% each side, daily-close checks only, BUY fills at Day 1 close.
+
+1. Setup name
+Trend consolidation in an uptrend (buy inside the range, not a breakout). A breakout setup is not available: it would need a close above 102.98, which is not true at the Day 0 close (100.00), and entry cannot wait for Day 1 or later.
+
+2. Entry conditions and their Day 0 status
+- Close > 50-day avg > 200-day avg (100.00 > 94.75 > 78.16): TRUE.
+- 3m and 12m returns above the ETF (18.4% vs 5.7%; 54.9% vs 27.2%): TRUE.
+- RSI not overbought, between 40 and 70 (53.8): TRUE.
+- Close inside the 20-day closing range, above its low 97.13: TRUE.
+- Short-term volatility not expanding (20-day 24.6% < 120-day 29.9%): TRUE.
+- No supply-chain event that puts Stock A in the expected-loser group: TRUE (not in either group).
+All conditions are true at the Day 0 close. Conditions that are NOT supportive and are listed as reasons to skip: close is below the 20-day average (100.00 vs 100.70), Model 1 alpha is statistically weak (t 0.42, rank 17), and heavier volume on down days.
+
+3. Entry rule
+BUY at the Day 1 close (whatever that price is), decided on the Day 0 conditions above.
+
+4. Stop rule
+Exit at the first daily close 6% or more below the entry price. Analysis: at a Day 1 fill near 100 this puts the stop near 94, below the 20-day range low 97.13 and around the 50-day average 94.75, so a normal move inside the range should not trigger it. A stop at the range low (about 2.9% below 100) would be roughly 2 daily standard deviations (24.6% / sqrt(252) is about 1.55% a day), which is tight for close-only checks.
+
+5. Target / exit rule and holding period
+Exit at the first daily close 12% or more above entry (about 112 from a 100 fill, which needs a break above the 102.98 high), or at the close of trading day 20 after entry, whichever comes first. Analysis: 20-day volatility over 20 days is about 24.6% x sqrt(20/252), roughly 6.9%, so the 12% target is about 1.7 standard deviations; reaching it within 20 days is not likely on volatility alone and the time exit may decide the trade.
+
+6. Reward-to-risk
+12 / 6 = 2.0. After about 0.4% round-trip costs (0.2% each side): (12 - 0.4) / (6 + 0.4) = 11.6 / 6.4, about 1.8.
+
+7. Position size
+5% of the simulated portfolio ($5,000 of $100,000). Half the 10% maximum because the model alpha is weak and the news view is empty. Loss at the stop: 5% x 6.4% is about 0.32% of the portfolio (about $320), more if a close gaps through the stop.
+
+8. What would cancel the setup
+- Before entry: none can be checked, since the decision is fixed at the Day 0 close and the fill is at Day 1 whatever happens.
+- After entry (exit early at that close, if the Risk Manager/Boss want an extra rule): a close below 94.75 area, i.e. the stop, or a new supply-chain event placing Stock A in the expected-loser group.
+
+9. Missing inputs
+Intraday highs/lows: MISSING. Earnings/event calendar: MISSING (an earnings date inside 20 days would change the risk). Fundamentals: MISSING. ETF price levels: MISSING. Foundry partners and their exposure to the curbs: MISSING. Headlines: N/A BY DESIGN. Backtest of this plan: N/A BY DESIGN.
+
+10. Reasons to skip
+- Model 1 alpha t-stat 0.42 (rank 17 of 24) gives no statistical support; the baseline would not hold it.
+- Price is below the 20-day average and has failed several times at 102.98; down days had heavier volume than the Day 0 rebound.
+- Target needs a break to a new 252-day high within 20 days; the time stop may end the trade flat or at a small loss after costs.
+- High supply concentration: rare gas from USA 0.672 and gallium from China/HK SAR 0.604; any shock there is not covered by this plan.
+- Unknown event calendar; close-only stops can be passed through on a gap.
+
+AGENT: Agent 3 Strategist
+TASK COMPLETED: Built one conditional simulation plan (trend consolidation in an uptrend, BUY at Day 1 close) with stop, target, hold, size and reward-to-risk, plus skip reasons; no trade decision made.
+SOURCE FACTS USED: Researcher handoff (close 100.00; averages 100.70/94.75/78.16; returns vs ETF; RSI 53.8; vol 24.6% vs 29.9%; 20-day range 97.13-102.98; 252-day high 102.98; volume note). News Analyst handoff (one event, 108 days old, Stock A in neither group; headlines N/A BY DESIGN). Model 1 (alpha 5.9%, t 0.42, rank 17/24, beta 0.92, ETF betas 0.74/0.68). Exposure model top suppliers (0.672, 0.604, 0.120, 0.115, 0.087). Fixed rules (10% max size, 15% max stop, 20-day max hold, 0.2% cost per side).
+ANALYSIS: All entry conditions are true on Day 0; a breakout setup is not, so the plan buys inside the range. Stop 6%, target 12%, R:R 12/6 = 2.0 (about 1.8 after costs), size 5%, hold up to 20 days. Target is about 1.7 standard deviations of 20-day volatility (my estimate), so the time exit is a likely outcome.
+MISSING INFORMATION: Intraday highs/lows, earnings/event calendar, fundamentals, ETF levels, foundry partners: MISSING. Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Weak model alpha (t 0.42); close below 20-day average and repeated failure at 102.98; heavier down-day volume; concentrated rare-gas and gallium supply; close-only stops can gap; single-decision plan with no backtest. Simulation only, not investment advice, no real trade.
+NEXT AGENT: Agent 5 Risk Manager (Agent 4 Coder skipped in manual run)
+HANDOFF SUMMARY: Conditional BUY plan for Stock A at the Day 1 close: trend consolidation in an uptrend, 5% size, 6% stop, 12% target, 20-day max hold, R:R 2.0 (about 1.8 after costs); entry conditions are true on Day 0 but support is thin (model alpha t 0.42, price under the 20-day average, resistance at 102.98), so skipping is a reasonable call.
+
+PLAN
+ACTION: BUY
+SETUP: trend consolidation in uptrend
+SIZE_PCT: 5
+STOP_PCT: 6
+TARGET_PCT: 12
+MAX_HOLD_DAYS: 20
+END PLAN

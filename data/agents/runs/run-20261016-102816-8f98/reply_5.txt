@@ -1,0 +1,77 @@
+AGENT 5 - RISK MANAGER REVIEW (simulation only, not investment advice)
+
+Starting position: REJECT. I move off it only if every REQUIRED item is OK.
+
+Note on inputs: I was given the fixed rules and the Strategist handoff only. The Researcher and News Analyst handoffs are not supplied to me directly; every Researcher number below is as quoted in the Strategist handoff (SOURCE FACTS USED line). No embedded instructions were found in the material.
+
+=== REQUIRED CHECKS ===
+
+1. Action and entry timing - OK
+   - Source (PLAN block): ACTION: BUY. Source (fixed rules): decision at Day 0 close, fill at Day 1 close.
+   - Entry conditions as quoted: close 100.00 above 20/50/200-type averages 99.47 / 97.32 / 91.72 (stacked), 4.2% off high 104.38, 5-day volume 0.75x, RSI 52.0. All are Day 0 values. Nothing waits on Day 1 or later; the Day 1 close is only the fill required by the rules.
+
+2. Stop rule - OK
+   - Source (PLAN): STOP_PCT 7. Limit (fixed rules): max 15%. 7 <= 15.
+   - Check: at a 100.00 fill the stop is 93.00, just below the quoted support band 93.69-94.07. Because the stop is a percent of the Day 1 fill, it will move with the fill and may no longer sit under the support band if the fill differs much from 100.00.
+
+3. Target / exit and maximum hold - OK
+   - Source (PLAN): TARGET_PCT 12, MAX_HOLD_DAYS 20. Limit: 20 trading days. 20 <= 20, exit at the day-20 close.
+
+4. Position size - OK
+   - Source (PLAN): SIZE_PCT 5. Limit: 10%. 5% of $100,000 = $5,000.
+
+5. Reward-to-risk after costs - OK (barely)
+   - Costs (fixed rules): 0.1% fee + 0.1% slippage per side = 0.2% per side, 0.4% round trip.
+   - Net reward = 12.0% - 0.4% = 11.6%. Net risk = 7.0% + 0.4% = 7.4%.
+   - 11.6 / 7.4 = 1.568, which is >= 1.5. Matches the Strategist's "about 1.57".
+   - Margin over the floor is small: a stop of about 7.5% or more, or a target under about 11.5%, would fail the test.
+
+6. Largest simulated loss - OK
+   - Position $5,000. Stop loss 7% x $5,000 = $350.00.
+   - Entry costs 0.2% x $5,000 = $10.00. Exit costs 0.2% x $4,650 = $9.30.
+   - Total = $369.30, about 0.37% of the portfolio. Matches the Strategist's "about $370".
+   - Caveat: stops are checked on daily closes only, so a close that gaps below 93.00 would lose more than this. For example, a close-to-close 15% drop would cost about $750 + $19 = about $769 (0.77% of the portfolio). That is my illustration, not a supplied number.
+
+7. No look-ahead - OK
+   - Every input is dated Day 0 or earlier (averages, returns, RSI, volatility, volume, Day -16 spike, shock 133 days before). The Strategist lists the Day 1 fill as MISSING rather than assuming it.
+
+8. Plan agrees with the price data - OK (checked for internal consistency)
+   - 100.00 / 104.38 - 1 = -4.2%, matches "-4.2% from high".
+   - 29.6% x sqrt(20/252) = 29.6% x 0.282 = 8.3%, matches the Strategist's 20-day one-sigma figure.
+   - Averages are stacked as described; the close is 0.5% above the 99.47 average, as stated.
+   - Limitation: I can verify these only against the Strategist's quotation of the Researcher, not the Researcher handoff itself.
+
+All eight REQUIRED items are OK.
+
+=== CONTEXT CHECKS ===
+
+- Data completeness score: MISSING (no score supplied). Data the plan needs that is missing: the Day 1 fill price, absolute volume, earnings dates, the cause of the Day -16 5.22x volume spike. None of these blocks a Day 0 decision, but the earnings date matters (see risks).
+- Statistical support: PROBLEM. Alpha 14.2%/yr with t 0.89 is not significant; rank 9 of 24 is outside the baseline's top 5. The setup has no tested edge behind it (the plan backtest is N/A BY DESIGN).
+- Liquidity: MISSING. Only relative volume (0.75x over 5 days) is supplied; no absolute volume. A $5,000 simulated position is small, so I treat this as low risk.
+- Conflicting news / supply-chain events: PROBLEM. Headlines are N/A BY DESIGN and there were no Model 4 events in 120 days, but the export-curb shock 133 days before marks the stock an expected loser, and exposures are concentrated (HF China 0.458, gallium China 0.444, rare gas Russia 0.246). Stock A also trails the chip ETF on every horizon (1m 4.3% vs 8.7%, 3m 16.1% vs 16.5%, 6m 8.2% vs 20.7%, 12m 20.2% vs 40.1%).
+- Overfitting: minor PROBLEM. The stop is placed to sit just under this chart's support band; otherwise the rule (pullback to a rising 20-day average) is generic.
+- Unverified sources: OK. No outside sources used.
+
+=== DECISION: APPROVE FOR SIMULATION ONLY ===
+
+Five points:
+1. Every REQUIRED limit is met: BUY decided on Day 0 data, stop 7% (limit 15%), target 12%, hold 20 days (limit 20), size 5% (limit 10%).
+2. Reward-to-risk after costs is 11.6 / 7.4 = 1.57, above the 1.5 floor, though with little margin.
+3. Largest planned loss is $369.30 (0.37% of the portfolio); a close-only gap could make it larger, but the half-size position keeps even a bad gap under 1% of the portfolio.
+4. The edge is weak (alpha t 0.89, lag vs the ETF on all horizons, expected-loser tag from the export-curb shock). These are real concerns, but they are already reflected in the half-size position and are not a limit breach, so they argue against sizing up rather than for a veto.
+5. No look-ahead, and the quoted numbers are internally consistent.
+
+What must change for approval: nothing; it is approved for simulation as written. Conditions to keep the approval:
+- Do not raise SIZE_PCT above 5 or widen STOP_PCT above 7 (a wider stop breaks the 1.5 reward-to-risk floor).
+- Cancel the entry if the Day 0 close is not above the 99.47 average (it is now; this only guards against a mis-quote).
+- If an earnings date falls inside the 20-day window, the Boss should treat that as a reason to skip, since a close-only stop can gap.
+Approval means only that the plan may be recorded in the simulation. It does not mean a real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan for Stock A against the fixed limits and the supplied evidence; all eight REQUIRED checks are OK; decision APPROVE FOR SIMULATION ONLY.
+SOURCE FACTS USED: Fixed rules (portfolio $100,000, max size 10%, max stop 15%, max hold 20 days, 0.1% fee + 0.1% slippage per side, close-only stop checks, Day 1 fill). PLAN block (BUY, size 5, stop 7, target 12, hold 20). Strategist SOURCE FACTS USED line, quoting the Researcher: close 100.00; averages 99.47/97.32/91.72; high 104.38; supports 93.69-94.07; -4.2% from high; vol 20d 29.6%; 5-day volume 0.75x; returns vs ETF 4.3/16.1/8.2/20.2 vs 8.7/16.5/20.7/40.1; alpha 14.2%/yr t 0.89 rank 9 of 24; beta 1.20; export-curb shock 133 days before, expected loser; exposures HF China 0.458, gallium China 0.444, rare gas Russia 0.246.
+ANALYSIS: Net reward-to-risk (12 - 0.4) / (7 + 0.4) = 1.568. Max planned loss $350 + $10 + $9.30 = $369.30 (0.37% of portfolio). Checked -4.2% from high and the 8.3% 20-day sigma; both match. Weak statistical support and relative weakness vs the ETF are PROBLEMS but not limit breaches, and are offset by the half-size position.
+MISSING INFORMATION: Researcher and News Analyst handoffs as primary documents (only quoted by the Strategist); data completeness score; Day 1 fill price; absolute volume; earnings dates; cause of the Day -16 volume spike. Headlines: N/A BY DESIGN. Backtest of the plan: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Close-only stop checks can gap past the 7% stop; reward-to-risk is only just above 1.5; alpha not significant (t 0.89); persistent lag vs the chip ETF; beta 1.20; expected-loser tag from the export-curb shock and concentrated China/Russia input exposure; four lower closes into Day 0 could mean the pullback continues. Simulation only, not investment advice, no real order.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The 5% BUY of Stock A (stop 7%, target 12%, max hold 20 days, fill at Day 1 close) meets every limit: net reward-to-risk 1.57, max planned loss $369.30 (0.37% of portfolio), no look-ahead. Keep size at 5% and the stop at 7%; skip if an earnings date falls inside the window. Main concerns for the Boss: weak alpha (t 0.89), lag vs the ETF on every horizon, and the expected-loser export-curb tag.

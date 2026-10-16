@@ -55,6 +55,8 @@ def load_market():
     ff = pd.read_sql("SELECT * FROM factors_developed", con, parse_dates=["date"]).set_index("date")
     con.close()
     vol = px.pivot_table(index="date", columns="ticker", values="volume").sort_index()
+    vol = vol.where(vol > 0)          # zero volume = a holiday or a data gap, not a real day with no trading
+
     return usd, vol, uni, ff
 
 

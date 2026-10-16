@@ -1,0 +1,115 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Gases & materials), decision at the Day 0 close
+
+Source note: no text in the supplied material tried to give me instructions. All numbers below are quoted from the
+Researcher handoff (RH), the News Analyst handoff (NH), the supply-chain model facts (SC) or the fixed strategy rules
+(FR). Anything I derived is labelled "my analysis".
+
+1. Setup name
+Pullback within a long-term uptrend (light-volume pullback to the 20-day average, above the 50- and 200-day averages).
+
+2. What must be true for entry, and whether it is true on Day 0
+All conditions are checked on Day 0 closing data only.
+a) Close above the 200-day average: close 100.00 vs 92.92 (RH: +7.6%). TRUE.
+b) Close above the 50-day average: 100.00 vs 98.57 (RH: +1.5%). TRUE.
+c) Pullback from the recent high has not broken 60-day range support: close 100.00 vs 60d low 95.13 and the
+   Day -7 high of 105.63 (RH). TRUE (about 5.3% below the high; my analysis: 100.00 / 105.63 - 1 = -5.3%).
+d) Pullback on lighter volume than the rally: 5-day volume 0.81x; pullback days 0.54x to 0.95x vs rally 1.10x to
+   1.80x (RH). TRUE.
+e) Momentum not overbought or broken: RSI 48.5 (RH). TRUE (neutral).
+f) Volatility not expanding: 20d 24.9% vs 120d 30.5% (RH). TRUE.
+g) No known negative event in the window: phase 8 event list for the 120 days before Day 0 is "None." (NH). TRUE
+   by absence only; headlines are N/A BY DESIGN.
+Not satisfied: close is just under the 20-day average (100.00 vs 100.58, RH -0.6%), so short-term trend has not
+turned back up. I treat this as a caution, not a block, because entry cannot wait for Day 1 confirmation.
+
+3. Entry rule
+If conditions a) to f) hold at the Day 0 close (they do), BUY at the Day 1 close, whatever that price is (FR). No
+condition depends on Day 1 or later.
+
+4. Stop rule
+6% below the entry price, checked on daily closes (FR: max 15%).
+Reasoning (my analysis): from a 100.00 reference, 6% puts the stop near 94.0, below the 95.1 to 95.6 support zone
+and the 60d low 95.13 (RH). A close there would mean the 60-day range broke to the downside.
+
+5. Target / exit rule
+Target 10% above entry, checked on daily closes. Maximum hold 20 trading days (FR maximum); close at the Day 20
+close if neither stop nor target is hit.
+Reasoning (my analysis): from 100.00, 10% is about 110, above the 104 to 105.63 resistance and just under the
+252d high of 111.80 (RH). Reaching it requires breaking out of the 60-day range, which has not happened in 60 days.
+Scale check: 20d volatility 24.9% annualised (RH) implies about 24.9 x sqrt(20/252) = 24.9 x 0.282 = 7.0% for one
+standard deviation over 20 trading days, so a 10% move is about 1.4 of those (my analysis; assumes the volatility
+stays the same, which it may not).
+
+6. Reward-to-risk
+Gross: 10 / 6 = 1.67.
+Including costs (FR: 0.1% fee + 0.1% slippage each side = 0.4% round trip): (10 - 0.4) / (6 + 0.4) = 9.6 / 6.4 = 1.5.
+
+7. Position size
+5% of the simulated portfolio = $5,000 (FR: max 10%, portfolio $100,000).
+Loss at the stop (my analysis): $5,000 x 6.4% = $320, about 0.32% of the portfolio, before any gap past the stop
+(closes only, so a stop can fill well below 94).
+Why half the maximum: the alpha is not statistically meaningful (t-stat 1.07, SC), the down-week beta to the chip ETF
+(0.77) is more than double the up-week beta (0.33) (SC), and there is no catalyst information.
+
+8. What would cancel the setup
+- Before entry: none can be checked, because the fill is at the Day 1 close and the decision is fixed at Day 0.
+- After entry, as an exit: a close at or below the 6% stop; reaching the 20-day hold limit.
+- If the Risk Manager or Boss finds any Day 0 fact above was misread (for example, the close is not above the
+  50-day average), the setup is void and the action should be NO TRADE.
+
+9. Missing inputs
+- Catalyst for the Day -10 to Day -7 rally: MISSING (RH, NH).
+- Company news, earnings dates and guidance: MISSING (NH). An earnings date inside the 20-day hold would raise gap risk.
+- Supply exposure rows for this stock: MISSING (SC).
+- Intraday highs/lows, daily RSI history, daily ETF closes, fundamentals: MISSING (RH).
+- Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip it
+- The stock is still below its 20-day average and the pullback may continue to the 95 area (RH), which is close to
+  the stop.
+- 60 days range-bound without retesting the 252d high (RH); the 10% target needs a breakout that the data does not show.
+- Alpha t-stat 1.07 is weak evidence (SC); being rank 4 of 26 means it is in the baseline's top 5, but the baseline
+  itself returned less than holding the chip ETF over the development years (SC).
+- Asymmetric beta: more sensitive to the chip ETF in down weeks (0.77) than up weeks (0.33) (SC).
+- The ETF was -5.3% over 1 month (RH), so the sector backdrop is mixed.
+- The neon-war "expected winner" tag is 881 days old (SC) and is not a current driver.
+- Closing-price stops can be gapped through.
+This plan is a conditional simulation idea, not a safe, profitable or high-probability trade.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Built one conditional long-only simulation plan (pullback within a long-term uptrend) for Stock A at
+the Day 0 close, with entry conditions, stop, target, hold limit, reward-to-risk, size, cancel conditions, missing
+inputs and reasons to skip. I do not decide that a trade happens.
+SOURCE FACTS USED: RH: close 100.00; 20/50/200-day averages 100.58/98.57/92.92; RSI 48.5; volatility 20d 24.9% vs
+120d 30.5%; 5-day volume 0.81x; rally volume 1.10x to 1.80x vs pullback 0.54x to 0.95x; 60d high/low 105.63/95.13;
+252d high 111.80; support 95.1 to 95.6 and 98.6; resistance 100.58, 104 to 105.63, 111.80; ETF 1m -5.3%. NH: no
+headlines (blind), phase 8 event list "None." for 120 days. SC: alpha 17.8%/yr, t-stat 1.07, rank 4 of 26; market beta
+0.76; ETF beta up 0.33 / down 0.77; baseline underperformed the ETF; neon war 881 days before, expected winner;
+exposure rows MISSING. FR: $100,000 portfolio, max 10% size, max 15% stop, max 20-day hold, 0.1% fee + 0.1% slippage
+per side, closes-only checks, Day 1 close fill.
+ANALYSIS: Six of seven Day 0 conditions hold (above 50- and 200-day averages, inside the 60-day range, light-volume
+pullback, neutral RSI, calmer volatility); the close is 0.6% under the 20-day average. Plan: BUY at Day 1 close,
+stop 6% (about 94, below 95.1 support), target 10% (about 110, below 111.80), hold up to 20 days. Reward-to-risk
+10/6 = 1.67 gross, 9.6/6.4 = 1.5 after costs. Size 5% ($5,000), about $320 (0.32% of portfolio) at the stop. The 10%
+target is about 1.4 times the 7.0% 20-day volatility estimate (24.9 x sqrt(20/252)).
+MISSING INFORMATION: Catalyst for the Day -10 to Day -7 rally; company news, earnings dates, guidance; supply exposure
+rows; intraday highs/lows; daily RSI history; daily ETF closes; fundamentals. Headlines: N/A BY DESIGN (blind run).
+Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Pullback may continue toward the stop; target requires a breakout of a 60-day range; weak alpha
+evidence (t 1.07); higher down-week than up-week ETF beta; mixed sector (ETF 1m -5.3%); closes-only stops can be
+gapped; unknown news. Past patterns do not predict future returns. Simulation only, not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 - Coder is skipped in manual runs)
+HANDOFF SUMMARY: Proposed a small conditional BUY for Stock A: pullback within a long-term uptrend, entry at the Day 1
+close, 5% size, 6% stop, 10% target, 20-day max hold, reward-to-risk 1.67 gross / 1.5 after costs. The setup's Day 0
+conditions mostly hold, but the evidence is modest (weak alpha t-stat, asymmetric downside beta, no catalyst, close
+still under the 20-day average). Risk Manager should check whether a 1.5 net reward-to-risk and the breakout needed
+for the target justify the trade.
+
+PLAN
+ACTION: BUY
+SETUP: Pullback within long-term uptrend
+SIZE_PCT: 5
+STOP_PCT: 6
+TARGET_PCT: 10
+MAX_HOLD_DAYS: 20
+END PLAN

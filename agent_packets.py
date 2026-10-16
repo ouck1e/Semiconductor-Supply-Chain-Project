@@ -3,7 +3,13 @@ Build the six ready-to-paste prompts (a "packet") for one manual run of the AI a
 
   python agent_packets.py --ticker 2330.TW --date 2022-03-15      one chosen stock and date
   python agent_packets.py --sample 3 --split dev                   3 random stock-date pairs from the dev years
-  options: --named (show the real stock and dates), --blind (hide them), --seed N (repeat a random draw)
+  python agent_packets.py --make-set practice --sample 8 --split dev --seed 7    save a fixed set of stock-dates
+  python agent_packets.py --set practice                           one packet per stock-date in that set
+  options: --named (show the real stock and dates), --blind (hide them), --seed N (repeat a random draw),
+           --runner "..." (who runs the agents; recorded with the score)
+
+A fixed set lets every prompt version be judged on the same stocks and dates, so a change in results comes from the
+prompts and not from which stocks happened to be drawn.
 
 Dates before agents/config.json "blind_before" are blind by default: the stock becomes "Stock A", dates become
 "Day -29 ... Day 0", and prices are rebased so Day 0 = 100. Claude remembers real market history, and blinding stops it
@@ -193,7 +199,7 @@ def strategist_facts(t, D, usd, ff, uni, cfg, blind):
 
 
 # ---------------------------------------------------------------- packet
-def build(t, D, blind, cfg, market, out_dir=None, seed=None):
+def build(t, D, blind, cfg, market, out_dir=None, seed=None, eval_set="", runner="manual chat"):
     usd, vol, uni, ff = market
     info = uni.set_index("ticker").loc[t].to_dict()
     s = usd[t].dropna()
@@ -215,8 +221,8 @@ def build(t, D, blind, cfg, market, out_dir=None, seed=None):
         (run_dir / f"{name}.txt").write_text(text, encoding="utf-8")
     (run_dir / "00_HOW_TO_RUN.txt").write_text(HOW_TO.format(run_id=run_id), encoding="utf-8")
     key = dict(run_id=run_id, ticker=t, name=info["name"], decision_date=str(D.date()), blind=blind,
-               split=sim.split_of(D, cfg), prompts_version=sim.prompts_version(), seed=seed,
-               created=datetime.now().isoformat(timespec="seconds"))
+               split=sim.split_of(D, cfg), prompts_version=sim.prompts_version(), seed=seed, eval_set=eval_set,
+               runner=runner, created=datetime.now().isoformat(timespec="seconds"))
     (out_dir / "keys" / f"{run_id}.json").write_text(json.dumps(key, indent=2), encoding="utf-8")
     return run_id, run_dir, key
 
@@ -229,7 +235,7 @@ HOW_TO = """HOW TO RUN {run_id} (simulation only)
 4. Paste 3_strategist.txt with both handoffs. Save its whole reply as strategist.txt in this folder
    (its PLAN block lets the scorer check whether the Risk Manager's call was right).
 5. Skip 4_coder.txt in manual runs (read it once to see why).
-6. Paste 5_risk_manager.txt with the Strategist's handoff and PLAN blocks.
+6. Paste 5_risk_manager.txt with the Researcher's handoff and the Strategist's handoff and PLAN blocks.
 7. Paste 6_boss.txt with all four handoffs.
 8. Save the Boss's whole reply as boss.txt in this folder, then score it:
        python agent_score.py {run_id}
@@ -262,6 +268,10 @@ def main():
     ap.add_argument("--sample", type=int)
     ap.add_argument("--split", default="dev", choices=["dev", "test", "forward"])
     ap.add_argument("--seed", type=int)
+    ap.add_argument("--make-set", metavar="NAME", help="with --sample: save the drawn stock-dates as a fixed set, "
+                                                       "so every prompt version can be run on the same ones")
+    ap.add_argument("--set", metavar="NAME", help="build one packet per stock-date in a saved set")
+    ap.add_argument("--runner", default="manual chat", help='who runs the agents, e.g. "Claude Code sub-agents (Opus 5.5)"')
     g = ap.add_mutually_exclusive_group()
     g.add_argument("--blind", action="store_true")
     g.add_argument("--named", action="store_true")
@@ -269,7 +279,21 @@ def main():
     cfg = sim.config()
     market = sim.load_market()
     usd, _, uni, _ = market
-    if a.sample:
+    set_file = lambda name: sim.OUT / "keys" / f"eval_{name}.csv"      # in keys/: it names the real stocks
+    if a.make_set:
+        if not a.sample:
+            raise SystemExit("--make-set needs --sample N (and usually --split and --seed).")
+        seed = a.seed if a.seed is not None else int(time.time())
+        pairs = sample(a.sample, a.split, cfg, usd, uni, seed)
+        set_file(a.make_set).parent.mkdir(parents=True, exist_ok=True)
+        pd.DataFrame([(t, str(D.date())) for t, D in pairs], columns=["ticker", "date"]).to_csv(set_file(a.make_set), index=False)
+        print(f"Saved set {a.make_set!r}: {a.sample} stock-dates from {a.split}, seed {seed} (packets not built yet)")
+        return
+    eval_set = ""
+    if a.set:
+        s = pd.read_csv(set_file(a.set))
+        seed, eval_set, pairs = None, a.set, [(r.ticker, pd.Timestamp(r.date)) for r in s.itertuples()]
+    elif a.sample:
         seed = a.seed if a.seed is not None else int(time.time())
         pairs = sample(a.sample, a.split, cfg, usd, uni, seed)
         print(f"Random draw: {a.sample} from {a.split}, seed {seed}")
@@ -281,7 +305,7 @@ def main():
         raise SystemExit("Give --ticker and --date, or --sample N.")
     for t, D in pairs:
         blind = True if a.blind else False if a.named else D < pd.Timestamp(cfg["blind_before"])
-        run_id, run_dir, key = build(t, D, blind, cfg, market, seed=seed)
+        run_id, run_dir, key = build(t, D, blind, cfg, market, seed=seed, eval_set=eval_set, runner=a.runner)
         print(f"{run_id}: {'blind' if blind else t + ' ' + key['decision_date']}, split {key['split']} -> {run_dir}")
 
 

@@ -1,0 +1,80 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (decision at the Day 0 close)
+
+Note: none of the supplied material contains instructions aimed at me. Nothing was ignored.
+
+1. SETUP NAME
+Uptrend pullback to the 20-day average (low-volume pullback within an established uptrend).
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE ON DAY 0
+All conditions are checked on Day 0 closing data only.
+a) Close above the 50-day and 200-day averages. Close 100.00 vs 97.32 / 91.72 (Researcher handoff). TRUE.
+b) Averages stacked in uptrend order (20 > 50 > 200). 99.47 > 97.32 > 91.72 (Researcher). TRUE.
+c) Pullback from the 252-day closing high of no more than 8%. Close vs 252-day high -4.2% (Researcher). TRUE.
+d) Close at or above the 20-day average, or no more than 1% below it. 100.00 vs 99.47, +0.5% (Researcher). TRUE.
+e) RSI between 40 and 60 (not overbought, not broken). RSI 52.0 (Researcher). TRUE.
+f) Pullback on light volume: 5-day volume below 1.0x average. 0.75x (Researcher). TRUE.
+g) No known negative event in the 120 days before Day 0. Phase 8 event list: "None." (News Analyst). TRUE, with the caveat that the curated list is not complete.
+All seven conditions are met at the Day 0 close, so the entry does not depend on Day 1 or later.
+
+3. ENTRY RULE
+BUY at the Day 1 close (the fixed fill rule), because all conditions in section 2 are true at the Day 0 close. Entry price is whatever the Day 1 close is; it is not known now (MISSING by construction).
+
+4. STOP RULE
+7% below the entry price, checked on daily closes.
+Why 7%: from a 100.00 reference, a 7% stop sits at about 93.0, just below the Day -16 closing low of 93.69 and the 93.69 to 94.54 support zone named by the Researcher, and below the 200-day average is not required. My own arithmetic for scale: 20-day volatility 29.6% a year (Researcher) / sqrt(252) is about 1.86% a day, so 7% is roughly 3.8 daily standard deviations, wide enough not to be hit by ordinary noise. This is within the 15% maximum.
+
+5. TARGET / EXIT RULE AND MAXIMUM HOLD
+Target: 12% above entry, checked on daily closes.
+Time exit: close the position at the close of trading day 20 after entry if neither stop nor target has been hit (20 is the maximum allowed).
+Why 12%: the first resistance is 103.0 to 104.38 (Researcher), about +4.4% from 100.00; the target assumes a breakout above the 252-day closing high, consistent with the 3-month return of 16.1% (Researcher). My own scale check: 1.86% x sqrt(20) is about 8.3% one-standard-deviation move over 20 days, so 12% is roughly 1.4 standard deviations and may well not be reached; the time exit then decides the result.
+
+6. REWARD-TO-RISK RATIO
+Target % / stop % = 12 / 7 = 1.71.
+After costs (my arithmetic from the fixed rules: 0.1% fee + 0.1% slippage on each side = about 0.4% round trip): net reward about 12 - 0.4 = 11.6, net risk about 7 + 0.4 = 7.4, so about 11.6 / 7.4 = 1.57.
+
+7. POSITION SIZE
+6% of the simulated portfolio = $6,000 of $100,000 (below the 10% maximum).
+Loss at the stop, before costs: 6% x 7% = 0.42% of the portfolio, about $420; with about 0.4% round-trip costs on $6,000 (about $24), roughly $444.
+Why not the full 10%: Stock A lags the chip-sector ETF in every period (Researcher), alpha is not statistically significant (t-stat 0.89, Model 1), the stock ranks 9 of 24 and so is outside the phase 8 baseline's top 5, earnings dates are MISSING, and the Day -16 5.22x volume spike is unexplained. Why not zero: the trend structure is intact and the rules say an uptrend with nothing specific against it calls for a valid entry, not a skip.
+
+8. WHAT WOULD CANCEL THE SETUP
+Because the decision is final at the Day 0 close, these apply to the Risk Manager and Boss review, and to the position once open (as context, not as extra exit rules beyond stop/target/time):
+- Any Day 0 fact in section 2 shown to be wrong (for example the close below the 50-day average, or RSI outside 40 to 60).
+- A confirmed earnings date or other scheduled firm event inside the 20-day holding window (currently MISSING).
+- Evidence that the Day -16 volume spike or the Day -3 to Day 0 decline was caused by negative firm-specific news.
+- After entry, only the stop (7% below), the target (12% above) or the 20-day time exit close the position.
+
+9. MISSING INPUTS
+- Day 1 close (the entry price): not knowable at the decision.
+- Earnings dates and fundamentals: MISSING.
+- Cause of the Day -16 5.22x volume spike and of the four down closes Day -3 to Day 0: MISSING.
+- Intraday open/high/low, raw volume, the full 252-day series, the ETF's averages: MISSING (Researcher).
+- Events outside the curated phase 8 list: MISSING.
+- Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. REASONS TO SKIP IT
+- Persistent relative weakness: Stock A trails the ETF by 4.4, 0.4, 12.5 and 19.9 points over 1, 3, 6 and 12 months (Researcher). A sector-relative laggard may keep lagging.
+- Four consecutive down closes into Day 0 (Researcher): the pullback may not be finished; the 20-day average at 99.47 is only 0.5% below the close.
+- Alpha 14.2% a year but t-stat 0.89 (Model 1): not distinguishable from zero.
+- Market beta 1.20 (Model 1): a broad market decline would likely hit the position harder than the market. The chip-ETF beta is asymmetric (0.99 in up weeks, 0.34 in down weeks), which is favourable if it persists, but it is a historical estimate.
+- Supply exposure: the stock was the expected loser of the export curbs on hydrogen fluoride and photoresist 133 days before (Model 4), and its top supplier shares include HF from China 0.458 and gallium from China 0.444 (exposure model). A new chemical or mineral restriction would likely hurt it.
+- Target needs a breakout above the 104.38 closing high; failure at resistance would leave the trade to the time exit.
+These are real risks but none is a specific negative signal at Day 0, so I still propose the plan at reduced size.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into one conditional simulation plan: an uptrend pullback to the 20-day average, BUY at the Day 1 close, 7% stop, 12% target, 20-day maximum hold, 6% position size. All entry conditions are true at the Day 0 close.
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200-day averages 99.47 / 97.32 / 91.72; returns 1m 4.3%, 3m 16.1%, 6m 8.2%, 12m 20.2% vs ETF 8.7% / 16.5% / 20.7% / 40.1%; RSI 52.0; volatility 20-day 29.6% vs 120-day 33.7%; 5-day volume 0.75x; closing highs 104.38 (20/60/252-day); 20-day low 93.69; close vs 252-day high -4.2%; Day -16 close 93.69 on 5.22x volume; four down closes Day -3 to Day 0; support 99.47, 97.32, 93.69 to 94.54, 91.72; resistance 103.0 to 104.38. News Analyst: headlines N/A BY DESIGN; phase 8 events in the 120-day window "None." Model 1: alpha 14.2%/yr, t-stat 0.89, rank 9 of 24; market beta 1.20; ETF beta 0.99 up weeks, 0.34 down weeks. Model 4: HF/photoresist export curbs 133 days before, this stock an expected loser. Exposure model: helium USA 0.598, HF China 0.458, gallium China 0.444, helium Qatar 0.332, rare gas Russian Federation 0.246. Fixed rules: max 10% size, max 15% stop, max 20 days, 0.1% fee + 0.1% slippage per side.
+ANALYSIS: Trend structure is up (stacked averages, close above all, pullback of 4.2% on 0.75x volume, RSI neutral, volatility contracting), which meets a low-volume pullback setup at Day 0. Stop at 7% places it just under the 93.69 support; target 12% requires a breakout above 104.38. Reward-to-risk 12 / 7 = 1.71 gross, about 1.57 after about 0.4% round-trip costs. Size cut to 6% (portfolio risk at stop about 0.42% before costs) because of persistent relative weakness versus the ETF, insignificant alpha, rank outside the baseline top 5, and open event risk. Daily volatility estimate 29.6% / sqrt(252) = about 1.86%; 20-day 1-sigma about 8.3%, so the target is about 1.4 sigma and may not be reached.
+MISSING INFORMATION: Day 1 close (entry price, not knowable at decision); earnings dates; fundamentals; cause of the Day -16 volume spike and of the Day -3 to Day 0 decline; intraday data; raw volume; full 252-day series; ETF averages; events outside the phase 8 list. Headlines N/A BY DESIGN (blind run). Backtest N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Stops and targets checked on closes only, so a gap through the stop can lose more than 7%. Relative weakness may continue. Pullback may extend (four down days). Beta 1.20 to the market. Supply-chain exposure to Chinese HF and gallium and a prior expected-loser label on chemical export curbs. Unknown earnings could fall in the 20-day window. Model estimates are historical. This is a simulation, not advice; no real trade is placed and nothing here is a promise of any result.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: Proposed BUY at the Day 1 close for Stock A on an uptrend pullback to the 20-day average (all Day 0 conditions met: close 100.00 above 99.47 / 97.32 / 91.72, -4.2% from high, RSI 52, volume 0.75x), 6% size, 7% stop, 12% target, 20-day max hold, reward-to-risk 1.71 gross (about 1.57 net); main concerns are lagging the ETF in every period, insignificant alpha, unknown earnings dates and HF/gallium supply exposure.
+
+PLAN
+ACTION: BUY
+SETUP: uptrend pullback to 20-day average
+SIZE_PCT: 6
+STOP_PCT: 7
+TARGET_PCT: 12
+MAX_HOLD_DAYS: 20
+END PLAN

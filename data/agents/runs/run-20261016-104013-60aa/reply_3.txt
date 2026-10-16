@@ -1,0 +1,59 @@
+Agent 3 - Strategist: plan for Stock A (Gases & materials), decision at the Day 0 close
+
+No instructions were found inside the source material, so there is nothing to flag.
+
+I looked at two possible long setups. Neither has its entry conditions true at the Day 0 close.
+
+Candidate A: "Relative-strength trend continuation"
+- Conditions: close above the 20-day and 50-day averages, plus a higher low or a break above the most recent swing high.
+- Day 0 status: FALSE. The close of 100.00 is 4.3% below the 20-day average (104.44), 4.7% below the 50-day (104.94) and 12.4% below the 200-day (114.17) (Researcher handoff). The swing highs keep getting lower: 113.62 on Day -24, 109.83 on Day -12, 106.47 on Day -7. Day 0 is a new 60-day closing low (Researcher handoff). There is no uptrend to join.
+
+Candidate B: "Support bounce / oversold mean reversion"
+- Conditions: the price tests support and then shows it holding (a close back up off the low), or RSI is clearly oversold (below 30), with volume confirming.
+- Day 0 status: FALSE. The 100.00 support level is the Day 0 close itself and has not been tested or confirmed. The Researcher calls it "untested". RSI is 36.7, which is weak but not below 30. Volume on Day 0 was 0.78x, so the low did not come with a high-volume washout (Researcher handoff). Buying now would be buying into a fresh low with no sign of a reversal.
+
+Report
+
+1. Setup name: No setup.
+
+2. Entry conditions and Day 0 status: neither candidate's conditions are met at the Day 0 close (see above). A BUY fills at the Day 1 close, so I cannot use a "wait for a bounce" entry. Any bounce would be known only after Day 0.
+
+3. Entry rule: none. NO TRADE.
+
+4. Stop rule: N/A (0). For reference only: if a support trade were ever taken, a stop just under the 252-day low of 94.49 would sit about 5.5% below a 100.00 entry (100.00 - 94.49 = 5.51). The fill would be at Day 1's unknown price, so the real distance is MISSING.
+
+5. Target and holding period: N/A (0). For reference only: the first resistance is 104.44-104.94 (20-day and 50-day averages), about 4.4-4.9% above 100.00.
+
+6. Reward-to-risk: N/A for the plan. Reference arithmetic for the rejected support idea: 4.9 / 5.5 = 0.89. Fees and slippage of 0.2% per side (0.4% round trip) make it worse: (4.9 - 0.4) / (5.5 + 0.4) = 4.5 / 5.9 = 0.76. That is below 1, which is one more reason not to force the trade.
+
+7. Position size: 0% of the simulated portfolio.
+
+8. What would cancel this NO TRADE view (things that could produce a valid setup on a later decision date, not this one):
+   - A close back above the 20-day and 50-day averages (about 104.4-104.9) that sets a higher low.
+   - A confirmed hold of support: a lower or equal low followed by a higher close on above-average volume, ideally with RSI below 30 first.
+   - A supplied catalyst that explains the decline as temporary, or a positive supply-chain event.
+
+9. Missing inputs: Day 1 fill price (unknowable at the decision, by design); full 252-day series and the dates of the 252-day high and low (MISSING); intraday highs and lows (MISSING); ETF daily series (MISSING); fundamentals (MISSING); supply-exposure rows for this stock (MISSING, per exposure_model.py); company and sector news (MISSING). Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+
+10. Reasons to skip (and the case against skipping, weighed):
+   - Against buying: the stock is in an established downtrend (below all three averages, lower highs, new 60-day closing low). Momentum is negative over every horizon: 1m -7.5%, 3m -8.1%, 6m -21.7%, 12m -19.2% (Researcher). Model 1 alpha is -7.0% a year, t-stat -0.57, rank 22 of 24, so the stock sits far outside the phase 8 baseline's top-5 set (Supply-chain model facts). The Day -1 volume of 1.85x has no explanation, and with no news an unseen negative catalyst is possible (News Analyst). The support idea's reward-to-risk is below 1 after costs.
+   - For buying, and why it does not outweigh the case against: the stock beat the ETF by +1.8/+7.7/+10.3/+1.4 points (1m/3m/6m/12m), but it still fell in absolute terms, and the score is against holding the stock, not the ETF. The Model 4 neon-war shock 139 days before lists this stock as an "expected winner", yet the 6m return is -21.7%, so any benefit has not shown up in the price. Short-term volatility (24.1%) is below the 120-day level (28.6%), which suggests an orderly decline rather than capitulation. Beta to the chip ETF is about symmetric (0.51 up, 0.52 down), so the stock gains no extra upside if the sector rebounds.
+   - On balance, sitting out a possible rise is a real cost. Even so, nothing in the supplied material gives an entry that is valid at the Day 0 close. This is not an "uptrend with nothing against it" case.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into a plan for the Day 0 close. I tested a trend-continuation setup and a support-bounce setup, found that neither has its entry conditions true on Day 0, and returned NO TRADE with the conditions that would change that.
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200-day averages 104.44/104.94/114.17; returns 1m -7.5%, 3m -8.1%, 6m -21.7%, 12m -19.2%; ETF 1m -9.3%, 3m -15.8%, 6m -32.0%, 12m -20.6%; RSI 36.7; volatility 20d 24.1%, 120d 28.6%; swing highs 113.62/109.83/106.47; new 60-day closing low at 100.00; 252-day low 94.49; Day -1 volume 1.85x, Day 0 volume 0.78x. News Analyst: no headlines (by design), no phase 8 events in the prior 120 days. Model 1: alpha -7.0% a year, t-stat -0.57, rank 22 of 24; market beta 0.92; ETF beta 0.51 up and 0.52 down. Model 4: neon-war shock 139 days before, this stock an expected winner. Exposure: MISSING.
+ANALYSIS: The stock is in a downtrend with lower highs and a fresh low. RSI is not oversold and the low came on light volume, so there is no reversal evidence at Day 0. Relative strength against a weaker ETF and the "expected winner" label from an older shock have not turned into absolute gains. Alpha is weak (rank 22 of 24). The only plausible long idea, a support bounce, has reference reward-to-risk of 4.9 / 5.5 = 0.89, or 0.76 after costs. Decision: no setup, NO TRADE.
+MISSING INFORMATION: Day 1 fill price (by design); full 252-day series and dates; intraday highs and lows; ETF daily series; fundamentals; supply exposure rows; company and sector news. Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: NO TRADE loses against holding if the stock rebounds from 100.00 (relative strength and easing volatility make that possible). The analysis rests on summary indicators and 30 closes only, and the cause of the decline is unknown. Simulation for research and learning only, not investment advice, and no real trade is placed.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close: the trend is down, the price is at a new 60-day low on light volume, RSI is 36.7 (not oversold), alpha ranks 22 of 24, and the support-bounce idea has reward-to-risk below 1 after costs. Plan is NO TRADE with size, stop, target and hold all 0. The Risk Manager should check whether the relative strength against the ETF or the neon "expected winner" label justifies overriding this. A later close above about 104.4-104.9, or a confirmed hold of support, would be grounds to re-plan.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

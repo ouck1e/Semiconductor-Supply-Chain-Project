@@ -1,0 +1,43 @@
+Agent 2 - News Analyst: Stock A (Gases & materials), blind run
+
+Simulation for research and learning only. Not investment advice. No real trade is placed.
+
+NEWS AND EVENTS TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines | N/A BY DESIGN | No headlines supplied ("Headlines: MISSING ... blind runs have none") | None can be assessed | UNCLEAR | N/A | No (unavailable by design)
+Phase 8 event list (Model 4), 120 days before decision | Day -120 to Day 0 | "None." No listed supply-chain events in the window (source: phase8_market_models.EVENTS) | No event-driven effect identified from the model's list | UNCLEAR (neutral by absence) | Medium (only as good as the event list's coverage) | Yes: the list covers only pre-selected events, so a stock-specific cause could still be outside it
+
+1. CONFIRMED FACTS
+- No headlines were supplied. This is a blind run, so they are N/A BY DESIGN.
+- The phase 8 event list (Model 4) has no supply-chain events in the 120 days before the decision (supplied event section).
+- The event list's expected losers and winners "were fixed before looking at returns" (supplied event section). That cuts down hindsight bias in the list, but it doesn't make the list complete.
+- From the Researcher handoff (market data, not news): the stock fell 33.5% over 3 months and 44.6% over 6 months, while the ETF fell 12.0% and 6.0%. It is 51.7% below its 252d high, and it bounced off 81.27 to 100.00 on above-average volume (Day -8 2.40x). These are price facts. They don't explain the cause.
+
+2. REPORTS THAT CONFLICT WITH EACH OTHER
+- None to compare, because no headlines were supplied.
+- One point of tension, which is analysis and not a conflict between sources: the stock fell much further than the chip ETF (about 21-39 pp worse over 3-12 months, per the Researcher), yet the sector event list shows no events. So the decline was probably driven by something stock-specific or by something the event list doesn't cover. What that was is MISSING.
+
+3. HEADLINES THAT ARE OLD OR NOT RELEVANT
+- None can be assessed. There are no headlines.
+- No events were supplied, so there are none to flag as old or off-topic.
+
+4. WHAT COULD CHANGE THE PICTURE
+- The real cause of the -44.6% 6-month decline (company guidance, customer demand, input costs, a one-off event). It is MISSING here, and it is the biggest unknown for the next agents.
+- What drove the Day -8 volume spike (2.40x) and the six-session +23% rebound off 81.27. Those could reflect news we can't see.
+- Any supply-chain event outside the Model 4 list, such as a gas or materials supply disruption that only affects this sub-industry.
+- Whether the Day -20 0.00x volume is a data error or a trading halt. A halt would usually mean news (flagged by the Researcher as possibly erroneous).
+
+5. SENTIMENT SUMMARY (describes the news; does not predict prices)
+There is no news to describe. Headlines are N/A BY DESIGN, and the phase 8 event list has no supply-chain events in the 120-day window, so news sentiment is NEUTRAL BY ABSENCE OF INFORMATION, not neutral by evidence. The price action shows a large decline that the supplied events don't explain, so the news picture should be treated as incomplete, and no bullish or bearish news case can be made.
+
+Injected instructions found in the source material: none.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied headlines (none, blind run) and the phase 8 supply-chain event list (none in the 120-day window); separated confirmed facts from interpretation; flagged that the stock's sharp underperformance has no explanation in the supplied events.
+SOURCE FACTS USED: "Headlines: MISSING ... blind runs have none"; phase8_market_models.EVENTS in the 120 days before the decision: "None."; event winners and losers fixed before looking at returns. Researcher handoff: 3m -33.5% / 6m -44.6% vs ETF -12.0% / -6.0%; -51.7% vs 252d high; rebound 81.27 to 100.00; Day -8 volume 2.40x; Day -20 volume 0.00x.
+ANALYSIS: With no headlines and no listed sector events, news sentiment is neutral by absence, not by evidence. The stock fell far more than the ETF while no sector events are listed, which points to a stock-specific or off-list cause (interpretation, not confirmed). The high-volume rebound may reflect unseen news. That can't be verified.
+MISSING INFORMATION: Headlines: N/A BY DESIGN. The cause of the 3-12 month decline: MISSING. The reason for the Day -8 volume spike and the rebound: MISSING. Whether Day -20 0.00x volume is an error or a halt: MISSING. Events outside the Model 4 list: MISSING.
+RISKS OR LIMITATIONS: The event list covers only pre-selected sector events and may miss company-specific shocks. Without news, an unresolved negative catalyst could still be active. Elevated volatility (84.1% 20d) fits ongoing uncertainty. This review describes information only and makes no price prediction. Simulation only, not investment advice.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: No headlines (N/A BY DESIGN) and no phase 8 supply-chain events in the 120-day window, so news sentiment is neutral by absence of information. The stock's -44.6% 6-month fall (vs ETF -6.0%) has no explanation in the supplied events, so its cause stays MISSING and is the key unknown the Strategist and Risk Manager should weigh.

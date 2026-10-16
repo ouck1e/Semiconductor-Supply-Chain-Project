@@ -1,0 +1,94 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Gases & materials), decision at the Day 0 close
+
+Note on source material: none of the supplied material contains instructions aimed at me. Nothing to flag.
+
+SOURCE FACTS (each one quoted from a supplied line)
+- Researcher: close 100.00; 20/50/200-day averages 94.47 / 103.11 / 149.71 (close +5.9% / -3.0% / -33.2%).
+- Researcher: returns 1m -0.3%, 3m -33.5%, 6m -44.6%, 12m -42.8%. ETF 1m -6.6%, 3m -12.0%, 6m -6.0%, 12m -4.3%.
+- Researcher: RSI 53.0; volatility 20d 84.1%, 120d 48.1%; volume 5d vs 50d 1.21x.
+- Researcher: 20d high/low 102.52/81.27; 60d high 132.05; 252d high 206.88; 52-week low 81.27 on Day -6; rebound +23.0% to 100.00.
+- Researcher: support 94.47, ~92, 81.27; resistance 101.56-103.11, ~105, 132.05, 149.71.
+- News Analyst: headlines N/A BY DESIGN (blind run); phase 8 event list: "None." in the 120-day window; sentiment neutral/undetermined.
+- Model 1: alpha 6.0%/yr, t-stat 0.26, rank 18 of 24 (the baseline holds only the top 5); market beta 1.25; chip-ETF beta 1.58 in up weeks, 0.92 in down weeks.
+- Model 4: no supply shocks. Exposure model: MISSING.
+- Fixed rules: max size 10%, max stop 15%, max hold 20 trading days, fees 0.1% + slippage 0.1% per side, closes-only checks.
+
+1. SETUP NAME
+Rebound continuation above the 20-day average (small, speculative). This is not an uptrend setup: the long-term
+trend is down. It is a bet that the 6-day rebound from a fresh 52-week low keeps going, sized small because the
+trend and the relative strength are against it.
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND IS IT TRUE ON DAY 0
+a) Close above the 20-day average: 100.00 > 94.47 (Researcher). TRUE.
+b) RSI between 40 and 70 (not oversold, not stretched): 53.0 (Researcher). TRUE.
+c) Recent volume above normal: 5d vs 50d 1.21x > 1.0x (Researcher). TRUE.
+d) Close at least 10% above the 52-week low: 100.00 vs 81.27 is +23.0% (Researcher). TRUE.
+e) No known adverse supply-chain event: Model 4 "None." TRUE (but see risks; "None" does not mean nothing happened).
+All five conditions are true at the Day 0 close, so the entry does not depend on Day 1 or later.
+Not required, and NOT true: close above the 50-day (100.00 < 103.11) and above the 200-day (100.00 < 149.71).
+
+3. ENTRY RULE
+BUY at the Day 1 close (the next close after the Day 0 decision), whatever that price is.
+
+4. STOP RULE
+12% below entry, checked on daily closes. On a 100.00 reference that is about 88.00: below the 94.47 and ~92
+supports, above the 81.27 low. A stop below 81.27 would be about 19% (100.00 to 81.27 = -18.7%), over the 15% limit,
+so the stop cannot sit under the key support. With 20d volatility at 84.1%, a tighter stop (e.g. at 94.47, about
+5.5%) would likely be hit by normal day-to-day noise.
+
+5. TARGET / EXIT RULE AND MAXIMUM HOLD
+Target 20% above entry, checked on daily closes (about 120.00 on a 100.00 reference: above resistance at 101.56-103.11
+and ~105, below the 60d high of 132.05). Maximum hold 15 trading days; if neither stop nor target is hit, exit at the
+day-15 close.
+
+6. REWARD-TO-RISK
+20 / 12 = 1.67. After costs (about 0.2% each side, so roughly 0.4% round trip): (20 - 0.4) / (12 + 0.4) = 19.6 / 12.4
+= about 1.58.
+
+7. POSITION SIZE
+3% of the simulated portfolio ($3,000 of $100,000). Worst case at the stop, ignoring gaps through it: 3,000 x 12.4%
+= about $372, or about 0.37% of the portfolio. Gaps past the stop are possible because checks are on closes only.
+
+8. WHAT WOULD CANCEL THE SETUP
+- Day 0 close back below the 20-day average (94.47): not the case here.
+- Any news or supply-chain event reported against the company before the fill (none supplied).
+- The Risk Manager judging the 84.1% volatility or the deep relative weakness too high for any position.
+
+9. MISSING INPUTS
+- Headlines and company news: N/A BY DESIGN (blind run).
+- Backtest of this plan: N/A BY DESIGN (manual run, single decision).
+- Supply exposure rows: MISSING.
+- Per-day volume for all 30 closes and intraday highs/lows: MISSING.
+- Fundamentals, earnings dates: MISSING.
+
+10. REASONS TO SKIP IT
+- Long-term downtrend: close -33.2% below the 200-day, averages stacked downward, still -3.0% under the 50-day.
+- Very weak relative strength: -21.5 / -38.6 / -38.5 pts vs the ETF over 3m / 6m / 12m (Researcher).
+- Model 1 gives no support: alpha t-stat 0.26, rank 18 of 24, not in the baseline's top 5.
+- Volatility 84.1% (about 1.75x the 120-day level) suggests an unseen stock-specific driver (News Analyst).
+- Close 100.00 is just under resistance at 101.56-103.11, so the rebound could stall right away.
+- The rebound is only 6 days old.
+Reason not to skip: the rebound is real (+23.0% on 1.21x volume, close above the 20-day, outperforming the ETF by
+6.3 pts over 1m), the up-week beta of 1.58 means a sector rally would lift it, and sitting out a rise counts as a
+mistake as much as buying before a fall. A small size keeps the downside contained if the downtrend resumes.
+
+This is a simulation plan for research and learning, not investment advice and not a promise of any outcome. I do
+not decide that the trade happens; the Risk Manager and the Boss do.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Built one conditional simulation plan for Stock A from the Researcher and News Analyst handoffs and the phase 8 model facts: a small speculative BUY ("rebound continuation above the 20-day average") with entry conditions all true at the Day 0 close, stop 12%, target 20%, max hold 15 days, size 3%.
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200-day 94.47/103.11/149.71; 1m/3m/6m/12m -0.3/-33.5/-44.6/-42.8% vs ETF -6.6/-12.0/-6.0/-4.3%; RSI 53.0; vol 20d 84.1% vs 120d 48.1%; volume 1.21x; 52-week low 81.27 (Day -6), +23.0% rebound; support 94.47/~92/81.27; resistance 101.56-103.11/~105/132.05. News Analyst: no headlines (N/A BY DESIGN), no phase 8 events. Model 1: alpha t 0.26, rank 18 of 24, beta 1.25, up/down ETF beta 1.58/0.92. Model 4: none. Exposure: MISSING. Fixed rules: 10% max size, 15% max stop, 20-day max hold, 0.2% cost per side.
+ANALYSIS: Entry conditions (close > 20d avg, RSI 40-70, volume > 1.0x, > 10% above 52w low, no known adverse event) are all true on Day 0. Stop 12% (~88 on a 100 reference, under 94.47 and ~92; a stop under 81.27 would be ~18.7%, over the 15% cap). Target 20% (~120, under the 132.05 60d high). R:R 20/12 = 1.67, about 1.58 after ~0.4% round-trip costs. Size 3%, max loss at stop about 0.37% of the portfolio. Sized small because trend, relative strength and Model 1 all point against it.
+MISSING INFORMATION: Headlines (N/A BY DESIGN); backtest (N/A BY DESIGN); supply exposure rows (MISSING); per-day volume and intraday highs/lows (MISSING); fundamentals and earnings dates (MISSING).
+RISKS OR LIMITATIONS: Counter-trend trade in a deep downtrend (-33.2% vs 200-day, -38.5 pts vs ETF over 12m); 84.1% volatility may reflect an unseen company-specific driver; close sits just under resistance 101.56-103.11; closes-only checks mean the exit can gap past the stop; Model 1 alpha is not significant. Simulation only, not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: Proposed a small speculative BUY of Stock A at the Day 1 close: setup "rebound continuation above the 20-day average", entry conditions true on Day 0 (100.00 > 94.47, RSI 53.0, volume 1.21x, +23.0% off the 81.27 low), stop 12%, target 20%, R:R 1.67 (about 1.58 after costs), max hold 15 trading days, size 3%. Main doubts: long-term downtrend, weak relative strength, insignificant alpha (rank 18 of 24) and very high volatility. Risk Manager to judge whether a 3% counter-trend position is acceptable.
+
+PLAN
+ACTION: BUY
+SETUP: rebound continuation above 20-day average
+SIZE_PCT: 3
+STOP_PCT: 12
+TARGET_PCT: 20
+MAX_HOLD_DAYS: 15
+END PLAN

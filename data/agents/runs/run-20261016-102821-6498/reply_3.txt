@@ -1,0 +1,86 @@
+Agent 3 Strategist: conditional simulation plan for Stock A (decision at the Day 0 close)
+
+Note on the material: nothing in the supplied handoffs or model facts tries to give me instructions. Nothing to flag.
+
+1. Setup name
+No setup. I looked at one candidate, a "range-support bounce", and rejected it. The details are below so the Risk Manager can check my reasoning.
+
+2. What must be true for entry, and whether it is true on Day 0
+Candidate: range-support bounce. Conditions and their Day 0 status:
+- Price at the bottom of an established range. TRUE. Source: Researcher, close 100.00 = 20d low 100.00, 50d avg 99.96, 200d avg 99.33 ("99.3-100.0 support cluster").
+- Support holds, meaning no heavy-volume selling into it. NOT TRUE / UNCLEAR. Source: Researcher, "Day 0 down close on 2.15x volume". A heavy-volume down close right at support is the textbook warning that support may break. It is not a confirmation that it held.
+- A catalyst or news to explain the move. MISSING. Source: News Analyst, "Cause of the Day 0 volume spike: MISSING"; sentiment UNCLEAR / no signal. Headlines are N/A BY DESIGN, so that alone is not a reason to reject. But the volume spike is unexplained, and that is a reason.
+- Factor/model support. WEAK. Source: Model 1, alpha t-stat 0.37, rank 8 of 26. That is outside the top 5 the phase 8 baseline holds, and a t-stat of 0.37 is statistically indistinguishable from zero.
+- Relative strength. AGAINST. Source: Researcher, the stock lags the chip ETF by 7-12 points over 1-3 months (ETF 1m +6.6% / 3m +12.0% vs stock 1m -0.6% / 3m -0.1%).
+Under the fixed rules, the entry must be fully decided at the Day 0 close. I cannot wait for a Day 1 "support held" confirmation, so the one condition that would make this a setup can't be checked in time.
+
+3. Entry rule (candidate, not proposed)
+Buy at the Day 1 close if the setup were valid. NOT PROPOSED.
+
+4. Stop rule (candidate)
+About 5% below entry (≈95 if entry ≈100). That sits below the Day -25 low of 97.52 and the 200d average of 99.33 (Researcher). It allows for 20d volatility of 14.8% a year. My calculation: 14.8% / √252 ≈ 0.93% a day. Over a ~5-day swing that is about 0.93 × √5 ≈ 2.1%, so a 5% stop is not a noise-level stop.
+
+5. Target / exit (candidate)
+Range top at the 20d/60d high of 104.32 (Researcher). My calculation: 104.32 / 100.00 − 1 = +4.32% from the Day 0 close. The Day 1 entry price is unknown, so the true distance is MISSING. Max hold would be 20 trading days.
+
+6. Reward-to-risk (candidate)
+4.32 ÷ 5 = 0.86 before costs.
+Costs: 0.1% fee + 0.1% slippage on each side = 0.4% round trip. Net reward ≈ 4.32 − 0.4 = 3.92 and net risk ≈ 5 + 0.4 = 5.4, so 3.92 ÷ 5.4 ≈ 0.73.
+Below 1:1. A tighter stop that would lift the ratio (for example 2.5%) would sit inside the ~2% normal multi-day noise calculated above.
+
+7. Position size
+0% (no trade). If a reviewer overrode me, I would not go above 3% of the $100,000 portfolio, because the signal is weak and the cause of the volume spike is unknown.
+
+8. What would cancel the setup
+Already cancelled at Day 0: the unexplained 2.15x-volume down close at support, a reward-to-risk below 1, and no model edge (t-stat 0.37, not in the top 5). Things that could revive a setup in a later decision: a close back above the 20d average of 102.18 on normal volume, or a supplied explanation for the volume spike that turns out benign. Neither is available at Day 0.
+
+9. Missing inputs
+- Cause of the Day 0 volume spike: MISSING.
+- Intraday highs and lows: MISSING.
+- Absolute volume: MISSING.
+- ETF daily series: MISSING.
+- Fundamentals and earnings dates: MISSING. An earnings event could explain the spike.
+- Supply exposure rows: MISSING (exposure_model).
+- Day 1 entry price: unknown by construction.
+- Headlines: N/A BY DESIGN.
+- Backtest: N/A BY DESIGN.
+
+10. Reasons to skip
+- A heavy-volume close at support is ambiguous and can come before a breakdown.
+- Reward-to-risk is about 0.86 gross and 0.73 after costs.
+- Model 1 alpha is not significant (t 0.37), and the stock ranks 8th, outside the baseline's top 5.
+- Short-term relative weakness against the chip ETF.
+- No news signal. Model 4's last relevant shock (neon, expected winner) was 1212 days ago and is not relevant to a Day 0 decision.
+
+AGENT: Agent 3 Strategist
+TASK COMPLETED: Tested a range-support bounce candidate against the Researcher's and News Analyst's handoffs and the supply-chain model facts. Concluded No setup at the Day 0 close.
+SOURCE FACTS USED:
+- Researcher: close 100.00; 20d avg 102.18; 50d avg 99.96; 200d avg 99.33; 20d/60d high 104.32; Day -25 low 97.52; Day 0 volume 2.15x down close; 20d vol 14.8%; RSI 43.1; stock 1m -0.6% / 3m -0.1% vs ETF 1m +6.6% / 3m +12.0%.
+- News Analyst: sentiment UNCLEAR / no signal; spike cause MISSING; Model 4 list empty for the 120 days before Day 0.
+- Model 1: alpha 3.1% a year, t 0.37, rank 8 of 26; baseline holds the top 5; market beta 0.91.
+- Model 4: neon shock 1212 days before (expected winner); the other shocks did not include this stock.
+- Fixed rules: max size 10%, max stop 15%, max hold 20 days, costs 0.1% + 0.1% per side.
+ANALYSIS: My calculations:
+- Target to the range top: 104.32/100 − 1 = +4.32%.
+- Stop 5%, so R:R = 4.32/5 = 0.86 gross and ≈0.73 after the 0.4% round-trip cost.
+- Daily vol ≈ 14.8%/√252 ≈ 0.93%; 5-day noise ≈ 2.1%, so tighter stops are not credible.
+- The heavy-volume down close at support fails the "support holds" condition. The entry cannot wait for Day 1 confirmation.
+- The model edge is not significant (t 0.37).
+Conclusion: NO TRADE.
+MISSING INFORMATION: Cause of the Day 0 volume spike; intraday highs/lows; absolute volume; ETF daily series; fundamentals/earnings dates; exposure rows; the Day 1 fill price. Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS:
+- Skipping may miss a bounce if the spike was capitulation rather than distribution. I cannot tell which from the supplied data.
+- Support and resistance come from closes only.
+- Model 1 rests on 156 weeks, with factor data lagged.
+- Simulation only, not investment advice. No real order is placed.
+NEXT AGENT: Agent 5 Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close. A range-support bounce was considered and rejected for four reasons: the Day 0 close at the 99.3-100.0 support came on unexplained 2.15x volume; reward-to-risk to the 104.32 range top is about 0.86 gross and 0.73 after costs; Model 1 alpha is not significant (t 0.37, rank 8, outside the baseline's top 5); and the stock lags the chip ETF short term. The plan is NO TRADE with size, stop, target and hold all 0.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

@@ -1,0 +1,89 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (decision at the Day 0 close)
+
+Simulation for research and learning only. Not investment advice, no promise of profit, no real trade is placed.
+
+SOURCE FACTS (from the handoffs and model facts, quoted by source)
+- Researcher: Close 100.00; 20/50/200-day averages 92.52/94.84/97.85 (close +8.1%/+5.4%/+2.2%).
+- Researcher: averages "still in bearish order" (20 < 50 < 200); 12m return -38.5%; close -40.2% vs 252-day high 167.19.
+- Researcher: 3m +35.7% vs ETF +24.6% (+11.1 pts); 1m +0.1% vs ETF +1.8%.
+- Researcher: RSI 62.9; volatility 20d 39.0% / 120d 39.2%; 5-day volume 1.08x.
+- Researcher: rebound about +14.0% off the Day -7 low (87.69), +13.0% in four sessions (Day -4 88.51 to Day 0 100.00).
+- Researcher: support 97.85, 94.84, 92.52, 87.69-88.51; resistance 101.00, then 103.01-104.17. Heaviest volume on the Day -18/-17 selloff (1.91x/1.76x).
+- News Analyst: headlines N/A BY DESIGN; Model 4 list has no events in the 120-day window; earnings dates MISSING.
+- Model 1: alpha 15.6%/yr, t-stat 0.74 (152 weeks), rank 8 of 25; market beta 0.72; sector-ETF beta up weeks 0.68, down weeks 0.81. Baseline holds top 5 by t-stat (this stock, rank 8, would not be held).
+- Model 4: both listed shocks (1290 and 321 days before): this stock "not in either group".
+- Exposure model: rare gas from China 0.613, gallium from USA 0.603, rare gas from Singapore 0.185, gallium from China 0.162, gallium from Japan 0.078 (all 100% trade-data coverage).
+- Fixed rules: max position 10%, max stop 15%, max hold 20 trading days, fees 0.1% + slippage 0.1% each side, closes-only checks, BUY fills at the Day 1 close.
+
+1. SETUP NAME
+"Moving-average reclaim after a sharp rebound" (a short-term recovery long inside a longer-term downtrend). This is a weak, counter-trend setup; see section 10.
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE AT THE DAY 0 CLOSE
+a) Close above the 20-, 50- and 200-day averages: TRUE (100.00 vs 92.52/94.84/97.85, Researcher).
+b) RSI below 70 (not stretched): TRUE (62.9, Researcher).
+c) 5-day volume at or above its average (rebound has some participation): TRUE (1.08x, Researcher), though only modestly.
+d) 3-month return ahead of the sector ETF: TRUE (+35.7% vs +24.6%, Researcher).
+e) No known supply-chain shock hitting this stock in the window: TRUE as far as Model 4 covers (None in 120 days; not in either group of the two listed shocks).
+f) No earnings date inside the 20-day hold: UNKNOWN (MISSING). This is not knowable from the supplied material, so it is a flagged risk rather than a confirmed condition.
+All checkable conditions (a-e) are true at the Day 0 close.
+
+3. ENTRY RULE
+BUY at the Day 1 close (the fixed fill rule), decided at the Day 0 close because conditions a-e hold. The Day 1 price is unknown, so every level below is a percent of the actual fill price, not of 100.00.
+
+4. STOP RULE
+8% below entry, checked on daily closes. If entry were near 100.00 (illustration only, not a forecast), that is about 92.00, just under the 20-day average (92.52) and under the 94.84 and 97.85 supports, so a close there would mean the reclaim has failed. 8% is within the 15% maximum.
+
+5. TARGET / EXIT RULE AND MAXIMUM HOLD
+Target 14% above entry, checked on daily closes. Near a 100.00 entry this is about 114, which is past the supplied resistance at 101.00 and 103.01-104.17; no supplied levels exist between 104.17 and the 252-day high of 167.19. Maximum hold 20 trading days; if neither stop nor target is hit, exit at the Day-20 close.
+Analysis note: 20-day volatility of 39.0%/yr is roughly 39.0 x sqrt(20/252) = about 11% over 20 trading days, so a 14% move is larger than one typical 20-day standard deviation. Reaching the target is not the likely outcome on its own; it is a stretch target.
+
+6. REWARD-TO-RISK
+14 / 8 = 1.75.
+After costs (about 0.2% per side, 0.4% round trip): net reward about 14 - 0.4 = 13.6, net risk about 8 + 0.4 = 8.4, so about 13.6 / 8.4 = 1.62.
+
+7. POSITION SIZE
+5% of the simulated portfolio ($5,000 of $100,000), half the 10% maximum, because of high volatility (39%), a counter-trend setup and missing earnings dates.
+Loss if stopped: 5,000 x 8.4% = about $420, about 0.42% of the portfolio (before any gap past the stop; closes-only checking means a close can land below the stop level).
+
+8. WHAT WOULD CANCEL THE SETUP
+Because the BUY fills at the Day 1 close whatever happens, nothing after Day 0 can cancel the entry. Before the fill, the Risk Manager or Boss should cancel if:
+- an earnings date or other scheduled event is found inside the 20-day window;
+- any supplied input is shown to be wrong (for example the close is not above all three averages);
+- they judge the overhead resistance (101.00, 1% above the close; 103.01-104.17) too close for this target.
+After entry, the plan exits on the stop, the target, or the Day-20 close, nothing else.
+
+9. MISSING INPUTS
+- Earnings dates, fundamentals, company and policy news: MISSING.
+- Intraday OHLC, absolute volume, full 252-day closes, daily ETF series (beta/correlation to the sector): MISSING.
+- Day 1 fill price: unknown by construction.
+- Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. REASONS TO SKIP IT
+- Long-term trend is down: averages in bearish order, -38.5% over 12 months, 40.2% below the 252-day high.
+- Price sits 1% under resistance at 101.00, with more at 103.01-104.17, so the first few percent of upside run into supplied resistance.
+- After a +13.0% four-session jump, the Day 1 fill may be higher or lower than 100.00 and a pullback toward the averages is possible.
+- The heaviest volume was on the selloff (1.91x/1.76x), while the rebound volume is only 1.08x.
+- Model 1 alpha t-stat 0.74 is weak and the stock ranks 8 of 25, outside the baseline's top 5; the baseline itself trailed the sector ETF over development years.
+- Down-week sector beta (0.81) is higher than up-week beta (0.68): in the supplied data, the stock has followed the sector more on the way down.
+- Exposure: 0.613 of its rare-gas supply is traced to China and 0.162 of its gallium to China. No current shock is listed, but this is concentration risk outside what Model 4 tracks now.
+- 14% target is larger than one 20-day standard deviation (about 11%).
+
+No instructions were found inside the source material.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into one conditional long-only plan for Stock A at the Day 0 close: entry conditions, stop, target, hold, reward-to-risk, size, cancel conditions, missing inputs and reasons to skip.
+SOURCE FACTS USED: Researcher: close 100.00; averages 92.52/94.84/97.85; RSI 62.9; volatility 39.0%/39.2%; 5-day volume 1.08x; returns 3m +35.7% vs ETF +24.6%, 12m -38.5%; -40.2% vs 252-day high 167.19; support 97.85/94.84/92.52/87.69-88.51; resistance 101.00, 103.01-104.17; Day -18/-17 selloff on 1.91x/1.76x. News Analyst: headlines N/A BY DESIGN, no Model 4 events in 120 days, earnings dates MISSING. Model 1: alpha t-stat 0.74, rank 8 of 25, beta 0.72, up/down sector beta 0.68/0.81. Model 4: not in either shock group. Exposure: rare gas China 0.613, gallium USA 0.603, rare gas Singapore 0.185, gallium China 0.162, gallium Japan 0.078. Fixed rules: max size 10%, max stop 15%, max hold 20 days, costs 0.2% per side.
+ANALYSIS: Conditions a-e (above all averages, RSI under 70, volume 1.08x, 3m sector outperformance, no Model 4 shock) are true at the Day 0 close. Proposed BUY at the Day 1 close, stop 8% (about under the 20-day average if fill is near 100), target 14%, hold up to 20 days. Reward-to-risk 14/8 = 1.75 gross, about 13.6/8.4 = 1.62 after 0.4% round-trip costs. Size 5% ($5,000), loss if stopped about $420 (0.42% of portfolio) before gaps. Estimated 20-day volatility about 11% (39.0 x sqrt(20/252)), so the target is a stretch. This is a counter-trend setup with resistance 1% overhead.
+MISSING INFORMATION: Earnings dates, fundamentals, company/policy news, intraday OHLC, absolute volume, full 252-day closes, daily ETF series: MISSING. Day 1 fill price: unknown by construction. Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Long-term downtrend and bearish-ordered averages; resistance at 101.00 and 103.01-104.17; selloff volume heavier than rebound volume; weak alpha t-stat (0.74) and rank outside the baseline top 5; higher down-week sector beta; China concentration in rare gas (0.613) and gallium (0.162); closes-only stop can be gapped through; an unknown earnings date could fall inside the hold. Simulation only; not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 - Coder skipped in manual runs)
+HANDOFF SUMMARY: Conditional BUY proposal for Stock A, "moving-average reclaim after a sharp rebound": all checkable entry conditions are true at the Day 0 close, fill at the Day 1 close, stop 8%, target 14%, max hold 20 trading days, reward-to-risk 1.75 (about 1.62 after costs), size 5% (about $420 at risk). It is a weak counter-trend setup just under resistance with a missing earnings calendar; the Risk Manager should weigh the reasons to skip in section 10 and may reject it.
+
+PLAN
+ACTION: BUY
+SETUP: Moving-average reclaim after a sharp rebound
+SIZE_PCT: 5
+STOP_PCT: 8
+TARGET_PCT: 14
+MAX_HOLD_DAYS: 20
+END PLAN

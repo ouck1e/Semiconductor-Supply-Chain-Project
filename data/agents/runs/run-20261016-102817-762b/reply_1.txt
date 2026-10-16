@@ -1,0 +1,124 @@
+AGENT 1 - RESEARCHER REPORT
+Stock A (Gases & materials), simulated research exercise. Not investment advice. This is a description of the data only, not a trade call.
+
+Note on the material: I found no embedded instructions in the market data. Nothing to ignore.
+
+------------------------------------------------------------
+1. STOCK, SECTOR GROUP, TIMEFRAME
+------------------------------------------------------------
+Source facts:
+- Stock: Stock A, sector group "Gases & materials" (line "Stock: Stock A").
+- Daily closes rebased so Day 0 close = 100.00. At least 252 closes up to Day 0, nothing after (lines "Timeframe", "Source").
+- Indicators cover up to 252 days back. The close-by-close table covers Day -29 to Day 0.
+- Decision point: close of Day 0.
+I make no attempt to identify the stock or the calendar dates.
+
+------------------------------------------------------------
+2. STRUCTURE
+------------------------------------------------------------
+Source facts:
+- Close 100.00. 20-day avg 97.78 (+2.3%), 50-day avg 100.95 (-0.9%), 200-day avg 100.55 (-0.5%).
+- 252-day closing high / low: 106.61 / 93.13. 60-day: 106.46 / 93.13. 20-day: 102.48 / 93.13.
+- Close vs 252-day high: -6.2%.
+- Last 30 closes: 102.77 (Day -29) fell to 93.13 (Day -18), recovered to 102.48 (Day -1), closed at 100.00 on Day 0.
+
+My analysis:
+- Verdict: RANGE (sideways), with a short-term rebound inside it. No clear long-term trend.
+- Why range: the 50-day (100.95) and 200-day (100.55) averages sit within 0.4 points of each other and within 1% of the close. That points to a flat long-term picture, not a trend. The 12-month return is only +1.6%.
+- The close sits about in the middle of its 252-day closing range. My calculation: (100.00 - 93.13) / (106.61 - 93.13) = about 51% of the way from the low to the high.
+- Short term: the close is above the 20-day average but below the 50-day and 200-day averages. The 20-day average (97.78) is below the 50-day (100.95). So the rebound since Day -18 has not yet taken the price back above the longer averages on a closing basis.
+- The 20-day, 60-day and 252-day closing lows are all 93.13, the Day -18 close. So the lowest close of the past year came only 18 sessions before Day 0.
+- Day 0 was a down day: 102.48 to 100.00. My calculation: -2.4%. That came right after the 20-day closing high on Day -1.
+
+------------------------------------------------------------
+3. MOMENTUM
+------------------------------------------------------------
+Source facts (line "Returns"): 1m +2.9%, 3m -3.1%, 6m -3.4%, 12m +1.6%. RSI(14) 52.2.
+
+My analysis:
+- Mixed. Positive over 1 month, negative over 3 and 6 months, slightly positive over 12 months.
+- RSI 52.2 is neutral: neither overbought (above 70) nor oversold (below 30).
+- The positive 1-month return comes from the rebound off the Day -18 low. The 3- and 6-month numbers show that earlier weakness has not been fully recovered.
+
+------------------------------------------------------------
+4. VOLUME
+------------------------------------------------------------
+Source facts:
+- Last 5 days vs 50-day average: 1.14x.
+- Daily volume multiples (Day -29 to Day 0) are listed in the table.
+
+My analysis:
+- Volume over the last 5 days is modestly above normal (1.14x).
+- The heaviest volume in the window came during the drop to the low. Day -20 to Day -16 ran 1.70x, 1.50x, 2.13x, 1.43x and 2.48x. The 2.48x on Day -16 is the highest in the table.
+- The rebound from Day -14 to Day -9 also ran on above-average volume (1.46x to 1.89x).
+- The dip from Day -6 to Day -3 came on below-average volume (0.70x to 0.98x).
+- The rise on Day -2 and Day -1 came on 1.24x and 1.29x. The Day 0 decline (-2.4%) came on 1.48x, the highest since Day -9. So the most recent down day had heavier volume than the two up days before it.
+- Limitation: these are only multiples of the 50-day average. Absolute share volumes are MISSING.
+
+------------------------------------------------------------
+5. VOLATILITY
+------------------------------------------------------------
+Source facts: annualised 20-day 22.0%, 120-day 17.1%.
+
+My analysis:
+- Short-term volatility is above the longer-term level. My calculation: 22.0 / 17.1 = about 1.29x.
+- This fits the sharp drop and rebound over the last 30 sessions: about a 9.4% fall from Day -29 to Day -18 (102.77 to 93.13), then about a 10.0% rise to Day -1 (93.13 to 102.48). These are my calculations from the table.
+
+------------------------------------------------------------
+6. SUPPORT AND RESISTANCE (closing-price basis only)
+------------------------------------------------------------
+Support:
+- 97.78: the 20-day average.
+- About 98.0 to 98.5: closes clustered here on Day -27 (98.25), Day -25 (98.00), Day -22 (98.00), Day -5 (98.50) and Day -3 (98.32). The pullback from Day -6 to Day -3 held around 98.3 to 98.9.
+- 93.13: the 20/60/252-day closing low (Day -18). This is the strongest support in the data. Days -17 to -15 (94.74, 93.46, 94.41) closed near it but stayed above it.
+
+Resistance:
+- 100.55 / 100.95: the 200-day and 50-day averages, just above the close. Days -8 and -7 (100.68, 100.85) stalled in this zone.
+- 102.48: the 20-day closing high (Day -1). Day 0 turned down from it.
+- 106.46 / 106.61: the 60-day and 252-day closing highs.
+
+Limitation: no intraday high/low data is supplied, so these levels come from closes only.
+
+------------------------------------------------------------
+7. VERSUS THE CHIP-SECTOR ETF
+------------------------------------------------------------
+Source facts (lines "Returns" and "Chip-sector ETF returns"):
+- Stock A: 1m +2.9%, 3m -3.1%, 6m -3.4%, 12m +1.6%
+- ETF: 1m -4.2%, 3m -12.6%, 6m -13.5%, 12m -9.0%
+
+My analysis (differences in percentage points, stock minus ETF):
+- 1m +7.1, 3m +9.5, 6m +10.1, 12m +10.6.
+- Stock A did better than the chip-sector ETF over every supplied period. It stayed roughly flat while the ETF fell by double digits over 3, 6 and 12 months.
+- This outperformance is relative. It does not show that Stock A itself is in an uptrend.
+- The ETF's own price series, averages and volatility are MISSING, so I cannot judge where the ETF is in its own structure, or how closely the two move together.
+
+------------------------------------------------------------
+8. THREE STRONGEST FACTS / THREE BIGGEST UNCERTAINTIES
+------------------------------------------------------------
+Strongest facts:
+1. Stock A did better than the chip-sector ETF by about 7 to 11 percentage points in every period (from the supplied returns).
+2. The price rebounded about 10% from the 12-month closing low of 93.13 (Day -18) to 102.48 (Day -1). The rebound ran on above-average volume, and the drop below 93.13 did not happen again.
+3. The long-term picture is flat. The 50-day (100.95) and 200-day (100.55) averages are almost equal and within 1% of the close, the 12-month return is +1.6%, and RSI is 52.2.
+
+Biggest uncertainties:
+1. Day 0 turned down 2.4% from the 20-day high on 1.48x volume, and the close is below both the 50-day and 200-day averages. It is not clear whether the rebound is stalling at resistance.
+2. Volatility is high: 20-day 22.0% vs 120-day 17.1%. The 12-month low was set only 18 sessions ago, and the reason for the drop and rebound is not in the data. Headlines are N/A BY DESIGN in this blind run.
+3. Context is missing: the ETF's price structure, absolute volumes, intraday ranges and any fundamental or news drivers. The relative strength could reflect the sector's own drivers (gases and materials vs chip makers) rather than anything specific to the stock.
+
+------------------------------------------------------------
+9. DATA COMPLETENESS SCORE: 80 / 100
+------------------------------------------------------------
+This score measures how complete the data is, not how good a trade might be.
+- Present: close, three moving averages, returns over four periods, ETF returns over the same four periods, RSI, two volatility windows, volume ratios, closing highs and lows over three windows, and 30 daily closes with volume multiples.
+- Missing: intraday high/low/open, absolute volumes, the ETF price series, more than 30 daily rows, and fundamentals.
+- Headlines: N/A BY DESIGN (blind run). This does not lower the score.
+
+============================================================
+AGENT: Agent 1 - Researcher
+TASK COMPLETED: Described Stock A's (Gases & materials) structure, momentum, volume, volatility, support and resistance, and comparison with the chip-sector ETF, using the supplied daily data up to the Day 0 close. No trade recommendation is made.
+SOURCE FACTS USED: Close 100.00. 20/50/200-day averages 97.78 / 100.95 / 100.55. Returns 1m +2.9%, 3m -3.1%, 6m -3.4%, 12m +1.6%. ETF returns 1m -4.2%, 3m -12.6%, 6m -13.5%, 12m -9.0%. RSI 52.2. Volatility 20-day 22.0% vs 120-day 17.1%. 5-day volume 1.14x the 50-day average. 20/60/252-day closing highs 102.48 / 106.46 / 106.61 and lows all 93.13. Close is -6.2% vs the 252-day high. Last 30 closes: Day -18 low 93.13 on 2.13x volume, Day -16 2.48x, Day -1 102.48, Day 0 100.00 on 1.48x.
+ANALYSIS: Range-bound, with a short-term rebound. The 50-day and 200-day averages are flat and nearly equal, and the close is near the middle of the 12-month range (about 51%). The price rebounded about 10% from a fresh 12-month closing low 18 sessions ago, but it closed just below the 50-day and 200-day averages after a 2.4% drop on Day 0 on higher volume. Momentum is neutral (RSI 52.2) and mixed by period. Short-term volatility is high (about 1.29x the 120-day level). Stock A did better than the chip-sector ETF by about 7 to 11 points in every period. Support: 97.8 to 98.5, then 93.13. Resistance: 100.55 to 100.95, then 102.48, then about 106.5. Data completeness: 80/100.
+MISSING INFORMATION: Intraday high/low/open data (MISSING). Absolute volumes (MISSING). The ETF price series, averages and volatility (MISSING). Daily rows before Day -29 (MISSING). Fundamentals and the reason for the Day -20 to -16 selloff (MISSING). Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Support and resistance come from closes only. Outperforming the ETF does not mean the stock is rising. The data cannot say whether the Day 0 reversal near resistance continues. Higher short-term volatility means wider swings. Only 30 daily rows are shown in detail. This is a simulation for learning, not investment advice.
+NEXT AGENT: Agent 2 - News Analyst
+HANDOFF SUMMARY: Stock A is range-bound and flat over 12 months (+1.6%). It rebounded about 10% off a fresh 12-month closing low (93.13, Day -18), but on Day 0 it slipped 2.4% to 100.00 on 1.48x volume, just under its 50-day and 200-day averages (about 100.6 to 101.0). RSI is neutral at 52.2, short-term volatility is high (22.0% vs 17.1%), and it is clearly stronger than the chip-sector ETF (7 to 11 points better in every period). Key levels: support 97.8 to 98.5 and 93.13, resistance 100.6 to 101.0, 102.48 and about 106.5. Data completeness is 80/100. Headlines are N/A BY DESIGN for this blind run.

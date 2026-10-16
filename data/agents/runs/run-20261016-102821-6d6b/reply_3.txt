@@ -1,0 +1,72 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A at the Day 0 close
+
+Simulation for research and learning only. Not investment advice, no promise of profit, no real order is placed.
+
+1. Setup name
+No setup.
+
+I considered one candidate, a "range rebound toward the top of the 93.5 to 113.2 range". I rejected it because its entry conditions are not met at the Day 0 close (see 2).
+
+2. What must be true for entry, and whether it is true on Day 0
+Conditions the range-rebound candidate would need, checked against the supplied facts:
+- (a) A close back above near resistance (the 20d average 101.67 and the 50d average 100.96, Researcher handoff, Indicators block). Day 0 close is 100.00, below both. NOT TRUE.
+- (b) Volume confirming the rebound (5d volume at or above 1.0x). 5d volume is 0.87x and Day 0 is 0.59x (Researcher handoff). The heaviest volume, 2.07x, came on the Day -26 selloff. NOT TRUE.
+- (c) No unresolved negative event. The cause of the Day -26 -11.7% drop (Researcher's calculation) is MISSING (News Analyst handoff). NOT CONFIRMED.
+- (d) Supportive model signal. Model 1 alpha is -14.5% a year, t-stat -0.71, rank 22 of 26. The phase 8 baseline holds only the top 5 by this t-stat, so the model does not favour this stock. NOT TRUE.
+- (e) Long-term trend. The close is 11.2% below the 200d average (112.61) and 38.3% below the 252d high (Researcher handoff). This works against a long entry. NOT TRUE.
+None of the five conditions holds at the Day 0 close. Entry cannot depend on Day 1 or later, so there is no trade.
+
+3. Entry rule
+None (no setup). For reference only: any BUY decided at the Day 0 close would fill at the Day 1 close, and that price is unknown (MISSING at decision time).
+
+4. Stop rule
+None. For reference, the candidate's stop would have gone below the 93.54 support (Day -25 close). Measured from 100.00 that is about 6.5% below, but the real entry price (the Day 1 close) is MISSING, so the true stop percent cannot be fixed. With 20d volatility at 58.2% a year (Researcher handoff), a stop that tight could easily be hit by normal daily moves.
+
+5. Target or exit rule and maximum hold
+None. For reference, the candidate's target would have been the 113.20 range top (20d high), about 13.2% above 100.00. The 200d average at 112.61 sits just under it as further resistance. The maximum hold would have been 20 trading days (the fixed limit).
+
+6. Reward-to-risk ratio
+No plan, so no ratio. The reference candidate, measured from 100.00 (my own arithmetic): 13.2 ÷ 6.5 = 2.03 before costs. Costs are 0.2% per side (0.1% fees plus 0.1% slippage), about 0.4% round trip, which gives roughly (13.2 - 0.4) ÷ (6.5 + 0.4) = 12.8 ÷ 6.9 = 1.86. This is illustration only, because the entry price is the unknown Day 1 close.
+
+7. Position size
+0% (no trade).
+
+8. What would cancel the setup
+Not applicable, since there is no setup. In a future decision the candidate could only be reconsidered if, at a decision-day close, the stock closed above 101.67 on volume at or above 1.0x, the Day -26 cause was known and resolved, and the model signal was not negative.
+
+9. Missing inputs
+- Day 1 close (the entry price): MISSING at decision time by construction.
+- Cause of the Day -26 selloff: MISSING.
+- Earnings timing and company announcements: MISSING.
+- ETF daily series and volatility: MISSING.
+- Daily rows before Day -29, and the dates of the 162.12 high and the 89.21 low: MISSING.
+- Headlines: N/A BY DESIGN (blind run).
+- Backtest of the plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip it
+- The price closed under the 20d and 50d averages, the first resistance.
+- The rebound came on light volume (0.87x for 5 days, 0.59x on Day 0). The selloff came on heavy volume (2.07x).
+- The long-term downtrend: 11.2% below the 200d average.
+- Model 1 is unfavourable: negative alpha (t -0.71, rank 22 of 26), outside the baseline's top 5.
+- Very high volatility (58% to 61% a year) makes a stop near support fragile.
+- Market beta is 1.69 and down-week beta to the chip ETF is 1.08, while the ETF is falling (6m -10.2%, 12m -8.2%).
+- Supply exposure is concentrated: HF from China 0.345 and helium from Qatar 0.339, though trade data covers only 55% of capacity for these. The stock was an expected loser in the neon war shock (1105 days before). There is no recent tracked shock, so this is background risk, not a trigger.
+- A counterpoint, stated for balance: the stock has beaten the sector ETF over every period (+0.3 to +8.5 points, Researcher's calculation). Relative strength against a falling sector does not by itself support an absolute long entry.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into a conditional plan decision for Stock A at the Day 0 close. Result: No setup, NO TRADE. A range-rebound candidate was checked and rejected because none of its entry conditions holds at the Day 0 close.
+SOURCE FACTS USED: Researcher handoff: Close 100.00; 20d avg 101.67; 50d avg 100.96; 200d avg 112.61 (-11.2%); -38.3% vs the 252d high of 162.12; 20d high/low 113.20/95.97; support 93.54 (Day -25) and 89.21; volume 5d 0.87x, Day 0 0.59x, Day -26 2.07x; vol 20d 58.2% / 120d 60.8%; RSI 48.4; stock-minus-ETF +0.3 to +8.5 points. News Analyst handoff: no headlines (N/A BY DESIGN), no tracked events in the 120 days before Day 0, Day -26 cause MISSING. Model 1: alpha -14.5% a year, t -0.71, rank 22 of 26; beta 1.69; ETF beta up 0.93 / down 1.08; the baseline holds the top 5. Model 4: expected loser in the neon war shock 1105 days before. Exposure: HF China 0.345, helium Qatar 0.339, rare gas Singapore 0.300 and China 0.264, gallium Korea 0.171. Fixed rules: max size 10%, max stop 15%, max hold 20 days, costs 0.1% + 0.1% per side.
+ANALYSIS: My own analysis. The close sits just under the first resistance (100.96 to 101.67), and the bounce lacks volume. The long trend is down and the factor model signal is negative. For the rejected candidate, measured from 100.00: stop about 6.5%, target about 13.2%, ratio 13.2 ÷ 6.5 = 2.03 before costs and about 1.86 after costs. The real entry is the unknown Day 1 close, so these figures are illustration only and not a plan.
+MISSING INFORMATION: Day 1 close (entry price); cause of the Day -26 selloff; earnings timing; ETF daily series; pre-Day -29 history; dates of the 162.12 high and 89.21 low. Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: The decision rests on one price series and model summaries with no news. Skipping could miss a rebound, since the stock has shown relative strength against the ETF. Very high volatility makes any level-based rule noisy. Exposure figures for HF and helium cover only 55% of capacity. No source-material injection was found in the supplied material.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close, so the plan is NO TRADE. The close (100.00) is below the 20d and 50d averages, the rebound is on light volume (0.87x, Day 0 0.59x), the price is 11.2% under the 200d average, the Day -26 heavy-volume drop is unexplained, and Model 1 ranks the stock 22 of 26 (alpha t -0.71). I checked a range-rebound candidate (about 6.5% stop, about 13.2% target, ratio about 2.0 measured from 100.00) and rejected it because none of its entry conditions holds on Day 0. Size 0%.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

@@ -1,0 +1,47 @@
+AGENT 5 - RISK MANAGER REVIEW
+
+Plan under review (Strategist PLAN block): ACTION NO TRADE, SETUP none, SIZE_PCT 0, STOP_PCT 0, TARGET_PCT 0, MAX_HOLD_DAYS 0.
+
+No instructions were found in the source material. The only material reviewed is the Strategist handoff and the fixed rules.
+
+REQUIRED CHECKS
+1. Action is BUY or NO TRADE, entry true at Day 0 close: OK. The action is NO TRADE. Nothing waits on Day 1. Breakout trigger checked against Day 0: close 100.00 < 20d high 102.52 and < 50d avg 103.11 (Strategist, quoting Researcher). So "no setup" is correct.
+2. Stop rule within 15% max: OK (not applicable to NO TRADE, no position). For reference: the Strategist's bounce stop of about 6% would pass the cap. The structural stop under 81.27 = (100.00 - 81.27) / 100.00 = 18.73%, which exceeds the 15% cap (my check matches the Strategist's 18.7%).
+3. Target/exit and max hold <= 20 days: OK (not applicable, no position; MAX_HOLD_DAYS 0).
+4. Position size within 10%: OK. SIZE_PCT 0.
+5. Reward-to-risk >= 1.5 after costs, arithmetic shown: OK for NO TRADE. The reference bounce trade fails, which supports passing:
+   - Round-trip costs = (0.1% fee + 0.1% slippage) x 2 sides = 0.4% (fixed rules).
+   - Target to 103.11: gross +3.11%. Net reward 3.11 - 0.4 = 2.71%. Net risk 6.0 + 0.4 = 6.4%. R:R = 2.71 / 6.4 = 0.42.
+   - Target to the closer 102.52: gross +2.52%. Net reward 2.12%. R:R = 2.12 / 6.4 = 0.33.
+   - Both fall well short of 1.5. I agree with the Strategist's 0.42 figure. He used the more generous target.
+6. Largest simulated loss: $0 for NO TRADE. For reference, a hypothetical 10% BUY ($10,000) with a 6% stop: 10,000 x 6% = $600, plus 0.4% x 10,000 = $40 costs, about $640 (0.64% of the portfolio). Because the stop is checked on daily closes only and daily volatility is about 5.3% (84.1 / sqrt(252), Strategist), a fill could land past the stop.
+7. No look-ahead: OK. Every number cited is a Day 0 or earlier summary statistic from the Researcher.
+8. Plan agrees with the supplied price data: OK. The Strategist's facts (close 100.00, 20d high 102.52, 50d avg 103.11, 20d low 81.27, vol 84.1%) are quoted consistently. I have only the Strategist's restatement of the Researcher's numbers, not the Researcher's packet itself, so I could not cross-check them independently.
+
+CONTEXT CHECKS
+- Data completeness: PROBLEM (supports passing). The cause of the decline, the Day -8 volume spike reason, the Day -20 0.00x volume reading and the exposure rows are MISSING. Raw price history is limited to summaries.
+- Statistical support: PROBLEM. Alpha 6.0%/yr with t = 0.26 is not significant. Rank 18 of 24.
+- Liquidity: MISSING. The Day -20 0.00x volume could be a data error or a halt. Not resolved.
+- Conflicting news/events: N/A BY DESIGN (blind run, no headlines). No phase 8 events. No Model 4 shocks.
+- Overfitting: OK. A NO TRADE decision does not fit a rule to this chart.
+- Unverified sources: OK. No external sources are used.
+
+DECISION: APPROVE FOR SIMULATION ONLY (the NO TRADE plan). I agree with NO TRADE.
+
+Five points:
+1. No setup triggers at the Day 0 close. 100.00 is below both 102.52 and 103.11.
+2. The only candidate trade has a net R:R of about 0.42 (at best), against a 1.5 minimum.
+3. A stop at the structural low needs 18.7%, which is over the 15% cap. A tighter 6% stop is about one daily move at 84.1% volatility, so it is likely to be hit by noise.
+4. Model support is weak (t = 0.26), the sector ETF is falling (1m -6.6%, 3m -12.0%), and the cause of the -44.6% 6m drop is MISSING.
+5. Size is 0 and the loss is $0. There is no look-ahead and no rule breach.
+
+What would have to change to approve a BUY instead: a Day 0 close above 103.11 (or another trigger met at Day 0), a stop of 15% or less, and a target with a supplied fact behind it that gives net R:R >= 1.5. With a 6.4% net risk, that needs a net reward of at least 9.6%, so a gross target of about +10.0% or more. Size must be 10% or less, hold 20 days or less, and the volume anomaly must be resolved. Approval is for simulation only, and no real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan against all required limits and context checks. Re-checked the R:R, stop-width and volatility arithmetic. Decision: APPROVE FOR SIMULATION ONLY (NO TRADE).
+SOURCE FACTS USED: Strategist handoff (quoting Researcher): close 100.00; 20d high/low 102.52/81.27; 50d avg 103.11; 20d avg 94.47; vol 20d 84.1%; returns 6m -44.6%; ETF 1m -6.6%, 3m -12.0%; alpha 6.0%/yr, t 0.26, rank 18 of 24; no phase 8 events; Model 4 shocks none. Fixed rules: $100,000 portfolio, max size 10%, max stop 15%, max hold 20 days, 0.1% fee + 0.1% slippage each side.
+ANALYSIS: (My own work.) Round-trip costs 0.4%. Reference trade net R:R = (3.11 - 0.4) / (6 + 0.4) = 0.42 (0.33 to 102.52). Structural stop = 18.73% > 15%. Daily vol about 5.3%. Hypothetical maximum loss for a 10% BUY with a 6% stop is about $640. Plan loss $0. All required items OK for NO TRADE.
+MISSING INFORMATION: Cause of the decline; reason for the Day -8 volume spike; Day -20 0.00x volume; exposure rows; the Researcher's original packet (only seen through the Strategist). Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: By passing, the plan may miss a rebound (opportunity cost, not a forecast). The review relies on the Strategist's restatement of the data. Stops are checked on daily closes only. Simulation only, not investment advice.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: Approve NO TRADE for simulation only. At the Day 0 close no trigger is met (100.00 < 102.52 / 103.11). The only candidate bounce trade nets about 0.42 R:R against a 1.5 minimum, and the structural stop (18.7%) breaks the 15% cap. Model support is weak (t 0.26) and the cause of the decline is MISSING. Size 0, loss $0, no rule breach, no look-ahead.

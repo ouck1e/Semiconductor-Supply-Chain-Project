@@ -117,6 +117,14 @@ class ParseDecision(unittest.TestCase):
         self.assertTrue(any("size" in b for b in broken))
         self.assertEqual(score.check_rules(score.parse_decision(GOOD), CFG), ("BUY", []))
 
+    def test_revise_becomes_buy_only_with_an_applied_fix(self):
+        revise = GOOD.replace("RISK_DECISION: APPROVE FOR SIMULATION ONLY", "RISK_DECISION: REVISE")
+        self.assertEqual(score.check_rules(score.parse_decision(revise), CFG)[0], "NO TRADE")
+        none = revise.replace("END DECISION", "APPLIED_FIX: none\nEND DECISION")
+        self.assertEqual(score.check_rules(score.parse_decision(none), CFG)[0], "NO TRADE")
+        fixed = revise.replace("END DECISION", 'APPLIED_FIX: "cut the stop from 8 to 7"\nEND DECISION')
+        self.assertEqual(score.check_rules(score.parse_decision(fixed), CFG), ("BUY", []))
+
 
 PLAN = """Strategist analysis...
 

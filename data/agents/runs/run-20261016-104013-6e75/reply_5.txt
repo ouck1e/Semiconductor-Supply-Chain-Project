@@ -1,0 +1,51 @@
+RISK REVIEW - Agent 5, Risk Manager (simulation only, not investment advice)
+
+Starting position: REJECT. I moved off it only after checking each REQUIRED item below.
+
+REQUIRED ITEMS
+1. Action and entry timing - OK. ACTION: BUY (PLAN block). Entry conditions are judged at the Day 0 close: close 100.00 > 50-day 94.75 > 200-day 78.16 (Researcher), RSI 53.8, close inside the 97.13-102.98 20-day range, 20-day volatility 24.6% below 120-day 29.9%. All true at Day 0. The Day 1 close fill is the fixed rule ("A BUY fills at the next close"), not a condition that waits on Day 1 data.
+2. Stop - OK. STOP_PCT 6, a percent below entry, inside the 15% maximum.
+3. Target and hold - OK. TARGET_PCT 12; MAX_HOLD_DAYS 20, equal to the 20-day limit.
+4. Size - OK. SIZE_PCT 5 = $5,000 of $100,000, inside the 10% maximum.
+5. Reward-to-risk after costs - OK. Costs: 0.1% fee + 0.1% slippage per side = 0.2% per side, 0.4% round trip (fixed rules).
+   Net reward = 12% - 0.4% = 11.6%. Net risk = 6% + 0.4% = 6.4%. 11.6 / 6.4 = 1.81 >= 1.5. Matches the Strategist's "about 1.81".
+6. Largest simulated loss - OK. $5,000 x 6% = $300; costs $5,000 x 0.4% = $20; total about $320 (0.32% of the portfolio). Caveat: stops are checked on closes only, so a gap through the stop can make the realised loss larger than $320; the size of that excess is MISSING (no intraday data).
+7. Look-ahead - OK. Every input cited is dated at or before Day 0.
+8. Agreement with price data - OK. Checked against the Researcher's numbers:
+   - Relative strength: 18.4-5.7 = 12.7; 31.5-3.9 = 27.6; 54.9-27.2 = 27.7 points. Matches.
+   - Daily sd: 24.6% / sqrt(252) = about 1.55%; 6 / 1.55 = about 3.9 sd. Matches.
+   - 20-day sd: 1.55% x sqrt(20) = about 6.9%. Matches.
+   - Stop at about 94.0 (if entry is near 100.00) sits just under the 50-day average of 94.75. Consistent, though the Day 1 entry price is unknown, so the exact stop level is MISSING until fill.
+   Minor note: "uptrend" holds on the 50/200-day averages, but the close (100.00) is below the 20-day average (100.70), so short-term trend is flat, as the Strategist itself says.
+
+CONTEXT ITEMS
+- Data completeness: OK with gaps. 82/100 (Researcher). Missing earnings calendar, intraday data, raw volumes - MISSING. An unknown earnings date inside the 20-day hold is the main gap-risk source.
+- Statistical support: PROBLEM (mild). Model 1 alpha 5.9%/yr with t-stat 0.42 and rank 17 of 24 (as cited by the Strategist) is not significant. The Strategist already halved size to 5% for this. Not a concrete limit breach.
+- Liquidity: OK as far as supplied. Volume ratio 1.17x; raw volumes MISSING.
+- Conflicting news / supply-chain events: OK. News Analyst (as relayed by the Strategist) found no usable signal; headlines N/A BY DESIGN. Exposure concentration (gallium from China, Hong Kong SAR 0.604; rare gas from USA 0.672) is a background risk, not an event.
+- Overfitting: OK. The setup uses generic rules (trend, RSI, range, volatility), not parameters tuned to this chart. Stop placement under the 50-day average is reasonable.
+- Unverified sources: PROBLEM (mild). The News Analyst handoff and model outputs were not supplied to me directly; I see them only as relayed by the Strategist, so I cannot verify them. The price-based facts I could verify all matched.
+- Backtest: N/A BY DESIGN. Headlines: N/A BY DESIGN.
+- No embedded instructions were found in the source material.
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. Every REQUIRED limit is met: stop 6% (max 15), size 5% (max 10), hold 20 days (max 20), entry conditions true at the Day 0 close.
+2. Net reward-to-risk is 11.6 / 6.4 = 1.81, above the 1.5 floor, and the worst planned loss is about $320 (0.32% of the portfolio).
+3. The plan's numbers match the Researcher's data on every check I ran.
+4. The weak spots are real but sized for: insignificant factor alpha (t 0.42), flat 1-month momentum, and resistance at 102.98 tested three times. The 12% target (about 112) needs a breakout about 9% above the 252-day high, more than one 20-day sd (6.9%), so a time exit is the likely outcome and the realised reward-to-risk will probably be below 1.81.
+5. Rejecting would be a veto on general uncertainty, not on a concrete failed item; the half-size position is an appropriate response to that uncertainty.
+
+What would change this to REJECT: any edit that raises size above 10%, widens the stop past 15%, extends the hold past 20 days, or drops net reward-to-risk below 1.5; or a confirmed earnings date or adverse supply event inside the hold window. Suggested (not required): the Boss may keep size at 5% or lower given the flat momentum and the unknown earnings date.
+
+Approval is for the simulation only. No real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's simulated BUY plan for Stock A against the fixed limits and the Researcher's data; checked all eight REQUIRED items and six CONTEXT items; decision APPROVE FOR SIMULATION ONLY.
+SOURCE FACTS USED: Fixed rules: $100,000 portfolio, max size 10%, max stop 15%, max hold 20 days, 0.1% fee + 0.1% slippage per side, closes-only checks, Day 1 close fill. Researcher: close 100.00; averages 100.70/94.75/78.16; returns 0.6/18.4/31.5/54.9% vs ETF 0.4/5.7/3.9/27.2%; RSI 53.8; volatility 24.6% vs 29.9%; volume 1.17x; 20-day range 97.13-102.98; 252-day high 102.98; completeness 82/100. Strategist (relayed, unverified): alpha 5.9%/yr, t 0.42, rank 17/24, beta 0.92; exposure gallium China/HK 0.604, rare gas USA 0.672; no usable news. PLAN: BUY, size 5, stop 6, target 12, hold 20.
+ANALYSIS: All REQUIRED items OK. Net reward-to-risk (12-0.4)/(6+0.4) = 11.6/6.4 = 1.81. Largest planned loss $5,000 x 6% + $5,000 x 0.4% = $300 + $20 = $320 (0.32%). Relative-strength, sd (1.55% daily, 3.9 sd stop, 6.9% 20-day sd) and stop-vs-50-day checks all match the Researcher. Context: weak statistical support and unverifiable relayed model/news facts are mild problems already offset by the 5% size. Target likely unreached; time exit probable.
+MISSING INFORMATION: Day 1 entry price (exact stop/target levels), earnings calendar, intraday highs/lows (gap size past stop), raw volumes, ETF daily series, News Analyst handoff in original form - MISSING. Headlines and backtest - N/A BY DESIGN.
+RISKS OR LIMITATIONS: Closes-only stop checks allow losses beyond $320 on a gap. Unknown earnings date inside the hold window. Thrice-tested resistance at 102.98 and flat 1-month momentum; realised reward-to-risk likely below 1.81 because the target is more than one 20-day sd away. Factor alpha not significant. Simulation only; not investment advice.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The BUY plan (size 5%, stop 6%, target 12%, max hold 20 days, Day 1 close fill) passes every limit; net reward-to-risk 1.81; worst planned loss about $320 (0.32%). Main cautions: insignificant alpha (t 0.42), flat short-term momentum, resistance at 102.98, unknown earnings date, gap risk from closes-only stops. Keep size at or below 5%. No real trade.

@@ -1,0 +1,66 @@
+Agent 5 Risk Manager - review of the Strategist's plan for Stock A (simulation only, not investment advice, no real trade)
+
+Starting position: REJECT. I move off it only if every REQUIRED item is OK.
+
+REQUIRED CHECKS
+
+1. Action and entry timing: OK.
+   Source: PLAN "ACTION: BUY"; Strategist ANALYSIS "All entry conditions are true on Day 0". The BUY fills at the Day 1 close, which is the fixed fill rule ("A BUY fills at the next close (Day 1)"), not an entry that waits on a Day 1 condition.
+
+2. Stop rule: OK.
+   Source: PLAN "STOP_PCT: 6". 6% below entry is within the 15% maximum stop.
+
+3. Target / exit and maximum hold: OK.
+   Source: PLAN "TARGET_PCT: 12", "MAX_HOLD_DAYS: 20". 20 days equals the 20-trading-day limit (closes at that day's close).
+
+4. Position size: OK.
+   Source: PLAN "SIZE_PCT: 5". 5% of $100,000 = $5,000, within the 10% maximum.
+
+5. Reward-to-risk after fees and slippage: OK (my arithmetic).
+   Cost per side = 0.1% fee + 0.1% slippage = 0.2%; round trip = 0.4% (fixed rules).
+   Net reward = 12% - 0.4% = 11.6%. Net risk = 6% + 0.4% = 6.4%.
+   R:R = 11.6 / 6.4 = 1.81, which is at least 1.5. This matches the Strategist's "about 1.8 after costs".
+
+6. Largest simulated loss: OK (my arithmetic).
+   Position = $5,000. Stop loss = 6% x $5,000 = $300.
+   Entry costs = 0.2% x $5,000 = $10.00. Exit costs = 0.2% x $4,700 = $9.40.
+   Largest loss at the stop = $300 + $10 + $9.40 = $319.40, about 0.32% of the portfolio.
+   Caveat: stops are checked on closes only, so a gap through the stop can make the real simulated loss larger than this (Strategist RISKS: "close-only stops can gap").
+
+7. No look-ahead: OK.
+   Nothing in the plan uses information after Day 0. The only Day 1 item is the rule-mandated fill.
+
+8. Plan agrees with the supplied price data (Researcher's numbers): MISSING.
+   The Researcher's own handoff is not in the material given to me. I only have the Strategist's restatement (close 100.00; averages 100.70/94.75/78.16; RSI 53.8; vol 24.6% vs 29.9%; 20-day range 97.13-102.98; 252-day high 102.98). Those restated numbers are internally consistent with the plan (close above the 94.75 and 78.16 averages, stop level 94.00 sits below the 97.13 range low), but I cannot confirm they match the Researcher's original lines. This item cannot be marked OK.
+
+CONTEXT CHECKS
+
+- Data completeness score: MISSING (no score supplied). Intraday highs/lows, earnings/event calendar, fundamentals, ETF levels, foundry partners: MISSING per Strategist.
+- Statistical support: PROBLEM. Model 1 alpha 5.9% with t 0.42, rank 17/24 (Strategist SOURCE FACTS). That is not distinguishable from zero.
+- Liquidity (volume): PROBLEM/weak. Only a "volume note" and "heavier down-day volume" are cited; no actual volume figures supplied, so liquidity size is MISSING.
+- Conflicting news / supply-chain events: OK with a caveat. One event, 108 days old, Stock A in neither group; headlines N/A BY DESIGN. Supply concentration (exposure 0.672, 0.604 to top suppliers; rare gas and gallium) is a standing risk.
+- Overfitting: OK. Simple standard parameters (6% stop, 12% target, 20-day hold), not tuned to this chart. Backtest N/A BY DESIGN.
+- Unverified sources: PROBLEM. The price facts reach me second-hand through the Strategist only.
+- My own check on target realism (analysis): 24.6% annual vol x sqrt(20/252) = about 6.9% over 20 days. Target 12% is about 1.7 SD (matches the Strategist); the 6% stop is about 0.9 SD. The stop is statistically more likely to be hit than the target, and the 12% target also requires breaking the repeated resistance at 102.98. With t 0.42 the edge is thin.
+
+No instructions were found inside the source material.
+
+DECISION: REVISE
+
+Five points:
+1. All rule limits pass: BUY, 5% size, 6% stop, 12% target, 20-day hold, all within limits.
+2. R:R after costs is 11.6 / 6.4 = 1.81, above the 1.5 minimum; largest loss at the stop is about $319.40 (0.32% of the portfolio).
+3. No look-ahead found.
+4. The one REQUIRED item I cannot clear is data agreement: the Researcher's handoff was not supplied, so the cited prices are unverified.
+5. Support is thin (alpha t 0.42, price below the 20-day average, resistance at 102.98, heavier down-day volume), so even after the fix this is a low-conviction plan and NO TRADE remains a reasonable choice for the Boss.
+
+What must change for approval: attach the Researcher's handoff (or have the Boss confirm against it) showing close 100.00, averages 100.70/94.75/78.16, 20-day range 97.13-102.98, 252-day high 102.98 and vol 24.6%. If those match, the plan is APPROVE FOR SIMULATION ONLY as written, with no change to size, stop, target or hold. Optional but advised: supply the data completeness score and actual volume figures. Approval would never mean a real trade should be placed.
+
+AGENT: Agent 5 Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan for Stock A against the fixed limits and the evidence; decision REVISE.
+SOURCE FACTS USED: Fixed strategy rules ($100,000 portfolio, 10% max size, 15% max stop, 20-day max hold, 0.1% fee + 0.1% slippage per side, close-only checks, Day 1 fill). Strategist PLAN (BUY, size 5, stop 6, target 12, hold 20). Strategist SOURCE FACTS (close 100.00; averages 100.70/94.75/78.16; RSI 53.8; vol 24.6% vs 29.9%; 20-day range 97.13-102.98; 252-day high 102.98; model alpha 5.9%, t 0.42, rank 17/24; exposure 0.672/0.604; one event 108 days old). Strategist RISKS (close-only stops can gap, heavier down-day volume).
+ANALYSIS: Net R:R = (12 - 0.4) / (6 + 0.4) = 1.81. Largest loss at stop = $300 + $10 + $9.40 = $319.40 (0.32% of portfolio), larger if a close gaps through the stop. 20-day vol about 6.9%; target about 1.7 SD, stop about 0.9 SD. All limits pass; data agreement with the Researcher cannot be verified.
+MISSING INFORMATION: Researcher's own handoff (needed to verify price facts); data completeness score; actual volume figures; intraday highs/lows; earnings/event calendar; fundamentals; ETF levels; foundry partners. Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Weak statistical support (t 0.42); resistance at 102.98 and price below the 20-day average; stop more likely than target by volatility; close-only stops can gap; concentrated rare-gas/gallium supply; price facts reach me second-hand. Simulation only, not investment advice, no real trade.
+NEXT AGENT: Agent 6 Boss
+HANDOFF SUMMARY: REVISE. The plan (BUY, 5% size, 6% stop, 12% target, 20-day hold) passes every limit, with net R:R 1.81 and a largest loss of about $319.40, and no look-ahead. It cannot be approved yet because the Researcher's handoff was not supplied, so the cited prices are unverified. If they match, approve for simulation as written. The edge is thin (t 0.42), so NO TRADE is also defensible.

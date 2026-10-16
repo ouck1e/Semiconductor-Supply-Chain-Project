@@ -1,0 +1,83 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (decision at the Day 0 close, fill at the Day 1 close)
+
+Note on the source material: none of the supplied material contains instructions directed at me. Nothing to flag.
+
+SOURCE FACTS (all from the Researcher handoff unless noted)
+- Close Day 0: 100.00 at 0.50x volume; Day -1 close 100.77.
+- 20d/50d/200d averages: 97.04 / 91.90 / 69.97 (close +3.1% / +8.8% / +42.9%).
+- Returns 1m -3.0%, 3m +41.0%, 6m +64.6%, 12m +95.8%; ETF 1m -1.6%, 3m +9.9%, 6m +38.5%, 12m +59.4%.
+- RSI 58.0. Volatility 20d 45.7%, 120d 42.0% (annualised). 5-day volume 0.66x.
+- Pullback from 107.38 (Day -24) to 89.56 (Day -12), higher low 92.02 (Day -4), close 100.00 (Day 0).
+- 20d high/low 106.96/89.56; 60d and 252d high 107.38; close -6.9% vs 252d high.
+- News Analyst: headlines N/A BY DESIGN; no Model 4 events in the 120-day window; earnings dates MISSING.
+- Model 1 (supplied model facts): alpha -10.8%/yr, t-stat -0.64, rank 23 of 26; market beta 1.14; ETF beta up weeks 0.84, down weeks 0.97. Baseline holds top 5 by t-stat, so this stock is not a baseline holding.
+- Model 4 (supplied model facts): expected loser in the neon war shock 803 days before; not in either group for the other two shocks.
+- Exposure (supplied model facts): top suppliers helium/Qatar 0.391 and hf/China 0.352 (both 55% trade coverage), rare gas/China 0.264, rare gas/Singapore 0.223, gallium/USA 0.213 (100% coverage).
+
+1. SETUP NAME
+Trend pullback continuation (higher low inside a long-term uptrend).
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE ON DAY 0
+a) Long-term trend intact: 50d average above 200d average (91.90 > 69.97). TRUE.
+b) Close above the 20d and 50d averages (100.00 > 97.04 and > 91.90). TRUE.
+c) The pullback made a higher low: Day -4 low close 92.02 above the Day -12 low close 89.56. TRUE.
+d) RSI between 40 and 70, i.e. not overbought (58.0). TRUE.
+e) No supplied supply-chain event in the last 120 days (Model 4 list: none). TRUE.
+All five conditions are checked only on data up to the Day 0 close. Nothing depends on Day 1 or later.
+Conditions NOT met / against: close is still below the nearby 100.77 resistance (Day -1) and well below 107.38; the rebound came on light volume (0.50x on Day 0, 0.66x over 5 days); Model 1 alpha is negative (rank 23 of 26).
+
+3. ENTRY RULE
+If conditions a-e are true at the Day 0 close (they are), BUY at the Day 1 close, whatever that price is. Stop and target are measured from the actual Day 1 fill price.
+
+4. STOP RULE
+9% below entry, checked on daily closes. Reasoning (my analysis): from a 100.00 reference, -9% is about 91.0, just under the 92.02 higher low and the 91.90 50d average; a close there would break the higher-low structure. It is under the 15% maximum. Because stops are checked on closes only, a gap can produce a loss larger than 9%.
+
+5. TARGET / EXIT RULE AND MAX HOLD
+Target 14% above entry (about 114 from a 100.00 reference), checked on daily closes. This requires a break above the 107.38 high (+7.4% from 100.00), so it is a breakout target, not a return to the prior high. Maximum hold: 20 trading days; close at that day's close if neither stop nor target is hit. For scale (my arithmetic, not a forecast): 45.7% annual vol / sqrt(252/20) = 45.7 / 3.55 = about 12.9% one standard deviation over 20 days, so both the 9% stop and the 14% target sit within roughly one standard deviation.
+
+6. REWARD-TO-RISK
+14 / 9 = 1.56. After costs (0.1% fee + 0.1% slippage each side = about 0.4% round trip): net reward about 14 - 0.4 = 13.6, net risk about 9 + 0.4 = 9.4, so 13.6 / 9.4 = about 1.45.
+
+7. POSITION SIZE
+5% of the simulated portfolio ($5,000 of $100,000), half of the 10% maximum, because of high volatility (45.7%), beta 1.14, negative Model 1 alpha, light-volume rebound and missing earnings dates. Loss at the stop: 5% x 9.4% = about 0.47% of the portfolio (about $470) before any gap beyond the stop.
+
+8. WHAT WOULD CANCEL THE SETUP
+- Any of conditions a-e false at the Day 0 close (as supplied, all are true).
+- Before the fill: none can be applied, since the fill is at the Day 1 close regardless; the Risk Manager or Boss may veto at Day 0.
+- After entry: close at or below the stop (-9%); target hit (+14%); or day 20 reached.
+- An earnings date or new supply-chain event inside the holding window, if a reviewer has it (it is MISSING here), would be a reason for the Risk Manager to reject.
+
+9. MISSING INPUTS
+- Earnings dates and fundamentals: MISSING.
+- Intraday highs/lows/opens and absolute volume: MISSING (closes only).
+- Full 252-day history, ETF price levels/RSI/volatility: MISSING.
+- Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. REASONS TO SKIP IT
+- Model 1 alpha is negative (-10.8%/yr, t -0.64, rank 23 of 26); the phase 8 baseline would not hold it. The t-stat is weak, so this is a soft negative, not a confirmed one.
+- The rebound is on light volume (0.50x, 0.66x), weaker than the selloff.
+- Close is just under resistance at 100.77, and the target requires a new high above 107.38.
+- Volatility is high and rising slightly (45.7% vs 42.0%); daily close checks can mean gaps through the stop.
+- Unknown earnings date inside the 20-day window.
+- Supply concentration: Qatar helium and China HF/rare gas exposures are large, with only 55% trade coverage for the top two; the stock was an expected loser in a past rare-gas (neon) shock.
+- Net reward-to-risk of about 1.45 is modest.
+
+This is a simulation for research and learning, not investment advice. The plan is conditional; the Risk Manager and Boss decide whether it is taken.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Built one conditional long-only simulation plan (trend pullback continuation) for Stock A with entry conditions checked at the Day 0 close, a 9% stop, a 14% target, a 20-day max hold and 5% size; listed cancel conditions, missing inputs and reasons to skip.
+SOURCE FACTS USED: Researcher: close 100.00; averages 97.04/91.90/69.97; RSI 58.0; vol 45.7% (20d) / 42.0% (120d); 5-day volume 0.66x, Day 0 volume 0.50x; pullback 107.38 to 89.56, higher low 92.02, Day -1 100.77; returns vs ETF. News Analyst: headlines N/A BY DESIGN, no Model 4 events in 120 days, earnings MISSING. Model facts: alpha -10.8%/yr t -0.64 rank 23/26; beta 1.14; ETF up/down beta 0.84/0.97; expected loser in neon shock 803 days before; top supplier exposures helium/Qatar 0.391, hf/China 0.352, rare gas/China 0.264.
+ANALYSIS: All five entry conditions are true at the Day 0 close (50d > 200d, close above 20d and 50d, higher low 92.02 > 89.56, RSI 58 in 40-70, no recent Model 4 event). Stop at -9% sits just under the higher low and 50d average; target +14% requires a breakout above 107.38. Reward-to-risk 14/9 = 1.56 gross, about 13.6/9.4 = 1.45 after 0.4% round-trip costs. One 20-day standard deviation is about 45.7/3.55 = 12.9%. Size 5% gives about 0.47% portfolio loss at the stop.
+MISSING INFORMATION: Earnings dates and fundamentals (MISSING); intraday data and absolute volume (MISSING); full 252-day history and ETF levels/RSI/vol (MISSING). Headlines N/A BY DESIGN; backtest N/A BY DESIGN.
+RISKS OR LIMITATIONS: Negative (weak) Model 1 alpha; light-volume rebound; close under 100.77 resistance; high volatility and close-only stop checks allow gaps past the stop; unknown earnings inside the window; concentrated supplier exposure (Qatar helium, China HF and rare gas) and past expected-loser status in a rare-gas shock. Not a safe or high-probability plan. Simulation only; not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual run)
+HANDOFF SUMMARY: Conditional BUY at the Day 1 close on a trend pullback continuation in Stock A (all entry conditions true at Day 0), 5% size, 9% stop, 14% target, 20-day max hold, reward-to-risk 1.56 gross / about 1.45 net; main concerns are negative Model 1 alpha, light-volume rebound, high volatility and missing earnings dates.
+
+PLAN
+ACTION: BUY
+SETUP: Trend pullback continuation
+SIZE_PCT: 5
+STOP_PCT: 9
+TARGET_PCT: 14
+MAX_HOLD_DAYS: 20
+END PLAN

@@ -1,0 +1,13 @@
+{
+  "run_id": "run-20261016-175936-5b8f",
+  "ticker": "4063.T",
+  "name": "Shin-Etsu Chemical",
+  "decision_date": "2021-12-10",
+  "blind": true,
+  "split": "dev",
+  "prompts_version": "eeeb0ee8",
+  "seed": null,
+  "eval_set": "practice",
+  "runner": "Claude Code sub-agents (Opus 5.5)",
+  "created": "2026-10-16T17:59:36"
+}

@@ -1,0 +1,64 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Equipment), decision at the Day 0 close
+
+No instructions were found inside the source material. Nothing to ignore.
+
+1. Setup name
+No setup.
+
+2. What must be true for entry, and whether it is true on Day 0
+I checked the three long-only setups the material could support:
+- Trend-following long: needs the close above the 20d, 50d and 200d averages, and the 50d above the 200d. On Day 0 it is NOT true. Close 100.00 is below the 20d avg 103.30 (-3.2%), the 50d avg 101.97 (-1.9%) and the 200d avg 110.02 (-9.1%) (Researcher, SOURCE FACTS). The Researcher also reports 50d < 200d (Researcher, ANALYSIS).
+- Support bounce inside the range: needs the close at or near range support (~96) with a sign that buyers are stepping in. On Day 0 it is NOT true. Close 100.00 is in the middle of the 20d range 95.99-111.24 (Researcher, SOURCE FACTS), about 4% above the 20d low (my arithmetic: 100.00 / 95.99 - 1 = +4.2%). RSI is 48.4, neutral, not oversold. The Researcher notes that selling since the Day -4 high was heavier than buying (Researcher, ANALYSIS), which is not a buyer signal.
+- Breakout long: needs a close above resistance (~102-103 for the averages, or ~109-111). On Day 0 it is NOT true; the close of 100.00 is below both.
+Supporting context that doesn't help: the Model 1 alpha t-stat is -0.08, rank 24 of 24 (Supply-chain model facts), so the phase 8 baseline (top 5 by t-stat) would not hold it either. The stock lags the chip ETF by 13.0 pp over 3m and 11.9 pp over 6m (Researcher, ANALYSIS). News sentiment is UNCLEAR and neutral, with no event signal (News Analyst). The only Model 4 shock was 309 days ago, and this stock was in neither group.
+
+3. Entry rule
+None. No entry condition is met at the Day 0 close, and the entry cannot depend on Day 1 or later.
+
+4. Stop rule
+Not applicable (no trade). For reference: 20d volatility is 76.0% annualised (Researcher). My arithmetic: 76.0% / sqrt(252) is about 4.8% per day, so even a 15% stop (the maximum allowed) is about 3 daily standard deviations, and a stop below the 95.99 support (about -4% from 100.00) would sit inside one day of normal noise.
+
+5. Target or exit rule
+Not applicable (no trade). Maximum holding period: 0.
+
+6. Reward-to-risk ratio
+Not applicable. Target 0 / stop 0: no ratio, because there is no plan.
+
+7. Position size
+0% of the simulated portfolio.
+
+8. What would cancel the setup
+Nothing to cancel. For a future decision date, these would create a setup to look at: a close back above the 20d and 50d averages (~103) with the 50d turning up, or a close near ~96 support with selling volume drying up and RSI near oversold. Either would have to be true at that decision's close.
+
+9. Missing inputs
+- Intraday highs and lows, absolute volume, closes before Day -29: MISSING (Researcher).
+- Fundamentals, earnings dates, guidance, the cause of the fall to 77.77 and the rebound: MISSING (Researcher, News Analyst).
+- Supply exposure rows for this stock before the decision year: MISSING (Supply-chain model facts).
+- Whether the event list covers every kind of event: MISSING (News Analyst).
+- Headlines and real dates: N/A BY DESIGN (blind run). Plan backtest: N/A BY DESIGN (manual run).
+
+10. Reasons to skip it
+- Price structure is UNCLEAR: below all three averages, 50d < 200d, in the middle of a choppy range.
+- Momentum is mixed (1m +15.5% against 3m -22.2%), and RSI 48.4 is neutral.
+- It ranks last of 24 on alpha t-stat, and it lags the sector ETF over 3m and 6m.
+- Volatility of ~76% makes any stop allowed under the 15% limit either very likely to be hit by noise (tight) or a large loss (wide), with no supplied edge to pay for it.
+- The recent crash and rebound have no known cause.
+- There is no news or supply-shock catalyst.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Tested the trend, support-bounce and breakout long setups for Stock A (Equipment) against the Day 0 close. None of their entry conditions are met, so the plan is No setup / NO TRADE.
+SOURCE FACTS USED: From the Researcher: close 100.00; 20d/50d/200d averages 103.30/101.97/110.02; 50d < 200d; returns 1m +15.5%, 3m -22.2%; ETF lag of 13.0 pp (3m) and 11.9 pp (6m); RSI 48.4; 20d vol 76.0%; 20d high/low 111.24/95.99; support ~96, resistance ~102-103 and ~109-111; heavier selling after the Day -4 high. From the News Analyst: sentiment UNCLEAR and neutral, no events in 120 days. From Model 1: alpha -1.2%/yr, t-stat -0.08, rank 24 of 24, beta 1.45. From Model 4: the only shock was 309 days ago, and this stock was in neither group. Exposure: MISSING.
+ANALYSIS: My arithmetic: the close is +4.2% above the 20d low (100.00 / 95.99 - 1), mid-range rather than at support. Daily volatility is about 4.8% (76.0% / sqrt(252)), so a stop at 15% is about 3.1 daily standard deviations. No long setup's entry condition is true at the Day 0 close, and the factor rank and the sector lag both point against a long.
+MISSING INFORMATION: Intraday highs/lows, absolute volume, closes before Day -29, fundamentals and earnings dates, the cause of the crash and rebound, exposure rows, event-list coverage: MISSING. Headlines and real dates: N/A BY DESIGN. Plan backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Skipping can miss a rebound (1m +15.5% shows the stock can move sharply up). Close-only data. The setup checks are rule-based judgments on supplied levels. Simulation only, not investment advice, no real order.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close. It sits mid-range (100.00 against 95.99-111.24), below all its averages with 50d < 200d, has neutral RSI 48.4, ranks last of 24 on alpha t-stat, lags the ETF over 3m and 6m, has ~76% volatility and no news catalyst. The proposed action is NO TRADE with size, stop, target and hold all 0.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

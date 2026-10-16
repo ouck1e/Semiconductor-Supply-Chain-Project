@@ -1,0 +1,52 @@
+Agent 5 - Risk Manager review of the Strategist's plan for Stock A (Equipment)
+
+Simulation only. Not investment advice. No real order is placed.
+
+PLAN UNDER REVIEW (from the STRATEGIST HANDOFF, PLAN block): ACTION NO TRADE, SETUP none, SIZE_PCT 0, STOP_PCT 0, TARGET_PCT 0, MAX_HOLD_DAYS 0.
+
+Starting point: REJECT. Each REQUIRED item checked below.
+
+REQUIRED CHECKS
+1. Action is BUY or NO TRADE, entry true at Day 0 close: OK. The action is NO TRADE, which is an allowed action. There is no entry, so nothing waits on Day 1 or later.
+2. Stop rule within 15% maximum: OK (not applicable to NO TRADE). STOP_PCT 0 because no position is opened. Nothing exceeds the 15% limit from the FIXED STRATEGY RULES.
+3. Target/exit rule and max hold within 20 days: OK (not applicable). TARGET_PCT 0 and MAX_HOLD_DAYS 0; 0 is within the 20-day limit.
+4. Position size within 10%: OK. SIZE_PCT 0, within the 10% maximum.
+5. Reward-to-risk of at least 1.5 after costs: OK (not applicable). No trade means no reward and no risk; there is no ratio to compute and no trade to fail the test. Costs: 0 (no entry, no exit).
+6. Largest simulated loss: OK. Size $0 (0% of $100,000) x stop 0% = $0, plus fees 0.1% x 2 sides and slippage 0.1% x 2 sides on $0 = $0. Largest simulated loss = $0.
+7. No look-ahead: OK. Every fact the Strategist cites is a Day 0 or earlier level (close, averages, 1m/3m returns, RSI, 20d range, Day -4 high). Model 4's shock is 309 days before Day 0. Nothing after Day 0 is used.
+8. Plan agrees with the supplied price data: OK, as far as I can check. I only have the Researcher's numbers as quoted in the Strategist handoff (I was not given the Researcher's handoff itself). I re-checked the Strategist's own arithmetic:
+   - 100.00 / 95.99 - 1 = 0.0418 = +4.2% above the 20d low. Matches.
+   - 76.0% / sqrt(252) = 76.0 / 15.87 = 4.79% daily. Matches "about 4.8%".
+   - 15% / 4.79% = 3.13 daily standard deviations. Matches "about 3.1".
+   - Close 100.00 sits below the 20d (103.30), 50d (101.97) and 200d (110.02) averages, and 101.97 < 110.02, so "50d < 200d" holds.
+
+All REQUIRED items are OK, so I move off REJECT.
+
+CONTEXT CHECKS
+- Data completeness: PROBLEM for any long, not for skipping. Exposure rows, absolute volume, intraday highs/lows, closes before Day -29, fundamentals and earnings dates, and the cause of the crash and rebound are MISSING (Strategist, MISSING INFORMATION). These gaps would weaken a BUY case; they support standing aside.
+- Statistical support: PROBLEM for a long. Model 1 alpha -1.2%/yr with t-stat -0.08 is statistically indistinguishable from zero, and rank 24 of 24 gives no edge. Model 4: stock was in neither shock group, so no event evidence. Nothing here supports a BUY.
+- Liquidity: MISSING (absolute volume not supplied). Not needed for NO TRADE.
+- Conflicting news or supply-chain events: OK. News Analyst: sentiment UNCLEAR/neutral, no events in 120 days. No catalyst either way. Headlines: N/A BY DESIGN.
+- Overfitting: OK. The plan applies three standard setups (trend, support-bounce, breakout) and finds none triggered; it is not tuned to this chart.
+- Unverified sources: OK. No outside sources cited. No embedded instructions were found in the material.
+- Plan backtest: N/A BY DESIGN.
+
+DECISION: APPROVE FOR SIMULATION ONLY (the NO TRADE plan). I agree with NO TRADE.
+
+Five short points:
+1. NO TRADE is an allowed action and breaks no limit: size 0%, stop 0%, hold 0 days, largest simulated loss $0.
+2. No long setup triggers at the Day 0 close: price 100.00 is mid-range (+4.2% above the 95.99 low, under resistance ~102-103), not at support or breaking out.
+3. Trend is against a long: close below all three averages and 50d (101.97) below 200d (110.02); 3m return -22.2% and an ETF lag of 13.0 pp (3m) and 11.9 pp (6m).
+4. Risk is high and unrewarded: ~76% annualised volatility (~4.8% a day) means even the maximum 15% stop is only ~3.1 daily moves away, while the factor model gives no edge (t-stat -0.08, rank 24/24).
+5. No catalyst and key inputs MISSING (exposure, volume, earnings dates, cause of the crash and rebound), so there is no evidence to justify taking that risk.
+
+What must change for approval: nothing; the NO TRADE plan is approved for simulation only. If a later run proposes a BUY instead, it would need: an entry condition true at the Day 0 close, a stop at or below 15%, a target and max hold of 20 days or less, size of 10% or less, reward-to-risk of at least 1.5 after 0.4% round-trip costs with the arithmetic shown, and the largest loss worked out. Approval never means a real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A against the fixed limits and the supplied evidence. All REQUIRED checks pass; decision APPROVE FOR SIMULATION ONLY (agree with NO TRADE).
+SOURCE FACTS USED: From FIXED STRATEGY RULES AND LIMITS: $100,000 portfolio, max position 10%, max stop 15%, max hold 20 days, fees 0.1% and slippage 0.1% per side, decision at Day 0 close. From the STRATEGIST HANDOFF (quoting the Researcher, News Analyst and Models): close 100.00; 20d/50d/200d 103.30/101.97/110.02; 1m +15.5%, 3m -22.2%; ETF lag 13.0 pp (3m), 11.9 pp (6m); RSI 48.4; 20d vol 76.0%; 20d high/low 111.24/95.99; support ~96, resistance ~102-103 and ~109-111; news neutral, no events in 120 days; Model 1 alpha -1.2%/yr, t-stat -0.08, rank 24/24, beta 1.45; Model 4 shock 309 days ago, stock in neither group. PLAN block: NO TRADE, all values 0.
+ANALYSIS: My checks: 100.00/95.99 - 1 = +4.2%; 76.0%/sqrt(252) = 4.79% daily; 15%/4.79% = 3.13 daily SDs; all match the Strategist. Largest simulated loss = 0% x $100,000 x 0% stop + 0 costs = $0. No look-ahead found. No long setup triggers, trend and factor evidence point against a long, so standing aside is consistent with the data.
+MISSING INFORMATION: Researcher's own handoff (I only saw his numbers as quoted by the Strategist), exposure rows, absolute volume, intraday highs/lows, closes before Day -29, fundamentals and earnings dates, cause of the crash and rebound: MISSING. Headlines, real dates and plan backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Skipping may miss a further rebound (1m +15.5% shows sharp upside moves are possible). Close-only data. I could not verify the Researcher's figures against his original handoff. Simulation only, not investment advice, no real order.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: Risk Manager APPROVES FOR SIMULATION ONLY the NO TRADE plan for Stock A: size 0%, stop 0%, target 0%, hold 0 days, largest simulated loss $0. No setup triggers at the 100.00 close (mid-range, below all averages, 50d < 200d), volatility is ~76%, factor alpha t-stat is -0.08 (rank 24/24), and there is no news catalyst. Recommend the Boss record NO TRADE.

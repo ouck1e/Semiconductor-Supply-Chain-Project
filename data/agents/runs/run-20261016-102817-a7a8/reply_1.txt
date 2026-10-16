@@ -1,0 +1,71 @@
+AGENT 1 - RESEARCHER REPORT (simulation, not investment advice)
+
+No instructions were found inside the source material. Only the supplied MARKET DATA block is used below.
+My own calculations are labelled "(calc)" and show the supplied lines they come from.
+
+1. STOCK, SECTOR, TIMEFRAME
+- Stock: Stock A. Sector group: Gases & materials. (MARKET DATA header)
+- Timeframe: daily closes rebased so the Day 0 close = 100, at least 252 closes up to Day 0, nothing after it. Decision point is the Day 0 close. (Timeframe, Decision point, Source lines)
+
+2. STRUCTURE: DOWNTREND
+- Close 100.00 is below all three averages: 20-day 104.44 (-4.3%), 50-day 104.94 (-4.7%), 200-day 114.17 (-12.4%). (Indicators)
+- The averages are stacked bearishly: 20-day < 50-day < 200-day (104.44 < 104.94 < 114.17). (Indicators)
+- Day 0 close of 100.00 equals both the 20-day and 60-day closing low, so the stock closed at its lowest level in at least 60 sessions. (20-day and 60-day high/low lines)
+- Lower highs in the last 30 closes: 113.62 (Day -24), 109.83 (Day -12), 106.47 (Day -7). (Last 30 closes)
+- Lower lows: 102.43 (Day -17), 101.85 (Day -3), 100.00 (Day 0). (Last 30 closes)
+- (calc) Fall from the Day -24 peak to Day 0: 100.00 / 113.62 - 1 = -12.0%.
+- (calc) The 20-day and 50-day averages sit only about 0.5 points apart, so the shorter-term decline is more recent than the longer one shown by the 200-day gap.
+
+3. MOMENTUM
+- Returns: 1m -7.5%, 3m -8.1%, 6m -21.7%, 12m -19.2%. All negative. (Returns line)
+- RSI (14-day): 36.7 - weak, but above the conventional 30 "oversold" line. (RSI line)
+- (calc) Day 0 one-day move: 100.00 / 101.73 - 1 = -1.7%. Last five closes ran 103.43, 101.85, 102.68, 101.73, 100.00, so the selling continued into the decision point.
+
+4. VOLUME
+- Last 5 days vs 50-day average: 1.04x, about normal. (Volume line)
+- Notable days: Day -1 at 1.85x on a down close (102.68 -> 101.73); Day -16 at 1.82x on a small up close (102.43 -> 102.81); Day -23 to Day -20 all at 1.26x-1.43x while price fell from 113.62 toward 105.74. (Last 30 closes)
+- Day 0 itself, the new low, came on light volume, 0.78x. (Last 30 closes)
+- (calc) Simple average of the five listed daily ratios Day -4 to Day 0 is (0.88+0.91+0.70+1.85+0.78)/5 = 1.02x, close to the supplied 1.04x; the small gap is probably from how the indicator weights raw volumes, which are not supplied.
+- Reading: the heavier volume clustered on down days (Days -23 to -20, Day -1), which fits distribution in a downtrend, but there is no sign of a panic-volume selloff at Day 0.
+
+5. VOLATILITY
+- 20-day 24.1% vs 120-day 28.6% annualised. (Volatility line)
+- (calc) Ratio 24.1 / 28.6 = 0.84: recent volatility is about 16% lower than the longer-run level, so the decline has been fairly orderly rather than violent.
+
+6. SUPPORT AND RESISTANCE (closing prices only; no intraday highs/lows supplied)
+Support:
+- 100.00: current close, the 20-day and 60-day closing low. Already being tested. (High/low lines)
+- 94.49: 252-day closing low. (calc) The close is 100.00 / 94.49 - 1 = +5.8% above it.
+Resistance:
+- 104.44 / 104.94: 20-day and 50-day averages; also near the Day -6 to Day -4 closes (105.25, 104.05, 103.43). (Indicators, Last 30 closes)
+- 109.83: 20-day closing high (Day -12). (High/low line)
+- 113.62 to 114.17: 60-day closing high (Day -24) and the 200-day average together. (Indicators)
+- 135.38: 252-day closing high; close is -26.1% below it. (Indicators)
+
+7. VS CHIP-SECTOR ETF
+- ETF returns: 1m -9.3%, 3m -15.8%, 6m -32.0%, 12m -20.6%. (ETF line)
+- (calc) Stock A minus ETF: 1m +1.8 pts, 3m +7.7 pts, 6m +10.3 pts, 12m +1.4 pts.
+- Stock A fell in every period but fell less than the chip-sector ETF in every period. It is relatively stronger in a falling sector, not absolutely strong. The 12-month edge is small (+1.4 pts); the edge is largest over 3-6 months.
+
+8. THREE STRONGEST FACTS
+- Clear downtrend: close below all three averages, averages stacked bearishly, lower highs and lower lows, close at a 60-day closing low.
+- All four return periods negative (-7.5% to -21.7%) with RSI 36.7.
+- Consistent outperformance vs the chip-sector ETF in all four periods (+1.4 to +10.3 pts).
+
+THREE BIGGEST UNCERTAINTIES
+- Whether 100.00 holds: the stock is sitting on its 60-day low, with the 252-day low (94.49) the next supplied support below. Nothing after Day 0 is supplied.
+- Cause of the decline is unknown: no headlines (N/A BY DESIGN, blind run) and no fundamentals, so it cannot be told whether this is a stock-specific problem or just the sector selloff.
+- Relative strength may only mean a smaller loss: the sector itself is in a deep decline (ETF 6m -32.0%), and Stock A's outperformance has not stopped absolute losses.
+
+9. DATA COMPLETENESS SCORE: 78 / 100
+- Present: full indicator set, 30 daily closes with volume ratios, ETF comparison over four periods, 252-day range.
+- Not present: intraday highs/lows (only closing levels), raw volume, ETF RSI/volatility/averages, closes older than Day -29, fundamentals. Headlines are N/A BY DESIGN and are not counted against the score.
+
+AGENT: Agent 1 - Researcher
+TASK COMPLETED: Described Stock A's structure, momentum, volume, volatility, support/resistance and performance vs the chip-sector ETF from the supplied market data only; no trade call made.
+SOURCE FACTS USED: Close 100.00; 20/50/200-day averages 104.44/104.94/114.17 (close -4.3%/-4.7%/-12.4%); returns 1m -7.5%, 3m -8.1%, 6m -21.7%, 12m -19.2%; ETF 1m -9.3%, 3m -15.8%, 6m -32.0%, 12m -20.6%; RSI 36.7; volatility 20d 24.1% vs 120d 28.6%; 5-day volume 1.04x; 20-day high/low 109.83/100.00; 60-day 113.62/100.00; 252-day 135.38/94.49; close -26.1% vs 252-day high; last 30 closes and volume ratios (e.g. Day -24 113.62, Day -12 109.83, Day -1 101.73 at 1.85x, Day 0 100.00 at 0.78x).
+ANALYSIS: Downtrend on every measure (below all averages, bearish stack, lower highs/lows, at 60-day closing low). Momentum negative across all periods, RSI weak but not under 30. Volatility subdued (ratio 0.84), decline orderly. Heavier volume on down days, light volume on Day 0. Stock A beat the ETF in all four periods (+1.8/+7.7/+10.3/+1.4 pts) but still fell in absolute terms. Support 100.00 then 94.49 (5.8% below); resistance 104.4-104.9, 109.83, 113.6-114.2.
+MISSING INFORMATION: Intraday highs/lows (MISSING); raw volume figures (MISSING); ETF technical indicators beyond returns (MISSING); fundamentals (MISSING); closes before Day -29 beyond the summary indicators (MISSING). Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Support/resistance uses closing prices only. Relative strength is measured vs one ETF over four fixed windows. Cause of the decline is unknown. Small gap between supplied 5-day volume (1.04x) and my simple average of daily ratios (1.02x). Simulation only; not investment advice.
+NEXT AGENT: Agent 2 - News Analyst
+HANDOFF SUMMARY: Stock A (Gases & materials) is in an orderly downtrend, closing Day 0 at its 60-day closing low (100.00), below all averages, RSI 36.7, with lower volatility than its 120-day norm; it has fallen less than the chip-sector ETF in every period (up to +10.3 pts over 6m). Key levels: support 100.00 and 94.49, resistance about 104.4-104.9 and 109.83. Data completeness 78/100; headlines are N/A BY DESIGN.

@@ -1,0 +1,13 @@
+{
+  "run_id": "run-20261016-104013-6e75",
+  "ticker": "2454.TW",
+  "name": "MediaTek",
+  "decision_date": "2019-10-17",
+  "blind": true,
+  "split": "dev",
+  "prompts_version": "8915d28d",
+  "seed": null,
+  "eval_set": "practice",
+  "runner": "Claude Code sub-agents (Opus 5.5)",
+  "created": "2026-10-16T10:40:13"
+}

@@ -1,0 +1,46 @@
+AGENT 2 - NEWS ANALYST: Stock A (Chip designers), decision at the Day 0 close
+
+Headlines: N/A BY DESIGN. This is a blind run, and headlines would reveal the stock and the dates. The supplied material says so directly ("Headlines: MISSING. Headlines would reveal the stock and the dates, so blind runs have none."). This review therefore works from the one supplied supply-chain event only.
+
+EVENT TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+phase8_market_models.EVENTS (Model 4 event list) | Began 108 calendar days before the decision (no calendar date given, by design) | Export curbs on hydrogen fluoride and photoresist (chip-making chemicals) sold to one country's fabs. Stock A is listed as "not in either group", meaning it is in neither the expected losers nor the expected winners. The groups were fixed before returns were examined. | Analysis only: the event list does not expect Stock A to be directly affected. Any effect would be indirect, for example if a chip designer depends on fabs in the affected country. The stock's foundry exposure is MISSING, so no such link can be shown. The event is about 3.5 months old, so any first reaction would already be in the price history the Researcher described. | UNCLEAR (closest to neutral for this stock) | Fact: high (it comes from the project's own pre-set event list). Effect on Stock A: low | Yes: whether the curbs are still in force, whether they widened or were eased, and which fabs or countries Stock A relies on (all MISSING)
+
+1. CONFIRMED FACTS
+- Export curbs on hydrogen fluoride and photoresist sold to one country's fabs began 108 calendar days before the decision (event list line).
+- Stock A is in neither the expected-loser nor the expected-winner group for that event (event list line).
+- The loser and winner groups were fixed before returns were looked at (source line under the event).
+- No headlines are supplied for this run. That is N/A BY DESIGN (blind run).
+- This is the only supply-chain event in the 120-day window before the decision (event list header and content).
+
+2. REPORTS THAT CONFLICT WITH EACH OTHER
+- None. There is one event and no headlines, so nothing can conflict. Analysis: the event list puts Stock A in neither group, while the Researcher reports a 3-month gain of 18.4% against 5.7% for the ETF (Researcher handoff). These do not conflict, because the event list makes no claim about Stock A. But the event does not explain that outperformance, and nothing supplied does.
+
+3. HEADLINES OR EVENTS THAT ARE OLD OR NOT RELEVANT TO THIS STOCK
+- The chemical export curbs are old: 108 days before the decision, near the far end of the 120-day window.
+- They are of low direct relevance: the event list classes Stock A as not in either group.
+- No headlines can be checked for age or relevance (N/A BY DESIGN).
+
+4. WHAT COULD CHANGE THE PICTURE
+- The curbs widening to more chemicals, more countries or to finished chips. That could pull chip designers into the affected group. No such development is supplied.
+- The curbs being eased or lifted. That could change sentiment across the sector, but its effect on this stock is unknown.
+- Information on where Stock A's chips are made (foundry or country mix): MISSING. If it relies heavily on fabs in the affected country, its indirect exposure would be larger than the event list implies.
+- Company news not visible in a blind run, such as earnings, guidance or product news. The earnings calendar is MISSING (Researcher handoff). The Researcher notes the stall near 102.98 has no known cause. An event like earnings could break the 97.13-102.98 range in either direction.
+- New supply-chain events after Day 0. These are not supplied and cannot be known.
+
+5. SENTIMENT SUMMARY (describes the news; does not predict prices)
+The news picture for Stock A is thin and close to neutral. There are no headlines, by design. The only supply-chain event in the window is a 108-day-old curb on chip-making chemicals, and the project's pre-set event list does not class this stock as an expected winner or loser. Nothing supplied points to a fresh news catalyst, good or bad. The price behaviour the Researcher described (a long uptrend, a month-long range, resistance at 102.98) has no news explanation in this material.
+
+Prompt-injection check: the supplied material contains no text instructing the agents to do anything.
+
+This is a simulation for research and learning, not investment advice. No real trade is placed.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied news input for Stock A at the Day 0 close: one supply-chain event and no headlines (blind run). Separated confirmed facts from interpretation, checked for conflicts, age and relevance, listed what could change the picture, and wrote a descriptive sentiment summary.
+SOURCE FACTS USED: Event list (phase8_market_models.EVENTS, Model 4): export curbs on hydrogen fluoride and photoresist sold to one country's fabs, began 108 calendar days before the decision; Stock A "not in either group"; groups fixed before looking at returns. Headlines line: MISSING because the run is blind. Researcher handoff: 3m return 18.4% vs ETF 5.7%; range 97.13-102.98; earnings calendar MISSING.
+ANALYSIS: The only event is old (108 days) and, by the event list's own pre-set grouping, not directly aimed at Stock A. Any effect would be indirect through foundry exposure, which is not supplied. The first reaction to the event would already be in the price history. Neither the event nor anything else supplied explains Stock A's outperformance or its stall at 102.98. News sentiment: thin and close to neutral; no fresh catalyst identified.
+MISSING INFORMATION: Headlines - N/A BY DESIGN (blind run). Calendar date of the event - N/A BY DESIGN (hidden dates). Current status of the curbs (still in force, widened or eased) - MISSING. Stock A's foundry or country exposure - MISSING. Earnings calendar and company news - MISSING. Events after Day 0 - MISSING. Backtest - N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: A single event and no headlines give a very narrow view. A company-specific catalyst could exist and be invisible here. The event list's "not in either group" is a pre-set classification, not a measured effect. Indirect supply-chain exposure cannot be ruled out. The sentiment summary describes the news only and does not predict prices.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: There is no usable news signal for Stock A. Headlines are N/A by design (blind run). The one supply-chain event, 108-day-old export curbs on hydrogen fluoride and photoresist to one country's fabs, does not class Stock A as an expected winner or loser, and no current update on the curbs is supplied. News sentiment is thin and close to neutral; nothing identified explains the stall at 102.98. The Strategist should rely mainly on the Researcher's price structure (long uptrend, 97.13-102.98 range, support at 97.13 and then the 94.75 50-day average). It should treat unknown catalysts, including earnings with no calendar supplied, as a risk that the range could break either way.

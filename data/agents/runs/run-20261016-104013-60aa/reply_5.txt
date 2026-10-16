@@ -1,0 +1,46 @@
+RISK MANAGER REVIEW - Stock A, Day 0 close
+Simulation for research and learning only. Not investment advice. No real trade is placed.
+
+Plan under review (Strategist PLAN block): ACTION NO TRADE, SETUP none, SIZE_PCT 0, STOP_PCT 0, TARGET_PCT 0, MAX_HOLD_DAYS 0.
+
+REQUIRED CHECKS
+- Action is BUY or NO TRADE, entry true at Day 0 close: OK. NO TRADE needs no entry condition and waits on nothing after Day 0.
+- Stop rule (<= 15% below entry): OK - not applicable to NO TRADE (0, no position).
+- Target/exit and max hold (<= 20 days): OK - not applicable to NO TRADE (0, no position).
+- Position size (<= 10%): OK. 0% of $100,000.
+- Reward-to-risk after costs >= 1.5: OK for NO TRADE (no trade taken). I also checked the rejected support-bounce idea the Strategist cited, because it is the only alternative on the table:
+  Source (Strategist ANALYSIS): reference reward 4.9%, reference risk 5.5%. These match the Researcher's levels: 100.00 to the 104.44-104.94 averages/resistance is about +4.4% to +4.9%; 100.00 to the 252-day low 94.49 is -5.51%.
+  My arithmetic: round-trip costs = (0.1% fee + 0.1% slippage) x 2 sides = 0.4%.
+  Net reward = 4.9 - 0.4 = 4.5%. Net risk = 5.5 + 0.4 = 5.9%. Ratio = 4.5 / 5.9 = 0.76.
+  0.76 is well below the 1.5 minimum, so a BUY on that setup would fail this check. Rejecting it was correct.
+- Largest simulated loss: OK. $0 (size 0). For reference, the rejected bounce idea at the 10% maximum ($10,000) with a 5.5% stop would lose about $10,000 x 5.9% = $590 including costs, for a net gain of about $450 at target.
+- No look-ahead: OK. Every fact used is at or before Day 0. The Day 1 fill price is correctly listed as unavailable.
+- Agreement with Researcher's price data: OK. Close 100.00, averages 104.44/104.94/114.17, RSI 36.7, returns, ETF returns, volatility 24.1%/28.6%, swing highs 113.62/109.83/106.47, 252-day low 94.49, Day -1 volume 1.85x and Day 0 volume 0.78x all match the Researcher handoff exactly.
+
+CONTEXT CHECKS
+- Data completeness: OK with gaps noted. Researcher scores 80/100. MISSING: full 252-day series and dates, ETF daily series, intraday highs/lows, fundamentals, supply exposure rows. None of these would supply the reversal evidence a BUY needs.
+- Statistical support: PROBLEM for any long case. Model 1 alpha -7.0% a year, t-stat -0.57 (not significant), rank 22 of 24 (Strategist SOURCE FACTS). Nothing statistical argues for a BUY.
+- Liquidity: OK. 5-day volume 1.04x normal; nothing suggests trading difficulty.
+- Conflicting news/supply-chain events: Headlines N/A BY DESIGN. The Model 4 "expected winner" label is from a neon shock 139 days before Day 0; over that span the stock fell (6m -21.7%), so the label has not shown up in price and is stale. No phase 8 events in the prior 120 days. Not a reason to override NO TRADE.
+- Overfitting: OK. The plan does not tailor rules to this chart; it declines to trade because no standard setup qualifies.
+- Unverified sources: OK. No outside sources were used. No embedded instructions were found in the material.
+
+DECISION: APPROVE FOR SIMULATION ONLY (I agree with NO TRADE)
+
+Five points:
+1. NO TRADE passes every REQUIRED item; there is no position, stop, size or loss to breach a limit.
+2. The only long alternative, a bounce off 100.00, has reward-to-risk of 0.76 after costs (4.5 / 5.9), far below 1.5.
+3. Trend is down on every horizon, price is at a fresh 60-day closing low on light Day 0 volume (0.78x), and RSI 36.7 is not oversold, so there is no reversal evidence at Day 0.
+4. Relative strength vs the ETF and the old "expected winner" label are real but have not produced absolute gains; alpha is negative and insignificant (t -0.57, rank 22 of 24).
+5. Known cost of this decision: if the stock rebounds from 100.00, NO TRADE trails buy-and-hold. That is general blind-run uncertainty, not a concrete failure in the plan, so it does not justify forcing a BUY.
+
+What would have to change for a BUY to be approvable later (not needed for this approval): a close back above about 104.4-104.9 or a confirmed hold of support, plus a setup whose net reward-to-risk is at least 1.5 with a stop no wider than 15% and size no more than 10%. Approval is for the simulation only and never means a real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A against every required limit and the context items; checked the rejected support-bounce alternative's reward-to-risk; decision APPROVE FOR SIMULATION ONLY (agree with NO TRADE).
+SOURCE FACTS USED: Fixed rules (max position 10%, max stop 15%, max hold 20 days, fees 0.1% and slippage 0.1% per side, $100,000 portfolio). Researcher: close 100.00; 20/50/200-day averages 104.44/104.94/114.17; returns 1m -7.5%, 3m -8.1%, 6m -21.7%, 12m -19.2%; ETF returns -9.3%/-15.8%/-32.0%/-20.6%; RSI 36.7; volatility 24.1%/28.6%; 5-day volume 1.04x; Day 0 volume 0.78x; 252-day low 94.49; completeness 80/100. Strategist: alpha -7.0%, t-stat -0.57, rank 22 of 24; neon shock 139 days before, "expected winner"; bounce reward 4.9%, risk 5.5%; PLAN block all zeros.
+ANALYSIS: All required items OK for NO TRADE. Bounce alternative: net reward 4.9-0.4 = 4.5%, net risk 5.5+0.4 = 5.9%, ratio 0.76 < 1.5, so a BUY would fail. Plan's numbers match the Researcher's exactly; no look-ahead. Statistical support for a long is weak; the neon label is stale relative to the 6m -21.7% decline.
+MISSING INFORMATION: Full 252-day series and dates; ETF daily series; intraday highs/lows; fundamentals; supply exposure rows (MISSING). Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run). Day 1 fill price unavailable by design.
+RISKS OR LIMITATIONS: NO TRADE underperforms holding if the stock rebounds from 100.00; relative strength and easing volatility make that possible. Analysis rests on summary indicators and 30 closes. Simulation for research and learning only, not investment advice; no real trade is placed.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY - I agree with NO TRADE for Stock A at the Day 0 close. Every required limit is satisfied (size, stop, target, hold all 0; no look-ahead; numbers match the Researcher), and the only long alternative, a bounce off 100.00, has reward-to-risk of 0.76 after costs, well under the 1.5 minimum. Re-plan only on a close above about 104.4-104.9 or a confirmed hold of support with a setup that clears 1.5 net.

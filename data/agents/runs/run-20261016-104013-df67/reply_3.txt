@@ -1,0 +1,94 @@
+STRATEGIST PLAN - Stock A (Gases & materials), decision at the Day 0 close
+
+Simulation only. Not investment advice, no promise of profit, no real order.
+
+1. Setup name
+No setup.
+
+I tested three candidate setups against the supplied facts. None of them has all its entry conditions true at the Day 0 close.
+
+a) Trend continuation (buy an established uptrend)
+- Needed: close above the rising 50-day and 200-day averages, with the 50-day above the 200-day.
+- Day 0 (Researcher): close 100.00, 50-day 100.95, 200-day 100.55. The close is below both. The Researcher calls the 50/200-day averages "flat" and the stock "range-bound". 12m return +1.6%, 6m -3.4%, 3m -3.1%.
+- Result: NOT TRUE. There is no established uptrend to follow.
+
+b) Support bounce / range mean reversion (buy near the bottom of the range)
+- Needed: close at or near a support level (97.8-98.5 or 93.13) with signs of holding.
+- Day 0: close 100.00 sits about 51% of the way up the 1-year range of 93.13-106.61 (Researcher). That is mid-range, above the 97.8-98.5 support band.
+- Result: NOT TRUE. The price is not at support, so a stop tight enough to give a sensible reward-to-risk is not available (see the arithmetic below).
+
+c) Relative-strength breakout (buy a strong stock clearing resistance)
+- Needed: close above resistance at 100.6-102.5 (Researcher), ideally on rising volume.
+- Day 0: close 100.00 is below that band. Day 0 fell -2.4% on 1.48x volume, just under resistance (Researcher). That is a rejection at resistance, not a breakout.
+- Result: NOT TRUE.
+
+2. What must be true for entry, and whether it is true on Day 0
+See 1a-1c. No candidate's conditions hold at the Day 0 close. Because a BUY fills at the Day 1 close whatever the price, I cannot write "buy if it breaks 102.5 tomorrow". That would depend on Day 1 data, which the rules forbid.
+
+3. Entry rule
+None. No entry at the Day 0 close.
+
+4. Stop rule
+N/A. No position.
+For reference only (my analysis, not a proposal): a stop placed under the one-year low of 93.13 would be about 6.9% below a 100.00 reference price, (100.00 - 93.13) / 100.00 = 6.87%. The real entry would be the Day 1 close, which is unknown, so this is only an estimate.
+
+5. Target / exit rule and holding period
+N/A. No position.
+For reference only: the next resistance levels are 102.5 (+2.5% from 100.00) and 106.5 (+6.5%), per the Researcher's levels.
+
+6. Reward-to-risk ratio (reference only, showing why the mid-range setup fails)
+- Target at the 106.5 resistance and stop under 93.13: 6.5 / 6.9 = 0.94.
+- Target at the 102.5 resistance and stop at 6.9%: 2.5 / 6.9 = 0.36.
+- A tight stop just under the 97.8 support (about 2.2%, (100.00 - 97.8) / 100.00) is inside normal daily noise. 20-day volatility is 22.0% a year (Researcher), which is roughly 22.0 / sqrt(252) = about 1.4% a day. A 2.2% stop is about 1.6 daily moves, so an ordinary day or two could trigger it.
+- Round-trip costs are about 0.4% (0.1% fee + 0.1% slippage on each side, fixed rules), which lowers these ratios further.
+All of these are below 1:1 before costs. I would not hand the Risk Manager a plan with reward smaller than risk.
+
+7. Position size
+0% (no trade).
+
+8. What would cancel the "no setup" call (what would make a later plan worth building)
+These are for a future decision date, not conditions on this one:
+- A close above 102.5 on above-average volume (breakout through resistance), which would turn the relative strength into an actual price breakout.
+- A pullback to the 97.8-98.5 support band that holds, which would allow a tight stop and a reward-to-risk above 1.
+- The close moving back above the 50-day and 200-day averages with those averages turning up.
+
+9. Missing inputs
+- Intraday highs and lows: MISSING (stops and targets are on closes only anyway).
+- Cause of the Day -20 to -9 volume spike and of the Day 0 high-volume drop: MISSING.
+- Company events outside the phase 8 list (earnings, guidance, input costs): MISSING.
+- Supply exposure rows for this stock before the decision year: MISSING (exposure model).
+- ETF daily series: MISSING.
+- Headlines: N/A BY DESIGN (blind run).
+- Backtests of this plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip (and the case against skipping)
+Reasons to skip:
+- Price is below the 50-day (100.95) and 200-day (100.55) averages; the averages are flat. Not an uptrend.
+- Day 0 was a -2.4% drop on 1.48x volume right under resistance (Researcher), with no supplied explanation (News Analyst).
+- Model 1: alpha -1.1% a year, t-stat -0.19, rank 20 of 24. The phase 8 baseline holds the top 5 by this t-stat, so this stock is far from the baseline's picks. The t-stat is close to zero, so this is weak evidence, not a strong negative.
+- Model 1: beta to the chip ETF is higher in down weeks (0.57) than in up weeks (0.29). The stock has captured more of the sector's falls than its rises, and the ETF is falling (-4.2% 1m, -12.6% 3m per the Researcher).
+- Volatility is rising (20-day 22.0% vs 120-day 17.1%, about 1.29x).
+- Mid-range price gives reward-to-risk below 1 for any sensible stop.
+
+The case against skipping (the cost of sitting out):
+- Stock A has beaten the falling chip ETF by 7-11 points in every period and has rebounded about 7.4% from the Day -18 low; it is above its 20-day average (97.78). If that relative strength carries on, NO TRADE misses the rise. I weighed this. It is relative strength inside a falling sector and a flat range, not an absolute uptrend, and the last day was a high-volume rejection at resistance. On balance there is no valid entry at the Day 0 close.
+
+No instructions were found inside the source material.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Tested trend-continuation, support-bounce and breakout setups for Stock A against the Researcher, News Analyst and supply-chain model facts. None has its entry conditions true at the Day 0 close. Recommending No setup (NO TRADE). The Risk Manager and Boss make the final call.
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200-day averages 97.78 / 100.95 / 100.55; 50/200-day averages flat; returns 1m +2.9%, 3m -3.1%, 6m -3.4%, 12m +1.6%; ETF -4.2% / -12.6% / -13.5% / -9.0%; RSI 52.2; volatility 22.0% (20-day) vs 17.1% (120-day); 1-year range 93.13-106.61, about 51% of the way up; support 97.8-98.5 and 93.13; resistance 100.6-102.5 and 106.5; Day 0 -2.4% on 1.48x volume; rebound of about 7.4% from the Day -18 low. News Analyst: headlines N/A BY DESIGN; no phase 8 events in 120 days; Day 0 drop and volume spike unexplained. Model 1: alpha -1.1% a year, t-stat -0.19, rank 20 of 24; market beta 1.11; ETF beta 0.29 up weeks / 0.57 down weeks. Exposure: MISSING. Fixed rules: max 10% size, max 15% stop, max 20 days, 0.1% fee + 0.1% slippage each side.
+ANALYSIS: Close below the 50- and 200-day averages, so no trend entry. Mid-range, so no support entry. Below resistance after a high-volume down day, so no breakout entry. Reference reward-to-risk with a stop under 93.13 (about 6.9%) is 6.5 / 6.9 = 0.94 to the 106.5 resistance and 2.5 / 6.9 = 0.36 to 102.5, both below 1 before about 0.4% round-trip costs. A 2.2% stop under 97.8 is about 1.6 daily moves at 22% annual volatility (about 1.4% a day), so noise could trigger it. Down-week ETF beta (0.57) above up-week beta (0.29) in a falling sector, and a near-zero negative alpha t-stat. Relative strength vs the ETF is the main point in favour, and I weighed it, but it does not create a valid entry at Day 0.
+MISSING INFORMATION: Intraday highs/lows; cause of the Day -20 to -9 volume spike and the Day 0 drop; company events outside the phase 8 list; supply exposure rows; ETF daily series. Headlines: N/A BY DESIGN. Backtests: N/A BY DESIGN.
+RISKS OR LIMITATIONS: NO TRADE risks missing a rise if the stock's relative strength continues. That is the main way this call could be wrong. Closing data only; blind run; reward-to-risk figures use 100.00 as a stand-in for the unknown Day 1 entry. Simulation only, not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close. It is mid-range below its flat 50/200-day averages and was rejected at 100.6-102.5 resistance on a -2.4% high-volume day. Any sensible stop gives reward-to-risk below 1 (about 0.94 at best). Strong relative strength vs a falling ETF is the case for buying, but no entry condition is true at Day 0. Proposed action: NO TRADE, size 0.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

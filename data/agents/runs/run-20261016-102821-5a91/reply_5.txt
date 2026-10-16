@@ -1,0 +1,48 @@
+RISK MANAGER REVIEW - Stock A, decision at the Day 0 close
+
+Plan under review (Strategist PLAN block): ACTION NO TRADE; SETUP none; SIZE_PCT 0; STOP_PCT 0; TARGET_PCT 0; MAX_HOLD_DAYS 0.
+
+Starting position: REJECT. I move off it only if every REQUIRED item is OK. For a NO TRADE plan, the stop, target, hold, size and reward-to-risk items apply to the trade that was rejected, so I check the Strategist's reasons for rejecting it and confirm that a NO TRADE carries no exposure.
+
+REQUIRED CHECKS
+1. Action is BUY or NO TRADE, entry conditions true at Day 0 close: OK. Action is NO TRADE. No entry is proposed, so nothing waits on Day 1 or later.
+2. Stop rule within the 15% maximum: OK (not applicable to NO TRADE; STOP_PCT 0). I checked the Strategist's reason for not trading: stop to support 84.05 = (100.00 - 84.05) / 100.00 = 15.95%; to 82.61 = 17.39%. Both exceed the 15% cap (fixed rules). Arithmetic confirmed.
+3. Target/exit and maximum hold within 20 days: OK (not applicable; MAX_HOLD_DAYS 0, within the limit).
+4. Position size within 10%: OK. SIZE_PCT 0.
+5. Reward-to-risk of at least 1.5 after costs, arithmetic shown: OK as a reason to skip. My own check, using the Day 0 close 100.00 as a stand-in for the unknown Day 1 fill, a 15% stop and 0.4% round-trip costs (0.1% fee + 0.1% slippage on each side, fixed rules):
+   - Target 106.46 (20d, Researcher): reward 6.46% - 0.4% = 6.06%; risk 15% + 0.4% = 15.4%; R:R = 6.06 / 15.4 = 0.39.
+   - Target 114.12 (resistance, Researcher): reward 14.12% - 0.4% = 13.72%; risk 15.4%; R:R = 13.72 / 15.4 = 0.89.
+   Both are far below 1.5. The Strategist's pre-cost figures (0.43 and 0.94) are correct, and costs make them worse. No BUY could pass this check.
+6. Largest simulated loss: OK. Size 0% x stop 0% = $0; no fees or slippage because no fill. Maximum loss $0 on the $100,000 portfolio.
+7. No look-ahead: OK. Everything cited is at or before Day 0 (Researcher's Day 0 close, moving averages, RSI, volume on Day 0, Day -9, Day -10; Model 1, Model 4 and exposure figures). The Strategist marks the Day 1 fill as unknown.
+8. Plan agrees with the Researcher's numbers: OK, with one limitation. The figures in the Strategist's SOURCE FACTS (close 100.00; 20d 106.46; 50d 102.57; 200d 82.61, +21.1%; RSI 39.4; 1.65x volume; supports 100.00, 84.05, 82.61; resistances 102.57, 106.46, 114.12) are internally consistent: 100.00 / 82.61 - 1 = 21.05%, which rounds to 21.1%. The Researcher's handoff itself is not in my material, so I can only check these numbers as the Strategist quoted them, not against the original (see Context).
+
+CONTEXT CHECKS
+- Data completeness: PROBLEM (minor). Intraday highs/lows, the full 252-close and ETF series, fundamentals, the event calendar and the cause of the underperformance are MISSING (Strategist). The data completeness score is MISSING from my material. None of this changes a NO TRADE, since missing data argues against entering.
+- Statistical support: PROBLEM for any BUY. Model 1 alpha 12.1%/yr with t 0.58 (not significant), rank 11 of 26 (outside the baseline's top 5). This supports skipping.
+- Liquidity: MISSING. Average volume level is not supplied, only relative volume (1.65x on Day 0). Not relevant to a NO TRADE.
+- Conflicting news or supply-chain events: headlines N/A BY DESIGN (blind run). No Model 4 events in 120 days; the stock was in neither group for the three past shocks. The weakness (1m -7.8% vs ETF +2.6%) is unexplained, which is a concrete risk for a long entry.
+- Overfitting: OK. Rejecting a standard "pullback in an uptrend" setup because the stop and R:R limits fail is not curve-fitting. The plan does not invent a custom rule for this one chart.
+- Unverified sources: PROBLEM (minor). The Researcher's and News Analyst's original handoffs are not in my material, only the Strategist's quotes of them. Exposure figures (rare gas Singapore 0.432, etc.) are quoted but play no part in the decision.
+- Embedded instructions in the material: none found.
+- Backtest: N/A BY DESIGN (manual run, one decision).
+
+DECISION: APPROVE FOR SIMULATION ONLY (the NO TRADE). I agree with NO TRADE.
+
+Five short points:
+1. Every REQUIRED item is OK. A NO TRADE puts no capital at risk: simulated loss $0.
+2. A BUY could not pass the limits: the nearest real support needs a 15.95% stop (cap 15%), and R:R after costs is 0.39 to 0.89 against a 1.5 minimum.
+3. The short-term evidence points against a long entry: a new 20-day low on 1.65x volume, below the 50d, with unexplained stock-specific weakness (-7.8% vs ETF +2.6%), and RSI 39.4 is not oversold.
+4. Statistical support is weak: Model 1 t-stat 0.58, rank 11 of 26.
+5. Known cost: the long-term uptrend (+21.1% over the 200d) is intact, so skipping may miss a rebound. That is an accepted cost, not a forecast, and it does not justify breaking the stop cap.
+
+What must change for approval: nothing. The NO TRADE is approved as is. A future BUY on this stock would need, at the Day 0 close, a stop of 15% or less to a real support and R:R of at least 1.5 after the 0.4% round-trip costs. Approval is for the simulation only and never means a real trade should be placed. Not investment advice.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Reviewed the Strategist's NO TRADE plan for Stock A against the fixed limits and the supplied evidence; re-checked the stop distances and reward-to-risk after costs; decided APPROVE FOR SIMULATION ONLY (NO TRADE).
+SOURCE FACTS USED: Fixed rules: $100,000 portfolio, max size 10%, max stop 15%, max hold 20 days, fee 0.1% and slippage 0.1% per side, BUY fills at the Day 1 close. Strategist handoff (quoting the Researcher): close 100.00; 20d 106.46; 50d 102.57; 200d 82.61 (+21.1%); 1m -7.8% vs ETF 2.6%; RSI 39.4; Day 0 new 20-day low at 1.65x volume; supports 100.00, 84.05, 82.61; resistances 102.57, 106.46, 114.12. Model 1: alpha 12.1%/yr, t 0.58, rank 11 of 26. Model 4: no events in 120 days. Strategist PLAN: NO TRADE, all fields 0.
+ANALYSIS: (My own work.) Stops to support: 15.95% and 17.39%, both above the 15% cap. R:R after 0.4% round-trip costs at a 15% stop: (6.46 - 0.4) / 15.4 = 0.39; (14.12 - 0.4) / 15.4 = 0.89; both below 1.5. Largest simulated loss for NO TRADE: $0. No look-ahead found. Cited numbers are internally consistent (100.00 / 82.61 - 1 = 21.05%).
+MISSING INFORMATION: Researcher's and News Analyst's original handoffs (only quoted by the Strategist); data completeness score; average volume; intraday highs/lows; full price and ETF series; fundamentals and event calendar; cause of the underperformance. Day 1 fill: unknown by design. Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Percent levels use the Day 0 close as a stand-in for the Day 1 fill. Support/resistance comes from closes only. Researcher figures could not be checked against the original. Skipping may miss a rebound in a long-term uptrend. Simulation only; not investment advice; no real trade is placed.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY: NO TRADE on Stock A. Every required check is OK and the simulated loss is $0. A BUY would fail the limits: the support stop is 15.95% (cap 15%) and R:R after costs is 0.39 to 0.89 (minimum 1.5). The evidence also points against entry: a heavy-volume new 20-day low with unexplained weakness, and Model 1 t 0.58. I agree with the Strategist's NO TRADE.

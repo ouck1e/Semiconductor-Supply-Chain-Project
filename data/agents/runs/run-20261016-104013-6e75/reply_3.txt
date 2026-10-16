@@ -1,0 +1,72 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Chip designers), decision at the Day 0 close
+
+Note: the supplied material does not contain any embedded instructions aimed at the agents. Nothing to flag.
+
+1. SETUP NAME
+Trend continuation inside a range (buy the middle of a consolidation in an established uptrend).
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE ON DAY 0
+All conditions are checked on Day 0 closes only. Each source line is given.
+a) Long-term uptrend: close > 50-day average > 200-day average. Source (Researcher): close 100.00, 50-day 94.75, 200-day 78.16. TRUE.
+b) Relative strength vs the chip ETF over 3, 6 and 12 months. Source (Researcher): 3m 18.4% vs 5.7%, 6m 31.5% vs 3.9%, 12m 54.9% vs 27.2%. TRUE.
+c) Not overbought: RSI below 70. Source (Researcher): RSI 53.8. TRUE.
+d) Close still inside the 20-day range, above support. Source (Researcher): 20-day low 97.13, high 102.98, close 100.00. TRUE (2.96% above support, 2.90% below resistance; my arithmetic: 100.00/97.13 - 1 = 2.95%, 102.98/100.00 - 1 = 2.98%; the Researcher's line gives "close -2.9% vs 252-day high").
+e) Volatility not expanding. Source (Researcher): 20-day volatility 24.6% vs 120-day 29.9%. TRUE (contracting).
+f) No supplied supply shock that names Stock A as an expected loser. Source (Model 4): the only event, 108 days before, has Stock A "not in either group". TRUE.
+All entry conditions are true at the Day 0 close.
+
+3. ENTRY RULE
+BUY at the Day 1 close (the next close after the Day 0 decision), whatever that price is. The entry does not depend on Day 1 or later prices.
+
+4. STOP RULE
+Exit at the first daily close that is 6% or more below the entry price.
+Why 6%: the 50-day average (94.75) is 5.25% below the Day 0 close (my arithmetic: 94.75/100.00 - 1 = -5.25%), so a 6% stop sits just under the second support level rather than inside the range's normal noise. The 20-day volatility of 24.6% a year (Researcher) works out to roughly 1.55% a day (24.6 / sqrt(252) = 24.6 / 15.87 = 1.55), so 6% is about 3.9 daily standard deviations. A stop at the 97.13 support (about 3%) would be within two days' normal movement. 6% is under the 15% maximum.
+
+5. TARGET / EXIT RULE AND MAXIMUM HOLD
+Exit at the first daily close that is 12% or more above entry, or at the close of trading day 20 after entry, whichever comes first.
+Context: a 12% gain from 100.00 would be about 112, above the 102.98 resistance (also the 252-day high). Over 20 trading days with 1.55% daily volatility, one standard deviation is about 6.9% (1.55 x sqrt(20) = 1.55 x 4.47 = 6.9%), so 12% requires a breakout move well beyond normal range. The time exit means the plan most often ends on day 20 rather than at the target.
+
+6. REWARD-TO-RISK
+12 / 6 = 2.0. After costs (0.1% fee + 0.1% slippage each side, 0.4% round trip, from the fixed rules): net reward about 11.6%, net risk about 6.4%, so 11.6 / 6.4 = 1.81.
+
+7. POSITION SIZE
+5% of the simulated portfolio ($5,000 of $100,000). Loss at the stop: 6.4% x $5,000 = $320, or 0.32% of the portfolio. Half the 10% maximum because the edge signals are mixed (see section 10).
+
+8. WHAT WOULD CANCEL THE SETUP
+- Before entry: nothing can cancel it, because the decision is fixed at the Day 0 close and fills at Day 1 regardless.
+- After entry (plan logic, not extra exits beyond the stop/target/time rules): a close below 94.75 (the 50-day average) would break the trend premise and is already covered by the 6% stop. Any new supply-chain event that classes Stock A as an expected loser, or an earnings date inside the 20 days, would be reasons for the Risk Manager to reconsider; neither is supplied.
+
+9. MISSING INPUTS
+- Earnings calendar and company news: MISSING.
+- Intraday high/low data: MISSING (stops are checked on closes only, so a gap through the stop fills worse).
+- Raw volumes and ETF daily series: MISSING.
+- Current status of the export curbs: MISSING.
+- Stock A's foundry and country mix behind the exposure shares: MISSING (only supplier-country shares are given).
+- Headlines: N/A BY DESIGN (blind run).
+- Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. REASONS TO SKIP IT
+- Weak factor-model edge: alpha 5.9% a year with t-stat 0.42, rank 17 of 24 (Model 1). The phase 8 baseline holds the top 5 by this t-stat, so the frozen opponent would not hold this stock; this plan diverges from it.
+- Short-term momentum is flat: 1m return 0.6%, close just under the 20-day average 100.70 (Researcher).
+- Resistance at 102.98 has held three times, and the recent pullback ran on higher volume than the Day 0 bounce (Researcher).
+- Supply concentration: 0.604 of the gallium input traced to China, Hong Kong SAR and 0.672 of rare gas to the USA (exposure model). A trade restriction on either would hit Stock A's inputs; no such event is supplied.
+- Unknown catalysts, including earnings, could break the range either way (News Analyst).
+- Against skipping: the scoring compares NO TRADE with simply holding, and an established uptrend with strong relative strength and nothing specific against it argues for taking a small, defined-risk position rather than sitting out.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into one conditional simulated BUY plan (trend continuation inside a range), with entry, stop, target, hold, size, reward-to-risk, cancel conditions, missing inputs and reasons to skip.
+SOURCE FACTS USED: Researcher: close 100.00; averages 100.70/94.75/78.16; returns 1m 0.6%, 3m 18.4%, 6m 31.5%, 12m 54.9% vs ETF 0.4%, 5.7%, 3.9%, 27.2%; RSI 53.8; volatility 24.6% vs 29.9%; 20-day range 97.13-102.98; resistance tested three times. News Analyst: no usable news signal; one 108-day-old event, Stock A not in either group. Model 1: alpha 5.9%/yr, t-stat 0.42, rank 17 of 24, beta 0.92. Exposure model: gallium from China, Hong Kong SAR 0.604, rare gas from USA 0.672. Fixed rules: max size 10%, max stop 15%, max hold 20 days, 0.2% cost per side.
+ANALYSIS: All entry conditions hold at the Day 0 close (uptrend, relative strength, neutral RSI, inside range, contracting volatility, no adverse event). Stop 6% (just below the 50-day average, about 3.9 daily standard deviations), target 12%, max hold 20 days. Reward-to-risk 12 / 6 = 2.0 gross, about 1.81 after 0.4% round-trip costs. Size 5% (loss at stop about $320, 0.32% of portfolio), reduced because the factor alpha is not significant and short-term momentum is flat.
+MISSING INFORMATION: Earnings calendar, company news, intraday highs/lows, raw volumes, ETF daily series, current curb status, foundry/country mix - MISSING. Headlines and backtest - N/A BY DESIGN.
+RISKS OR LIMITATIONS: Closes-only stop checks allow gaps past the stop. 12% target is beyond one 20-day standard deviation (about 6.9%), so a time exit is the likely outcome. Plan diverges from the phase 8 baseline (stock ranks 17 of 24). Supply concentration in gallium (China, Hong Kong SAR) and rare gas (USA). Range could break either way with no catalyst visible. Simulation only; not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: Proposed a small simulated BUY: trend continuation inside the 97.13-102.98 range, entering at the Day 1 close. Stop 6% below entry, target 12% above, max hold 20 trading days, size 5% of the portfolio; reward-to-risk 2.0 (about 1.81 after costs). Main concerns for review: insignificant factor alpha (t 0.42, rank 17/24), flat 1-month momentum, thrice-tested resistance, no earnings calendar.
+
+PLAN
+ACTION: BUY
+SETUP: Trend continuation inside a range
+SIZE_PCT: 5
+STOP_PCT: 6
+TARGET_PCT: 12
+MAX_HOLD_DAYS: 20
+END PLAN

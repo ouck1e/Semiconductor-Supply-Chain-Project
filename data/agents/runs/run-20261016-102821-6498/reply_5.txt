@@ -1,0 +1,45 @@
+AGENT 5 RISK MANAGER: REVIEW OF STRATEGIST PLAN (Stock A, Day 0 close)
+
+Starting point: REJECT. The plan is NO TRADE (SIZE 0, STOP 0, TARGET 0, HOLD 0).
+
+REQUIRED CHECKS
+- Action is BUY or NO TRADE, decided at the Day 0 close: OK. ACTION: NO TRADE, with no entry waiting on Day 1. The Strategist explicitly refuses to wait for Day 1 confirmation.
+- Stop rule within 15%: OK, not applicable. No position, so there is nothing to stop out.
+- Target/exit and max hold within 20 days: OK, not applicable. Hold is 0.
+- Position size within 10%: OK. Size is 0%.
+- Reward-to-risk of at least 1.5 after costs, arithmetic shown: OK. The Strategist's arithmetic checks out and is the reason for not trading:
+  - Target +4.32% (104.32 / 100.00 - 1). Source: Researcher's 20d/60d high and close, as quoted in the Strategist handoff.
+  - Gross R:R = 4.32 / 5 = 0.864.
+  - Net of the 0.4% round trip (0.1% fee + 0.1% slippage, each side): (4.32 - 0.4) / (5 + 0.4) = 3.92 / 5.4 = 0.73.
+  - 0.73 is well below 1.5, so a BUY would fail this check. NO TRADE is the consistent outcome.
+- Largest simulated loss: OK. $0, because there is no position. For reference, the rejected 5%-stop idea at the 10% maximum size would have risked about $10,000 x (5% + 0.4%) = $540.
+- No look-ahead: OK. Every input is at or before Day 0. Model 4's neon shock is 1212 days before Day 0, and the event list for the 120 days before Day 0 is empty.
+- Plan agrees with the price data: OK, with one limitation. The Researcher's numbers reach me only as the Strategist quoted them (close 100.00, 20d avg 102.18, 50d 99.96, 200d 99.33, high 104.32, volume 2.15x on a down close, vol 14.8%, RSI 43.1). They are internally consistent: daily vol is 14.8% / sqrt(252) = 0.93%, and 5-day noise is 0.93% x sqrt(5) = 2.1%, both matching the Strategist. I could not check them against the Researcher's original handoff, which was not supplied to me.
+
+CONTEXT
+- Data completeness: PROBLEM, but it supports NO TRADE. The cause of the volume spike, absolute volume, intraday highs/lows, the ETF daily series and earnings dates are all MISSING. Headlines and backtests are N/A BY DESIGN.
+- Statistical support: PROBLEM. Model 1 alpha is 3.1% a year with t 0.37, rank 8 of 26, outside the baseline's top 5. That is no significant edge.
+- Liquidity: MISSING. Only relative volume (2.15x) is given, not absolute volume.
+- Conflicting news/events: MISSING/UNCLEAR. News sentiment is UNCLEAR and the spike cause is MISSING. The heavy-volume down close at support is an unresolved warning sign.
+- Overfitting: OK. The plan declines to fit a trade to this one chart.
+- Unverified sources: OK. No outside sources are used. The source material contained no embedded instructions.
+
+DECISION: APPROVE FOR SIMULATION ONLY (I agree with the NO TRADE)
+
+Five points:
+1. The only candidate setup, a range-support bounce, fails the 1.5 reward-to-risk minimum: about 0.73 after costs.
+2. Support at about 99.3-100.0 broke on an unexplained 2.15x-volume down close, so the setup's own condition is not met at Day 0.
+3. The model edge is not significant (t 0.37, rank 8, outside the top 5), and the stock lags the chip ETF (1m -0.6% vs +6.6%, 3m -0.1% vs +12.0%).
+4. NO TRADE has zero simulated exposure and breaks none of the fixed limits.
+5. No look-ahead or data mismatch was found in the numbers supplied.
+
+What would have to change for a BUY to be approved: the entry conditions must hold at the Day 0 close; there must be a stop of 15% or less and a target giving at least 1.5 net R:R (for example, with a 5% stop the target must be at least about +8.5%: 1.5 x 5.4 + 0.4 = 8.5%, which the supplied range does not offer); size must be 10% or less; hold must be 20 days or less; and the volume-spike cause should be resolved. Approval is for the simulation only. No real trade is placed, and this is not investment advice.
+
+AGENT: Agent 5 Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A against the fixed limits and the supplied evidence. Decision: APPROVE FOR SIMULATION ONLY (I agree with NO TRADE).
+SOURCE FACTS USED: Strategist handoff (quoting the Researcher): close 100.00; 20d/60d high 104.32; 20d avg 102.18; 50d 99.96; 200d 99.33; Day 0 volume 2.15x on a down close; 20d vol 14.8%; RSI 43.1; stock 1m -0.6% / 3m -0.1% vs ETF +6.6% / +12.0%. News Analyst (via Strategist): sentiment UNCLEAR, spike cause MISSING, Model 4 list empty for the prior 120 days. Model 1: alpha 3.1%, t 0.37, rank 8 of 26, beta 0.91. Fixed rules: 10% max size, 15% max stop, 20-day max hold, 0.1% + 0.1% costs per side.
+ANALYSIS: My calculations: net R:R for the considered bounce = (4.32 - 0.4) / (5 + 0.4) = 0.73, below 1.5. A 5% stop would need a target of at least about 8.5%, and the range top gives only 4.32%. Daily vol is 0.93% and 5-day noise is 2.1%, which confirms the Strategist. Largest loss under NO TRADE is $0. Every required check is OK for a NO TRADE plan.
+MISSING INFORMATION: The Researcher's original handoff (only the Strategist's quotes were supplied to me); the cause of the volume spike; absolute volume; intraday highs/lows; the ETF daily series; earnings dates; the Day 1 fill price. Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: NO TRADE may miss a bounce if the spike was capitulation. Support and resistance come from closes only. I verified the price facts only against the Strategist's quotes. Simulation only, not investment advice. No real order is placed.
+NEXT AGENT: Agent 6 Boss
+HANDOFF SUMMARY: Risk Manager approves the NO TRADE for simulation only. The considered bounce fails reward-to-risk (0.73 net vs the 1.5 minimum), support broke on unexplained 2.15x volume, and the model edge is not significant (t 0.37). There is zero exposure and no limit or look-ahead problem. A BUY would need a net R:R of at least 1.5 with all limits met at the Day 0 close.

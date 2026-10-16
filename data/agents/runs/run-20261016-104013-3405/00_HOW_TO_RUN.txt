@@ -1,0 +1,15 @@
+HOW TO RUN run-20261016-104013-3405 (simulation only)
+
+1. In Claude, open a new chat (or a Project chat) for each agent.
+2. Paste 1_researcher.txt. Copy the handoff block it ends with.
+3. Paste 2_news_analyst.txt, replacing [PASTE THE RESEARCHER'S HANDOFF BLOCK HERE] with that block.
+4. Paste 3_strategist.txt with both handoffs. Save its whole reply as strategist.txt in this folder
+   (its PLAN block lets the scorer check whether the Risk Manager's call was right).
+5. Skip 4_coder.txt in manual runs (read it once to see why).
+6. Paste 5_risk_manager.txt with the Researcher's handoff and the Strategist's handoff and PLAN blocks.
+7. Paste 6_boss.txt with all four handoffs.
+8. Save the Boss's whole reply as boss.txt in this folder, then score it:
+       python agent_score.py run-20261016-104013-3405
+   (or double-click run_agent_score.bat and type the run id)
+
+Do not open or paste data/agents/keys/run-20261016-104013-3405.json: it holds the real stock and date.

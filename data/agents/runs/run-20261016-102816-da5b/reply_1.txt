@@ -1,0 +1,83 @@
+AGENT 1 - RESEARCHER REPORT (simulation, not investment advice)
+
+Note on the material: the supplied market data contains no embedded instructions. Nothing to flag.
+
+1. STOCK, SECTOR, TIMEFRAME
+- Stock A, sector group Equipment (line "Stock: Stock A (sector group: Equipment)").
+- Daily closes rebased so Day 0 close = 100.00; at least 252 closes up to Day 0, nothing after (lines "Timeframe" and "Source").
+- Calendar dates are hidden by design; I make no attempt to identify the stock or period.
+
+2. STRUCTURE: UNCLEAR - a short-term range/rebound sitting inside a larger decline
+Source facts:
+- Close 100.00 is below all three averages: 20-day 103.30 (-3.2%), 50-day 101.97 (-1.9%), 200-day 110.02 (-9.1%).
+- 50-day average (101.97) is below the 200-day average (110.02).
+- 60-day closing high 137.99 and 60-day closing low 77.77 are also the 252-day high and low. Close is -27.5% from the 252-day high.
+- 20-day closing range 95.99 to 111.24.
+Analysis:
+- Both the year's peak (137.99) and the year's trough (77.77) fell inside the last 60 trading days, so the stock had a sharp fall and then a partial recovery recently.
+- The 1m return of +15.5% implies a close of about 86.6 roughly 21 trading days ago (100 / 1.155 = 86.58), which matches Day -21 = 86.55. From there it rose to 111.24 (Day -4) and then fell back to 95.99 (Day -2) before closing at 100.00.
+- Price below the 200-day and the 50-day below the 200-day point to a longer-term downtrend; the rebound off 77.77 and the last 20 days moving sideways between ~96 and ~111 point to a short-term range. Overall label: UNCLEAR (range inside a broader downtrend).
+
+3. MOMENTUM
+Source facts: returns 1m +15.5%, 3m -22.2%, 6m -11.3%, 12m +15.2%; RSI(14) 48.4.
+Analysis:
+- Mixed: positive at 1m and 12m, negative at 3m and 6m.
+- The 3m figure implies a close of about 128.5 three months ago (100 / 0.778), i.e. the stock is well below where it was before the recent drop.
+- RSI 48.4 is neutral (neither overbought above 70 nor oversold below 30).
+- Last 5 sessions show a failed push: 103.21 -> 111.24 (Day -4, +7.8%) -> 101.70 (Day -3, -8.6%) -> 95.99 (Day -2) -> 97.40 -> 100.00.
+
+4. VOLUME
+Source facts: last 5 days vs 50-day average 0.95x. Daily ratios Day -4 0.81x, Day -3 1.30x, Day -2 1.21x, Day -1 0.70x, Day 0 0.74x.
+Analysis:
+- Volume is roughly average overall. The two down days after the Day -4 high (Day -3, Day -2) came on above-average volume (1.30x, 1.21x), while the last two up days (Day -1, Day 0) came on below-average volume (0.70x, 0.74x). The rally from Day -16 to Day -4 also ran mostly on light volume (0.51x to 0.84x).
+- The heaviest volume in the 30-day window was Day -29 (1.59x).
+
+5. VOLATILITY
+Source facts: annualised 20-day 76.0%, 120-day 77.4%.
+Analysis:
+- Ratio about 0.98: short-term volatility is in line with the longer-term level, neither expanding nor contracting.
+- The level itself is very high. The daily closes confirm it: moves of about +/-8% occur several times in the last 30 days (e.g. Day -28 to -27: 91.57 -> 100.72; Day -27 to -26: 100.72 -> 92.22; Day -5 to -4 and -4 to -3).
+
+6. SUPPORT AND RESISTANCE (only levels the supplied numbers back up)
+Support:
+- ~95.99: 20-day closing low (Day -2).
+- ~86.55 to 88.5: closes on Day -23 to Day -21 (88.64, 88.52, 86.55), the base of the latest rebound.
+- 77.77: 60-day and 252-day closing low.
+Resistance:
+- 101.97 / 103.30: 50-day and 20-day averages, just above the close.
+- ~108.90 to 111.24: Day -12 close and the 20-day closing high (Day -4); the stock was rejected there.
+- 110.02: 200-day average, sitting inside that same zone.
+- 137.99: 60-day and 252-day closing high.
+
+7. COMPARISON WITH CHIP-SECTOR ETF
+Source facts: ETF 1m +17.0%, 3m -9.2%, 6m +0.6%, 12m +10.8%.
+Analysis (Stock A minus ETF, percentage points):
+- 1m: 15.5 - 17.0 = -1.5 pp (slightly lagging)
+- 3m: -22.2 - (-9.2) = -13.0 pp (lagging badly)
+- 6m: -11.3 - 0.6 = -11.9 pp (lagging)
+- 12m: 15.2 - 10.8 = +4.4 pp (ahead)
+- Stock A fell much harder than the sector over 3 and 6 months and has rebounded roughly in step with the sector over the last month, without closing the gap.
+
+8. THREE STRONGEST FACTS
+1. Close is below the 20-, 50- and 200-day averages, and the 50-day is below the 200-day (indicator lines).
+2. Stock A underperformed the chip-sector ETF by about 13 pp over 3m and 12 pp over 6m (return lines).
+3. The latest attempt higher was rejected at 111.24 (Day -4) and the drop that followed came on above-average volume (1.30x, 1.21x), while the bounce since has been on light volume (last 30 closes table).
+
+THREE BIGGEST UNCERTAINTIES
+1. Volatility of ~76% annualised means the 96-111 range can break in either direction quickly; the levels are not tight.
+2. The cause of the fall from 137.99 to 77.77 and the rebound is unknown: headlines are N/A BY DESIGN in this blind run, and no fundamentals are supplied.
+3. Only closes are supplied (no intraday highs/lows, no actual volume figures, no dates), so support/resistance and the averages are based on closing prices only.
+
+9. DATA COMPLETENESS SCORE: 75 / 100
+- Present: full indicator set, ETF comparison, 30 daily closes with relative volume, 20/60/252-day high-low.
+- Absent: intraday highs/lows (MISSING), absolute volume (MISSING), closes beyond the last 30 days in detail (MISSING), fundamentals and earnings dates (MISSING). Headlines and real dates are N/A BY DESIGN and are not counted against the score.
+
+---------------------------------------------------------------
+AGENT: Agent 1 - Researcher
+TASK COMPLETED: Described Stock A's (Equipment) price structure, momentum, volume, volatility, support/resistance and relative performance vs the chip-sector ETF as of the Day 0 close. No trade recommendation given.
+SOURCE FACTS USED: Close 100.00; 20d avg 103.30 (-3.2%); 50d avg 101.97 (-1.9%); 200d avg 110.02 (-9.1%); returns 1m +15.5%, 3m -22.2%, 6m -11.3%, 12m +15.2%; ETF 1m +17.0%, 3m -9.2%, 6m +0.6%, 12m +10.8%; RSI 48.4; vol 20d 76.0%, 120d 77.4%; 5d volume 0.95x; 20d high/low 111.24/95.99; 60d and 252d high/low 137.99/77.77; -27.5% from 252d high; last 30 closes and volume ratios (Day -29 to Day 0).
+ANALYSIS: Structure UNCLEAR: short-term range ~96-111 after a rebound from 77.77, inside a broader decline (below all averages, 50d < 200d). Momentum mixed, RSI neutral. Volatility very high but stable (20d/120d ~0.98). Volume about average; selling after the Day -4 high was heavier than buying since. Lags ETF by 13.0 pp (3m) and 11.9 pp (6m), ahead by 4.4 pp (12m), behind by 1.5 pp (1m). Support ~96, ~86.5-88.5, 77.77; resistance ~102-103 (averages), ~109-111 (incl. 200d at 110.02), 137.99.
+MISSING INFORMATION: Intraday highs/lows; absolute volume; detailed closes before Day -29; fundamentals and earnings dates. Headlines and real dates: N/A BY DESIGN (blind run). Plan backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: ~76% annualised volatility makes levels loose; cause of the recent crash and rebound unknown; close-only data; implied prices (e.g. ~128.5 three months ago) are my arithmetic from the supplied returns, not supplied values. Simulation only, not investment advice.
+NEXT AGENT: Agent 2 - News Analyst
+HANDOFF SUMMARY: Stock A (Equipment) closes at 100.00, below its 20/50/200-day averages and 27.5% under its 252-day high, ranging 96-111 after a sharp fall to 77.77 and rebound within the last 60 days; momentum is mixed (RSI 48.4), volatility is very high (~76%) and steady, volume is average, and it has lagged the chip ETF badly over 3 and 6 months; data completeness 75/100.

@@ -1,0 +1,50 @@
+AGENT 2, NEWS ANALYST: Stock A (Gases & materials), blind run
+
+The supplied material contains no instructions that tried to direct me. It holds no headlines and no supply-chain events.
+
+NEWS AND EVENTS TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines (none supplied) | N/A BY DESIGN | No headlines are supplied. The source line says "Headlines: MISSING ... blind runs have none." | None can be assessed | UNCLEAR | N/A | N/A BY DESIGN
+Phase 8 event list (Model 4), 120 days before the decision | Not stated (window = 120 days before Day 0) | The list shows "None" for this window | None of the pre-defined supply-chain shocks applies in the window | UNCLEAR (neutral: no event) | High that the list is empty. Low that this means "no news at all". | No. The list is fixed. It only covers events the model tracks.
+
+1. CONFIRMED FACTS
+- No headlines were supplied. This is by design in a blind run (source: "Headlines: MISSING. Headlines would reveal the stock and the dates, so blind runs have none.").
+- No phase 8 supply-chain events fall in the 120 days before the decision (source: "Supply-chain events from the phase 8 event list (Model 4) in the 120 days before the decision: - None.").
+- The event list's expected losers and winners were fixed before returns were looked at (source: "Source: phase8_market_models.EVENTS; ...fixed before looking at returns."). So the absence of an event is not shaped by hindsight.
+
+2. CONFLICTING REPORTS
+- None. There is nothing to compare.
+- The Researcher flagged two price moves with no cause in the supplied data: a 3.84x volume spike on Day -29, and a drop from about Day -12 to Day -10 (to 97.53 at 1.10x, then 97.28 at 1.54x on Day -8). The event list has no entry for either window.
+  - This is not a conflict.
+  - It does mean those moves had some cause that the tracked event list does not cover. That cause could be company-specific, sector-wide or market-wide news. It is MISSING.
+
+3. OLD OR NOT RELEVANT HEADLINES
+- None supplied, so there is nothing to filter.
+
+4. WHAT COULD CHANGE THE PICTURE
+- Headlines would explain the Day -29 volume spike and the Day -12 to -10 decline. A person reviewing after the run could check them in the unblinded key. Agents in this run cannot.
+  - If the spike or the decline came from a lasting negative (guidance cut, lost contract, input-cost shock), the weak momentum the Researcher found would carry more weight.
+  - If they came from one-off noise, it would carry less.
+- A supply-chain shock after Day 0, or one outside the model's tracked list, would not show up here.
+- Sector news on chip demand could matter. Stock A has lagged the chip ETF by -8.7 to -43.2 points (Researcher handoff). News like that could either narrow that gap or widen it. No such news is supplied.
+
+5. SENTIMENT SUMMARY (describes the news, does not predict prices)
+- The news picture is EMPTY / NEUTRAL BY DESIGN.
+  - No headlines are available.
+  - No tracked supply-chain event touched the 120-day window.
+- So the news layer supplies no catalyst, bullish or bearish.
+- Any decision has to rest on the Researcher's price and volume picture alone:
+  - range-bound
+  - weak short-term momentum
+  - heavy underperformance against the chip ETF
+- The two unexplained price and volume moves stay unexplained.
+
+AGENT: Agent 2, News Analyst
+TASK COMPLETED: Reviewed the supplied headlines and supply-chain events for Stock A. The headlines are absent by design. The phase 8 event list is empty for the 120 days before Day 0. Built the table and gave the confirmed facts, conflicts, irrelevant items, what could change the picture, and a sentiment summary.
+SOURCE FACTS USED: "Headlines: MISSING ... blind runs have none." "Supply-chain events from the phase 8 event list (Model 4) in the 120 days before the decision: - None." "expected losers and winners were fixed before looking at returns." From the Researcher handoff: the Day -29 volume spike (3.84x); the Day -12 to -10 decline (97.53 at 1.10x, 97.28 at 1.54x on Day -8); ETF underperformance of -8.7 to -43.2 points.
+ANALYSIS: There is no news catalyst in either direction. The empty event list is a real, hindsight-free fact, but it only covers the shocks the model tracks. It does not mean nothing happened. The causes of the Day -29 volume spike and the Day -12 to -10 decline are unknown. The news layer adds neither support nor objection to a BUY. The decision rests on the technical picture.
+MISSING INFORMATION: Headlines: N/A BY DESIGN (blind run). Causes of the Day -29 volume spike and the Day -12 to -10 decline: MISSING. Company-specific, sector and macro news outside the phase 8 event list: MISSING. Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: The event list only covers pre-defined supply-chain shocks, so "None" can hide relevant untracked news. A neutral news reading reflects missing information, not confirmed calm. Simulation only, not investment advice.
+NEXT AGENT: Agent 3, Strategist
+HANDOFF SUMMARY: The news layer for Stock A is empty and neutral by design: no headlines (blind run) and no phase 8 supply-chain events in the 120 days before Day 0. There is no catalyst either way. The Day -29 volume spike and the Day -12 to -10 decline stay unexplained. Base the plan on the Researcher's range-bound, weak-momentum, ETF-lagging technical picture, and treat the missing news as uncertainty, not as reassurance.

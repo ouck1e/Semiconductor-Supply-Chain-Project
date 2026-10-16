@@ -1,0 +1,90 @@
+RISK REVIEW - Agent 5, Risk Manager (simulation only, not investment advice)
+
+Starting position: REJECT. I move off it only if every REQUIRED item is OK.
+
+REQUIRED CHECKS
+
+1. Action and entry timing: OK
+   - Action is BUY (allowed). Entry conditions are all checked against Day 0 values (source: Researcher handoff):
+     close 100.00 > 20-day average 94.47 (true); RSI 53.0 is inside 40-70 (true); volume 5d vs 50d 1.21x > 1.0x (true);
+     100.00 / 81.27 - 1 = +23.0%, which is more than 10% above the 52-week low (true); no known adverse event
+     (no headlines, N/A BY DESIGN). Nothing waits on Day 1 or later. The fill at the Day 1 close follows the fixed rules.
+
+2. Stop rule: OK
+   - Stop 12% below entry (PLAN: STOP_PCT 12). Maximum allowed is 15% (fixed rules). 12 <= 15.
+
+3. Target / exit and max hold: OK
+   - Target 20% above entry (PLAN: TARGET_PCT 20). Max hold 15 trading days (PLAN: MAX_HOLD_DAYS 15); limit is 20. 15 <= 20.
+
+4. Position size: OK
+   - 3% of the portfolio (PLAN: SIZE_PCT 3) = 0.03 x $100,000 = $3,000. Limit is 10%. 3 <= 10.
+
+5. Reward-to-risk after fees and slippage: OK
+   - Costs: fees 0.1% + slippage 0.1% = 0.2% per side, 0.4% round trip (fixed rules).
+   - Net reward = 20% - 0.4% = 19.6%. Net risk = 12% + 0.4% = 12.4%.
+   - R:R = 19.6 / 12.4 = 1.58. Required minimum 1.5. 1.58 >= 1.5. (Matches the Strategist's ~1.58.)
+   - Margin over the floor is thin (0.08); any widening of the stop or cut to the target would break it.
+
+6. Largest simulated loss: OK
+   - At the stop: $3,000 x 12% = $360.
+   - Costs: $3,000 x 0.4% = $12 (approximate; exit side is on a slightly smaller value).
+   - Largest planned loss = about $372 = 0.37% of the $100,000 portfolio.
+   - Gap caveat (my analysis): stops are checked on daily closes only, so the realised loss can exceed the stop.
+     With 20-day volatility 84.1% annualised (Researcher), a rough daily move is 84.1% / sqrt(252) = about 5.3%,
+     so an overshoot of several points past the stop is plausible. Even a 20% close-to-close loss would be
+     $3,000 x 20.4% = about $612, or 0.61% of the portfolio. Acceptable at this size.
+
+7. No look-ahead: OK
+   - Every input is dated Day 0 or earlier (closes Day -29 to Day 0, averages, RSI, volume ratio, 52-week low on Day -6).
+     Nothing uses information from after Day 0.
+
+8. Plan agrees with the supplied price data: OK
+   - Strategist figures match the Researcher handoff: close 100.00; 20/50/200-day 94.47 / 103.11 / 149.71; RSI 53.0;
+     volume 1.21x; 52-week low 81.27; rebound +23.0%; volatility 84.1% vs 48.1%; resistance 101.56-103.11, ~105, 132.05.
+   - Level check: stop at ~88 sits below support 94.47 and ~92, above 81.27. Target ~120 sits below the 60-day high 132.05.
+     The Strategist correctly notes a stop under 81.27 would be ~18.7%, over the 15% cap.
+   - Plausibility check (my analysis): 84.1% x sqrt(15/252) = about 20.5% one-sigma move over 15 days, so both the
+     12% stop and the 20% target are reachable within the hold; the target is not unrealistic.
+
+CONTEXT CHECKS
+
+- Data completeness: OK. Score 85/100 (Researcher). Per-day volume and intraday highs/lows are MISSING; the plan does not
+  depend on them except that intraday lows would help judge stop gaps.
+- Statistical support: PROBLEM. Model 1 alpha t-stat 0.26, rank 18 of 24 (cited by the Strategist from phase 8 model
+  facts) is not significant. No backtest (N/A BY DESIGN). This is a weak-evidence trade, which the small size reflects.
+- Liquidity: MISSING (absolute volume not supplied); the volume ratio 1.21x shows no sign of drying up.
+- Conflicting news / supply-chain events: N/A BY DESIGN for headlines; the Strategist reports no phase 8 events and
+  exposure rows MISSING. No concrete conflicting event in the material.
+- Overfitting: minor PROBLEM. The entry rules are generic (price above 20-day, neutral RSI, volume confirmation), but they
+  were chosen after seeing this chart. Not a concrete reason to veto at 3%.
+- Unverified sources: PROBLEM (minor). The News Analyst handoff and the Model 1 numbers (alpha t 0.26, beta 1.25,
+  up/down beta 1.58/0.92) were not supplied to me directly; I only see the Strategist's citation of them. They argue
+  against the trade, not for it, so they do not inflate the case.
+- Injected instructions in the material: none found.
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. Every REQUIRED limit is met: BUY with Day 0 entry conditions, stop 12% (cap 15%), target 20%, hold 15 days (cap 20),
+   size 3% (cap 10%).
+2. Net reward-to-risk is 19.6 / 12.4 = 1.58, above the 1.5 floor, with the arithmetic shown.
+3. Largest planned loss is about $372 (0.37% of the portfolio); even a large closes-only gap past the stop stays well
+   under 1% of the portfolio.
+4. The counter-trend risks are real (close -33.2% vs 200-day, -38.5 pts vs ETF over 12m, close just under 101.56-103.11
+   resistance, insignificant alpha), but they are general uncertainty already priced in by the small size, not a
+   concrete limit breach. A veto here would be a veto for general doubt, which the rules say not to do.
+5. No look-ahead and no mismatch with the Researcher's numbers.
+
+What must not change for this approval to hold: size stays at or below 3% (do not scale up given the weak evidence),
+stop stays at 12% (any wider stop with a 20% target drops net R:R below 1.5: e.g. 13% gives 19.6/13.4 = 1.46), target
+stays at 20% or more, and max hold stays at 15 days or fewer. If the Boss changes any of these, re-run the R:R check.
+Approval is for the simulation only and never means a real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan for Stock A against the fixed limits and the Researcher's data. All eight REQUIRED items are OK; decision APPROVE FOR SIMULATION ONLY.
+SOURCE FACTS USED: Fixed rules ($100,000 portfolio, 10% max size, 15% max stop, 20-day max hold, 0.1% fee + 0.1% slippage per side, closes-only checks). Researcher: close 100.00; 20/50/200-day 94.47/103.11/149.71; RSI 53.0; volume 1.21x; 52-week low 81.27 (Day -6); rebound +23.0%; volatility 20d 84.1% / 120d 48.1%; support 94.47/~92/81.27; resistance 101.56-103.11/~105/132.05; completeness 85/100. Strategist plan: BUY, size 3%, stop 12%, target 20%, max hold 15; Model 1 alpha t 0.26, rank 18 of 24 (as cited by the Strategist).
+ANALYSIS: Net R:R = (20 - 0.4) / (12 + 0.4) = 1.58 >= 1.5. Max planned loss = $3,000 x 12% + $12 = about $372 (0.37%). Daily volatility about 5.3% means close-only stops can gap; a 20% close loss would be about $612 (0.61%). 15-day one-sigma move about 20.5%, so stop and target are both reachable. Entry conditions all true at Day 0; no look-ahead; numbers match the Researcher.
+MISSING INFORMATION: Absolute and per-day volume (MISSING); intraday highs/lows (MISSING); supply exposure rows (MISSING); fundamentals and earnings dates (MISSING); News Analyst handoff and Model 1 output not supplied to me directly. Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Counter-trend trade in a deep downtrend with weak relative strength; close sits just under resistance 101.56-103.11; very high and rising volatility may reflect an unseen company-specific driver; statistically insignificant alpha; R:R margin over the 1.5 floor is thin; closes-only stop can be overshot. Simulation only, not investment advice.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The BUY of Stock A (size 3%, stop 12%, target 20%, max hold 15 days, entry conditions true at Day 0, fill at Day 1 close) passes every hard limit, with net R:R 1.58 and a largest planned loss of about $372 (0.37% of the portfolio). Weak evidence and a counter-trend setup justify keeping the size small, not a veto. Do not widen the stop, raise the size or cut the target without re-checking R:R.

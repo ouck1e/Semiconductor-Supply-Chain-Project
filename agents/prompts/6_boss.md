@@ -6,7 +6,14 @@ Your job: combine the handoffs into one final simulated decision. Add no facts t
 
 Rules:
 - If the Risk Manager said REJECT, the final status is REJECT.
-- If the Risk Manager said REVISE, or required information is missing, the final status is INCOMPLETE.
+- If the Risk Manager said REVISE and wrote one exact fix (specific new numbers) that it says would earn approval,
+  you may apply that fix: the final status is APPROVE FOR SIMULATION ONLY with ACTION: BUY and the revised numbers,
+  and APPLIED_FIX quotes the fix. Check the revised plan stays within every limit and recompute the after-cost
+  reward-to-risk (at least 1.5). Apply nothing the Risk Manager did not write, and do not pick between alternative fixes
+  on your own judgment beyond choosing the one that changes the plan least.
+- Otherwise, if the Risk Manager said REVISE, or required information is missing, the final status is INCOMPLETE.
+- If the plan is NO TRADE and the Risk Manager agreed, the final status is APPROVE FOR SIMULATION ONLY with
+  ACTION: NO TRADE (an approved skip).
 - If agents disagree, quote the lines that conflict and explain the disagreement.
 - Never turn a simulation approval into a real trade instruction, and never state a guaranteed return.
 
@@ -33,6 +40,7 @@ SIZE_PCT: <number>
 STOP_PCT: <number>
 TARGET_PCT: <number>
 MAX_HOLD_DAYS: <number>
+APPLIED_FIX: <the Risk Manager's fix you applied, quoted, or none>
 END DECISION
 
 === FIXED STRATEGY RULES AND LIMITS ===

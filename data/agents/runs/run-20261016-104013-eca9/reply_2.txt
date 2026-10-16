@@ -1,0 +1,40 @@
+Agent 2 - News Analyst: news and events review for Stock A (Foundries & memory), Day 0. Blind, manual run.
+
+This is a simulation for research and learning only. It is not investment advice.
+
+NEWS AND EVENTS TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines | N/A BY DESIGN (blind run) | None supplied. Headlines would reveal the stock and the dates. | None can be judged | UNCLEAR | N/A | No. Unavailable by design.
+phase8_market_models.EVENTS (Model 4), 120 days before the decision | Window ends Day 0 | No supply-chain events are listed in the window ("None.") | No known event-driven shock in the window | UNCLEAR (neutral: no event to point either way) | High that the list holds no entries. Low that this means nothing happened, because the list may not cover every event. | Yes, if the full event list becomes available
+
+1. Confirmed facts
+- Headlines: N/A BY DESIGN. None were supplied for this blind run (line: "Headlines: MISSING. Headlines would reveal the stock and the dates, so blind runs have none.").
+- The phase 8 event list (Model 4) shows no supply-chain events in the 120 days before Day 0 (line: "- None.").
+- The event list's expected losers and winners were fixed before returns were checked (line: "Source: phase8_market_models.EVENTS; the expected losers and winners were fixed before looking at returns."). This only tells us how the list was built. It says nothing about Stock A.
+
+2. Reports that conflict with each other
+- None. There are no headlines, and the only event source lists nothing, so nothing can conflict.
+
+3. Headlines that are old or not relevant to this stock
+- None to judge, because no headlines were supplied.
+
+4. What could change the picture
+- A firm-specific event that the curated phase 8 list does not cover, such as earnings, guidance, a fab outage or an export-control action. Earnings dates are MISSING (Researcher handoff).
+- The cause of the Day -16 move to 93.69 on 5.22x volume (Researcher handoff). That looks like a market event, but its cause is MISSING and it is not in the event list. I am not guessing what it was.
+- The cause of the four down closes from Day -3 to Day 0, which is unknown.
+- Sector-wide news that would explain why Stock A trails the chip-sector ETF in every period (Researcher handoff: -4.4, -0.4, -12.5, -19.9 points). No sector news was supplied.
+
+5. Sentiment summary (describes the news, does not predict prices)
+- Neutral, with no information. There are no headlines and no listed supply-chain events in the 120-day window. The news layer gives no signal either way. The decision will have to rest on the Researcher's price and volume picture, and that picture includes one high-volume move (Day -16) whose cause no supplied source explains.
+
+Instructions found inside the source material: none.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied headlines and supply-chain events for Stock A. Headlines are N/A BY DESIGN (blind run). The phase 8 event list (Model 4) shows no events in the 120 days before Day 0. Built the table and the five-part report.
+SOURCE FACTS USED: "Headlines: MISSING ... blind runs have none"; phase 8 event list (Model 4), 120-day window: "None."; event winners and losers were fixed before returns were checked. From the Researcher handoff, for context only: Day -16 close at 93.69 on 5.22x volume, cause unknown; four down closes from Day -3 to Day 0; Stock A lags the ETF in every period; earnings dates MISSING.
+ANALYSIS: The news layer is empty, not negative or positive, so sentiment is neutral with no information. No listed supply-chain shock explains the recent price action. The Day -16 volume spike stays unexplained, and so may reflect an event that is not in the curated list.
+MISSING INFORMATION: Headlines (N/A BY DESIGN, blind run); any events outside the curated phase 8 list; earnings dates; the cause of the Day -16 volume spike; the cause of the Day -3 to Day 0 decline; sector news. Backtests N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: "No listed events" does not mean "no events". The phase 8 list is curated and may leave out firm-specific news. An unknown catalyst, such as earnings, could fall inside the holding period. Missing headlines alone are not a reason to reject the trade.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: For Stock A the news layer is neutral with no information. Headlines are N/A BY DESIGN and the phase 8 event list shows no supply-chain events in the 120 days before Day 0. Weigh the decision on the Researcher's technicals. Treat the unexplained Day -16 volume spike (5.22x) and the missing earnings dates as open event risks.

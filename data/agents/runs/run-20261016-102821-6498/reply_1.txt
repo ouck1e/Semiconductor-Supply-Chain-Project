@@ -1,0 +1,76 @@
+AGENT 1 - RESEARCHER REPORT (simulation only, not investment advice)
+
+Note on the source material: it contains no embedded instructions. It is market data only.
+
+1. STOCK, SECTOR, TIMEFRAME
+- Stock: Stock A. Sector group: Gases & materials. (Source: "Stock: Stock A (sector group: Gases & materials)")
+- Timeframe: daily closes, rebased so Day 0 = 100.00, at least 252 closes up to Day 0, nothing after it. The detailed table covers Day -29 to Day 0. (Source: "Timeframe" and "Source" lines)
+- Actual calendar dates: hidden by design. I make no attempt to identify the stock or the dates.
+
+2. STRUCTURE: RANGE, WITH A SHORT-TERM PULLBACK. Overall: unclear-to-range
+Source facts:
+- Close 100.00; 20-day avg 102.18 (close -2.1%); 50-day avg 99.96 (close 0.0%); 200-day avg 99.33 (close +0.7%).
+- 252-day closing high/low 105.70 / 89.99; 60-day 104.32 / 90.38; 20-day 104.32 / 100.00.
+- Last 30 closes: rose from 97.52 (Day -25) to a peak of 104.32 (Day -7), then fell on most days to 100.00 (Day 0).
+Analysis:
+- The 50-day and 200-day averages are almost the same (99.96 vs 99.33), and the close sits right on both. That is a flat, sideways picture, not a clear trend.
+- Over 252 days price has stayed inside about 90 to 106. The close is about 64% of the way up that range (my calculation: (100.00-89.99)/(105.70-89.99) = 0.64).
+- Short term it is a pullback: the close is below the 20-day average, 4.1% under the Day -7 peak (my calculation: 100.00/104.32 - 1), and Day 0 closed exactly at the 20-day closing low.
+- Medium term is mildly firmer: 6m +7.1% and the close is slightly above the 200-day average.
+
+3. MOMENTUM
+Source facts: returns 1m -0.6%, 3m -0.1%, 6m +7.1%, 12m +4.8%; RSI(14) 43.1.
+Analysis: Short-term momentum (1m and 3m) is flat to slightly negative. Longer-term (6m, 12m) is modestly positive. RSI 43.1 is below the 50 midpoint but far from the usual 30 oversold level: mildly weak, not stretched.
+
+4. VOLUME
+Source facts: last 5 days vs 50-day average 0.97x. Day 0 volume 2.15x. Days -4 to -1: 0.66x, 0.74x, 0.61x, 0.60x.
+Analysis:
+- Overall recent volume is about normal (0.97x).
+- But it is uneven: four quiet days, then Day 0 at 2.15x, the highest in the 30-day table (next highest is 1.97x on Day -14). The Day 0 heavy volume came on a down close (100.62 to 100.00, my calculation -0.6%) that landed on the 20-day low. Heavy volume on a down day at a support level could be selling pressure or buyers stepping in; the data alone does not say which.
+- Small inconsistency: averaging the five daily ratios in the table (Days -4 to 0) gives about 0.95x (my calculation), against the supplied 0.97x. Likely a rounding or denominator difference; flagging it, not resolving it.
+
+5. VOLATILITY
+Source facts: 20-day annualised 14.8%; 120-day 22.4%.
+Analysis: Recent volatility is about one third lower than the longer baseline (my calculation: 14.8/22.4 = 0.66). The stock has been calm recently. Low volatility periods can be followed by larger moves, but direction is not implied.
+
+6. SUPPORT AND RESISTANCE (only levels backed by supplied numbers)
+Support:
+- 99.3 to 100.0: the 20-day closing low (100.00), the 50-day avg (99.96) and the 200-day avg (99.33) all cluster here. This is the strongest-backed level. Day 0 sits on it.
+- 97.52: lowest close in the 30-day table (Day -25).
+- 89.99 to 90.38: the 252-day and 60-day closing lows.
+Resistance:
+- 102.18: the 20-day average.
+- 103.9 to 104.32: closes on Days -11 (103.93) and -7 (104.32, the 20-day and 60-day high).
+- 105.70: the 252-day closing high.
+
+7. COMPARISON WITH THE CHIP-SECTOR ETF
+Source facts: ETF 1m +6.6%, 3m +12.0%, 6m -0.5%, 12m -11.4%.
+Analysis (stock minus ETF, my calculation):
+- 1m: -0.6 vs +6.6 = -7.2 points (lagging)
+- 3m: -0.1 vs +12.0 = -12.1 points (lagging)
+- 6m: +7.1 vs -0.5 = +7.6 points (leading)
+- 12m: +4.8 vs -11.4 = +16.2 points (leading)
+Over 6 to 12 months the stock held up much better than the sector, which fell. Over the last 3 months the sector rallied strongly and the stock did not take part. This fits a lower-beta, defensive profile for a gases & materials name, but that is an interpretation, not a supplied fact.
+
+8. THREE STRONGEST FACTS
+1. Day 0 closed at 100.00, which is the 20-day closing low and sits right on the 50-day (99.96) and 200-day (99.33) averages: a clear, multi-source support cluster.
+2. Day 0 volume was 2.15x the 50-day average, the heaviest day in the 30-day table, after four days at 0.60x to 0.74x.
+3. Strong divergence from the sector: lagging the ETF by 12.1 points over 3m but leading by 16.2 points over 12m.
+
+THREE BIGGEST UNCERTAINTIES
+1. What drove the Day 0 volume spike. Headlines are N/A BY DESIGN in this blind run, so the cause is unknown.
+2. Whether the support cluster holds: the short-term path (falling closes from Day -7, close below 20-day avg, RSI 43.1) points down while the longer averages are flat.
+3. Only closing prices are supplied (no intraday highs/lows, no absolute volume, no ETF price series, no fundamentals), so levels and relative strength rest on closes and period returns only.
+
+9. DATA COMPLETENESS SCORE: 80 / 100
+Indicators, 30-day closes with volume ratios and ETF period returns are all present and mostly consistent. Deductions: closes only (no OHLC), no ETF daily series, no fundamentals or earnings dates, the small 0.97x vs 0.95x volume discrepancy. Headlines are N/A BY DESIGN and not counted against the score.
+
+---------------------------------------------------------------------
+AGENT: Agent 1 Researcher
+TASK COMPLETED: Described Stock A's structure, momentum, volume, volatility, support/resistance and sector comparison from the supplied market data; no trade recommendation made.
+SOURCE FACTS USED: Close 100.00; 20d avg 102.18 (-2.1%); 50d avg 99.96 (0.0%); 200d avg 99.33 (+0.7%); returns 1m -0.6%, 3m -0.1%, 6m +7.1%, 12m +4.8%; ETF 1m +6.6%, 3m +12.0%, 6m -0.5%, 12m -11.4%; RSI 43.1; vol 20d 14.8%, 120d 22.4%; 5-day volume 0.97x; 20d high/low 104.32/100.00; 60d 104.32/90.38; 252d 105.70/89.99; close vs 252d high -5.4%; last 30 closes and volume ratios (Day -29 to Day 0), including Day -7 peak 104.32, Day -25 low 97.52, Day 0 volume 2.15x.
+ANALYSIS: Sideways/range structure overall (flat 50d and 200d, close on both, middle-upper of the 252-day range), with a short-term pullback from 104.32 to the 20-day low. Short-term momentum flat-to-weak (RSI 43.1), longer-term mildly positive. Volatility compressed (20d about 0.66x of 120d). Day 0 down close on 2.15x volume at the 99.3-100.0 support cluster. Lags the chip ETF by 7-12 points over 1-3 months, leads by 8-16 points over 6-12 months. My calculations are labelled as such above.
+MISSING INFORMATION: Intraday highs/lows (MISSING); absolute volume (MISSING); ETF daily price series (MISSING); fundamentals and earnings dates (MISSING); cause of the Day 0 volume spike (MISSING). Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Closing-price data only; support/resistance based on closes. Small inconsistency between supplied 5-day volume ratio (0.97x) and the average of the table (about 0.95x). Interpretation of the Day 0 volume spike is ambiguous without news. Simulation only, not investment advice.
+NEXT AGENT: Agent 2 News Analyst
+HANDOFF SUMMARY: Stock A (Gases & materials) is in a sideways range and has pulled back to a support cluster near 99.3-100.0 (20-day low, 50-day and 200-day averages), closing there on Day 0 with heavy 2.15x volume; momentum is mildly weak short term and mildly positive long term, volatility is compressed, and the stock has lagged the chip ETF over 1-3 months but beaten it over 6-12 months. Data completeness 80/100; headlines are N/A BY DESIGN, so the cause of the Day 0 volume spike is unknown.

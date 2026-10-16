@@ -1,0 +1,68 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (decision at Day 0 close)
+
+Note on the source material: I found no embedded instructions in it to ignore.
+
+I looked at one candidate setup, a "support bounce on relative strength" at the 100.00 / 94.49 support zone. It does not meet its own entry conditions at the Day 0 close, so the plan is NO TRADE. The candidate's numbers are below so the Risk Manager and Boss can see why it fails.
+
+1. Setup name
+No setup. (The candidate I looked at and rejected: "Relative-strength support bounce.")
+
+2. What must be true for entry, and whether it is true on Day 0
+Candidate conditions, checked against the supplied facts:
+ a) Price is holding at support and shows some sign of turning (a close above the prior low, or above the 20-day average). NOT TRUE. Day 0 closed at 100.00, which is the 60-day closing low itself (Researcher: "20-day high/low 109.83/100.00; 60-day 113.62/100.00"). The close is 4.3% below the 20-day average. There is no higher low and no reclaimed average.
+ b) Momentum is washed out (RSI under 30) or turning up. NOT TRUE. RSI is 36.7 (Researcher), which is weak but not oversold, and every return window is negative (1m -7.5%, 3m -8.1%, 6m -21.7%, 12m -19.2%).
+ c) Selling pressure is fading. MIXED. Day 0 volume was light (0.78x), but Day -1 fell to 101.73 on heavy volume (1.85x), and the Researcher reports heavier volume on down days.
+ d) The stock is stronger than the sector. TRUE. Stock A beat the ETF in all four windows (+1.8 / +7.7 / +10.3 / +1.4 pts, Researcher).
+ e) The factor model supports holding it. NOT TRUE. Model 1 alpha is -7.0% a year, t-stat -0.57, rank 22 of 24. The baseline holds only the top 5.
+ f) A supply-chain catalyst is in the stock's favour. WEAK / UNCONFIRMED. Model 4 lists the neon war 139 days before Day 0 with this stock as an "expected winner". But the stock's 6m return is -21.7% (Researcher), so in this data the price has not shown the expected-winner effect. That is my interpretation, not a confirmed fact. The News Analyst reports no tracked events in the last 120 days.
+Result: only (d) is clearly true. The core conditions (a) and (b) are false at the Day 0 close, so the entry is not triggered.
+
+3. Entry rule
+None (NO TRADE). If the candidate had triggered, it would have been: BUY at the Day 0 close decision, filled at the Day 1 close, only if (a) and (b) were true at the Day 0 close.
+
+4. Stop rule (candidate only, for reference)
+About 6% below entry, which puts it just under the 252-day closing low of 94.49. That low is 5.8% below the Day 0 close of 100.00 (Researcher). Caveat: the real entry is the Day 1 close, which is MISSING, so the stop's distance from 94.49 would shift with it. Plan value: 0 (no trade).
+
+5. Target / exit rule (candidate only, for reference)
+Target near the 109.83 resistance: (109.83 - 100.00) / 100.00 = 9.83% above a 100.00 reference. The nearer resistance at 104.4-104.9 is only about 4.4-4.9% above. Maximum hold: 20 trading days (fixed rule limit). Plan values: 0 (no trade).
+
+6. Reward-to-risk (candidate only)
+- To 109.83: 9.83 / 6.0 = 1.64.
+- To the first resistance (104.44, the 20-day average): 4.44 / 6.0 = 0.74, which is below 1.
+- Fees and slippage of 0.2% per side, about 0.4% round trip (fixed rules), make both ratios a little worse.
+The nearer resistance sits between entry and target, so the 1.64 figure assumes the price clears 104.4-104.9 first. Nothing supplied supports that.
+
+7. Position size
+0% (NO TRADE). Had the setup triggered, I would have proposed at most 5% (half the 10% maximum), because the trend is down and the alpha t-stat is negative.
+
+8. What would cancel the setup
+It is not active now. A future decision date could revive it with a close back above the 20-day average (about 104.44) or a higher low held above 100.00, together with RSI turning up. Any close below 94.49 would cancel it outright, because support would have failed. Neither can be used for this decision: the entry has to be decided at the Day 0 close.
+
+9. Missing inputs
+Day 1 close, the actual entry price (MISSING by structure). Intraday highs and lows (MISSING). Raw volume (MISSING). Fundamentals and earnings dates (MISSING). Cause of the decline (MISSING). Supply exposure rows for this stock (MISSING, "no exposure rows for this stock before the decision year"). Headlines: N/A BY DESIGN (blind run). Backtest of the plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip it
+- A downtrend on every measure: price is below the 20/50/200-day averages, which are stacked bearishly, and the stock closed at its 60-day low.
+- There is no reversal signal at the Day 0 close, so buying now means trying to catch the bottom rather than reacting to a turn.
+- The factor alpha is negative (t -0.57, rank 22 of 24), the opposite of what the baseline rule rewards.
+- The "expected winner" neon tag has not shown up in price over the period since (6m -21.7%).
+- The realistic first target (104.4) gives a reward-to-risk below 1.
+- Relative strength against a falling ETF still meant absolute losses in every window.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Checked the Researcher and News Analyst handoffs and the phase 8 model facts against a candidate support-bounce setup for Stock A. Found its core entry conditions false at the Day 0 close, so the plan is NO TRADE.
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200-day averages 104.44/104.94/114.17; returns 1m -7.5%, 3m -8.1%, 6m -21.7%, 12m -19.2%; RSI 36.7; 20-day high/low 109.83/100.00; 252-day low 94.49 (5.8% below); resistance 104.4-104.9 and 109.83; outperformance vs the ETF +1.8/+7.7/+10.3/+1.4 pts; Day -1 at 1.85x volume, Day 0 at 0.78x. News Analyst: no headlines (N/A BY DESIGN), no Model 4 events in the 120 days. Model 1: alpha -7.0%/yr, t -0.57, rank 22 of 24, market beta 0.92. Model 4: neon war 139 days before, expected winner. Exposure: MISSING.
+ANALYSIS: Only relative strength favours entry. Price at the 60-day low with no turn, RSI not oversold, negative alpha and the unconfirmed catalyst all argue against it. The candidate's reward-to-risk is 9.83/6.0 = 1.64 to 109.83, but 4.44/6.0 = 0.74 to the first resistance. The entry is not triggered at the Day 0 close.
+MISSING INFORMATION: Day 1 fill price; intraday highs and lows; raw volume; fundamentals and earnings; cause of the decline; supply exposure rows (all MISSING). Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Skipping may miss a rebound from support, because relative strength and light Day 0 volume could come before a bounce. Levels use closes only. The candidate's numbers are measured from Day 0 (100.00), not from the unknown Day 1 entry. Simulation only; not investment advice; no real order.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A. A relative-strength support bounce was considered, but at the Day 0 close the price sits at its 60-day low with no reversal sign, RSI 36.7 is not oversold, and Model 1 alpha is negative (t -0.57, rank 22 of 24). Plan: NO TRADE, so size, stop, target and hold are all 0. For reference, the rejected candidate would have had about a 6% stop and a 9.83% target (R:R 1.64), but only 0.74 to the first resistance.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN
