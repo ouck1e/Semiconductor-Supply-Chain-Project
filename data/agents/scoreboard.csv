@@ -1,3 +1,3 @@
-prompts_version,split,runs,buys,no_trades,rules_broken,hit_rate_pct,avg_agent_ret_pct,avg_baseline_ret_pct,avg_soxx_ret_pct,avg_excess_vs_baseline_pct,beat_baseline_pct,worst_trade_pct,longest_losing_streak,first_run,last_run
-42c55623,dev,1,0,1,0,,0.0,0.0,0.95,0.0,0.0,,0,2026-10-15,2026-10-15
-all versions,dev,1,0,1,0,,0.0,0.0,0.95,0.0,0.0,,0,2026-10-15,2026-10-15
+prompts_version,split,runs,buys,no_trades,rules_broken,hit_rate_pct,avg_agent_ret_pct,avg_baseline_ret_pct,avg_soxx_ret_pct,avg_excess_vs_baseline_pct,beat_baseline_pct,avg_stock_hold_ret_pct,avg_vs_buy_and_hold_pct,good_skip_pct,worst_trade_pct,longest_losing_streak,first_run,last_run
+42c55623,dev,1,0,1,0,,0.0,0.0,0.95,0.0,0.0,-4.04,4.04,100.0,,0,2026-10-15,2026-10-15
+all versions,dev,1,0,1,0,,0.0,0.0,0.95,0.0,0.0,-4.04,4.04,100.0,,0,2026-10-15,2026-10-15

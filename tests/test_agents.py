@@ -151,6 +151,8 @@ class WithMarketData(unittest.TestCase):
                     self.assertIsNone(re.search(rf"\b{re.escape(word)}\b", text), f"{word!r} leaked into the blind packet for {t}")
                 self.assertEqual(re.findall(r"\b20(?:1[5-9]|2[0-6])\b", text), [], "a calendar year leaked")
                 self.assertNotIn("2022-03", text)
+                # the baseline's dev-years result is only known after 2022, so a 2022 decision must not see it
+                self.assertNotIn("development years", text)
                 self.assertTrue((Path(tmp) / "keys" / f"{run_id}.json").exists())
 
     def test_score_end_to_end(self):
@@ -170,6 +172,30 @@ class WithMarketData(unittest.TestCase):
             score.score_run(run_id, run_dir / "boss.txt", out, self.usd, self.cfg)
             self.assertEqual(len(pd.read_csv(out / "trade_log.csv")), 1)
             self.assertEqual(set(board.prompts_version), {key["prompts_version"], "all versions"})
+            self.assertEqual(row["good_skip"], "")                       # a BUY is not a skip
+
+    def test_no_trade_is_compared_with_holding_the_stock(self):
+        import agent_packets as ap
+        if not (sim.OUT / "baseline_weights.csv").exists():
+            self.skipTest("run phase8_baseline.py first")
+        skip = GOOD.replace("APPROVE FOR SIMULATION ONLY\nACTION: BUY", "REJECT\nACTION: NO TRADE")
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            shutil.copy(sim.OUT / "baseline_weights.csv", out / "baseline_weights.csv")
+            run_id, run_dir, _ = ap.build("2330.TW", self.D, True, self.cfg, self.market, out_dir=out)
+            (run_dir / "boss.txt").write_text(skip, encoding="utf-8")
+            row, board = score.score_run(run_id, run_dir / "boss.txt", out, self.usd, self.cfg)
+            self.assertEqual((row["action"], row["agent_ret_pct"]), ("NO TRADE", 0.0))
+            self.assertAlmostEqual(row["vs_buy_and_hold_pct"], -row["stock_hold_ret_pct"])
+            self.assertEqual(row["good_skip"], "yes" if row["stock_hold_ret_pct"] < 0 else "no")
+            self.assertIn("good_skip_pct", board.columns)
+
+    def test_baseline_note_appears_only_after_the_dev_years(self):
+        import agent_packets as ap
+        late = ap.strategist_facts("2330.TW", pd.Timestamp("2023-06-01"), self.usd, self.ff, self.uni, self.cfg, False)
+        early = ap.strategist_facts("2330.TW", self.D, self.usd, self.ff, self.uni, self.cfg, False)
+        self.assertIn("development years", late)
+        self.assertNotIn("development years", early)
 
 
 if __name__ == "__main__":

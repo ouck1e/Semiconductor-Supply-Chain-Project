@@ -8,6 +8,9 @@ Score one manual run of the AI agent team against the phase 8 baseline, and keep
 Reads the DECISION block at the end of the Boss's reply, simulates it on the prices that followed (agent_sim.simulate_trade),
 and compares it over the same days with what the phase 8 baseline earned on that stock (phase8_baseline.py) and with SOXX.
 A NO TRADE is judged over the next max_hold_days: it earns 0, so it wins when the baseline lost money on the stock.
+Every run is also compared with simply buying the stock at the next close and holding it for the whole period
+(same costs, no stop or target). That credits a good skip even when the baseline was out of the stock too:
+a NO TRADE before a fall is a "good skip", and vs_buy_and_hold_pct shows the loss it avoided (or the gain it missed).
 A BUY the rules did not allow (no approval, Risk Manager rejected, size or stop over the limit) is logged as a broken
 rule and counted as NO TRADE.
 
@@ -42,7 +45,8 @@ LOG_COLS = [
     "rules_followed", "notes",
     # scoring
     "run_id", "split", "blind", "prompts_version", "baseline_version", "decision_date", "action", "entry_date",
-    "exit_date", "exit_reason", "agent_ret_pct", "baseline_ret_pct", "soxx_ret_pct", "excess_vs_baseline_pct", "status",
+    "exit_date", "exit_reason", "agent_ret_pct", "baseline_ret_pct", "soxx_ret_pct", "excess_vs_baseline_pct",
+    "stock_hold_ret_pct", "vs_buy_and_hold_pct", "good_skip", "status",
 ]
 
 
@@ -124,9 +128,13 @@ def score(key, decision, cfg, usd, out_dir):
         pending = win is None
         start, end = win if win else (None, None)
         agent = 0.0
+    # what simply buying at the next close and holding for the whole period would have done (no stop, no target)
+    bh = sim.simulate_trade(price, D, "BUY", 0, 1e9, 1e9, hold, cfg)
+    pending = pending or bh["status"] != "closed"
     row = dict(status="pending" if pending else "scored", action=action, entry_date=start, exit_date=end,
                exit_reason=o["exit_reason"] if action == "BUY" else "no position",
-               agent_ret_pct=None, baseline_ret_pct=None, soxx_ret_pct=None, excess_vs_baseline_pct=None)
+               agent_ret_pct=None, baseline_ret_pct=None, soxx_ret_pct=None, excess_vs_baseline_pct=None,
+               stock_hold_ret_pct=None, vs_buy_and_hold_pct=None, good_skip="")
     if not pending:
         held, cal = baseline_held(t, out_dir)
         base = None
@@ -134,7 +142,9 @@ def score(key, decision, cfg, usd, out_dir):
             base = sim.window_return(price, start, end, held)
         soxx = sim.window_return(usd["SOXX"], start, end)
         row.update(agent_ret_pct=agent, baseline_ret_pct=base, soxx_ret_pct=soxx,
-                   excess_vs_baseline_pct=None if base is None else agent - base)
+                   excess_vs_baseline_pct=None if base is None else agent - base,
+                   stock_hold_ret_pct=bh["ret_pct"], vs_buy_and_hold_pct=agent - bh["ret_pct"],
+                   good_skip="" if action == "BUY" else "yes" if bh["ret_pct"] < 0 else "no")
     fees = f"{cfg['fee_pct_per_side']}% fee + {cfg['slippage_pct_per_side']}% slippage per side"
     buy = action == "BUY"
     row.update(
@@ -147,7 +157,9 @@ def score(key, decision, cfg, usd, out_dir):
         simulated_size=f"{decision['SIZE_PCT']:g}% of ${cfg['portfolio_usd']:,}" if buy else "0", fees_and_slippage=fees,
         risk_decision=decision.get("RISK_DECISION", ""), boss_decision=f"{decision['FINAL_STATUS']} / {decision['ACTION']}",
         outcome=("pending: needs later prices" if pending else
-                 f"{agent:+.2f}% ({row['exit_reason']})" if buy else "no position"),
+                 f"{agent:+.2f}% ({row['exit_reason']})" if buy else
+                 f"no position; holding the stock would have made {bh['ret_pct']:+.2f}% "
+                 f"({'good skip' if bh['ret_pct'] < 0 else 'missed gain'})"),
         rules_followed="yes" if not broken else "no: " + "; ".join(broken),
         notes="", run_id=key["run_id"], split=key["split"], blind=key["blind"], prompts_version=key["prompts_version"],
         baseline_version=cfg["baseline"]["version"], decision_date=key["decision_date"])
@@ -168,7 +180,7 @@ def scoreboard(log):
     groups = [((v, s), g) for (v, s), g in done.groupby(["prompts_version", "split"])]
     groups += [(("all versions", s), g) for s, g in done.groupby("split")]
     for (ver, split), g in groups:
-        buys = g[g.action == "BUY"]
+        buys, skips = g[g.action == "BUY"], g[g.action != "BUY"]
         ex = g.excess_vs_baseline_pct.dropna()
         rows.append(dict(
             prompts_version=ver, split=split, runs=len(g), buys=len(buys), no_trades=len(g) - len(buys),
@@ -177,6 +189,8 @@ def scoreboard(log):
             avg_agent_ret_pct=g.agent_ret_pct.mean(), avg_baseline_ret_pct=g.baseline_ret_pct.mean(),
             avg_soxx_ret_pct=g.soxx_ret_pct.mean(), avg_excess_vs_baseline_pct=ex.mean() if len(ex) else np.nan,
             beat_baseline_pct=100 * (ex > 0).mean() if len(ex) else np.nan,
+            avg_stock_hold_ret_pct=g.stock_hold_ret_pct.mean(), avg_vs_buy_and_hold_pct=g.vs_buy_and_hold_pct.mean(),
+            good_skip_pct=100 * (skips.good_skip == "yes").mean() if len(skips) else np.nan,
             worst_trade_pct=buys.agent_ret_pct.min() if len(buys) else np.nan,
             longest_losing_streak=longest_streak(buys.agent_ret_pct), first_run=g.date_time.min()[:10],
             last_run=g.date_time.max()[:10]))
@@ -208,7 +222,7 @@ def figure(log, path):
 
 
 def save(log, out_dir):
-    log = log[LOG_COLS].sort_values("date_time")
+    log = log.reindex(columns=LOG_COLS).sort_values("date_time")       # older logs gain any new columns, empty
     log.to_csv(out_dir / "trade_log.csv", index=False)
     board = scoreboard(log)
     board.round(2).to_csv(out_dir / "scoreboard.csv", index=False)
@@ -264,6 +278,8 @@ def main():
             f = lambda x: "n/a" if x is None or x != x else f"{x:+.2f}%"
             print(f"  agent {f(row['agent_ret_pct'])} | phase 8 baseline {f(row['baseline_ret_pct'])} | SOXX {f(row['soxx_ret_pct'])}"
                   f" | agent minus baseline {f(row['excess_vs_baseline_pct'])}")
+            print(f"  holding the stock instead: {f(row['stock_hold_ret_pct'])} | agent minus holding "
+                  f"{f(row['vs_buy_and_hold_pct'])}" + (f" | good skip: {row['good_skip']}" if row["good_skip"] else ""))
     else:
         raise SystemExit("Give a run id, or --update.")
     board = pd.read_csv(out / "scoreboard.csv")

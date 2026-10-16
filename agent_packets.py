@@ -162,9 +162,12 @@ def strategist_facts(t, D, usd, ff, uni, cfg, blind):
             f"({int(r.weeks)} weeks). Rank {rank} of {len(m)} companies by alpha t-stat.",
             f"- Market beta: {fmt(r.beta_mkt, 2)}. Beta to the chip-sector ETF in up weeks {fmt(r.beta_up_soxx, 2)}, "
             f"in down weeks {fmt(r.beta_down_soxx, 2)}.",
-            "- Note: the phase 8 baseline rule holds the top 5 by this t-stat each month. In its development-period test it "
-            "returned less than simply holding the chip-sector ETF.",
+            "- The phase 8 baseline rule holds the top 5 by this t-stat each month.",
         ]
+        # How the baseline did over the dev years is only known after they end, so earlier decisions don't get it.
+        if D > pd.Timestamp(cfg["splits"]["dev"][1]):
+            lines.append("- Note: over the development years the baseline returned less than simply holding the "
+                         "chip-sector ETF.")
     else:
         lines.append(f"- MISSING: fewer than {bc['min_weeks']} weeks of history.")
     lines += ["", "Model 4 supply shocks before the decision (all of them, with this stock's group):"]
