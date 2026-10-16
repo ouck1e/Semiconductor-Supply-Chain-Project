@@ -1,0 +1,11 @@
+{
+  "run_id": "run-20261015-223520-8ac1",
+  "ticker": "QCOM",
+  "name": "Qualcomm",
+  "decision_date": "2022-04-26",
+  "blind": true,
+  "split": "dev",
+  "prompts_version": "50302f80",
+  "seed": 1792125320,
+  "created": "2026-10-15T22:35:20"
+}

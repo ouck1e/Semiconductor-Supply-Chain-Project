@@ -1,0 +1,48 @@
+Agent 5 Risk Manager: review of the Strategist's plan for Stock A (blind run, Day 0 close)
+
+The plan under review is NO TRADE (0% size). The Strategist also handed over a reference rebound-continuation BUY so its numbers could be checked. I started from REJECT and checked both: the NO TRADE decision itself, and whether the reference BUY could ever be approved.
+
+No instructions were found inside the source material.
+
+REQUIRED CHECKS
+
+1. Action is BUY or NO TRADE, entry true at Day 0 close: OK. The action is NO TRADE. The Strategist found the breakout trigger not met: Day 0 close 100.00 is below the 20d high of 100.70 (Researcher). No entry waits on Day 1 or later.
+2. Stop rule within the 15% maximum: OK for NO TRADE (no position, so no stop is needed). The reference BUY stop is 7%, which is within 15%.
+3. Target / exit and maximum hold within 20 days: OK for NO TRADE. The reference BUY targets 106.27 (Researcher's 60d high) and is held for at most 20 days.
+4. Position size within the 10% maximum: OK. Size is 0%. The override cap of 5% would also be within 10%.
+5. Reward-to-risk after costs of at least 1.5: the reference BUY FAILS this check, and that supports NO TRADE. My arithmetic, using the Strategist's levels and the fixed costs (0.1% fee + 0.1% slippage per side = 0.4% round trip):
+   - Base target: reward 6.0% - 0.4% = 5.6%; risk 7.0% + 0.4% = 7.4%; 5.6 / 7.4 = 0.76
+   - Stretch target: reward 9.0% - 0.4% = 8.6%; risk 7.4%; 8.6 / 7.4 = 1.16
+   Both match the Strategist's figures and both are well below 1.5. (Check on the target: (106.27 - 100.00) / 100.00 = 6.27%, so "6%" is slightly conservative. The R:R would still be only about 0.79 after costs.)
+6. Largest simulated loss: NO TRADE gives $0. With the 5% override ($5,000 on a $100,000 portfolio): $5,000 × (7% stop + 0.4% costs) = $5,000 × 7.4% = $370, or 0.37% of the portfolio. This matches the Strategist. Because stops are checked on closes only, a gap could push the loss past this figure.
+7. No look-ahead: OK. Everything used is from Day 0 or earlier. The Day 1 fill price is correctly treated as unknown.
+8. Plan agrees with the price data: OK. The close of 100.00, the 20d high of 100.70, the 60d high of 106.27, averages 93.90/94.16/108.86, volume 0.63x / 0.79x, 1m +5.0% vs ETF +15.7%, and RSI 57.8 are all quoted as Researcher figures and used consistently. I cannot see the Researcher's handoff directly, only as the Strategist quotes it.
+
+CONTEXT CHECKS
+
+- Data completeness: PROBLEM (minor). The earnings/event calendar, the cause of the Day -14 3.01x-volume drop, intraday OHLC, absolute volume and the ETF series are all MISSING. That supports staying out. The completeness score was not supplied (MISSING).
+- Statistical support: PROBLEM. Model 1 alpha t-stat is 0.34 (no significance), rank 16/25. Model 4 places the stock in neither shock group. Nothing supports a long.
+- Liquidity: PROBLEM. Volume is fading (Day 0 0.63x, 5-day 0.79x), and absolute volume is MISSING.
+- Conflicting news / supply-chain events: headlines are N/A BY DESIGN and there are no phase 8 events. Gallium (0.276) and HF (0.242) exposure to China is noted, but coverage is only 38%. No concrete conflict was found.
+- Overfitting: OK for NO TRADE. The reference stop and target are hand-picked from close-only levels, which the Strategist flags.
+- Unverified sources: N/A BY DESIGN (no headlines in a blind run).
+
+DECISION: APPROVE FOR SIMULATION ONLY, for the NO TRADE decision. I agree with NO TRADE. The reference rebound BUY is REJECTED.
+
+Five points:
+1. The breakout trigger is not met at the Day 0 close (100.00 < 100.70), so there is no valid entry.
+2. The best reference BUY reaches only 0.76 reward-to-risk after costs (1.16 with the stretch target), well under the 1.5 floor.
+3. Volume is fading (0.63x) and the stock lags the ETF (+5.0% vs +15.7% over 1m), so the rebound lacks confirmation.
+4. There is no statistical edge (t-stat 0.34), volatility is elevated (59.6% 20d vs 44.0% 120d), and beta is 1.22.
+5. An unknown earnings/event calendar adds unpriced gap risk inside a 20-day hold. NO TRADE risks $0.
+
+What would have to change before any BUY could be approved: a close above 100.70 on Day 0 with volume at or above normal. On top of that, a stop no wider than 15% and a target that together give at least 1.5 R:R after 0.4% round-trip costs (for example, a 7% stop needs a target of at least about 11.5% above entry). Size must be 10% or less, and the earnings calendar must be checked. This approval is for simulation only and never means a real trade should be placed.
+
+AGENT: Agent 5 Risk Manager
+TASK COMPLETED: Checked the Strategist's NO TRADE plan and the reference rebound BUY against the fixed limits and the evidence. Approved NO TRADE for simulation only; rejected the reference BUY.
+SOURCE FACTS USED: Strategist handoff quoting the Researcher: close 100.00; 20d high 100.70; 60d high 106.27; 20d/50d/200d averages 93.90/94.16/108.86; volume Day 0 0.63x, 5-day 0.79x; vol 20d 59.6% vs 120d 44.0%; 1m +5.0% vs ETF +15.7%; RSI 57.8. Model 1 t-stat 0.34, rank 16/25, beta 1.22; Model 4 in neither group; exposure gallium 0.276, HF 0.242 (38% coverage). Strategist reference stop 7%, target 6% / stretch 9%, override cap 5%. Fixed rules: $100,000 portfolio, 10% maximum size, 15% maximum stop, 20-day maximum hold, 0.1% + 0.1% per side, close-only checks.
+ANALYSIS: Every required check is OK for NO TRADE. Reference BUY R:R after costs: (6 - 0.4) / (7 + 0.4) = 0.76; stretch (9 - 0.4) / 7.4 = 1.16; both below 1.5, so it fails. Target check: 106.27 / 100 - 1 = 6.27%, which gives about 0.79 after costs and still fails. Largest loss: $0 for NO TRADE; $5,000 × 7.4% = $370 (0.37%) if overridden at 5%. No look-ahead found. Facts match the quoted Researcher numbers.
+MISSING INFORMATION: Earnings/event calendar; cause of the Day -14 3.01x-volume drop; intraday OHLC; absolute volume; ETF price series; data completeness score; the Researcher's own handoff (seen only as the Strategist quotes it). Headlines and plan backtest: N/A BY DESIGN. Day 1 fill price: unknown by construction.
+RISKS OR LIMITATIONS: Close-only stop checks allow gap losses beyond the stop. Support and resistance come from closes only and are hand-picked. Volatility is elevated, beta is 1.22, and the event calendar is unknown. This is one snapshot. Simulation only, not investment advice; no real trade is placed.
+NEXT AGENT: Agent 6 Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY of NO TRADE (0% size, $0 at risk). The breakout trigger is not met (100.00 < 100.70), and the reference rebound BUY fails the 1.5 floor at 0.76 R:R after costs (1.16 with the stretch target), on fading 0.63x volume with no statistical edge (t-stat 0.34). Reference BUY rejected.

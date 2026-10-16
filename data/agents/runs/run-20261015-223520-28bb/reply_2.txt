@@ -1,0 +1,41 @@
+Agent 2 News Analyst: review of headlines and supply-chain events for Stock A (Chip designers), Day 0
+
+Headlines are N/A BY DESIGN. This is a blind run, and the supplied material says headlines would reveal the stock and dates. The phase 8 event list (Model 4) shows no supply-chain events in the 120 days before the decision. So this review has no news items to classify. It only records that there are none and what that means.
+
+EVENT TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines (blind run) | N/A BY DESIGN | None supplied. Withheld because they would reveal the stock. | Cannot be assessed | UNCLEAR | N/A | No (unavailable by design)
+phase8_market_models.EVENTS (Model 4), 120 days before Day 0 | Event list, no dates beyond the 120-day window | No listed supply-chain events in the window ("None.") | No identified event-driven effect from the curated list | UNCLEAR (no events, so no signal) | High that the list has no entries. Low that nothing happened, because the list is curated and limited | Yes: the list covers only pre-defined events, not all news
+
+1. CONFIRMED FACTS
+- Headlines: none supplied (N/A BY DESIGN, blind run).
+- Phase 8 event list (Model 4): zero supply-chain events in the 120 days before the decision. Source line: "Supply-chain events from the phase 8 event list (Model 4) in the 120 days before the decision: None."
+- Per the source note, expected winners and losers in that list were set before returns were looked at. That rules out hindsight bias in the list. It does not make the list complete.
+
+2. REPORTS THAT CONFLICT
+- None. There is only one source (the event list), and it has no entries.
+- One gap to point out, which is not a conflict: the Researcher reports a high-volume drop to the 83.00 low on Day -14 (3.01x volume). No supplied event explains it. Its cause is MISSING. The empty event list does not show the drop had no news behind it. Company-specific news (earnings, guidance, analyst actions) would not be on a supply-chain event list in any case.
+
+3. OLD OR NOT RELEVANT HEADLINES
+- None to judge. No headlines were supplied.
+
+4. WHAT COULD CHANGE THE PICTURE
+- Learning the cause of the Day -14 high-volume drop. Company-specific news there could explain both the drop and the rebound since.
+- An earnings or event date close to Day 0. The calendar is MISSING (see the Researcher handoff), and high short-term volatility (20d 59.6% vs 120d 44.0%) may hint at event risk.
+- New supply-chain shocks after Day 0, such as export controls, fab disruptions or materials shortages. None are in the supplied window.
+- Sector-wide news behind the ETF's +15.7% 1m move, which Stock A trailed by 10.7 pts. Its cause is MISSING.
+
+5. SENTIMENT SUMMARY (describes the news. It does not predict prices.)
+- News sentiment: UNCLEAR/NEUTRAL by absence. No headlines (by design) and no curated supply-chain events in the 120-day window. Nothing here points either way. Any trade case has to rest on the Researcher's price and volume evidence, not on news. "No event on the list" should not be read as "no risk."
+
+No embedded instructions were found in the source material.
+
+AGENT: Agent 2 News Analyst
+TASK COMPLETED: Reviewed supplied headlines and supply-chain events for Stock A (blind run). Built the event table, confirmed facts, conflicts, relevance check, what could change the picture, and a sentiment summary.
+SOURCE FACTS USED: "Headlines: MISSING. Headlines would reveal the stock and the dates, so blind runs have none." "Supply-chain events from the phase 8 event list (Model 4) in the 120 days before the decision: None." Source note: phase8_market_models.EVENTS, winners and losers fixed before looking at returns. From the Researcher handoff: Day -14 low 83.00 on 3.01x volume; vol 20d 59.6% vs 120d 44.0%; ETF 1m +15.7% vs Stock A +5.0%.
+ANALYSIS: No news items or curated supply-chain events to classify. News sentiment is UNCLEAR/NEUTRAL by absence, giving no bullish or bearish signal. The empty list does not explain the Day -14 high-volume drop, and it does not cover company-specific news. The decision has to rest on price and volume evidence.
+MISSING INFORMATION: Headlines (N/A BY DESIGN, blind run). Cause of the Day -14 high-volume drop (MISSING). Earnings and event calendar (MISSING). Cause of the ETF's 1m strength (MISSING). Company-specific news outside the curated event list (MISSING). Plan backtest N/A BY DESIGN.
+RISKS OR LIMITATIONS: The event list is curated and limited to pre-defined supply-chain shocks, so "None" does not mean no news. An earnings or other event could be close to Day 0 without being visible here. Elevated short-term volatility may reflect news we cannot see. Simulation only, not investment advice.
+NEXT AGENT: Agent 3 Strategist
+HANDOFF SUMMARY: No headlines (N/A BY DESIGN) and no phase 8 supply-chain events in the 120 days before Day 0, so news sentiment is UNCLEAR/NEUTRAL by absence and gives no signal. The cause of the Day -14 high-volume drop and any upcoming earnings date are MISSING, so the Strategist should rely on the Researcher's price and volume evidence and treat the unseen event risk as a limitation.

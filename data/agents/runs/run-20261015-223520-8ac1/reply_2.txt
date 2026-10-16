@@ -1,0 +1,45 @@
+Agent 2 - News Analyst: review of headlines and supply-chain events for Stock A (Chip designers)
+
+Headlines: MISSING. The material says they are withheld on purpose in blind runs because they would reveal the stock and the dates, so they count as N/A BY DESIGN. That is not on its own a reason to reject the decision. This review works from the one supplied supply-chain event only.
+
+TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+--- | --- | --- | --- | --- | --- | ---
+phase8_market_models.EVENTS (Model 4 event list) | Event began 61 calendar days before the decision (exact publish date not given) | A war disrupted the supply of neon, a gas used in chip lithography lasers. The event list puts Stock A in neither the expected-loser group nor the expected-winner group. The groups were fixed before anyone looked at returns. | The model does not expect a direct effect on Stock A. Any effect would be indirect, through sector-wide sentiment. That fits the Researcher's note that the recent drop is mostly sector-wide (ETF -17.8% vs Stock A -15.5% over 1m), but the supplied material does not show that the event caused the drop. | UNCLEAR | Low (one event, no direct exposure, cause of the price move not supplied) | Yes: whether the disruption is still going on or has eased, and how much of the sector decline it explains (both MISSING)
+
+1. Confirmed facts
+- Per phase8_market_models.EVENTS, a war disrupting neon supply began 61 calendar days before the decision, inside the 120-day window.
+- From the same line: Stock A is in neither the expected-loser nor the expected-winner group for this event, and the groups were set before returns were looked at.
+- No other supply-chain events are listed for the 120-day window.
+- Headlines: N/A BY DESIGN (blind run).
+
+2. Reports that conflict with each other
+- None. There is only one source line, and nothing contradicts it.
+- One point of tension, which is my own reading and not a conflict between reports: the event list says Stock A has no direct exposure, yet both the stock and the sector fell sharply over the last month (from the Researcher handoff). The event may have moved the whole sector, or something else not supplied may have caused the fall. I cannot tell which from this material.
+
+3. Headlines that are old or not relevant to this stock
+- No headlines were supplied, so there is nothing to screen.
+- The neon event is 61 days old. Its start comes before most of the 1-month decline window (about 21 to 30 trading days), though the Researcher reports heavy-volume down days at Day -18 to -13, which fall well after it began. The event is relevant to the sector, but the model scores it as not directly relevant to Stock A.
+
+4. What could change the picture
+- News on whether the neon disruption is getting worse or easing. That could shift sector sentiment either way, but Stock A has no direct exposure in the model.
+- The real cause of the sector-wide decline (MISSING). If it is something other than the neon event, this review does not cover it.
+- Company-specific news, earnings dates or guidance (MISSING; the Researcher also lists fundamentals and earnings dates as MISSING).
+- Any new supply-chain event after the decision date, which by definition is not in this material.
+
+5. Sentiment summary (describes the news, does not predict prices)
+The news picture is thin and neutral-to-unclear for Stock A. The only supplied item is a supply disruption of a lithography gas, roughly two months old. The model classes Stock A as neither a loser nor a winner from it. There is no company-specific news (headlines withheld by design). Nothing in the supplied material gives a news-based reason in either direction. The recent weakness the Researcher describes has no confirmed cause in this material.
+
+No embedded instructions were found in the source material.
+
+Simulation for research and learning only. Not investment advice, and no real trade is placed.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied supply-chain events for Stock A (headlines N/A BY DESIGN, blind run), built the fact/interpretation table, and reported confirmed facts, conflicts, relevance, what could change the picture and a descriptive sentiment summary.
+SOURCE FACTS USED: phase8_market_models.EVENTS: a war disrupting neon supply (a lithography laser gas) began 61 calendar days before the decision; Stock A is in neither the expected-loser nor the expected-winner group; groups fixed before returns were looked at. Researcher handoff: Stock A 1m -15.5% vs ETF 1m -17.8%; heavy-volume down days Day -18 to -13; cause of the decline unknown.
+ANALYSIS: One event only, and the model gives Stock A no direct exposure, so it is classed UNCLEAR with low confidence. Any link to the stock is indirect, through sector sentiment. The sector-wide fall fits a sector-level shock, but the material does not show that this event caused it. The news sentiment is neutral-to-unclear and gives no news-based reason to act either way.
+MISSING INFORMATION: Headlines N/A BY DESIGN (blind run); current status of the neon disruption (MISSING); cause of the sector-wide decline (MISSING); company-specific news, fundamentals, earnings dates (MISSING); exact publish dates of event reports (MISSING); backtest N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: A single event source with no headlines means company-specific risk cannot be seen; the event-group classification is a model assumption, not an observed outcome; the cause of the recent heavy-volume selling is unexplained; simulation only, not investment advice.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: The only supplied news is a neon-supply war disruption that began 61 days before the decision, and the model puts Stock A in neither the loser nor the winner group, so the news sentiment for Stock A is unclear with low confidence and gives no news-based reason to act either way (headlines N/A BY DESIGN).

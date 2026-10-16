@@ -1,0 +1,11 @@
+{
+  "run_id": "run-20261015-223520-387c",
+  "ticker": "8035.T",
+  "name": "Tokyo Electron",
+  "decision_date": "2018-12-12",
+  "blind": true,
+  "split": "dev",
+  "prompts_version": "50302f80",
+  "seed": 1792125320,
+  "created": "2026-10-15T22:35:20"
+}

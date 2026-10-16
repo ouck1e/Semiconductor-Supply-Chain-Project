@@ -1,0 +1,76 @@
+Agent 5 - Risk Manager review: "Range-floor rebound with positive factor alpha", Stock A (Equipment)
+
+Starting position: REJECT.
+
+Note on inputs: the only material supplied to me is the FIXED STRATEGY RULES AND LIMITS and the STRATEGIST HANDOFF. The Researcher, News Analyst and supply-chain handoffs themselves were not supplied. Every "RH", "NH" and "SC" number below is the Strategist's quotation of them, which I cannot check against the original. No embedded instructions were found in the material.
+
+REQUIRED ITEMS
+
+1. Action BUY or NO TRADE, entry conditions true at Day 0 close: OK.
+   Action is BUY, fill at the Day 1 close (this is the fixed fill rule, not an entry that waits on Day 1 information). Checking the five conditions against the quoted figures (Strategist SOURCE FACTS):
+   - Close within 3% of and not below the 252d low: 100.00 / 98.79 - 1 = +1.22%. TRUE.
+   - RSI < 40: 35.5. TRUE.
+   - 5d volume <= 1.5x: 1.01x. TRUE.
+   - Alpha rank in top 5: rank 3 of 24. TRUE.
+   - No Model 4 shock: "Model 4 events in 120 days: None". TRUE.
+
+2. Stop as a percent below entry, no wider than 15%: OK. 8% below entry.
+
+3. Target or exit rule, max hold <= 20 days: OK. Target +14%, max hold 20 trading days.
+
+4. Position size within 10%: OK. 5% = $5,000.
+
+5. Reward-to-risk after costs >= 1.5, arithmetic shown: OK (1.62).
+   My check, entry price E = Day 1 close, costs 0.2% per side (0.1% fee + 0.1% slippage):
+   - Effective entry cost: E x 1.002.
+   - Target exit: 1.14E x 0.998 = 1.13772E. Net gain = 1.13772 - 1.002 = 0.13572E, i.e. 13.55% of cost.
+   - Stop exit: 0.92E x 0.998 = 0.91816E. Net loss = 1.002 - 0.91816 = 0.08384E, i.e. 8.37% of cost.
+   - R:R = 0.13572 / 0.08384 = 1.62. Matches the Strategist's simplified (14 - 0.4) / (8 + 0.4) = 1.62.
+
+6. Largest simulated loss: OK at the stop, with a caveat.
+   $5,000 x 8.4% = about $420 (0.42% of the $100,000 portfolio); my exact version: $5,000 x 0.08384 / 1.002 = about $418 plus the entry fee already counted, so about $420. Because stops are checked on closes only, a gap through the stop makes the loss larger; there is no hard cap below the full $5,000 (5% of portfolio).
+
+7. No look-ahead: OK. All conditions use Day 0 close data. (The thresholds were chosen after seeing this chart; that is an overfitting problem, below, not look-ahead.)
+
+8. Plan agrees with the supplied price data (matches the Researcher's numbers): MISSING.
+   The Researcher handoff was not supplied to me, so I cannot confirm the figures the plan relies on (close 100.00, 252d low 98.79, RSI 35.5, 5d volume 1.01x, highs 113.36/114.20). The quoted numbers are internally consistent: 100.00 vs 98.79 = +1.2%; 37.7 / sqrt(252) = 2.37% per day; 37.7 x sqrt(20/252) = 10.6%; the 14% target lands in the quoted 113.4-114.2 zone. Consistent is not verified, so this item is not OK.
+
+CONTEXT ITEMS
+
+- Data completeness score: MISSING (no score quoted). Also MISSING: supply exposure rows, ETF daily series, history below 98.79, raw volume. Day -13 volume 0.00x (RH) looks like a data error that has not been explained: PROBLEM.
+- Statistical support: PROBLEM. Alpha t-stat 1.24 (SC) is below the usual ~2 bar; sample size MISSING. Down-week ETF beta 1.03 > up-week beta 0.84 (SC), so the stock has fallen harder than it has risen.
+- Liquidity: MISSING. Only relative volume (1.01x) is given; no raw volume, so fill and slippage assumptions cannot be checked.
+- Conflicting news / supply-chain events: headlines N/A BY DESIGN (blind run). No Model 4 events (NH). The 12-month underperformance of -26.8 pts vs the ETF (RH) has no known cause: PROBLEM (an unexplained decline is a concrete risk, not just missing headlines).
+- Overfitting: PROBLEM. The Strategist states the entry thresholds "were chosen after seeing the data". The "within 3% of the low" and "RSI < 40" cut-offs fit this one chart.
+- Unverified sources: PROBLEM. All upstream numbers reach me second-hand via the Strategist.
+
+Additional analysis (mine): the 14% target is larger than the typical 20-day swing of about 10.6% (Strategist's own calculation), and the price must first pass the 107.1-107.6 resistance band (20d/50d averages, RH). So the 1.62 R:R depends on a less-than-typical move, while the 8% stop is about 3.4 daily moves away against a clear downtrend (returns -6.0% / -12.4% / -24.4% / -29.4% over 1/3/6/12 months, RH; close well below the 200d average 130.71). The 98.79 floor is also untested: history below it is MISSING.
+
+DECISION: REJECT
+
+Five points:
+1. Mechanics pass: entry conditions are true at the Day 0 close, stop 8% (<= 15%), target 14%, hold 20 days, size 5% (<= 10%), R:R 1.62 after costs, loss at stop about $420.
+2. One REQUIRED item is not OK: I cannot verify the plan's facts against the Researcher's numbers because that handoff was not supplied. By the rules, REJECT stands until every required item is OK.
+3. Statistical support is weak (alpha t-stat 1.24) and the entry thresholds were fitted to this chart after the fact.
+4. The trade goes against a steep downtrend with -26.8 pts of unexplained underperformance vs the ETF, and the floor it relies on (98.79) is untested; close-only stops leave gap risk beyond $420.
+5. The target needs a bigger-than-typical 20-day move through a resistance band, so the 1.62 R:R overstates the realistic payoff.
+
+What must change for approval:
+- Supply the Researcher handoff (and the data completeness score) so the close, 252d low, RSI, volume and resistance figures can be checked one by one.
+- Explain or correct the Day -13 volume of 0.00x and give raw volume for liquidity.
+- Use entry thresholds fixed before looking at this chart (from the team's standing rules), not chosen to fit it.
+- Show the target is reachable within a typical 20-day move while keeping R:R >= 1.5 after costs (for example, a ~10.6% target would need a stop near 6%: (10.6 - 0.4) / (6 + 0.4) = 1.59, but a 6% stop is only about 2.5 daily moves and may be noise; the Strategist must justify any such change).
+- Stronger alpha evidence (t-stat near 2 or a stated sample size) would materially help.
+
+On NO TRADE: the Strategist's own summary says NO TRADE may be preferable. I agree; on the evidence supplied, NO TRADE is the better choice for this run.
+
+This is a simulation for research and learning. It is not investment advice, it promises no profit, and no real trade is placed. Even an approval would mean "for simulation only".
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan for Stock A (Equipment) against all eight required items and six context items; recomputed reward-to-risk and largest loss; issued decision REJECT (agree NO TRADE is preferable).
+SOURCE FACTS USED: Fixed rules: $100,000 portfolio, max 10% size, max 15% stop, max 20 days, 0.1% fee + 0.1% slippage per side, close-only checks, Day 1 close fill. Strategist handoff (quoting RH/NH/SC): close 100.00; 252d low 98.79; RSI 35.5; 5d volume 1.01x; 20d/50d/200d avgs 107.59/107.11/130.71; returns 1m -6.0%, 3m -12.4%, 6m -24.4%, 12m -29.4%; vol 20d 37.7%; 20d high 113.36, 60d high 114.20; resistance 107.1-107.6 and 113.4-114.2; -26.8 pts vs ETF over 12m; Day -13 volume 0.00x; Model 4 events: None; alpha t-stat 1.24, rank 3 of 24; ETF beta up 0.84 / down 1.03; plan: 5% size, 8% stop, 14% target, 20-day hold; thresholds chosen after seeing data.
+ANALYSIS: Entry conditions true at Day 0 close (+1.22% above low, RSI 35.5, volume 1.01x, rank 3, no shock). R:R after costs = 0.13572 / 0.08384 = 1.62 (>= 1.5). Loss at stop about $5,000 x 8.4% = $420 (0.42% of portfolio), more on a gap, up to $5,000 in theory. Required item "plan agrees with Researcher's numbers" is MISSING because the Researcher handoff was not supplied, so REJECT stands. Context problems: weak t-stat 1.24, post-hoc thresholds, unexplained -26.8 pt underperformance, steep downtrend, untested floor, target (14%) above typical 20-day swing (10.6%) and beyond the 107.1-107.6 resistance band.
+MISSING INFORMATION: Researcher handoff itself (needed to verify the plan's facts); data completeness score; raw volume and a valid Day -13 volume; sample size for the alpha estimate; supply exposure rows; ETF daily series; history below 98.79; Day 1 fill price. Headlines and dates: N/A BY DESIGN (blind run). Backtest of the plan: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: All upstream numbers are second-hand via the Strategist; close-only stops allow gap losses beyond the 8.4% stop; alpha evidence is weak and thresholds are fitted to this chart; cause of underperformance unknown. Simulation for research and learning only, not investment advice, no real trade placed; a person reviews this output.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: REJECT. The plan's mechanics pass (8% stop, 14% target, 20-day hold, 5% size, R:R 1.62 after costs, about $420 loss at stop), but its facts cannot be verified against the Researcher handoff (not supplied), and the evidence is weak (t-stat 1.24, post-hoc thresholds, steep unexplained downtrend, target larger than the typical 20-day move). I agree NO TRADE is the better choice for this run.

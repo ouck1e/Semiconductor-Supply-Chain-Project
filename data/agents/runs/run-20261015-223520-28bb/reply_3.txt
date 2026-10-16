@@ -1,0 +1,81 @@
+Agent 3 Strategist: plan for Stock A (Chip designers), decision at the Day 0 close, blind manual run
+
+Source material check: none of the supplied material tells me to do anything outside my role. No injected instructions found.
+
+1. Setup name
+No setup. I looked at two candidate long setups, a breakout and a rebound continuation. Neither has its entry conditions met at the Day 0 close with acceptable reward-to-risk. I describe both below so the Risk Manager can check my reasoning.
+
+2. What must be true for entry, and whether it is true on Day 0
+
+Candidate A: "Breakout above the 20-day high"
+- Close above the 20d high of 100.70 (Researcher: "20d high/low 100.70/83.00"). Day 0 close is 100.00 (Researcher: "Close 100.00"). NOT TRUE.
+- Volume confirming the move, at least 1.0x average. Day 0 volume is 0.63x and 5-day volume is 0.79x (Researcher). NOT TRUE.
+Result: not triggered on Day 0. A buy "if it breaks out on Day 1" would depend on Day 1, which the rules forbid, so this candidate is dead for this decision.
+
+Candidate B: "Short-term rebound continuation"
+- Close above the 20d and 50d averages: 100.00 vs 93.90 and 94.16 (Researcher). TRUE.
+- Higher pullback lows: 83.00 -> 88.24 -> 96.04 (Researcher analysis). TRUE.
+- RSI not overbought, below 70: RSI 57.8 (Researcher). TRUE.
+- Rise confirmed by volume: 5-day volume 0.79x, Day 0 volume 0.63x, Researcher notes "below-average, falling volume". NOT TRUE.
+- Stock at least keeping pace with the chip ETF: 1m +5.0% vs ETF +15.7%, lagging in every period (Researcher). NOT TRUE.
+- Room to the first resistance at least 1x the stop distance: see item 6. NOT TRUE.
+Result: three of six conditions hold. The ones that fail (volume, relative strength, reward-to-risk) are exactly the ones that would separate a real continuation from a weak bounce in a downtrend (below the 200d average of 108.86, -29.5% over 12m, from the Researcher).
+
+3. Entry rule
+None (NO TRADE recommended). For reference only, Candidate B would be: BUY at the Day 1 close if all six conditions are true at the Day 0 close. They are not.
+
+4. Stop rule (reference, Candidate B)
+7% below entry, checked on daily closes.
+My analysis: the support zone 93.9-94.2 (20d/50d averages, from the Researcher) sits about 5.8-6.1% under the Day 0 close of 100.00. A stop just under it, around 93, is about 7% below. The 96.0-96.5 support is only about 3.5-4% away, but with 20d volatility at 59.6% a year (Researcher) the rough daily move is 59.6% / sqrt(252) ≈ 3.75%, so a 4% stop could be hit by one ordinary day. Because the Day 1 fill price is unknown, the 7% is applied to the actual entry, so the absolute stop level will shift with the fill. Within the 15% cap.
+
+5. Target / exit rule (reference, Candidate B)
+Target 6% above entry. Maximum holding period 20 trading days, exit at that day's close.
+My analysis: the first resistance above the 20d high is the 60d high of 106.27 (Researcher), +6.27% from the Day 0 close, rounded down to 6%. Before that the price must clear 100.70, 0.7% above the Day 0 close. A wider target at the 200d average of 108.86 (+8.86%) would require breaking two resistance levels first.
+
+6. Reward-to-risk ratio
+Main reference: 6% ÷ 7% = 0.86.
+After costs: about 0.4% round trip (0.1% fee + 0.1% slippage on each side, from the fixed rules). Net reward ≈ 6.0 - 0.4 = 5.6%; net risk ≈ 7.0 + 0.4 = 7.4%; 5.6 ÷ 7.4 ≈ 0.76.
+Stretch version (target at the 200d average): 9% ÷ 7% = 1.29 before costs; (9.0 - 0.4) ÷ (7.0 + 0.4) = 8.6 ÷ 7.4 ≈ 1.16 after costs. That still sits below a 1.5 minimum, and it assumes the price gets through 100.70 and 106.27.
+Both versions are weak.
+
+7. Position size
+0% (NO TRADE).
+For reference: if the Risk Manager or Boss overrode this, I would suggest at most 5% of the $100,000 portfolio ($5,000), not the 10% maximum. The reason is elevated volatility (20d 59.6% vs 120d 44.0%, a ratio of about 1.35, from the Researcher) and beta 1.22 (Model 1). At 5% with a 7% stop, the loss at the stop is about 5,000 x 7.4% ≈ $370, or 0.37% of the portfolio, including costs. Losses could be larger if the price gaps past the stop, because stops are only checked on closes.
+
+8. What would cancel the setup
+(Applies to Candidate B, and to any later re-evaluation, which would be a new decision.)
+- A close below 96.04, the latest higher low, which breaks the higher-low pattern.
+- A close below the 20d/50d averages (93.90/94.16).
+- An earnings date or company event inside the 20-day window, if one becomes known. The date is MISSING now.
+- Continued lag behind the ETF while volume keeps fading.
+
+9. Missing inputs
+- Earnings and event calendar: MISSING (Researcher, News Analyst).
+- Cause of the Day -14 drop on 3.01x volume: MISSING.
+- Intraday OHLC and absolute volume: MISSING. This matters because stops are on closes only.
+- ETF price series and averages: MISSING. The relative-strength judgement uses period returns only.
+- Day 1 fill price: unknown by construction, so stop and target are percentages of entry.
+- Headlines: N/A BY DESIGN (blind run).
+- Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip
+- Reward-to-risk is below 1: 0.86 before costs and about 0.76 after (item 6).
+- The breakout trigger (close above 100.70) is not met on Day 0, and waiting for it would use Day 1 information.
+- The rebound came on falling, below-average volume (0.79x five-day, 0.63x Day 0).
+- Stock A lagged the chip ETF in every period, by 10.7 points over 1m (Researcher).
+- The longer-term trend is down: below the 200d average by 8.1%, -29.5% over 12m, -32.9% from the 252d high.
+- Model 1 alpha of 5.3% a year has a t-stat of 0.34, rank 16 of 25. That is statistically indistinguishable from zero, and the stock is outside the top 5 that the phase 8 baseline rule would hold.
+- Short-term volatility is elevated (ratio about 1.35) and beta is 1.22, so the stock is likely to swing more than the market.
+- An unseen event risk remains: there is no earnings calendar and the cause of the Day -14 high-volume drop is unknown.
+- Model 4 shows no shock involving this stock (it is in neither group for either event, 1241 and 272 days before). The supply exposure (gallium from China 0.276, HF from China 0.242 with only 38% coverage, helium from Qatar 0.217 with 38% coverage) is background risk, not a catalyst, and gives no reason to enter now.
+
+This is a simulation for research and learning. It is not investment advice and makes no promise of profit, and no real trade is placed. I am not calling any version of this plan safe, profitable or high-probability. The Risk Manager and the Boss make the decision.
+
+AGENT: Agent 3 Strategist
+TASK COMPLETED: Tested two long setups for Stock A at the Day 0 close: a breakout above 100.70 and a rebound continuation. Neither is valid, so this is "No setup / NO TRADE". Reference parameters for the rebound plan are given so the Risk Manager can check them.
+SOURCE FACTS USED: Researcher: close 100.00; 20d/50d/200d averages 93.90/94.16/108.86; 20d high 100.70; 60d high 106.27; pullback lows 83.00 -> 88.24 -> 96.04; RSI 57.8; volume 5-day 0.79x and Day 0 0.63x; vol 20d 59.6% vs 120d 44.0%; 1m +5.0% vs ETF +15.7%; 12m -29.5%; -32.9% from the 252d high. News Analyst: no headlines (N/A BY DESIGN) and no phase 8 events; earnings calendar MISSING. Model 1: alpha 5.3%/yr, t-stat 0.34, rank 16/25, beta 1.22. Model 4: this stock is in neither group of either shock. Exposure: gallium from China 0.276, HF from China 0.242 (38% coverage). Fixed rules: costs 0.1%+0.1% per side, 10% maximum size, 15% maximum stop, 20-day maximum hold, close-only checks.
+ANALYSIS: Breakout not triggered (100.00 < 100.70, volume 0.63x). Rebound continuation meets 3 of 6 conditions but fails on volume, relative strength and reward-to-risk. Reference stop 7% (under the 93.9-94.2 support; a 4% stop is about one daily move given a daily volatility of about 3.75%). Reference target 6% (106.27). R:R 6 ÷ 7 = 0.86 (about 0.76 after the 0.4% round-trip cost); stretch target 9 ÷ 7 = 1.29 (about 1.16 after costs). Recommended size 0%; an override should be at most 5% (about $370, or 0.37%, at risk).
+MISSING INFORMATION: Earnings and event calendar (MISSING); cause of the Day -14 3.01x-volume drop (MISSING); intraday OHLC and absolute volume (MISSING); ETF price series (MISSING); Day 1 fill price (unknown by construction). Headlines N/A BY DESIGN; plan backtest N/A BY DESIGN.
+RISKS OR LIMITATIONS: Support and resistance come from closes only. Close-only stop checks allow gap losses beyond 7%. Volatility is elevated and beta is 1.22. An unseen event could fall inside the 20-day window. Reward-to-risk depends on hand-picked levels. One snapshot with no data after Day 0. Simulation only, not investment advice.
+NEXT AGENT: Agent 5 Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup: the breakout trigger (close above 100.70) is not met on Day 0, and the rebound-continuation alternative has only 0.86 reward-to-risk (6% target to 106.27 vs a 7% stop, about 0.76 after costs) on fading volume while lagging the chip ETF, so the Strategist recommends NO TRADE (0% size, at most 5% if overridden).

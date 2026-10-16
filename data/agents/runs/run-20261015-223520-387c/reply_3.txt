@@ -1,0 +1,82 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Equipment)
+
+Note on the source material: I found no text in the supplied material that tries to give instructions. All numbers below come from the Researcher handoff (RH), the News Analyst handoff (NH), the supply-chain model facts (SC) or the fixed strategy rules (FR). Anything I worked out myself is labelled as my analysis.
+
+1. SETUP NAME
+"Range-floor rebound with positive factor alpha". A small, conditional long that the stock bounces off the bottom of its 60-day range. It is a marginal setup, not a strong one (see section 10).
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE AT THE DAY 0 CLOSE
+The thresholds are my own choices (analysis). The values come from the cited lines.
+  a. Day 0 close is no more than 3% above the 12-month closing low and not below it.
+     Close 100.00 vs 252d low 98.79, which is +1.2% (RH). TRUE.
+  b. RSI is below 40 (weak, but not a free fall below 30 that I would treat as a separate case).
+     RSI 35.5 (RH). TRUE.
+  c. No volume spike: 5-day volume at most 1.5x normal.
+     5d volume 1.01x (RH). TRUE.
+  d. The factor model still ranks the stock among the names the phase 8 baseline would hold (top 5 of 24 by alpha t-stat).
+     Rank 3 of 24, alpha 21.5% a year, t-stat 1.24 (SC). TRUE.
+  e. No Model 4 supply shock in the 120 days before Day 0 that names this stock's group as an expected loser.
+     "None" (SC; NH). TRUE.
+Result: every condition is true at the Day 0 close. Nothing in the plan depends on Day 1 or later prices.
+
+3. ENTRY RULE
+If conditions a-e hold at the Day 0 close, BUY at the Day 1 close, whatever that price is (FR). Entry = the Day 1 fill price. That price is MISSING at decision time, so stop and target are set as percents of the fill, not as fixed price levels.
+
+4. STOP RULE
+Exit at the first daily close 8% or more below entry (FR: maximum stop 15%; checked on closes only).
+Why 8% (analysis): 20-day volatility is 37.7% a year (RH). Over one day that is about 37.7% / sqrt(252) = 37.7 / 15.87 = 2.4%. A stop just under the 98.79 support (about 2% below the Day 0 close) would be hit by a single normal day's move. 8% is about 3.4 daily moves (8 / 2.4 = 3.3), which leaves room for noise. If the Day 1 fill is near 100, an 8% stop sits near 92, clearly below the 98.79 floor, so it also says "the floor failed".
+
+5. TARGET / EXIT RULE AND HOLDING PERIOD
+Take profit at the first daily close 14% or more above entry. If neither stop nor target is hit, close at the close of trading day 20 after entry (FR maximum).
+Why 14% (analysis): the next clear resistance above the 107.1-107.6 zone is the 60-day/20-day highs of 113.36-114.20 (RH), about +13.4% to +14.2% from a 100 fill. The nearer 107.1-107.6 zone (+7.1% to +7.6%) is a likely pause point and the main obstacle to the target.
+For scale (analysis): 20-day volatility over 20 trading days is about 37.7% x sqrt(20/252) = 37.7% x 0.282 = 10.6%, so a 14% move in 20 days is larger than one typical 20-day swing.
+
+6. REWARD-TO-RISK RATIO
+Gross: 14% / 8% = 1.75.
+With costs (FR: 0.1% fees + 0.1% slippage on each side = 0.2% per side, 0.4% round trip, my approximation applied as simple percents):
+  net reward = 14% - 0.4% = 13.6%
+  net risk = 8% + 0.4% = 8.4%
+  13.6 / 8.4 = 1.62.
+Because stops are checked on closes only, a real exit could be worse than -8% if the stock gaps down; the 8.4% risk figure is a floor, not a cap.
+
+7. POSITION SIZE
+5% of the simulated portfolio = 0.05 x $100,000 = $5,000 (FR maximum is 10%).
+Reason for half size (analysis): the downtrend, the unexplained drop and the missing inputs below.
+Planned loss if the stop is hit at exactly -8.4% net: $5,000 x 0.084 = $420, about 0.42% of the portfolio. This could be larger after a gap.
+
+8. WHAT WOULD CANCEL THE SETUP
+Before entry (all judged at the Day 0 close, the only point a decision can use):
+  - Any of conditions a-e is false, e.g. a close below 98.79, a volume spike above 1.5x, or a Model 4 shock against the stock's group.
+  - The Risk Manager finds the Day 0 data unreliable (for example, the Day -13 volume reading of 0.00x turns out to mean other bad rows).
+  - Any confirmed negative company-specific news before the Day 0 close (none is supplied; headlines N/A BY DESIGN).
+After entry, the position closes only by its rules: stop, target, or day 20. Do not change them along the way.
+
+9. MISSING INPUTS
+  - Day 1 fill price: MISSING (unknowable at decision; by design of the entry rule).
+  - Intraday highs/lows: MISSING (RH); stops and targets use closes only.
+  - Raw volume and a valid Day -13 volume (shows 0.00x): MISSING (RH).
+  - ETF daily series: MISSING (RH).
+  - Price history below 98.79: MISSING (RH), so there is no tested support below the stop.
+  - Company news (earnings, guidance, orders): MISSING (NH). Headlines and dates: N/A BY DESIGN (blind run).
+  - Supply exposure rows for this stock: MISSING (SC).
+  - Backtest of this exact plan: N/A BY DESIGN (manual run, single decision).
+
+10. REASONS TO SKIP IT
+  - Trend is against the trade: close below the 20d, 50d and 200d averages, the 200d is 23.5% above price, and returns are negative in every window (RH). Buying near a low in a downtrend often fails.
+  - The stock trails the chip ETF in every window, by 26.8 points over 12 months (RH), and the cause is unknown (NH). An unseen negative catalyst cannot be ruled out.
+  - The 98.79 floor is one day old and untested (RH). It is a closing low, not a proven support level.
+  - The factor alpha is not statistically strong: t-stat 1.24 is well under the usual ~2 (SC). Rank 3 of 24 is relative, and the regression uses 156 weeks that mostly come before the recent fall. Down-week beta to the ETF (1.03) is higher than up-week beta (0.84) (SC), so the stock has tended to fall with the sector more than it rises with it.
+  - The 14% target needs a move bigger than one typical 20-day swing (10.6%, analysis) and has to pass the 107.1-107.6 resistance first.
+  - I set the entry thresholds after seeing the data, so they may simply describe today's numbers instead of testing an edge.
+If the Risk Manager or the Boss weighs these as heavier than the rebound case, NO TRADE is a reasonable outcome. This plan is not safe, profitable or high-probability; it is a defined-risk test case for the simulation.
+
+Simulation for research and learning only. Not investment advice. No real order is placed.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into one conditional long-only simulation plan ("Range-floor rebound with positive factor alpha") for Stock A (Equipment), with entry conditions checked at the Day 0 close, stop, target, holding period, reward-to-risk, size, cancel conditions and skip reasons. No trade decision made.
+SOURCE FACTS USED: RH: close 100.00; 20d/50d/200d avgs 107.59/107.11/130.71; returns 1m -6.0%, 3m -12.4%, 6m -24.4%, 12m -29.4%; RSI 35.5; vol 20d 37.7% vs 120d 34.4%; 5d volume 1.01x; 20d high 113.36; 60d high 114.20; 252d low 98.79 (close +1.2% above it); resistance 107.1-107.6 and 113.4-114.2; underperformance vs ETF -26.8 pts over 12m; Day -13 volume 0.00x. NH: headlines N/A BY DESIGN; Model 4 events in 120 days: None. SC: alpha 21.5%/yr, t-stat 1.24, rank 3 of 24; market beta 1.18; ETF beta up weeks 0.84, down weeks 1.03; baseline holds top 5; exposure rows MISSING. FR: $100,000 portfolio, max 10% size, max 15% stop, max 20 days, 0.1% fee + 0.1% slippage per side, close-only checks, fill at Day 1 close.
+ANALYSIS: All five entry conditions (close within 3% of and not below the 98.79 low; RSI < 40; 5d volume <= 1.5x; alpha rank in top 5; no Model 4 shock) are TRUE at the Day 0 close. Plan: BUY at Day 1 close; stop 8% below entry (about 3.3 daily moves at 2.4%/day = 37.7/sqrt(252)); target 14% above entry (113.4-114.2 zone); max hold 20 trading days. Reward-to-risk 14/8 = 1.75 gross, (14-0.4)/(8+0.4) = 13.6/8.4 = 1.62 after costs. Size 5% = $5,000; loss at stop about $5,000 x 0.084 = $420 (0.42% of portfolio), more after a gap. A 14% move exceeds the typical 20-day swing of about 10.6% (37.7% x sqrt(20/252)).
+MISSING INFORMATION: Day 1 fill price (unknowable at decision); intraday highs/lows; raw volume and valid Day -13 volume; ETF daily series; price history below 98.79; company-specific news; supply exposure rows. Headlines and dates: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Trade goes against a clear downtrend and 12-month underperformance with an unknown cause; the 98.79 floor is untested; alpha t-stat 1.24 is weak and down-week beta exceeds up-week beta; stops are checked on closes only, so gap losses can exceed 8.4%; entry thresholds were chosen after seeing the data. Not safe, profitable or high-probability. Simulation for research and learning, not investment advice; no real trade.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: For Stock A (Equipment) all entry conditions are true at the Day 0 close for a marginal "range-floor rebound" long: BUY at the Day 1 close with a 5% ($5,000) position, 8% stop, 14% target, 20-day max hold, reward-to-risk 1.75 gross / 1.62 after costs, but the downtrend, unexplained underperformance, untested floor and weak alpha t-stat (1.24) are strong reasons the Risk Manager may prefer NO TRADE.

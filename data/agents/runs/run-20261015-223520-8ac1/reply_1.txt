@@ -1,0 +1,82 @@
+AGENT 1 - RESEARCHER REPORT (simulated research exercise, not investment advice)
+
+1. Stock, sector group, timeframe
+- Stock A, sector group: Chip designers (source: "Stock: Stock A (sector group: Chip designers)").
+- Daily closes rebased so the Day 0 close = 100. Decision point is the Day 0 close. At least 252 closes up to Day 0, nothing after it (source: Timeframe / Decision point / Source lines).
+- Real dates and the company name are hidden; I have not tried to identify them.
+
+2. Structure: DOWNTREND (short-term, with a small base forming near the lows)
+Source facts:
+- Close 100.00 sits below all three averages: 20-day 106.24 (-5.9%), 50-day 114.18 (-12.4%), 200-day 115.83 (-13.7%) (Indicators lines).
+- The averages are stacked bearishly: 20-day < 50-day < 200-day (106.24 < 114.18 < 115.83).
+- Last 30 closes: peak 120.65 on Day -19, then lower highs at 115.21 (Day -15), 105.24 (Day -8), 105.66 (Day -5), and a new low of 99.48 on Day -2 (Last 30 closes table).
+My analysis:
+- From Day -12 to Day 0 the closes stay between 99.48 and 105.66, so the fall has slowed into a narrow range of about 6% just above the low. That is a pause inside the downtrend, not yet evidence of a turn.
+- Over the longer window the picture is more mixed: the 6-month return is +2.0% and the 12-month is -1.5% (Returns line), so the full-year trend is roughly flat; the decline is concentrated in the last three months.
+
+3. Momentum
+Source facts (Returns line; RSI line):
+- 1m -15.5%, 3m -19.0%, 6m +2.0%, 12m -1.5%.
+- RSI (14-day) 38.1.
+My analysis:
+- Short-term momentum (1m, 3m) is clearly negative. RSI 38.1 is weak but not in the conventional oversold zone below 30.
+- 60-day closing high was 140.39 (60-day high/low line), so the stock has fallen about 28.8% from that high within roughly three months (my calculation: 100.00 / 140.39 - 1).
+
+4. Volume
+Source facts:
+- Last 5 days vs 50-day average: 0.82x (Volume line).
+- Heavy volume came on the big down days: Day -18 1.29x (close 120.65 -> 114.40, about -5.2%), Day -16 1.68x (114.47 -> 110.10, about -3.8%), Day -14 1.36x (115.21 -> 108.96, about -5.4%), Day -13 1.76x (108.96 -> 104.33, about -4.2%) (Last 30 closes table; percent changes are my calculation).
+- Days -12 to 0 mostly run 0.66x to 0.94x, with one day at 1.09x (Day -11).
+My analysis:
+- Selling was heaviest in the Day -18 to Day -13 drop. The recent drift down to the low has come on below-average volume, which suggests selling pressure has eased, but there is no high-volume buying to show demand returning.
+- Note: averaging the five table values for Day -4 to Day 0 (0.71, 0.79, 0.77, 0.90, 0.87) gives about 0.81x versus the stated 0.82x; the small gap is most likely rounding.
+
+5. Volatility
+Source facts: annualised 20-day 45.6%, 120-day 49.6% (Volatility line).
+My analysis: short-term volatility is slightly below the longer-term level (ratio about 0.92). Both are high in absolute terms; daily moves of 3-5% appear repeatedly in the last 30 closes.
+
+6. Support and resistance (backed by supplied levels)
+Support:
+- 99.48: the 20-day and 60-day closing low (Day -2). Day 0 close of 100.00 is only about 0.5% above it.
+- 101.39-101.96: closes on Day -10, Day -9 and Day -3 (Last 30 closes table) - a minor shelf.
+- 91.37: the 252-day closing low (next supplied level below).
+Resistance:
+- 105.24-105.66: recent swing highs on Day -8 and Day -5.
+- 106.24: 20-day average.
+- 114.18 / 115.83: 50-day and 200-day averages (also near the Day -17 to -15 closes of 110-115).
+- 120.65: 20-day closing high (Day -19).
+- 140.39 / 141.19: 60-day and 252-day closing highs.
+
+7. Comparison with the chip-sector ETF
+Source facts (ETF returns line vs Returns line):
+- 1m: Stock A -15.5% vs ETF -17.8% -> Stock A about 2.3 points better.
+- 3m: -19.0% vs -13.1% -> about 5.9 points worse.
+- 6m: +2.0% vs -13.9% -> about 15.9 points better.
+- 12m: -1.5% vs -8.2% -> about 6.7 points better.
+(Point differences are my calculation.)
+My analysis: the whole sector has been falling, so much of Stock A's drop looks sector-wide. Stock A has outperformed the ETF over 6 and 12 months and slightly over 1 month, but underperformed over 3 months, meaning it gave back part of its earlier relative lead during the sector sell-off.
+
+8. Three strongest facts / three biggest uncertainties
+Strongest facts:
+1. Clear short-term downtrend: close below 20/50/200-day averages, averages stacked bearishly, lower highs since Day -19.
+2. Price is sitting right on the 20/60-day low (99.48) after a roughly 29% fall from the 60-day high, on low recent volume (0.82x).
+3. The sector ETF is down even more over 1 month (-17.8%), and Stock A has beaten the ETF over 6 and 12 months.
+Biggest uncertainties:
+1. Whether 99.48 holds: Day 0 is only 0.5% above it, and the next supplied support (91.37) is about 8.6% lower.
+2. Cause of the decline is unknown: no headlines (N/A BY DESIGN in a blind run) and no fundamentals, so a sector-wide versus company-specific driver cannot be separated beyond the ETF comparison.
+3. High volatility (45-50% annualised) means normal daily swings are large relative to the distances to support and resistance.
+
+9. Data completeness score: 80 / 100
+- Present: full indicator set, 30 daily closes with relative volume, multi-horizon returns for stock and ETF, 252-day range.
+- Missing: daily intraday highs/lows (only closes), raw volume figures, ETF price series and ETF indicators (only returns), fundamentals/earnings info, closes before Day -29 in table form.
+- Headlines are N/A BY DESIGN (blind run) and are not counted against the score.
+- No embedded instructions were found in the source material.
+
+AGENT: Agent 1 - Researcher
+TASK COMPLETED: Described Stock A's (Chip designers) structure, momentum, volume, volatility, support/resistance and relative performance vs the chip-sector ETF from the supplied market data; no trade recommendation made.
+SOURCE FACTS USED: Close 100.00; 20/50/200-day averages 106.24/114.18/115.83 (close -5.9%/-12.4%/-13.7%); returns 1m -15.5%, 3m -19.0%, 6m +2.0%, 12m -1.5%; ETF 1m -17.8%, 3m -13.1%, 6m -13.9%, 12m -8.2%; RSI 38.1; vol 20d 45.6% / 120d 49.6%; 5-day volume 0.82x; 20d high/low 120.65/99.48; 60d 140.39/99.48; 252d 141.19/91.37; close vs 252d high -29.2%; last 30 closes table (peak 120.65 Day -19, low 99.48 Day -2, heavy volume 1.29x-1.76x on down days Day -18 to -13).
+ANALYSIS: Short-term downtrend (below all averages, bearish stacking, lower highs), now pausing in a 99.48-105.66 range just above the 20/60-day low on below-average volume. Momentum weak (RSI 38.1, not oversold). Volatility high but slightly easing. Decline is largely sector-wide; Stock A beat the ETF over 1m, 6m and 12m but lagged over 3m. Support 99.48, then 101.39-101.96 shelf above and 91.37 below; resistance 105.24-105.66, 106.24, 114.18-115.83, 120.65.
+MISSING INFORMATION: Intraday highs/lows (MISSING); raw volumes (MISSING); ETF price series and indicators beyond returns (MISSING); fundamentals and earnings dates (MISSING); headlines N/A BY DESIGN (blind run); backtest N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Close is only about 0.5% above the nearest support with about 8.6% to the next supplied support; volatility of 45-50% annualised makes levels easy to break; cause of the decline unknown; small rounding gap in the 5-day volume figure (0.81x from table vs 0.82x stated). Simulation only, not investment advice.
+NEXT AGENT: Agent 2 - News Analyst
+HANDOFF SUMMARY: Stock A is in a short-term downtrend (close 100.00 below 20/50/200-day averages, -15.5% 1m, RSI 38.1) resting just above the 99.48 low on light volume, with the drop largely sector-wide (ETF -17.8% 1m) and data completeness 80/100.

@@ -1,0 +1,11 @@
+{
+  "run_id": "run-20261015-223520-3e64",
+  "ticker": "ASML.AS",
+  "name": "ASML",
+  "decision_date": "2020-09-17",
+  "blind": true,
+  "split": "dev",
+  "prompts_version": "50302f80",
+  "seed": 1792125320,
+  "created": "2026-10-15T22:35:20"
+}

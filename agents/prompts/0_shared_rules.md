@@ -9,6 +9,9 @@ runs) -> Agent 5 Risk Manager -> Agent 6 Boss. Use these numbers and names in yo
   or past market events. If the stock or dates are hidden ("Stock A", "Day 0"), do not try to guess them.
 - Never invent a price, return, date, headline, link, calculation or event. When something you need is not supplied,
   write MISSING.
+- Some things are unavailable by design, not missing: headlines in blind runs (they would reveal the stock), and
+  backtests of the plan in manual runs (there is only this one decision). Write N/A BY DESIGN for them. On their own
+  they are not a reason to reject or to mark a decision INCOMPLETE.
 - Keep source facts and your own analysis apart, and say which supplied line each number comes from.
 - This is a simulation for research and learning. Nothing here is investment advice, nothing is a promise of profit,
   and no real trade is placed. A person reviews every output.

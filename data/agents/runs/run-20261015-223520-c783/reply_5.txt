@@ -1,0 +1,53 @@
+Agent 5 Risk Manager: review of the Strategist's plan for Stock A
+
+Plan under review: NO TRADE, 0% position size, "No setup" (Strategist handoff).
+
+Starting position: REJECT. I move off it only if every REQUIRED item is OK. For a NO TRADE plan, the position items (stop, target, size, worst loss) are checked as "no position is opened", and the reference levels are checked to see whether a BUY would have passed.
+
+REQUIRED CHECKLIST
+1. Action is BUY or NO TRADE, entry conditions true at the Day 0 close: OK. The action is NO TRADE. The plan opens nothing, so no entry waits on Day 1 or later.
+2. Stop rule, percent below entry, no wider than 15%: OK (no position). For reference only, the stop is about 3.34% (below the 20-day low of 96.66, from the Researcher), well inside the 15% maximum.
+3. Target/exit rule and maximum hold of 20 days or less: OK (no position). Reference target is about 4.86% (the 60d/252d high of 104.86, from the Researcher).
+4. Position size within 10%: OK. Size is 0% ($0 of $100,000).
+5. Reward-to-risk after costs of at least 1.5, arithmetic shown: OK for NO TRADE. I checked the Strategist's reference numbers:
+   - Gross: 4.86 / 3.34 = 1.46
+   - Costs: 0.1% fee + 0.1% slippage on each side = 0.4% round trip (fixed rules)
+   - Net reward 4.86 - 0.4 = 4.46; net risk 3.34 + 0.4 = 3.74; 4.46 / 3.74 = 1.19
+   - 1.19 is below 1.5, so a BUY on these levels would have failed this check. That backs the skip.
+   - Caveat (my analysis): a real BUY would fill at the Day 1 close, which is MISSING, so these percentages assume entry near 100.00 and are only approximate.
+6. Largest simulated loss: OK. With 0% size it is $0. For comparison, a full 10% ($10,000) position at the reference stop would lose about $10,000 x 3.74% = $374 including costs (my arithmetic).
+7. No look-ahead: OK. Every fact cited is dated Day 0 or earlier (Researcher closes, averages, returns, ranges; Model 1 stats; Model 4 event 871 days before). Nothing comes from after Day 0.
+8. Plan matches the Researcher's price data: OK. I checked the numbers the plan relies on:
+   - ETF lag "13-49 points": 15.9 - 2.8 = 13.1 and 57.1 - 8.5 = 48.6. Matches.
+   - "Close 2.46% below 102.46": the gap is 2.46 points, which is 2.40% of 102.46 (or 2.46% of the 100.00 close). Small wording slip only; the conclusion (no breakout) stands.
+   - 50-day 97.83 below 200-day 97.99, volume 0.89x, RSI 55.0, and t-stat 0.29 all match the facts listed.
+
+CONTEXT CHECKLIST
+- Data completeness: PROBLEM (minor). Intraday highs/lows, ETF price series, moving-average history, fundamentals and exposure rows are MISSING. That makes any BUY case harder to support. It does not weaken a skip.
+- Statistical support: PROBLEM for a BUY, fine for a skip. Alpha 2.1%/yr with t-stat 0.29 (rank 15 of 24) is not distinguishable from zero.
+- Liquidity: OK for a simulation. Volume is 0.89x average (light, but not illiquid). No absolute volume figure was supplied (MISSING).
+- Conflicting news or supply-chain events: N/A BY DESIGN for headlines (blind run). No Model 4 events in the 120-day window; Stock A was in neither group of the one earlier shock.
+- Overfitting: OK. The plan does not tune any rule to this chart. It declines to act.
+- Unverified sources: OK. No outside sources used. I found no embedded instructions in the material.
+
+DECISION: APPROVE FOR SIMULATION ONLY (the NO TRADE decision). I agree with the skip.
+
+Five short points:
+1. Nothing has to be true on Day 1: NO TRADE is decided fully at the Day 0 close.
+2. The breakout condition is not met (close 100.00 below 102.46 resistance, volume 0.89x), and the trend condition is not met (flat averages, 50-day below 200-day).
+3. The model support is weak: t-stat 0.29, rank 15 of 24.
+4. Even the best reference setup gives about 1.19 reward-to-risk after costs, below the 1.5 minimum, so a BUY would have been rejected anyway.
+5. With size 0%, the worst simulated loss is $0. The only cost is a possible missed upside move, which is accepted.
+
+What would have to change for a BUY to be approved in a later run (not this one): a Day 0 close above 102.46 on above-average volume, or a stop/target pair giving at least 1.5 after the 0.4% round-trip costs (for example, with a 3.34% stop the target would need to be at least about 6.0%: 1.5 x 3.74 + 0.4 = 6.01%), plus a size of 10% or less and a stop of 15% or less.
+
+Approval here does not mean a real trade should be placed. This is a simulation for research and learning, not investment advice.
+
+AGENT: Agent 5 Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A against the fixed limits and the supplied evidence. Checked the reference reward-to-risk arithmetic and the price facts, and approved the skip for simulation only.
+SOURCE FACTS USED: Close 100.00; 20/50/200-day averages 99.41/97.83/97.99; returns 1m 2.8%/12m 8.5% vs ETF 15.9%/57.1%; RSI 55.0; volume 0.89x; 20d high/low 102.46/96.66; 60d/252d high 104.86 (all from the Researcher, via the Strategist handoff). Alpha 2.1%/yr, t-stat 0.29, rank 15 of 24 (Model 1). No Model 4 events in the 120-day window (News Analyst). Fixed rules: $100,000 portfolio, 10% max size, 15% max stop, 20-day max hold, 0.1% fee + 0.1% slippage per side.
+ANALYSIS: All REQUIRED items are OK for a NO TRADE plan: no Day 1 dependency, 0% size, $0 worst loss, no look-ahead, facts match the Researcher. Reference R:R recomputed: gross 4.86/3.34 = 1.46; net (4.86-0.4)/(3.34+0.4) = 4.46/3.74 = 1.19, below 1.5, so a BUY would fail anyway. Minor wording slip: the close is 2.46 points (2.40%) below 102.46, which does not change the conclusion. ETF lag of 13.1 to 48.6 points confirmed.
+MISSING INFORMATION: Day 1 close (needed for exact BUY percentages); intraday highs/lows; ETF price series; moving-average history/slope; fundamentals; absolute volume; supply exposure rows (all MISSING). Headlines and a backtest of the plan are N/A BY DESIGN and played no part in the decision.
+RISKS OR LIMITATIONS: Closes only; an empty event list does not prove nothing happened; low recent volatility (11.7% vs 15.4%) could come before a sharp move, so the skip may miss an upside breakout (accepted opportunity cost). Reference levels assume entry near 100.00. Simulation only, not investment advice, no real trade placed.
+NEXT AGENT: Agent 6 Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY the NO TRADE decision for Stock A. There is no breakout or trend setup at the Day 0 close, model support is weak (t-stat 0.29), and the best reference setup nets only 1.19 reward-to-risk after costs (below 1.5). Size 0%, worst loss $0. I agree with the skip.

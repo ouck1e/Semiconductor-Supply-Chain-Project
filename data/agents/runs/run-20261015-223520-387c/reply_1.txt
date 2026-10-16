@@ -1,0 +1,64 @@
+AGENT 1 - RESEARCHER: MARKET DATA REPORT (Stock A)
+
+All numbers come from the supplied MARKET DATA block. "Source" means a line in that block. "Analysis" means my own arithmetic or reading of those lines. The source material contains no instructions directed at the team.
+
+1. STOCK, SECTOR AND TIMEFRAME
+- Source: Stock A, sector group Equipment. Daily closes rebased so the Day 0 close = 100.00. At least 252 closes up to Day 0, nothing after it. The decision point is the Day 0 close.
+- Calendar dates are hidden (Day -29 to Day 0 are listed). I make no attempt to identify the stock or the dates.
+
+2. STRUCTURE: DOWNTREND (long and medium term), with a short-term range or base that is still being tested
+- Source: close 100.00 is below the 20-day average (107.59, -7.1%), the 50-day average (107.11, -6.6%) and the 200-day average (130.71, -23.5%).
+- Source: the 50-day average (107.11) is well below the 200-day average (130.71). Analysis: that ordering fits a longer-term downtrend.
+- Source: the 252-day closing high is 164.91 and the close is -39.4% below it. The 252-day, 60-day and 20-day closing lows are all 98.79 (the Day -1 close).
+- Analysis: over the last 60 days price has moved between 98.79 and 114.20 (source: 60-day high/low). Inside that range the latest leg is down: from 113.36 on Day -7 to 98.79 on Day -1 (about -12.9%), then 100.00 on Day 0 (+1.2%). Day 0 sits about 1.2% above the 12-month closing low. One up close is not enough to call a reversal.
+
+3. MOMENTUM
+- Source returns: 1m -6.0%, 3m -12.4%, 6m -24.4%, 12m -29.4%. All four are negative.
+- Source: RSI (14-day) 35.5. Analysis: weak, but above the common 30 "oversold" line.
+- Analysis: the 1-month loss is smaller than the 6- and 12-month losses, so the decline is still going on but its pace has eased compared with the longer windows.
+
+4. VOLUME
+- Source: last 5 days vs 50-day average 1.01x. Analysis: I checked this from the table (Day -4 to Day 0: 1.20, 0.92, 0.89, 1.05, 0.99, average 1.01x). It matches. Volume is normal, with no sign of heavy selling or a volume spike at the low.
+- Source: the largest daily volumes in the 30-day table are Day -29 (1.78x) and Day -28 (1.92x). Day -28 is also the biggest one-day price jump (104.90 to 112.24, about +7.0% by my arithmetic). Most days between Day -27 and Day -5 ran below average (0.54x to 0.91x, with 1.17x on Day -18 and 1.14x on Day -15).
+- Source: Day -4, the sharpest drop of the recent leg (109.47 to 104.18, about -4.8% by my arithmetic), came on 1.20x volume.
+- DATA ANOMALY: Day -13 shows volume 0.00x. A real trading day with zero volume is implausible, so this is probably a missing or bad value. It does not affect the 5-day figure, but it may slightly distort the 50-day average.
+
+5. VOLATILITY
+- Source: annualised 20-day 37.7% vs 120-day 34.4%. Analysis: the ratio is about 1.10. Short-term volatility is a little higher than the longer baseline, which fits the recent sharp move down.
+
+6. SUPPORT AND RESISTANCE (only levels the supplied numbers back up)
+- Support 98.79: the 20-day, 60-day and 252-day closing low (Day -1). It is the only level that is a multi-window low, and the close is just 1.2% above it. Below it there are no supplied closes, so lower support is MISSING.
+- Minor support at 102.12 to 104.88: closes on Day -18 (102.12), Day -16 (104.88), Day -4 (104.18) and Day -3 (103.80). This is a looser zone.
+- Resistance 107.11 to 107.59: the 50-day and 20-day averages, both close together.
+- Resistance 113.36 to 114.20: the 20-day closing high (Day -7) and the 60-day closing high. This is the top of the recent range.
+- Longer-term resistance 130.71: the 200-day average.
+- These are closing levels only. No intraday highs or lows were supplied.
+
+7. COMPARISON WITH THE CHIP-SECTOR ETF
+- Source, ETF returns: 1m -2.3%, 3m -10.7%, 6m -14.6%, 12m -2.6%.
+- Analysis, stock minus ETF: 1m -3.7 pts, 3m -1.7 pts, 6m -9.8 pts, 12m -26.8 pts.
+- Stock A did worse than the ETF in every window. The gap is largest over 12 months: the ETF is about flat (-2.6%) while Stock A is down 29.4%. The sector itself is also weak over 3 to 6 months, so part of the recent drop is sector-wide, but Stock A's weakness goes beyond the sector.
+
+8. THREE STRONGEST FACTS
+1. Price is below all three moving averages, and the 50-day (107.11) is far below the 200-day (130.71). This is a clear longer-term downtrend.
+2. Stock A trails the chip-sector ETF in all four windows, by 26.8 points over 12 months.
+3. The close (100.00) is 1.2% above a clearly defined level, 98.79, which is the 20-, 60- and 252-day closing low, set the day before, on normal volume (1.05x).
+
+THREE BIGGEST UNCERTAINTIES
+1. Whether 98.79 holds. It was set only one day before the decision point, and one up close (+1.2% on 0.99x volume) does not confirm a base. There are no closes below it to show where the next support would be.
+2. What is driving the move. Headlines are N/A BY DESIGN (blind run), so we cannot tell whether the 12-month underperformance is a company problem or noise, or whether the Day -7 to Day -1 drop had a specific cause.
+3. Data quality. The 0.00x volume on Day -13 suggests a bad or missing data point. Only closing prices (no intraday high/low) and relative volume (no share counts) were supplied, and the 30-day table is the only daily detail; the remaining 220+ closes are summarised only through the indicators.
+
+9. DATA COMPLETENESS SCORE: 80 / 100
+- Present: full indicator set (averages, returns over 4 windows, ETF comparison, RSI, two volatility windows, volume ratio, 20/60/252-day highs and lows) and 30 daily closes with relative volume.
+- Deducted for: closes only (no open/high/low), the Day -13 0.00x volume anomaly, daily detail only for the last 30 days, no ETF price series (only period returns), no raw volume. Headlines and dates are N/A BY DESIGN and were not counted against the score.
+- This scores how complete the data is, not how good a trade might be.
+
+AGENT: Agent 1 - Researcher
+TASK COMPLETED: Described Stock A's (Equipment) trend, momentum, volume, volatility, support/resistance and relative performance vs the chip-sector ETF, using only the supplied market data. No trade decision made.
+SOURCE FACTS USED: Close 100.00; 20d avg 107.59 (-7.1%); 50d avg 107.11 (-6.6%); 200d avg 130.71 (-23.5%); returns 1m -6.0%, 3m -12.4%, 6m -24.4%, 12m -29.4%; ETF 1m -2.3%, 3m -10.7%, 6m -14.6%, 12m -2.6%; RSI 35.5; vol 20d 37.7% vs 120d 34.4%; 5d volume 1.01x; 20d high/low 113.36/98.79; 60d high/low 114.20/98.79; 252d high/low 164.91/98.79; close -39.4% vs 252d high; 30-day close/volume table (Day -29 to Day 0), including Day -13 volume 0.00x.
+ANALYSIS: Longer-term downtrend (price below all averages, 50d far below 200d) with a 60-day range of 98.79 to 114.20. The latest leg fell about 12.9% from Day -7 to Day -1; Day 0 is 1.2% above the 12-month closing low. Momentum is negative in every window, RSI weak but not below 30. Volume normal (1.01x, checked against the table). Short-term volatility a little above baseline (ratio about 1.10). Underperformed the ETF in every window (-3.7, -1.7, -9.8, -26.8 pts). Support 98.79, then a loose 102 to 105 zone; resistance 107.1 to 107.6, then 113.4 to 114.2, then 130.7.
+MISSING INFORMATION: Intraday highs/lows (MISSING); raw volume (MISSING); ETF daily series (MISSING); price levels below 98.79 (MISSING); valid volume for Day -13 (shows 0.00x, likely MISSING). Headlines and calendar dates: N/A BY DESIGN (blind run).
+RISKS OR LIMITATIONS: Support at 98.79 is only one day old and untested. Without headlines the cause of the 12-month underperformance is unknown. The 0.00x volume point suggests a data error. Closing data only. Simulation for research and learning, not investment advice; no real trade.
+NEXT AGENT: Agent 2 - News Analyst
+HANDOFF SUMMARY: Stock A (Equipment) is in a clear longer-term downtrend, trails the chip ETF in every window (by 26.8 pts over 12 months), and closed at 100.00, just 1.2% above its untested 12-month closing low of 98.79, on normal volume with RSI 35.5; data completeness 80/100, with a 0.00x volume anomaly on Day -13 and headlines N/A by design.

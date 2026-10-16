@@ -1,0 +1,72 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Chip designers), decision at the Day 0 close
+
+Simulation only, for research and learning. Not investment advice. No real order is placed. I make no claim that any plan is safe, profitable or high-probability.
+
+No instructions were found inside the source material. Nothing needed to be ignored.
+
+1. Setup name
+No setup.
+
+For transparency I tested the only candidate the material could support: a "support bounce" long off the 99.48 low. It fails the entry conditions on Day 0 (see 2 and 6).
+
+2. What must be true for entry, and whether it is true on Day 0
+For the support-bounce candidate to be worth putting in front of the Risk Manager, all of these would have to hold at the Day 0 close:
+a) A sign that the trend has turned or is stabilising, such as a close back above the 105.24-105.66 resistance or the 20-day average 106.24. FALSE on Day 0: close 100.00 is below all three averages (106.24/114.18/115.83) and below 105.24 (Researcher handoff).
+b) Momentum that is oversold or turning up. FALSE: RSI 38.1 is weak but not oversold, and nothing shows it turning (Researcher handoff).
+c) A catalyst or model edge in favour. FALSE: the news is UNCLEAR with low confidence, and Stock A is in neither shock group (News Analyst handoff, Model 4). Model 1 alpha t-stat is 0.88, ranked 13 of 24. That is not statistically meaningful, and the stock is outside the top 5 that the phase 8 baseline holds (Model 1).
+d) A stop below real support and a target at real resistance that give a reward-to-risk of at least 1.5. FALSE: see 6.
+None of the four conditions holds on Day 0. Entry cannot depend on Day 1 or later, so there is no trade.
+
+3. Entry rule
+None (No setup). If a setup existed it would be: BUY at the Day 1 close, decided at the Day 0 close. The Day 1 fill price is unknown (MISSING), so all percentages below are measured from the Day 0 close of 100.00.
+
+4. Stop rule (candidate only, as a percent below entry)
+A meaningful stop has to sit below the support that would prove the idea wrong:
+- Just below 99.48 (Researcher support) is about 0.5-1% below. That is inside normal daily noise for a stock with 45.6% 20-day annualised volatility. My own analysis: 45.6% / sqrt(252) is about 2.9% a day, so the stop would likely be hit by noise alone.
+- Below the next supplied support, 91.37: (100.00 - 91.37) / 100.00 = 8.63%. A stop just under it is about 9.0% below. That is within the 15% maximum.
+Candidate stop: 9.0% below entry.
+
+5. Target or exit rule (candidate only)
+Nearest resistance levels (Researcher handoff): 105.24-105.66, then 106.24 (20-day average), then 114.18-115.83.
+- To 106.24: +6.24%.
+- To 114.18: +14.18%. That would mean recovering the 50-day average inside a downtrend within 20 days, and nothing supplied supports it.
+Candidate target: +6.24%, with a maximum hold of 20 trading days (fixed limit).
+
+6. Reward-to-risk (target % / stop %)
+- Candidate: 6.24% / 9.0% = 0.69. Below 1.0.
+- With the tight stop: 6.24% / 1.0% = 6.24 on paper. But that stop sits about one-third of a typical daily move from the price (1.0% vs about 2.9%), so the ratio is not credible.
+- Costs (fixed rules): 0.1% fee + 0.1% slippage on each side = about 0.4% round trip. That cuts the net target to about 5.84% and raises the net loss at the stop to about 9.4%. Net ratio: 5.84 / 9.4 = 0.62.
+- The Day 1 fill could differ from 100.00, which would shift every one of these numbers (MISSING).
+The setup is rejected on this ratio.
+
+7. Position size
+0% (No trade). For reference only: had a setup passed, the 10% cap ($10,000 of the $100,000 portfolio) with a 9.0% stop would put about $900 at risk before costs (my arithmetic: 10,000 x 0.09).
+
+8. What would cancel the setup (or what would justify revisiting it in a later run)
+- A daily close below 99.48 breaks support. In a later run that would point toward the 91.37 level, not toward a long.
+- A future decision point with a close above 105.66/106.24 on volume above average, RSI turning up, or Stock A entering the top 5 by alpha t-stat could justify a fresh look. None of these can be used for this Day 0 decision.
+
+9. Missing inputs
+- Day 1 fill price: MISSING (unknown by construction).
+- Intraday highs/lows and raw volumes: MISSING (Researcher).
+- ETF price series beyond returns: MISSING.
+- Fundamentals and earnings dates: MISSING. An earnings date inside the 20-day window would matter.
+- Cause of the sector-wide decline, and current status of the neon disruption: MISSING (News Analyst).
+- Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip
+- The trend is down: below all averages, bearish stacking, lower highs, -15.5% over 1 month (Researcher).
+- No catalyst. The news is unclear, and Stock A is in no shock group (News Analyst, Model 4).
+- No model edge: alpha t-stat 0.88, rank 13/24, outside the baseline top 5. Market beta 1.20 and down-week ETF beta 1.09 mean the stock tends to amplify sector falls (Model 1).
+- The reward-to-risk for a stop placed at real support is about 0.69 gross and 0.62 net, which does not justify the risk.
+- High volatility (45.6%-49.6%) makes a tight stop unworkable.
+- Supply exposure is concentrated: gallium from China 0.276 and HF from China 0.242 (HF trade data covers only 38% of capacity) (exposure_model). No current shock is tied to these inputs in the material, but they add tail risk the plan cannot price.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Tested the only plausible long setup for Stock A (a support bounce off 99.48) against the fixed rules and the Day 0 data, and concluded "No setup". No entry condition is true at the Day 0 close, and the best supportable reward-to-risk is below 1.
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200-day averages 106.24/114.18/115.83; 1m -15.5%; RSI 38.1; vol 20d 45.6% / 120d 49.6%; support 99.48, then 91.37; resistance 105.24-105.66, 106.24, 114.18-115.83. News Analyst: single neon-disruption event, Stock A in neither group, sentiment UNCLEAR with low confidence. Model 1: alpha 16.6%/yr, t-stat 0.88, rank 13/24 (baseline holds top 5); beta 1.20; ETF beta up 1.01 / down 1.09. Model 4: Stock A in neither group for both shocks. Exposure: gallium China 0.276, HF China 0.242 (38% coverage), gallium USA 0.221, helium Qatar 0.217 (38% coverage), rare gas Singapore 0.208. Fixed rules: 10% max position, 15% max stop, 20-day max hold, 0.1% fees + 0.1% slippage per side.
+ANALYSIS: Candidate stop at about 9.0% (under 91.37, which is 8.63% below 100.00) against a target of +6.24% (to 106.24) gives 6.24 / 9.0 = 0.69 gross. After about 0.4% round-trip costs it is 5.84 / 9.4 = 0.62 net. A stop just under 99.48 (about 1%) is less than one typical daily move (about 2.9%, from 45.6% / sqrt(252)), so it is not credible. Trend, momentum, news and model alpha all fail to support entry. Position size 0%.
+MISSING INFORMATION: Day 1 fill price (MISSING); intraday highs/lows and raw volumes (MISSING); ETF price series (MISSING); fundamentals and earnings dates (MISSING); cause of the sector decline and current neon-disruption status (MISSING); headlines N/A BY DESIGN (blind run); backtest N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: All percentages are measured from the Day 0 close because the Day 1 fill is unknown. The support/resistance levels are close-based only. The volatility-per-day figure is my own approximation. Choosing "No setup" means a rebound off support would be missed, and that is accepted. Simulation only, not investment advice, and no real trade.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual run)
+HANDOFF SUMMARY: No setup for Stock A: it is in a downtrend with no catalyst, an insignificant model alpha (t 0.88, rank 13/24), and a best supportable reward-to-risk of 6.24% / 9.0% = 0.69 (0.62 after costs), so the recommended position is 0% (NO TRADE).

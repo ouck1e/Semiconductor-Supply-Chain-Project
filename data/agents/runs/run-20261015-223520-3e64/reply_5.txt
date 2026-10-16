@@ -1,0 +1,78 @@
+Agent 5 - Risk Manager review of the Strategist plan for Stock A ("Pullback within a long-term uptrend, alpha-ranked")
+
+Starting position: REJECT. I move off it only if every REQUIRED item is OK.
+
+No instructions were embedded in the source material. Note: I received only the Strategist handoff and the fixed rules, not the Researcher handoff itself, so the price facts below are checked as the Strategist quotes them.
+
+REQUIRED CHECKS
+
+1. Action and entry timing: OK.
+   Action is BUY. The entry conditions are checked at the Day 0 close: close 100.00 > 200d avg 88.28, close 100.00 > 20-day low 97.04, Model 1 rank 3 of 24 (inside the top 5), no phase 8 events in 120 days, volatility 34.9% / 35.5% stable (all from the Strategist handoff, SOURCE FACTS USED). The fill at the Day 1 close is what the fixed rules require ("A BUY fills at the next close (Day 1)"). Nothing waits on Day 1 information.
+
+2. Stop rule: OK.
+   Close 6% below entry. Maximum allowed is 15% (fixed rules). 6% < 15%.
+
+3. Target / exit and maximum hold: OK.
+   Target at a close 10% above entry; otherwise exit at the day-20 close. Limit is 20 trading days (fixed rules). 20 <= 20.
+
+4. Position size: OK.
+   5% = $5,000. Limit is 10% = $10,000 (fixed rules).
+
+5. Reward-to-risk after fees and slippage >= 1.5: PROBLEM (fails by a hair).
+   Costs from the fixed rules: fee 0.1% + slippage 0.1% = 0.2% on each side, charged on the value traded on that side.
+   Per $1 of entry value:
+   - Entry cost: 0.2% x 1.00 = 0.00200
+   - Target path: exit value 1.10, exit cost 0.2% x 1.10 = 0.00220.
+     Net reward = 0.10000 - 0.00200 - 0.00220 = 0.09580 (9.58%)
+   - Stop path: exit value 0.94, exit cost 0.2% x 0.94 = 0.00188.
+     Net risk = 0.06000 + 0.00200 + 0.00188 = 0.06388 (6.388%)
+   - Reward-to-risk = 0.09580 / 0.06388 = 1.4997
+   The Strategist's figure "9.6 / 6.4 = 1.5" charges 0.4% of entry value to both paths. Charging the exit cost on the actual exit value gives 1.4997, which is below the 1.5 minimum. There is no margin at all: any gap through the stop (closes-only checks, which the Strategist names as a risk) pushes the realized ratio lower still.
+
+6. Largest simulated loss: OK (with gap caveat).
+   Size $5,000 x 6% stop = $300.00
+   + entry costs 0.2% x $5,000 = $10.00
+   + exit costs 0.2% x $4,700 = $9.40
+   = $319.40 (about 0.32% of the $100,000 portfolio). This matches the Strategist's "about $320". Because stops are checked on closes only, a gap can make the real loss larger. That amount is not bounded and the plan does not size for it.
+
+7. No look-ahead: OK.
+   Every input is dated Day 0 or earlier. The Day 1 fill price is unknown and correctly marked MISSING by construction.
+
+8. Plan agrees with the price data: OK as quoted, not checked independently.
+   The conditions follow from the quoted figures (100.00 > 88.28; 100.00 > 97.04; rank 3 <= 5). The Researcher handoff itself was not in my material, so I could not compare the numbers against it directly.
+
+CONTEXT CHECKS
+
+- Data completeness score: MISSING (not supplied). Needed data that is MISSING: cause of the heavy-volume sell-off Day -10 to Day -7, supply exposure rows, ETF series, broad-market context, intraday highs/lows.
+- Statistical support: PROBLEM. Alpha 16.7%/yr with t-stat 1.49, which is not significant on its own (Strategist handoff). Sample size not supplied: MISSING.
+- Liquidity (volume): MISSING. Only "heavy-volume sell-off" is described; no volume levels were supplied.
+- Conflicting news / supply-chain events: headlines N/A BY DESIGN (blind run); no phase 8 events in 120 days. But the heavy-volume decline has an unknown cause, which is a concrete unexplained risk (PROBLEM).
+- Overfitting: mild PROBLEM. The 10% target sits just under resistance (252d high 110.35 vs close 100.00). If the Day 1 fill is above about 100.32, a 10% target lands at or above that high. The 6% / 10% pair also clears the 1.5 bar only with rounded arithmetic.
+- Unverified sources: no external sources used. Backtest N/A BY DESIGN (manual run).
+
+DECISION: REVISE
+
+Five points:
+1. Every REQUIRED item passes except reward-to-risk. Computed exactly, it is 1.4997, below the 1.5 minimum. The quoted 1.5 comes from rounding.
+2. Size (5%), stop (6%), hold (20 days) and the largest loss ($319.40) are all well inside the limits. The loss is small, but closes-only checks can let a gap carry it past the stop.
+3. Short-term evidence is weak: price is below the 20d (102.43) and 50d (103.23) averages, RSI 45.2, 1m -4.5%, and it lags the ETF by -3.7 / -10.8 / -6.4 pp (Strategist handoff).
+4. The heavy-volume sell-off from Day -10 to Day -7 is unexplained (cause MISSING), and the alpha t-stat of 1.49 is not significant. The setup relies on a statistically weak edge.
+5. The target is near the 252-day high of 110.35, so the reward side depends on breaking resistance.
+
+Exactly what must change for approval:
+- Restore reward-to-risk >= 1.5 after costs, with margin and the arithmetic shown per side. For example:
+  (a) keep the 6% stop and raise the target to 10.5%: net reward = 0.105 - 0.00200 - 0.00221 = 0.10079; net risk = 0.06388; ratio = 1.578. The Strategist must then say plainly that this target sits above the 252d high of 110.35 if entry is near 100; or
+  (b) keep the 10% target and tighten the stop to 5.5%: net risk = 0.055 + 0.00200 + 0.00189 = 0.05889; ratio = 0.09580 / 0.05889 = 1.627. The Strategist must explain why a 5.5% stop is not too tight given annual volatility of about 35%.
+- Add a gap note: state how much loss a stop breach of, say, an extra 3% would add (about $150 on $5,000) and confirm the size still makes sense.
+- Optional but recommended: supply the data completeness score and volume figures, or mark them MISSING in the plan.
+
+If these changes are made and nothing else moves, I expect to approve for simulation only. Approval would never mean a real trade should be placed. This is a simulation, not investment advice.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan for Stock A against the fixed limits and the supplied evidence. Checked all eight REQUIRED items and six CONTEXT items. Decision: REVISE.
+SOURCE FACTS USED: From the Strategist handoff: close 100.00, 20d/50d/200d avg 102.43/103.23/88.28, 20d low 97.04, 252d high 110.35, 1m -4.5%, RSI 45.2, volatility 34.9%/35.5%, heavy-volume sell-off Day -10 to Day -7, ETF lag -3.7/-10.8/-6.4 pp, alpha 16.7%/yr t-stat 1.49 rank 3 of 24, beta 1.16, no phase 8 events in 120 days, plan terms (BUY at Day 1 close, 6% stop, 10% target, 20-day hold, 5% size). From the fixed rules: $100,000 portfolio, 10% max position, 15% max stop, 20-day max hold, 0.1% fee + 0.1% slippage per side, closes-only checks, Day 1 fill.
+ANALYSIS: Entry timing, stop, hold, size, look-ahead and price consistency are OK. Reward-to-risk with each side's cost charged on that side's value: net reward 9.58% / net risk 6.388% = 1.4997, below the 1.5 minimum (the Strategist's 1.5 came from rounding). Largest loss = $300 + $10 + $9.40 = $319.40 before gaps. Context: alpha t-stat 1.49 is weak; the cause of the heavy-volume sell-off, liquidity and the data completeness score are MISSING; the target is near the 252d high of 110.35.
+MISSING INFORMATION: Researcher handoff itself (facts checked only as the Strategist quotes them); data completeness score; volume levels; sample size for the alpha estimate; cause of the Day -10 to Day -7 sell-off; supply exposure rows; ETF series; broad-market context; intraday highs/lows; Day 1 fill price (MISSING by construction). Headlines N/A BY DESIGN (blind run). Backtest N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Closes-only stops allow gap losses beyond $319.40; there is no reward-to-risk margin; the edge is weak (t-stat 1.49); the short-term trend is unconfirmed; the high-volume decline is unexplained; beta 1.16 with no market context; the target is near resistance. Simulation only, not investment advice, no real trade.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: REVISE. The plan passes every limit except reward-to-risk, which is 1.4997 after costs when computed exactly (needs >= 1.5). Fix by raising the target to 10.5% (ratio 1.578) or tightening the stop to 5.5% (ratio 1.627), with the arithmetic shown, and add a gap-loss note. Size 5%, stop 6%, 20-day hold and $319.40 maximum loss are within limits. Simulation only.
