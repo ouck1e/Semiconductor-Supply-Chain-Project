@@ -1,0 +1,63 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (decision at the Day 0 close)
+
+Note on instructions in the material: the supplied handoffs and model facts contain no embedded instructions to act on. Nothing to flag.
+
+SOURCE FACTS (from the supplied lines, not my analysis)
+- Researcher: Close 100.00; 20/50/200-day averages 101.67 / 100.96 / 112.61; returns 1m +4.9%, 3m -3.6%, 6m -1.7%, 12m -0.4%; ETF -3.5% / -3.9% / -10.2% / -8.2%; RSI 48.4; volatility 20d 58.2%, 120d 60.8%; 5-day volume 0.87x; 20-day high/low 113.20 / 95.97; 60-day 115.94 / 89.21; 252-day 162.12 / 89.21; close -38.3% vs 252-day high; Day -26 96.58 at 2.07x (11.7% drop); Day -11 113.20; Day 0 100.00 at 0.59x volume; range since Day -26 "roughly 93.5 to 113.2" (Researcher's analysis line).
+- News Analyst: headlines N/A BY DESIGN; no phase 8 events in the 120-day window; sentiment NEUTRAL / UNKNOWN; earnings calendar MISSING.
+- Model 1: alpha -14.5%/yr, t-stat -0.71, rank 22 of 26 (so not in the baseline's top 5); market beta 1.69; ETF beta 0.93 up weeks / 1.08 down weeks.
+- Model 4: last shock 611 days before (stock not in either group); the neon shock 1105 days before listed the stock as expected loser. Nothing recent.
+- Exposure: top suppliers hf/China 0.345, helium/Qatar 0.339, rare gas/Singapore 0.300, rare gas/China 0.264, gallium/Korea 0.171.
+
+ANALYSIS (mine)
+The picture is mixed. Against: long-term downtrend (close 100.00 below the 200-day 112.61, -38.3% from the 1-year high), close slightly below the 20-day (101.67) and 50-day (100.96) averages, Day 0 bounce on light volume (0.59x), weak negative alpha, high beta (1.69) and ~60% annualised volatility. For: 25 sessions of sideways trading above roughly 93.5 after the Day -26 drop, positive 1-month return (+4.9%), neutral RSI (48.4), consistent ~8-point outperformance of a falling chip ETF, and no supply-chain shock in the window. There is no strong edge either way. Because sitting out a rise counts as much as buying before a fall, I propose a small, tightly defined range trade rather than skipping, and leave the go/no-go to the Risk Manager and Boss.
+
+1. Setup name: Range rotation (buy inside an established sideways range, stop below range support, target near range top / 200-day average). Small size because the long-term trend is down.
+
+2. Entry conditions and their Day 0 status
+   a. Close above range support ~93.5 (Researcher): 100.00 > 93.5 -> TRUE.
+   b. Close below range top 113.20 (20-day high): TRUE.
+   c. 1-month return positive: +4.9% -> TRUE.
+   d. RSI between 40 and 60 (not overbought or broken down): 48.4 -> TRUE.
+   e. No phase 8 supply-chain event in the 120-day window: TRUE (News Analyst).
+   f. Not required but noted: close above the 50-day average: 100.00 < 100.96 -> FALSE. This is a weakness, not a condition.
+   All required conditions are true at the Day 0 close.
+
+3. Entry rule: BUY at the Day 1 close (whatever that price is), decided at the Day 0 close.
+
+4. Stop rule: 7% below entry, checked on daily closes. At a Day 1 fill near 100 that is about 93.0, just under the ~93.5 range floor (if the fill differs from 100, the level moves with it; the percent stays fixed).
+
+5. Target / exit: 13% above entry (about 113.0 at a fill near 100, just above the 200-day average 112.61 and just under the 113.20 range high). Maximum hold 20 trading days, then exit at that day's close.
+
+6. Reward-to-risk
+   - Round-trip costs: 2 x (0.1% fee + 0.1% slippage) = 0.4%.
+   - Before costs: 13 / 7 = 1.86.
+   - After costs: (13 - 0.4) / (7 + 0.4) = 12.6 / 7.4 = 1.70. Clears the 1.5 minimum.
+   - Check of a nearer target: 12% gives 11.6 / 7.4 = 1.57 (passes narrowly); 11% gives 10.6 / 7.4 = 1.43 (fails). So the target cannot sit much below the 200-day average/range top.
+   - Context: with ~58% annualised 20-day volatility (about 3.7% a day, about 16% over 20 days, my arithmetic from the supplied 58.2%), both stop and target are within normal reach; closes-only checking means a gap through 93 would exit lower than the stop.
+
+7. Position size: 4% of the simulated portfolio ($4,000 of $100,000). Loss at the stop including costs: 4,000 x 7.4% = $296, about 0.3% of the portfolio. Kept well under the 10% cap because of the downtrend, beta 1.69 and negative alpha.
+
+8. What would cancel the setup: any Day 0 condition above being false (it is not); the Risk Manager or Boss finding a known event (for example earnings) inside the 20-day window; a revised data set showing the close below ~93.5. After entry, a close at or below the stop or at the 20-day limit ends it.
+
+9. Missing inputs: earnings calendar and guidance (MISSING); cause of the Day -26 high-volume drop (MISSING); intraday high/low/open (MISSING); ETF price series (MISSING); date of the 89.21 low (MISSING); fundamentals (MISSING). Headlines: N/A BY DESIGN. Backtest of this plan: N/A BY DESIGN.
+
+10. Reasons to skip: price below the 200-day average in a long-term downtrend; close below the 20- and 50-day averages; Day 0 bounce on 0.59x volume; entry is mid-range (100 vs 93.5-113.2), not at support, so the stop is wider than an ideal range buy; target sits at the 200-day average and range top, a double resistance that may cap it; negative alpha (rank 22/26); high beta to a falling sector; unexplained Day -26 drop; possible unseen earnings date.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Built one conditional simulation plan (small range-rotation BUY at the Day 0 close, filling Day 1) from the Researcher and News Analyst handoffs and the supply-chain model facts, with entry conditions checked on Day 0, stop, target, holding period, reward-to-risk before and after costs, size, cancel conditions, missing inputs and reasons to skip. The decision itself is left to Agents 5 and 6.
+SOURCE FACTS USED: Close 100.00; 20/50/200-day averages 101.67/100.96/112.61; 1m +4.9%; RSI 48.4; volatility 20d 58.2%; 20-day high/low 113.20/95.97; range ~93.5-113.2 since Day -26 (Researcher); Day 0 volume 0.59x; 252-day high 162.12 and -38.3%; ETF 1m/6m/12m -3.5/-10.2/-8.2%; no phase 8 events in 120 days, headlines N/A BY DESIGN (News Analyst); alpha -14.5%/yr t -0.71 rank 22/26, beta 1.69 (Model 1); fees 0.1% + slippage 0.1% per side, max stop 15%, max hold 20 days, max size 10% (fixed rules).
+ANALYSIS: No strong edge; long-term downtrend versus a 25-session base above ~93.5 with relative strength against a weak sector. Proposed a small range trade: stop 7% (~93.0, under range support), target 13% (~113.0, at the 200-day average / range top), hold up to 20 days. Reward-to-risk 13/7 = 1.86 before costs, (13-0.4)/(7+0.4) = 1.70 after costs. Size 4%, max loss at stop about $296 (0.3% of portfolio).
+MISSING INFORMATION: Earnings calendar and guidance; cause of Day -26 drop; intraday high/low/open; ETF price series; date of the 89.21 low; fundamentals (all MISSING). Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Below 200-day average and 20/50-day averages; light-volume bounce; mid-range entry; target at double resistance; ~60% volatility and closes-only stops (gaps can exit below 93); negative alpha and beta 1.69; possible unseen catalyst in the 20-day window. Simulation only, not investment advice, no promise of profit; a person reviews every output.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: Proposed a small (4%) range-rotation BUY at the Day 0 close for Stock A, filling Day 1: stop 7% below entry, target 13% above, max hold 20 days, after-cost reward-to-risk 1.70. All required entry conditions are true on Day 0, but the stock is in a long-term downtrend below its 200/50/20-day averages with a light-volume bounce, so the case is marginal and the Risk Manager should weigh skipping it.
+
+PLAN
+ACTION: BUY
+SETUP: Range rotation
+SIZE_PCT: 4
+STOP_PCT: 7
+TARGET_PCT: 13
+MAX_HOLD_DAYS: 20
+END PLAN

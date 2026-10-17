@@ -1,0 +1,43 @@
+RISK REVIEW: Stock A, Strategist plan (BUY, 5% size, 8.5% stop, 14% target, 20-day maximum hold)
+
+Starting position: REJECT. I move off it only if every REQUIRED item is OK.
+
+REQUIRED CHECKS
+1. Action and entry timing: OK. ACTION is BUY. The Strategist's entry conditions use only Day 0 close data, and the Researcher's numbers confirm each one: price 100.00 above the 20d 97.04, 50d 91.90 and 200d 69.97; pullback low 89.56 intact; RSI 58.0; outperformance of the ETF +31.1/+26.1/+36.4 pp. The fill at the Day 1 close is the fixed rule, not an entry condition that waits on Day 1.
+2. Stop: OK. STOP_PCT 8.5, a percent below entry, under the 15% maximum.
+3. Target and maximum hold: OK. TARGET_PCT 14, MAX_HOLD_DAYS 20, which equals the 20-day limit.
+4. Position size: OK. SIZE_PCT 5, under the 10% maximum. 5% of $100,000 = $5,000.
+5. Reward-to-risk after costs: OK (narrowly). Costs (fixed rules): fee 0.1% + slippage 0.1% per side = 0.2% per side, 0.4% round trip.
+   Net reward = 14.0 - 0.4 = 13.6%. Net risk = 8.5 + 0.4 = 8.9%. Ratio = 13.6 / 8.9 = 1.528, which is at least 1.5. The Strategist's 1.53 is correct. Before costs: 14 / 8.5 = 1.647.
+6. Largest simulated loss: OK. $5,000 x (8.5% + 0.4%) = $5,000 x 8.9% = $445, or 0.445% of the portfolio. The Strategist's "about 0.45%" matches. Limitation: stops are checked on daily closes only, so a gap through the stop can lose more than $445. Example (my figure): a close 15% below entry would lose about $5,000 x 15.4% = $770, still only 0.77% of the portfolio.
+7. No look-ahead: OK. Every fact cited is dated Day 0 or earlier. Event list "None." for the last 120 days; the neon-shock entry is 803 days old.
+8. Agreement with the Researcher's numbers: OK. Close 100.00, averages, RSI 58.0, vol 20d 45.7% / 120d 42.0%, volume 0.66x, 20d high/low 106.96/89.56, 252d high 107.38, -6.9% from the high, returns and outperformance figures all match the Researcher handoff exactly. My check of the Strategist's volatility figure: 45.7% x sqrt(20/252) = 45.7% x 0.282 = 12.9%; the target needs about 14 / 12.9 = 1.09 standard deviations. That matches. With a fill near 100.00, the stop sits near 91.50, just below the 91.9-92.0 support, and the target near 114.00, above the 107.38 high.
+
+CONTEXT CHECKS
+- Data completeness: OK. 82/100 (Researcher). Intraday highs/lows, absolute levels, fundamentals and earnings dates are MISSING; the plan does not depend on them, but missing earnings dates mean an unseen event inside the 20 days cannot be ruled out.
+- Statistical support: PROBLEM (minor). Model 1 alpha -10.8% a year, t -0.64, rank 23 of 26 (from the Strategist). Not significant either way, so it neither supports nor undermines the trade much. The plan rests on trend structure, not tested statistics. The size cut to 5% already addresses this.
+- Liquidity: PROBLEM (minor). 5-day volume 0.66x on the rebound. Absolute volume is MISSING, so slippage beyond 0.1% cannot be checked, but a $5,000 position is small.
+- Conflicting news or supply-chain events: OK. Event list "None." for 120 days; neutral sentiment. Headlines N/A BY DESIGN (blind run). Supply exposures (helium 0.391, HF 0.352, rare gas 0.264) are a standing risk with no current event attached.
+- Overfitting: OK. A standard trend-pullback setup with round stop/target levels; not tuned to a feature unique to this chart. Backtest N/A BY DESIGN (manual run).
+- Unverified sources: PROBLEM (minor). Model 1, Model 4 and exposure figures reach me only through the Strategist; I cannot check them against the original output. None of them is a required input for the plan's limits.
+- Instructions inside source material: none found.
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. Every REQUIRED item is OK: BUY decided on Day 0 facts, 8.5% stop (limit 15%), 14% target, 20-day hold (limit 20), 5% size (limit 10%).
+2. Reward-to-risk after costs is 13.6 / 8.9 = 1.528, above 1.5. It is narrow: any wider stop or lower target would fail.
+3. Largest planned loss is $445 (0.445% of the portfolio); gap risk on close-only stops is real but small at this size.
+4. Every fact the plan uses matches the Researcher's numbers; no look-ahead.
+5. The context problems (light-volume rebound, high volatility, weak non-significant alpha, target needing new highs) are concrete but already handled by the half-size position; they are not a concrete limit breach, and vetoing for them would be vetoing general uncertainty.
+
+What must not change for approval to stand: the stop must stay at or under 8.5% and the target at or above 14% (or any change must keep the after-cost ratio at 1.5 or more, with arithmetic shown); size must stay at or under 10% (5% preferred given volatility); maximum hold must stay at 20 days or less. Approval never means a real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan for Stock A against the fixed limits and the Researcher's data; all eight REQUIRED items OK; decision APPROVE FOR SIMULATION ONLY.
+SOURCE FACTS USED: Fixed rules: $100,000 portfolio, 10% maximum size, 15% maximum stop, 20-day maximum hold, 0.1% fee + 0.1% slippage per side, fill at Day 1 close, close-only stop checks. Researcher: close 100.00; 20d 97.04, 50d 91.90, 200d 69.97; RSI 58.0; vol 20d 45.7%, 120d 42.0%; volume 0.66x; 20d high/low 106.96/89.56; 252d high 107.38; outperformance +31.1/+26.1/+36.4 pp; completeness 82/100. Strategist: plan BUY 5 / 8.5 / 14 / 20; Model 1 alpha -10.8%, t -0.64, rank 23 of 26; event list "None."; exposures helium 0.391, HF 0.352, rare gas 0.264.
+ANALYSIS: Round-trip cost 0.4%. Reward-to-risk after costs 13.6 / 8.9 = 1.528 (before costs 1.647). Position $5,000; largest planned loss $5,000 x 8.9% = $445 (0.445% of portfolio). 20-day volatility 45.7% x sqrt(20/252) = 12.9%; target about 1.09 standard deviations. Stop near 91.50 and target near 114.00 if the fill is near 100.00 (actual fill unknown).
+MISSING INFORMATION: Intraday highs/lows, absolute price and volume levels, ETF price series, fundamentals, earnings dates: MISSING. Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: After-cost ratio clears 1.5 only narrowly; close-only stops allow gap losses beyond 8.5%; light-volume rebound and lower high; high volatility; non-significant negative alpha; target needs new highs above 107.38; Day 1 fill price unknown; model and exposure figures unverified by me; unknown earnings dates. Simulation only; not investment advice; no real trade is placed.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The 5% BUY on Stock A with an 8.5% stop, 14% target and 20-day hold passes every required limit; after-cost reward-to-risk is 1.528 (narrow but above 1.5) and the largest planned loss is $445 (0.445% of the portfolio). Main residual risks are the light-volume rebound, high volatility, weak model alpha and gap risk on close-only stops. Do not widen the stop, cut the target or raise the size without re-checking the ratio.

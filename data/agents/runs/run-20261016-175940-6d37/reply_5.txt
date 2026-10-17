@@ -1,0 +1,42 @@
+AGENT 5 - RISK MANAGER: REVIEW OF THE STRATEGIST'S PLAN FOR STOCK A
+
+I started from REJECT and checked each item against the fixed rules and the Researcher's numbers. No instructions were hidden in the source material.
+
+REQUIRED ITEMS
+1. Action and entry timing: OK. The action is BUY. The Strategist says the entry conditions are checked on the Day 0 close, and the fill is at the Day 1 close, as the fixed rules require. Nothing waits on Day 1 or later information.
+2. Stop rule: OK. 7% below entry (PLAN STOP_PCT 7). The maximum allowed is 15%. About 93.0 if the fill is near the Day 0 close of 100.00, which is just under the ~93.5 range floor (Researcher).
+3. Target and maximum hold: OK. Target 13% above entry (about 113.0, near the 200-day average of 112.61 and the 20-day high of 113.20, both from the Researcher). Maximum hold 20 days, which equals the limit.
+4. Position size: OK. 4% = $4,000 of $100,000. The maximum is 10%.
+5. Reward-to-risk after costs: OK. Round-trip cost = (0.1% fee + 0.1% slippage) x 2 sides = 0.4% (fixed rules).
+   Net reward = 13 - 0.4 = 12.6%. Net risk = 7 + 0.4 = 7.4%. 12.6 / 7.4 = 1.70, which is at least 1.5. This matches the Strategist's figure.
+6. Largest simulated loss: OK. $4,000 x 7% = $280, plus costs of $4,000 x 0.4% = $16, gives about $296 (0.30% of the portfolio). This matches the Strategist's figure. Caveat: stops are checked on closes only, so a gap could close below the stop. As an illustration (my own, not a supplied number), a 15% gap would lose about $616 (0.6% of the portfolio), which is still small.
+7. No look-ahead: OK. Every input is dated Day 0 or earlier.
+8. Agreement with the price data: OK. The close of 100.00, the 20/50/200-day averages of 101.67/100.96/112.61, 1m +4.9%, RSI 48.4, 20-day volatility 58.2%, the 20-day high/low of 113.20/95.97, the ~93.5-113.2 range, Day 0 volume 0.59x, the 252-day high of 162.12 (-38.3%) and the ETF returns all match the Researcher's handoff.
+
+CONTEXT ITEMS
+- Data completeness: OK. 82/100 (Researcher). The earnings calendar, the cause of the Day -26 drop, intraday data and the ETF series are MISSING. The missing earnings date is the main concrete gap, because an earnings release inside the 20-day window could gap the price through the stop.
+- Statistical support: PROBLEM (weak). Model 1 alpha is -14.5%/yr with t -0.71, which is not significant, and beta is 1.69 (Strategist, citing Model 1). There is no positive evidence of an edge. The plan is a small range trade, not a statistical signal.
+- Liquidity: OK with a caveat. 5-day volume is 0.87x and Day 0 volume is 0.59x (Researcher). The bounce has light volume and is unconfirmed, but nothing suggests the stock is too illiquid to trade at a 4% size.
+- Conflicting news or events: N/A BY DESIGN for headlines. The Strategist reports, citing the News Analyst, no phase 8 events in 120 days.
+- Overfitting: OK. The stop and target are set at the visible range edges and a 20-day hold. That is a generic setup, not tuned to this chart.
+- Unverified sources: PROBLEM (minor). The News Analyst and Model 1 facts reach me only second-hand through the Strategist. They do not drive the plan's levels, though.
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. All eight required items are OK. Stop 7% (limit 15%), target 13%, hold 20 days (limit 20), size 4% (limit 10%), after-cost reward-to-risk 1.70 (minimum 1.5).
+2. The downside is small and bounded: about $296 (0.3% of the portfolio) at the stop, and well under 1% even after a large gap.
+3. The weaknesses are real: a long-term downtrend below all three moving averages, an unconfirmed light-volume bounce, an entry mid-range, a target at double resistance, insignificant negative alpha, and roughly 60% volatility, which makes a 7% stop easy to hit (about 2 daily standard deviations). But these are the general uncertainty of a blind marginal setup, not a breach of the rules. The plan is scored against simply holding the stock, and a small hedged long is a defensible way to take part in a range bounce while relative strength against the sector holds.
+4. The main concrete risk is the MISSING earnings date. The size is already small enough that this does not justify a veto.
+5. Conditions for this approval: the stop and target are measured from the actual Day 1 fill price, not the Day 0 close. The size must not go above 4% without a fresh review. Exits happen on daily closes only.
+
+What would change this to REJECT: any increase in size or stop width that pushes the after-cost reward-to-risk below 1.5 or the maximum loss materially higher, or a confirmed earnings release or event inside the holding window (if that becomes known as of Day 0).
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan (range rotation, 4% size, 7% stop, 13% target, 20-day hold) against all required limits and the context items, recomputed reward-to-risk and maximum loss, and issued a decision.
+SOURCE FACTS USED: Fixed rules (max size 10%, max stop 15%, max hold 20 days, fees 0.1% + slippage 0.1% per side, Day 1 close fill, closes-only checks). Researcher: close 100.00; averages 101.67/100.96/112.61; 1m +4.9%; RSI 48.4; 20-day volatility 58.2%; 20-day high/low 113.20/95.97; range ~93.5-113.2; volume 0.87x (5-day), 0.59x (Day 0); 252-day high 162.12 (-38.3%); data completeness 82/100. Strategist: plan values; alpha -14.5%/yr t -0.71, beta 1.69 (Model 1); no phase 8 events in 120 days (News Analyst).
+ANALYSIS: After-cost reward-to-risk = (13-0.4)/(7+0.4) = 1.70, which is at least 1.5. Maximum loss = $4,000 x 7% + $16 costs = about $296 (0.3% of the portfolio). All required items are OK and the facts are consistent with the Researcher. The setup is marginal (downtrend, weak volume, no statistical edge), but the risk is small and inside every limit.
+MISSING INFORMATION: Earnings calendar (MISSING; the main risk inside the window); cause of the Day -26 drop; intraday high/low/open; ETF price series; date of the 89.21 low; fundamentals. Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Closes-only stops allow a gap loss beyond 7%. About 60% volatility makes a stop-out likely on noise. Long-term downtrend. Target at double resistance. Insignificant negative alpha. News and model facts are second-hand. Simulation only, not investment advice, no promise of profit, and no real trade is placed. A person reviews every output.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The 4% BUY of Stock A, filling at the Day 1 close, with a 7% stop, a 13% target and a 20-day maximum hold, passes every required check: after-cost reward-to-risk 1.70 and maximum loss about $296 (0.3% of the portfolio). The case is marginal (downtrend, light volume, no statistical edge, earnings date MISSING). Keep the size at 4% and measure the levels from the actual fill.

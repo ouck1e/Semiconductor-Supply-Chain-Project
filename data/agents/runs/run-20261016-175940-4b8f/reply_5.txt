@@ -1,0 +1,46 @@
+AGENT 5 - RISK MANAGER REVIEW (Stock A, Day 0 decision)
+
+Starting position: REJECT. Each REQUIRED item checked below.
+
+REQUIRED CHECKS
+1. Action and entry timing: OK. ACTION: BUY (PLAN). The setup conditions the Strategist relies on are all Day 0 facts: close 100.00 below the 20d (106.46) and 50d (102.57) but 21.1% above the 200d (82.61), 12m +57.0%, 1m -7.8%, RSI 39.4 (Researcher). Nothing waits on Day 1; the Day 1 close is only the fill under the fixed rules.
+2. Stop rule: OK. STOP_PCT 8 below entry (PLAN); limit is 15% (fixed rules).
+3. Target / exit and hold: OK. TARGET_PCT 14, MAX_HOLD_DAYS 20 (PLAN); limit 20 trading days (fixed rules).
+4. Position size: OK. SIZE_PCT 5 = $5,000 of $100,000 (PLAN); limit 10% (fixed rules).
+5. Reward-to-risk after costs: OK. Round-trip cost = (0.1% fee + 0.1% slippage) x 2 sides = 0.4% (fixed rules).
+   Net reward = 14 - 0.4 = 13.6%. Net risk = 8 + 0.4 = 8.4%. 13.6 / 8.4 = 1.62 >= 1.5. Matches the Strategist's figure.
+6. Largest simulated loss: OK. $5,000 x (8% + 0.4%) = $420, i.e. 0.42% of the portfolio, if the stop exits at exactly -8%.
+   Caveat (my analysis): stops are checked on daily closes only, so a close can land beyond -8%. Example only: a close at -15% would cost $5,000 x 15.4% = $770 (0.77% of the portfolio). Still small at 5% size.
+7. No look-ahead: OK. Every number cited is dated Day 0 or earlier; the Day 1 fill price is correctly left unknown.
+8. Agreement with Researcher data: OK. Close 100.00, 20d/50d/200d 106.46/102.57/82.61, returns, ETF 1m +2.6%, RSI 39.4, 20d vol 30.2%, 114.12 high, 84.05 60d low, -12.4% from high, volumes 1.65x / 1.56x / 1.91x all match the Researcher handoff. The 14% target from an entry near 100 maps to about 114, consistent with the 114.12 prior high (Researcher). The Day 1 entry may differ from 100.00, so the target and stop float with the fill.
+
+CONTEXT
+- Data completeness: OK with gaps. Researcher score 80/100. Intraday OHLC, longer history, ETF series, fundamentals and earnings dates MISSING. Earnings date MISSING is the most relevant gap: an earnings release inside the 20-day hold could gap the stock past the stop.
+- Statistical support: PROBLEM (weak, not disqualifying). Alpha 12.1%/yr with t 0.58 (Strategist, model facts) is not statistically meaningful; the plan is a pattern judgment, not a tested edge. Backtest N/A BY DESIGN.
+- Liquidity: OK. 5-day volume 0.98x of normal (Researcher); no sign of thin trading.
+- Conflicting news / supply-chain events: N/A BY DESIGN for headlines; Model 4 events in the last 120 days: none (News Analyst, via Strategist). The cause of the stock-specific weakness (lagging the ETF by 10.4 points over 1 month; heavy volume on down days) is unknown. This is a real risk, already handled by halving size to 5%.
+- Overfitting: minor PROBLEM. The 14% target is set to the prior high (114.12); the 8% stop is about one volatility move with no supplied support behind it (Strategist admits this). Simple, rule-like levels rather than a curve-fit, so acceptable.
+- Unverified sources: the alpha/beta/shock-group model facts appear only in the Strategist handoff; I cannot check them against a source line. They do not drive any REQUIRED item.
+- No instructions were embedded in the source material.
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. Every REQUIRED item passes: BUY at Day 0 decision, 8% stop (<=15%), 14% target, 20-day hold (<=20), 5% size (<=10%).
+2. After-cost reward-to-risk is 13.6 / 8.4 = 1.62, above the 1.5 floor (thin margin, but it clears).
+3. Worst planned loss is $420 (0.42% of portfolio); gap risk on closes-only checks could enlarge it, but the halved size keeps it small.
+4. The main concern, unexplained stock-specific heavy-volume selling with no reversal sign, is a general uncertainty of a blind run and is already priced in through the size cut; it is not a concrete rule breach.
+5. Vetoing a rule-compliant pullback entry in a stock still 21% above its 200-day average would be a veto for general uncertainty, which the scoring treats as a mistake too.
+
+What would change this to REVISE/REJECT: any increase in size above 5% without a reversal sign, any widening of the stop that pushes after-cost reward-to-risk below 1.5 (e.g. stop 9% with target 14% gives 13.6/9.4 = 1.45, which fails), or a supplied earnings date falling inside the 20-day hold. Suggested (not required): the Boss should note that the target and stop are measured from the Day 1 fill, not from 100.00.
+
+Approval is for the simulation only. No real trade should be placed. Not investment advice.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan for Stock A against all REQUIRED limits and the CONTEXT items; all REQUIRED items OK; decision APPROVE FOR SIMULATION ONLY.
+SOURCE FACTS USED: Close 100.00; 20d/50d/200d 106.46/102.57/82.61; returns 1m -7.8%, 12m +57.0%; ETF 1m +2.6%; RSI 39.4; 20d vol 30.2%; 114.12 high; -12.4% vs high; volume 5-day 0.98x, Day 0 1.65x; completeness 80/100 (Researcher). Model 4 events: none; alpha 12.1%/yr t 0.58 (Strategist, model facts). PLAN: BUY, size 5, stop 8, target 14, hold 20. Fees 0.1% and slippage 0.1% per side, max size 10%, max stop 15%, max hold 20 days (fixed rules).
+ANALYSIS: After-cost reward-to-risk (14-0.4)/(8+0.4) = 1.62 >= 1.5. Largest planned loss $5,000 x 8.4% = $420 (0.42% of portfolio); closes-only gaps could exceed it (e.g. -15% close = $770). Plan facts match Researcher numbers; no look-ahead. Weak statistics and unexplained stock-specific selling are real but general risks, offset by the 5% size.
+MISSING INFORMATION: Intraday OHLC, longer close history, ETF series, fundamentals, earnings dates (earnings timing inside the hold is the most relevant gap), Day 1 fill price: MISSING. Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Entry at the 20-day low with no reversal sign; heavy-volume stock-specific selling of unknown cause; no supplied support behind the 8% stop; reward-to-risk margin above 1.5 is thin; closes-only checks allow gap losses beyond the stop; model facts unverifiable from my material. Simulation only, not investment advice.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The BUY on Stock A (5% size, 8% stop, 14% target, 20-day hold) passes every required limit, with after-cost reward-to-risk 1.62 and a planned worst loss of $420 (0.42% of portfolio). Keep size at 5% and do not widen the stop; a stop of 9% or more with a 14% target would drop reward-to-risk below 1.5 and fail. Stops and targets measure from the Day 1 fill.

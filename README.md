@@ -285,5 +285,13 @@ log rejected and NO TRADE runs too, and never describe simulated results as real
 training cutoff, `blind_before` in `agents/config.json`) are the cleanest test; score them later with
 `python agent_score.py --update` once the prices exist.
 
+**5. Compare prompt versions fairly.** `python agent_packets.py --make-set practice --sample 8 --split dev --seed 2026`
+saves a fixed set of stock-dates (in `data/agents/keys/`, since it names the stocks); `--set practice` builds one packet
+per stock-date for the current prompts, so every version is judged on the same stocks. An `exam` set from the test
+years is scored only at the end of a round. `agents/CHANGELOG.md` records each prompt version, why it changed and what
+the results showed. For automated runs, `agent_handoff.py <stage> <run_id>...` fills each prompt's handoff slots from
+the saved replies. `python agent_report.py` writes `data/agents/run_summaries.csv` (every run's decision, outcome and
+each agent's own summary of its reasoning), `report_data.json` and `figures/agent_training.png`.
+
 Settings: `agents/config.json` (portfolio, position and stop limits, fees, slippage, splits). Tests:
 `python -m unittest discover tests`.

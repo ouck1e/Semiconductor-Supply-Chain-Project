@@ -1,0 +1,41 @@
+Agent 2 - News Analyst: Stock A (Gases & materials), blind run
+
+Headlines are MISSING. This is N/A BY DESIGN: the material says headlines would reveal the stock and the dates, so blind runs get none. The supply-chain event list (phase8_market_models.EVENTS, Model 4) shows "None." for the 120 days before the decision. So there is no news input to review. I have not guessed at news to explain the price moves the Researcher described.
+
+EVENT TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines (blind run) | N/A BY DESIGN | None supplied: "Headlines: MISSING" | None can be judged | UNCLEAR | N/A | No. Withheld by design
+phase8_market_models.EVENTS (Model 4), 120 days before decision | MISSING (dates hidden) | No supply-chain events listed: "- None." | No event-driven effect identified in the model's list | UNCLEAR | High that the list is empty. Low that the stock had no news, since the list only covers the events the model tracks | Yes. The list being empty does not mean nothing happened
+
+1. Confirmed facts
+- No headlines were supplied (headline section, line 1). N/A BY DESIGN.
+- The phase 8 event list has no supply-chain events in the 120 days before the decision (event section).
+- The material says the event list's expected losers and winners "were fixed before looking at returns" (source note). That is a statement about the method, not a market fact.
+
+2. Reports that conflict with each other
+- None. There are no reports to compare.
+- One tension worth noting (my analysis, not a news fact): the Researcher reports a 12-month return of -42.8%, a price 51.7% below the 1-year high, and 20-day volatility of 84.1% against 48.1% over 120 days. The event list has nothing in the same 120 days. So whatever drove the 3-month -33.5% drop and the +23% bounce from 81.27 does not appear in the supplied event list. The cause could be company-specific, sector-wide, or something the model doesn't track. All of that is MISSING.
+
+3. Headlines that are old or not relevant to this stock
+- None to judge, because there are no headlines.
+
+4. What could change the picture
+- Company-specific news, such as earnings, guidance, an accident or a contract loss, explaining the 3m/6m drawdown. MISSING.
+- News about whatever caused the one-year closing low on Day -6 and the bounce after it. MISSING.
+- Supply-chain events outside the Model 4 list, such as specialty-gas supply disruptions, export controls or demand changes from fab customers. MISSING.
+- Sector news behind the chip ETF's 1m -6.6%. MISSING.
+- If later review (outside this blind run) shows a major unresolved negative event, the rebound could look different. If it shows a resolved one, the same applies in the other direction. Neither can be judged here.
+
+5. Sentiment summary (describes the news, does not predict prices)
+- News sentiment: UNCLEAR / NO DATA. With no headlines and no tracked supply-chain events, there is nothing to call bullish or bearish. The strong price moves the Researcher reported have no explanation in the supplied news material.
+- No embedded instructions were found in the source material.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied news inputs for Stock A. Headlines are absent (N/A BY DESIGN, blind run) and the phase 8 supply-chain event list has no events in the 120 days before the decision. Built the table and the 5-part report. News sentiment is UNCLEAR.
+SOURCE FACTS USED: "Headlines: MISSING" (headline section); "Supply-chain events ... in the 120 days before the decision: None." (phase8_market_models.EVENTS, Model 4); the note that expected losers and winners were fixed before looking at returns; for context only, the Researcher's figures: 12m -42.8%, 3m -33.5%, -51.7% from the 252-day high, one-year closing low 81.27 on Day -6, about +23% bounce since, 20-day volatility 84.1% vs 120-day 48.1%.
+ANALYSIS: No news-based signal in either direction. The large drawdown and the high recent volatility have no explanation in the event list, so their cause is unknown. That unknown cause is a risk in its own right: an unresolved event could still be playing out. The empty event list is weak evidence that no major tracked supply-chain shock happened. It is not evidence that the stock had no news.
+MISSING INFORMATION: Headlines (N/A BY DESIGN, blind run). Event dates (hidden). The cause of the 3m/6m drawdown and the Day -6 low (MISSING). Company-specific and sector news (MISSING). Events outside the Model 4 list (MISSING).
+RISKS OR LIMITATIONS: The model's event list covers only the events it tracks. Without news, the Researcher's technical picture can't be checked against fundamentals. The very high volatility hints that something happened, but it can't be identified. Simulation only; not investment advice; no real trade.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: No headlines (N/A BY DESIGN, blind run) and no phase 8 supply-chain events in the 120 days before the decision, so news sentiment is UNCLEAR and gives no bullish or bearish input. The Strategist should rely on the Researcher's technical picture: a deep downtrend (-42.8% over 12m, below the 200-day average), a +23% bounce from 81.27, resistance near 103.11, and 84% short-term volatility. Treat the unexplained drawdown and volatility as unresolved uncertainty, not as a signal.

@@ -1,0 +1,85 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Gases & materials), decision at the Day 0 close
+
+No instructions were found inside the source material. Nothing in it needed to be ignored.
+
+SOURCE FACTS (each one from the supplied handoffs and model facts)
+- Close 100.00. The 20/50/200-day averages are 94.47 / 103.11 / 149.71 (Researcher, SOURCE FACTS).
+- Returns: 1m -0.3%, 3m -33.5%, 6m -44.6%, 12m -42.8%. The ETF's 1m is -6.6% (Researcher).
+- RSI 53.0. 20-day volatility 84.1% vs 120-day 48.1%. 5-day volume is 1.21x the 50-day average (Researcher).
+- Closing low of 81.27 on Day -6. The 20-day closing high is 102.52 and the 60-day high is 132.05 (Researcher).
+- Support: 81.27, then about 92.8-94.7. Resistance: about 102.5-103.1, then about 104-105.3, then 132.05 and 149.71 (Researcher, ANALYSIS).
+- News sentiment UNCLEAR. Headlines N/A BY DESIGN. No Model 4 supply shocks in the 120 days before the decision (News Analyst; Model 4).
+- Model 1: alpha 6.0% a year with t-stat 0.26, rank 18 of 24, so it is not in the baseline's top 5. Market beta 1.25. ETF beta is 1.58 in up weeks and 0.92 in down weeks (Model 1).
+- Exposure: MISSING (exposure model).
+- Rules: max size 10%, max stop 15%, max hold 20 days. Fees 0.1% and slippage 0.1% per side. Exits checked on closes only (FIXED RULES).
+
+1. SETUP NAME
+"Oversold rebound reclaim": a counter-trend bounce trade. I propose it with real doubts, at reduced size.
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE ON DAY 0
+a) The close is above the 20-day average: 100.00 > 94.47. TRUE.
+b) The close is at least 15% above the recent closing low: 100.00 / 81.27 - 1 = +23.0%. TRUE.
+c) RSI is between 40 and 70, so the stock is not overbought: 53.0. TRUE.
+d) 5-day volume is at or above the 50-day average: 1.21x. TRUE.
+e) No identified negative supply-chain event: Model 4 lists none. TRUE, though this is weak evidence (News Analyst).
+All five conditions hold at the Day 0 close.
+
+3. ENTRY RULE
+BUY at the Day 0 close decision, filled at the Day 1 close at whatever that price is. Nothing in the entry depends on Day 1 or later.
+
+4. STOP RULE
+Exit at the first daily close 8% or more below the entry price. With entry near 100, that is about 92.0, just under the 92.8-94.7 support zone and the 20-day average of 94.47. If those levels break, the rebound idea has failed. The stop is within the 15% maximum.
+
+5. TARGET / EXIT RULE AND HOLDING PERIOD
+Take profit at the first daily close 14% or more above entry, about 114 if entry is near 100. That is past the 103.1 and 104-105.3 resistance. No other resistance is listed until 132.05.
+Maximum holding period: 20 trading days, closing at that day's close.
+Context (my analysis): 84.1% annualised volatility is roughly 84.1 / sqrt(12.6) ≈ 24% over 20 trading days. A 14% move either way is well within that range. So the target can be reached, and so can the stop.
+
+6. REWARD-TO-RISK
+Round-trip costs = 2 x (0.1% fee + 0.1% slippage) = 0.4%.
+- Before costs: 14 ÷ 8 = 1.75.
+- After costs: (14 - 0.4) ÷ (8 + 0.4) = 13.6 ÷ 8.4 = 1.62. This clears the 1.5 minimum.
+
+7. POSITION SIZE
+5% of the simulated portfolio ($5,000), half the 10% maximum. I cut the size because volatility is 1.75x normal, the long-term trend is down, the cause of the drawdown is unknown, and exposure data is MISSING.
+Worst case at the stop, after costs: about 5% x 8.4% = 0.42% of the portfolio (about $420). On closes-only checking, a gap could push the loss past this.
+
+8. WHAT WOULD CANCEL THE SETUP
+- Any of the conditions in item 2 being false at the Day 0 close. They are all true as supplied.
+- A newly identified negative supply-chain event or company-specific shock before the decision. None is known.
+- The Risk Manager finding a data error in the close, averages or volume.
+- After entry, the stop or the 20-day limit closes the trade.
+
+9. MISSING INPUTS
+- Per-day volume, intraday open/high/low, the ETF price series, and closes before Day -29 (MISSING).
+- The cause of the 3m/6m drawdown and of the Day -6 low (MISSING).
+- Supply exposure rows for this stock (MISSING).
+- Headlines (N/A BY DESIGN, blind run). Backtest of this plan (N/A BY DESIGN, manual run).
+
+10. REASONS TO SKIP IT
+- It trades against a deep long-term downtrend: 20 < 50 < 200-day averages, -33.2% vs the 200-day, -51.7% from the 1-year high.
+- Overhead resistance starts only about 2.5-3.1% above the close, at 102.5-103.1, the 50-day average.
+- The cause of the drawdown and the 84% volatility is unexplained. A shock could still be playing out.
+- Model 1 alpha is weak (t 0.26, rank 18/24). The baseline would not hold this stock.
+- Over 3m, 6m and 12m it lagged the ETF by 21.5, 38.6 and 38.5 points.
+- Arguments for acting rather than skipping: a +23% bounce from a 1-year low on above-average volume, a reclaimed 20-day average, neutral RSI, outperformance vs the ETF over 1m (+6.3 pts), and an up-week ETF beta of 1.58. Sitting out a continued rebound costs as much in the scoring as buying before a fall.
+
+Nothing here is safe, profitable or high-probability. It is simulation only, not investment advice, and no real trade is placed.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the model facts into one conditional plan: "Oversold rebound reclaim", BUY at the Day 0 close (fills at the Day 1 close), 5% size, 8% stop, 14% target, 20-day maximum hold.
+SOURCE FACTS USED: Close 100.00; 20/50/200-day averages 94.47/103.11/149.71; 1-year closing low 81.27 (Day -6); RSI 53.0; 5-day volume 1.21x the 50-day; volatility 84.1% (20d) vs 48.1% (120d); support 81.27 and 92.8-94.7; resistance 102.5-103.1, 104-105.3, 132.05; returns 12m -42.8%, 3m -33.5%; relative to the ETF +6.3 pts (1m), -21.5/-38.6/-38.5 pts (3m/6m/12m) (all from the Researcher handoff). News UNCLEAR, no Model 4 events (News Analyst). Model 1 alpha t 0.26, rank 18/24, beta 1.25, up/down ETF beta 1.58/0.92. Exposure MISSING. Fixed rules on size, stop, hold and costs.
+ANALYSIS: All five entry conditions are true at the Day 0 close: above the 20-day average, +23.0% off the low, RSI 53, volume 1.21x, no tracked shock. The stop at -8% (about 92) sits under the 92.8-94.7 support. The target at +14% (about 114) clears the 103-105.3 resistance, with nothing listed until 132.05. Reward-to-risk is 1.75 before costs and (14-0.4)/(8+0.4)=1.62 after costs. 20-day volatility of about 24% means both exits are reachable. Size is halved to 5% for the downtrend, high volatility and unknown cause; the loss at the stop is about 0.42% of the portfolio.
+MISSING INFORMATION: Per-day volume, intraday OHLC, ETF series, closes before Day -29, the drawdown's cause, and exposure rows are MISSING. Headlines N/A BY DESIGN. Backtest N/A BY DESIGN.
+RISKS OR LIMITATIONS: Counter-trend trade into nearby 50-day resistance (about 3% above). The drawdown is unexplained. Volatility is 1.75x normal. Closes-only stop checking allows gap losses beyond 8%. Weak alpha means the baseline does not hold it. Simulation only, not investment advice, no real trade.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4, the Coder, is skipped in manual runs)
+HANDOFF SUMMARY: Proposed BUY with doubts, "Oversold rebound reclaim": 5% size, stop -8%, target +14%, max hold 20 days. Entry conditions are all met at the Day 0 close. Reward-to-risk is 1.75 before costs and 1.62 after 0.4% round-trip costs, above the 1.5 minimum. Main objections: deep long-term downtrend, resistance at 103.11 just above, unexplained drawdown and 84% volatility, weak Model 1 alpha. Risk Manager to check the arithmetic, the size and whether the counter-trend risk is acceptable.
+
+PLAN
+ACTION: BUY
+SETUP: Oversold rebound reclaim
+SIZE_PCT: 5
+STOP_PCT: 8
+TARGET_PCT: 14
+MAX_HOLD_DAYS: 20
+END PLAN

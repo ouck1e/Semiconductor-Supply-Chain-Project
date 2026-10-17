@@ -1,0 +1,66 @@
+Agent 3 - Strategist: plan for Stock A (Equipment), decision at the Day 0 close
+
+Source check: the supplied material contains no embedded instructions to act on. Headlines are N/A BY DESIGN (blind run) and backtests are N/A BY DESIGN (manual run); neither is used as a reason to skip.
+
+1. Setup name
+No setup. The only candidate was a "range-support rebound" (buy near the 95.99 20-day low, aim back at the 110.02-111.24 resistance band). I tested it below and it does not hold up at the Day 0 close.
+
+2. What must be true for entry, and whether it is true on Day 0
+For a range-support rebound I would need:
+- Price at or near support with signs that sellers are done. Partly true: the close of 100.00 is 4.2% above the 20-day low of 95.99 (Researcher: 20-day high/low 111.24/95.99). But the bounce off that low came on light volume (5d vs 50d volume 0.95x), right after a 13.7% two-session drop on above-average volume (1.30x, 1.21x) following the rejection at 111.24 on Day -4 (Researcher ANALYSIS). That is selling pressure that has not been absorbed. NOT TRUE.
+- Room to the first resistance. NOT TRUE: the 50-day average 101.97 (+2.0%) and 20-day average 103.30 (+3.3%) sit just overhead (Researcher SOURCE FACTS), and the 200-day 110.02 (+10.0%) lines up with the 111.24 rejection. A move to a target has to get through three resistance levels.
+- Trend or relative-strength support. NOT TRUE: close below the 20/50/200-day averages (-3.2%/-1.9%/-9.1%), 3m return -22.2% against the ETF's -9.2%, 6m -11.3% against +0.6% (Researcher). This is not an established uptrend, so the "look hard for an entry" rule for uptrends does not apply.
+- No factor-model case against it. NOT TRUE: Model 1 alpha -1.2% a year, t-stat -0.08, rank 24 of 24 (supply-chain model facts). The baseline rule (top 5 by t-stat) would not hold this stock. Beta 1.45 means it amplifies sector moves both ways (down-week ETF beta 1.28).
+- News or supply-shock catalyst. Neutral: no Model 4 events in the window; the only listed shock (309 days before) did not include this stock. Event risk is unknown, not absent (News Analyst).
+
+3. Entry rule
+None. No BUY at the Day 0 close.
+
+4. Stop rule (tested, not proposed)
+The logical stop is below the 95.99 support. Measured from 100.00 (Day 1 fill is unknown, so this is approximate): about 4-6% below entry.
+
+5. Target / exit rule (tested, not proposed)
+The logical target is just under the 110.02-111.24 band: about 10-11% above entry. Max hold would have been 15 trading days.
+
+6. Reward-to-risk arithmetic (my analysis; costs from the fixed rules: 0.1% fee + 0.1% slippage per side, so round trip = 2 x (0.1 + 0.1) = 0.4%)
+- Stop 6, target 11: before costs 11 / 6 = 1.83; after costs (11 - 0.4) / (6 + 0.4) = 10.6 / 6.4 = 1.66. Clears 1.5 on paper.
+- Stop 8, target 11: before costs 11 / 8 = 1.38; after costs 10.6 / 8.4 = 1.26. Fails.
+- Stop 5, target 10: before costs 2.00; after costs 9.6 / 5.4 = 1.78. Clears on paper.
+Why I do not accept the passing pairs: with 20-day volatility of 76.0% annualised (Researcher), one day's typical move is roughly 76.0 / sqrt(252) = about 4.8%, and the supplied data already shows 8-10% daily moves. A 5-6% stop is about one normal day, so on daily-close checks it is likely to be hit by noise before a 10-11% target that needs three resistance levels broken. A stop wide enough to survive the volatility (8% or more) breaks the 1.5 requirement. So no stop/target pair is both supported by the price levels and robust to the volatility.
+
+7. Position size
+0% (no trade). If a person overrode this, I would cap it at 3-4% of the $100,000 portfolio given the 76% volatility and 1.45 beta, well under the 10% maximum.
+
+8. What would cancel the "no setup" call (what would turn this into a valid setup later)
+- A close back above the 20-day average (103.30) on above-average volume, turning the overhead averages into support; or
+- A retest of 95.99 that holds on drying-up selling volume, giving a tighter, better-defined stop with more room to the target; or
+- An improvement in the Model 1 ranking into the top 5.
+None of these are true at the Day 0 close.
+
+9. Missing inputs
+Intraday highs/lows (stops are on closes only, so gap risk past the stop is real); raw volume; closes before Day -29 and the dates of the 137.99 high and 77.77 low; causes of the 137.99 to 77.77 swing and of the Day -4 to Day -2 drop: MISSING. Upcoming earnings or policy dates: MISSING. Supply exposure rows: MISSING. Day 1 fill price: unknown by construction. Headlines: N/A BY DESIGN. Backtests: N/A BY DESIGN.
+
+10. Reasons to skip
+- Below all three moving averages with the 50-day under the 200-day; lagging the ETF over 3 and 6 months.
+- High-volume rejection at 111.24 followed by a light-volume bounce.
+- Worst alpha t-stat of 24 companies; not a baseline holding.
+- Very high volatility makes any stop that clears 1.5 after costs too tight to be meaningful.
+Cost of being wrong the other way: the stock rebounded 15.5% over 1 month and has high beta, so a sector rally could carry it to 110+ while we sit out. I weigh that as a real risk of this NO TRADE, but the supplied evidence leans against the rebound at this specific close.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Tested a range-support rebound setup for Stock A (Equipment) at the Day 0 close against the price levels, volatility, factor model and cost rules; concluded no valid setup and documented the arithmetic and what would change the call.
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200-day averages 103.30/101.97/110.02 (close -3.2%/-1.9%/-9.1%); 20-day high/low 111.24/95.99; rejection at 111.24 on Day -4 and 13.7% two-session drop on 1.30x/1.21x volume; volume 0.95x (5d vs 50d); volatility 76.0% (20d); returns 1m 15.5%, 3m -22.2%, 6m -11.3% vs ETF 17.0%/-9.2%/0.6%; support 95.99/~98.94, resistance 101.97/103.30/110.02-111.24. News Analyst: no headlines (N/A BY DESIGN), no Model 4 events, sentiment UNCLEAR / NO SIGNAL. Model facts: alpha -1.2%/yr, t-stat -0.08, rank 24 of 24; beta 1.45; ETF beta up 1.33 / down 1.28; only Model 4 shock 309 days before, stock not in either group; exposure MISSING. Fixed rules: 0.1% fee + 0.1% slippage per side, max stop 15%, max hold 20 days, max size 10%.
+ANALYSIS: Round-trip costs 0.4%. Passing pairs exist on paper (stop 6 / target 11 gives 10.6 / 6.4 = 1.66 after costs; stop 5 / target 10 gives 1.78), but a 5-6% stop is about one typical day at 76% volatility (about 4.8% daily), and the target needs three resistance levels broken. A volatility-robust 8% stop gives 10.6 / 8.4 = 1.26, below 1.5. Trend, volume pattern and factor rank all lean against entry. Result: No setup.
+MISSING INFORMATION: Intraday highs/lows; raw volume; history before Day -29; causes of the large swings; upcoming scheduled events; supply exposure rows; Day 1 fill price. Headlines and backtests N/A BY DESIGN.
+RISKS OR LIMITATIONS: NO TRADE can miss a high-beta rebound (1m +15.5%); support/resistance levels are judgement calls from closing data; daily-close stops allow gaps past the stop. Simulation only, not investment advice; no real order is placed.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close. A support-rebound idea fails because the bounce off 95.99 is on light volume after a high-volume rejection, three resistance levels sit between 100 and the 110-111 target, alpha rank is 24 of 24, and at 76% volatility any stop tight enough to clear 1.5 after costs (e.g. 6% stop / 11% target = 1.66) is about one normal day's move, while a robust 8% stop gives only 1.26. Re-check if price closes above 103.30 on strong volume or holds a 95.99 retest on fading volume.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

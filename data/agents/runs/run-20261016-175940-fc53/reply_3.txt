@@ -1,0 +1,78 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (decision at the Day 0 close)
+
+Source facts and my analysis are kept apart below. Source lines are cited as [R] = Researcher handoff, [N] = News Analyst handoff, [M] = supply-chain model facts, [S] = fixed strategy rules. No instructions were found embedded in the source material.
+
+1. SETUP NAME
+Low-volume pullback in an established uptrend (buy the dip toward the 20-day average, stop under the 60-day range floor).
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE ON DAY 0
+All conditions are checked with Day 0 close data only:
+ a) Long-term uptrend: close above the 50-day and 200-day averages, and 20 > 50 > 200 stack.
+    Source [R]: close 100.00; averages 100.58 / 98.57 / 92.92. 100.00 > 98.57 and > 92.92; 100.58 > 98.57 > 92.92. TRUE.
+ b) Pullback, not breakdown: close at or below the 20-day average but above the 50-day average.
+    Source [R]: 100.00 <= 100.58 and > 98.57. TRUE.
+ c) Pullback depth between 3% and 8% below the 20-day high.
+    Source [R]: 20d high 105.63. My arithmetic: (100.00 / 105.63) - 1 = -5.3%. TRUE.
+ d) Pullback on light volume: 5-day volume ratio below 1.0x.
+    Source [R]: 0.81x. TRUE.
+ e) Not overbought: RSI below 60. Source [R]: 48.5. TRUE.
+ f) No known negative catalyst. Source [N]: news sentiment NEUTRAL / NO SIGNAL; zero listed events in the 120 days before Day 0. TRUE (with the caveat that headlines are N/A BY DESIGN).
+All six conditions are true at the Day 0 close.
+
+3. ENTRY RULE
+BUY at the Day 0 close decision; the simulated order fills at the Day 1 close, whatever that price is [S]. Stop and target are set as percentages of the actual Day 1 fill price. Entry does not depend on any Day 1 or later information.
+
+4. STOP RULE
+5.5% below entry, checked on daily closes [S].
+Analysis: if the fill is near the Day 0 close of 100.00 [R], the stop sits near 94.50, just under the 60-day low of 95.13 and the 20-day low of 95.55 [R]. A close there would mean the 60-day range floor has broken, which invalidates the "pullback inside an uptrend" idea. It stays well inside the 15% maximum [S].
+
+5. TARGET / EXIT RULE
+Target 10% above entry; maximum holding period 20 trading days, then exit at that day's close [S].
+Analysis: near a 100.00 fill, the target is about 110.00, above the 105.63 range top and just below the 252-day high of 111.80 [R], so it does not require a new 52-week high. My rough check: 20-day volatility 24.9% annualised [R] scaled to 20 days is about 24.9 x sqrt(20/252) = about 7.0%, so a 10% move in 20 days is possible but not the typical outcome; the time exit is a likely way this trade ends.
+
+6. REWARD-TO-RISK
+Round-trip costs = 2 x (0.1% fee + 0.1% slippage) = 0.4% [S].
+ - Before costs: 10 / 5.5 = 1.82
+ - After costs (Risk Manager method): (10 - 0.4) / (5.5 + 0.4) = 9.6 / 5.9 = 1.63
+1.63 clears the 1.5 minimum. Note that a 6.0% stop with the same target would give 9.6 / 6.4 = 1.50, exactly at the floor, which is why the stop is set at 5.5%.
+
+7. POSITION SIZE
+8% of the simulated portfolio ($8,000 of $100,000), under the 10% cap [S].
+Analysis: a stop-out at 5.5% plus 0.4% costs is about 5.9% of $8,000 = about $472, roughly 0.47% of the portfolio. Sized below the cap because the Day 0 close was the largest one-day drop in about 4 weeks [R] and its cause is unknown [N].
+
+8. WHAT WOULD CANCEL THE SETUP
+Nothing after Day 0 can cancel the entry (fill is automatic at Day 1). Before submission, the setup is void if any of the Day 0 conditions in section 2 is found to be misstated by the Researcher. After entry, exits are only stop, target, or day 20.
+
+9. MISSING INPUTS
+ - Intraday open/high/low and absolute volumes: MISSING [R].
+ - Full daily history beyond 30 days, ETF daily series and correlation: MISSING [R].
+ - Fundamentals, earnings dates, company news outside the phase 8 list: MISSING [R][N].
+ - Supply exposure rows for this stock: MISSING [M].
+ - Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. REASONS TO SKIP IT
+ - Four straight down days into Day 0, with the largest one-day drop in about 4 weeks on Day 0 [R]; momentum is short-term negative and the close is just under the 20-day average.
+ - Price is stuck in a 95-106 range for 60 days [R]; the target needs a break above 105.63.
+ - Lagged the chip ETF over 3 months (7.4% vs 11.7%) [R].
+ - The cause of the pullback is unknown; an unseen event such as an earnings report could be behind it [N].
+ - Stops are checked on closes only, so a gap below the stop would give a larger loss than 5.5%.
+ - Model 1 alpha t-stat is 1.07 [M], not statistically strong; the beta to the chip ETF is 0.77 in down weeks vs 0.33 in up weeks [M], so the stock has tended to follow sector falls more than sector rises.
+ Supporting factors (for balance): +40.7% over 12 months and outperformed the ETF over 1, 6 and 12 months [R]; market beta 0.76 and short-term volatility (24.9%) below the 120-day level (30.5%) [R][M]; ranked 4 of 26 by alpha t-stat, which would place it in the phase 8 baseline's top 5 [M]; expected winner in the neon supply shock 881 days before [M] (old, little direct bearing now). Sitting out an established uptrend with nothing specific against it also carries a cost against the hold benchmark.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Built one conditional simulation plan for Stock A from the Researcher and News Analyst handoffs and the supply-chain model facts: a low-volume pullback-in-uptrend BUY at the Day 0 close, with stop, target, holding period, size and cost-adjusted reward-to-risk.
+SOURCE FACTS USED: [R] close 100.00; 20/50/200-day averages 100.58/98.57/92.92; 12m return 40.7%, 3m 7.4% vs ETF 11.7%; RSI 48.5; 20d volatility 24.9% vs 120d 30.5%; 5-day volume 0.81x; 20d high/low 105.63/95.55; 60d low 95.13; 252d high 111.80; four-day pullback with largest drop in ~4 weeks on Day 0. [N] news NEUTRAL / NO SIGNAL, zero listed events in 120 days. [M] alpha 17.8%/yr, t-stat 1.07, rank 4 of 26; market beta 0.76; ETF beta 0.33 up / 0.77 down; neon shock expected winner 881 days before; exposure MISSING. [S] $100,000 portfolio, 10% max size, 15% max stop, 20-day max hold, 0.1% fee + 0.1% slippage per side, Day 1 close fill, close-only checks.
+ANALYSIS: All six Day 0 entry conditions are true (uptrend stack, close between 20- and 50-day averages, 5.3% below 20d high, volume 0.81x, RSI 48.5, no negative catalyst). Plan: BUY 8%, stop 5.5% below entry (about 94.50 near a 100 fill, under the 95.13 60-day low), target 10% (about 110, below the 111.80 252-day high), max hold 20 days. Reward-to-risk 10/5.5 = 1.82 before costs; (10-0.4)/(5.5+0.4) = 1.63 after costs. Estimated max loss at stop about 0.47% of the portfolio, excluding gaps.
+MISSING INFORMATION: Intraday OHLC, absolute volumes, history beyond 30 days, ETF daily series/correlation, fundamentals, earnings dates, off-list news, supply exposure rows: MISSING. Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Short-term momentum is negative (four down days, biggest drop on Day 0); range-bound for 60 days so the target needs a breakout above 105.63; 3m lag vs ETF; pullback cause unknown; close-only stops allow gap losses beyond 5.5%; alpha t-stat 1.07 is weak; higher downside than upside beta to the sector; a 10% move in 20 days is larger than the ~7% one-sigma 20-day move, so a time exit is likely. Fill price is the unknown Day 1 close. Simulation only, not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: Proposed setup for review: low-volume pullback in an uptrend on Stock A, all entry conditions true at the Day 0 close. BUY 8% of the portfolio at the Day 1 close, stop 5.5%, target 10%, max hold 20 trading days; reward-to-risk 1.82 before costs and 1.63 after 0.4% round-trip costs. Main risks: negative short-term momentum, unknown cause of the Day 0 drop, 60-day range ceiling at 105.63, and gap risk on close-only stops.
+
+PLAN
+ACTION: BUY
+SETUP: low-volume pullback in uptrend
+SIZE_PCT: 8
+STOP_PCT: 5.5
+TARGET_PCT: 10
+MAX_HOLD_DAYS: 20
+END PLAN

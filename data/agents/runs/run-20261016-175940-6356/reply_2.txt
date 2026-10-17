@@ -1,0 +1,42 @@
+Agent 2 - News Analyst: Stock A (Equipment), blind run
+
+Headlines are MISSING for this run. That is N/A BY DESIGN: in a blind run, headlines would reveal the stock and the dates. The supplied supply-chain event list (phase8_market_models.EVENTS, Model 4) has no events in the 120 days before the decision. So there is nothing to put in the table except those two facts.
+
+TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines feed | N/A BY DESIGN | No headlines supplied ("Headlines: MISSING", blind run) | None can be judged | UNCLEAR | N/A | No (absent by design)
+phase8_market_models.EVENTS (Model 4) | 120 days before Day 0 | No listed supply-chain events in the window ("- None.") | No known event-driven shock in the window | UNCLEAR (neutral, nothing listed) | High that the list is empty; low that "no event" means "no news" | Yes: the list covers only pre-chosen events, so other company or sector news could exist
+
+1. Confirmed facts
+- No headlines were supplied (blind run, N/A BY DESIGN).
+- The phase 8 event list (Model 4) has no supply-chain events in the 120 days before the decision. Its expected winners and losers were fixed before returns were looked at (source line: "the expected losers and winners were fixed before looking at returns").
+- Price context comes from the Researcher, not from news: close 100.00, 6m -35.3%, 3m -23.8%, 1m -10.0%, and it lagged the chip-sector ETF in every period (Researcher handoff, SOURCE FACTS USED).
+
+2. Reports that conflict with each other
+- None. There are no reports to compare.
+- One gap is worth flagging (my analysis, not a conflict between sources). The Researcher reports a large decline (-35.3% over 6 months, while the ETF rose 2.8%) with an unknown cause, but the event list shows no supply-chain event in the window. So the decline either comes from something the curated event list does not cover (company results, guidance, export rules not on the list, valuation), or from things outside news altogether. Its cause is MISSING.
+
+3. Headlines that are old or not relevant to this stock
+- None can be judged, since no headlines were supplied.
+- The material contains no embedded instructions to ignore.
+
+4. What could change the picture
+- Stock-specific news (earnings, guidance, orders, customer capital-spending plans), which a blind run hides by design.
+- Supply-chain or policy events outside the phase 8 list. The empty list does not prove that nothing happened.
+- A new listed event after Day 0 that names equipment makers as expected winners or losers.
+- Whether the 90.45-101.73 base the Researcher found holds without a news catalyst. That is a price question for later agents, not a news finding.
+
+5. Sentiment summary (it describes the news and does not predict prices)
+News sentiment cannot be measured. There are no headlines (N/A BY DESIGN), and the curated supply-chain event list is empty for the 120-day window. The news picture is neutral or unknown, not positive or negative. The stock's steep relative weakness has no explanation in the supplied material, so later agents should treat its cause as MISSING rather than assume it was or was not news-driven.
+
+Simulation for research and learning only. Not investment advice. No real trade is placed.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied headlines and supply-chain events for Stock A (Equipment). Headlines are N/A BY DESIGN (blind run), and the phase 8 event list (Model 4) has no events in the 120 days before Day 0. Built the table, the five sections and a sentiment summary from that.
+SOURCE FACTS USED: "Headlines: MISSING ... blind runs have none"; "Supply-chain events from the phase 8 event list (Model 4) in the 120 days before the decision: - None."; event winners and losers fixed before looking at returns. Researcher handoff, for context: close 100.00; returns 1m -10.0%, 3m -23.8%, 6m -35.3%; ETF 6m +2.8%; range 90.45-101.73 over the last ten days.
+ANALYSIS: There is no news signal either way, so the news picture is neutral or unknown. The empty event list makes a known supply-chain shock less likely as the cause of the decline, but it does not rule out other news. The Researcher's large underperformance still has no explanation (cause MISSING). This news review gives no catalyst in favour of a BUY and no news-based reason against one.
+MISSING INFORMATION: Headlines (N/A BY DESIGN, blind run). Company-specific news (earnings, guidance, orders) and policy news not on the curated list: MISSING. The cause of the 6-month decline: MISSING. Backtests: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: The event list covers only pre-chosen supply-chain events, so "None" does not mean "no news". An unseen negative catalyst could be behind the downtrend and might continue, and unseen positive news could also exist. Sentiment cannot be measured. Simulation only, not investment advice.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: There is no usable news for Stock A. Headlines are N/A BY DESIGN and the phase 8 event list has no events in the 120-day window, so news sentiment is neutral or unknown. The Strategist should rely on the Researcher's price picture (medium-term downtrend, short-term base at 90.45-101.73, heavy lag versus the ETF) and treat the cause of the decline as MISSING, not as evidence for or against a trade.

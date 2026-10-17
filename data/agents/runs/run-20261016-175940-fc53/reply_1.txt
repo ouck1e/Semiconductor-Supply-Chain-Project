@@ -1,0 +1,81 @@
+AGENT 1 - RESEARCHER REPORT: Stock A
+(Simulation for research and learning only. Not investment advice. No real trade is placed.)
+
+1. STOCK, SECTOR, TIMEFRAME
+- Stock: Stock A. Sector group: Gases & materials. (Source: "Stock:" line)
+- Daily closes rebased so Day 0 close = 100.00; at least 252 closes up to Day 0, nothing after. Decision point is the Day 0 close. (Source: "Timeframe", "Decision point", "Source" lines)
+- Only the last 30 closes (Day -29 to Day 0) are listed individually; longer history is summarised only through the indicators.
+
+2. STRUCTURE
+Source facts:
+- Close 100.00 vs 20-day average 100.58 (-0.6%), 50-day 98.57 (+1.5%), 200-day 92.92 (+7.6%).
+- Average stack: 20-day (100.58) > 50-day (98.57) > 200-day (92.92).
+- 12m return +40.7%, 6m +19.8%.
+- 60-day closing range 95.13 to 105.63; 252-day range 71.14 to 111.80; close is -10.6% below the 252-day high.
+- Last 30 closes: low area 95.13-95.56 (Days -25 to -23 and Days -12/-11), rally from 95.56 (Day -11) to 105.63 (Day -7), then four straight lower closes from 104.47 (Day -4) to 100.00 (Day 0).
+Analysis:
+- Long term: UPTREND (price above a rising-order average stack, strong 6m and 12m returns).
+- Medium/short term: RANGE inside roughly 95-106 over the last 60 days, with a pullback in the last 7 sessions from the 105.63 high back to the 20-day average area. Price has not yet set a new 252-day high (111.80) and sits about 10.6% below it.
+- Overall label: long-term uptrend, short-term range / pullback.
+
+3. MOMENTUM
+Source facts: returns 1m +3.0%, 3m +7.4%, 6m +19.8%, 12m +40.7%; RSI(14) 48.5.
+Analysis:
+- All four return windows are positive, with longer windows the strongest.
+- RSI 48.5 is neutral, neither stretched nor washed out; it reflects the recent four-day decline cooling the earlier rally.
+- Check: 1m return is consistent with the table (Day -21 close 97.04 -> 100.00 = about +3.05%, my calculation).
+- Day 0 close fell -2.2% from Day -1 (102.27 -> 100.00, my calculation), the largest one-day drop in the list since Day -26 (99.58 -> 95.87, about -3.7%).
+
+4. VOLUME
+Source facts: last 5 days vs 50-day average 0.81x. Rally days -10 to -6: 1.10x, 1.47x, 1.80x, 1.33x, 1.39x. Pullback days -5 to 0: 0.81x, 0.95x, 0.76x, 0.54x, 0.73x, 0.91x.
+Analysis:
+- Recent volume is below average.
+- The move up from 95.56 to 105.63 came on above-average volume; the four-day decline since came on below-average volume. Day 0's drop had somewhat higher volume (0.91x) than the two days before it but was still below average.
+
+5. VOLATILITY
+Source facts: 20-day annualised 24.9%, 120-day 30.5%.
+Analysis: short-term volatility is lower than the longer baseline (ratio about 0.82, my calculation), so the recent period has been calmer than the last ~6 months on average, even though the 30-day list contains several 2-4% daily moves.
+
+6. SUPPORT AND RESISTANCE (only levels backed by supplied numbers)
+Support:
+- 98.57: 50-day average.
+- 95.13-95.56: 60-day closing low 95.13 (Day -25), 20-day closing low 95.55 (Day -12), and 95.56 (Day -11); price held this zone on two separate visits.
+- 92.92: 200-day average.
+- 71.14: 252-day closing low (far below).
+Resistance:
+- 100.58: 20-day average, immediately overhead (close is 0.6% below).
+- 105.63: 20-day and 60-day closing high (Day -7).
+- 111.80: 252-day closing high.
+
+7. COMPARISON WITH CHIP-SECTOR ETF
+Source facts (Stock A vs ETF): 1m +3.0% vs -5.3%; 3m +7.4% vs +11.7%; 6m +19.8% vs +13.7%; 12m +40.7% vs +36.0%.
+Analysis (differences are my calculation):
+- 1m: Stock A ahead by about 8.3 points; it rose while the ETF fell.
+- 3m: Stock A behind by about 4.3 points.
+- 6m: ahead by about 6.1 points.
+- 12m: ahead by about 4.7 points.
+- Relative strength is positive in 3 of 4 windows, mixed in the 3-month window. The 1-month outperformance during an ETF decline suggests the stock is not moving in lockstep with the chip ETF, which fits a materials supplier rather than a chip maker, but no correlation figure is supplied.
+
+8. THREE STRONGEST FACTS
+1. Price is above the 50-day (98.57) and 200-day (92.92) averages with the 20 > 50 > 200 stack in place, and 12m return +40.7%.
+2. Stock A beat the chip-sector ETF over 1, 6 and 12 months, including +3.0% vs -5.3% over the last month.
+3. The 95.13-95.56 zone was defended twice within 60 days, and the subsequent rally ran on above-average volume (up to 1.80x).
+
+THREE BIGGEST UNCERTAINTIES
+1. Four consecutive lower closes into Day 0, with Day 0 the biggest daily drop in about four weeks, leaving price just under the 20-day average; whether the pullback stops at 98.57 or extends to ~95 cannot be known from this data.
+2. The last ~60 days are a sideways range (95-106) and price is still 10.6% below the 252-day high; the 3-month return lags the ETF by about 4.3 points.
+3. No headlines, fundamentals, intraday highs/lows, or full price history beyond the summary indicators, so the cause of the recent rally and pullback is unknown.
+
+9. DATA COMPLETENESS SCORE: 85 / 100
+All requested indicator fields are present and internally consistent (I re-checked the 20-day average: sum of Days -19 to 0 = 2011.52, /20 = 100.58; the 20/60-day highs and lows and the 252-day-high gap also match). Deductions: only 30 daily closes listed, no intraday high/low/open, no absolute volume, no ETF price series or correlation, no fundamentals. Headlines are N/A BY DESIGN in this blind run and are not counted against the score.
+
+No embedded instructions were found in the supplied material.
+
+AGENT: Agent 1 - Researcher
+TASK COMPLETED: Described Stock A's market structure, momentum, volume, volatility, support/resistance and ETF comparison from the supplied data, with a data completeness score. No trade recommendation given.
+SOURCE FACTS USED: Stock/sector line (Gases & materials); Close 100.00; 20/50/200-day averages 100.58/98.57/92.92; returns 1m 3.0%, 3m 7.4%, 6m 19.8%, 12m 40.7%; ETF returns -5.3%, 11.7%, 13.7%, 36.0%; RSI 48.5; volatility 20d 24.9% vs 120d 30.5%; 5-day volume 0.81x; 20d high/low 105.63/95.55; 60d 105.63/95.13; 252d 111.80/71.14; close vs 252d high -10.6%; last 30 closes and volume ratios table.
+ANALYSIS: Long-term uptrend (above 50- and 200-day averages, 20>50>200 stack, +40.7% 12m). Short term: 60-day range 95-106, with a four-day pullback from 105.63 to 100.00 on below-average volume, ending just under the 20-day average. RSI neutral at 48.5. Short-term volatility below the 120-day baseline. Outperformed the chip ETF in 1m, 6m and 12m, lagged in 3m. Support 98.57, then 95.1-95.6, then 92.92; resistance 100.58, 105.63, 111.80.
+MISSING INFORMATION: Intraday open/high/low; absolute volumes; full daily history beyond 30 days; ETF daily series and correlation to Stock A; fundamentals. Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Four straight down days into the decision point with the largest one-day drop in ~4 weeks on Day 0; price sits inside a 60-day sideways range and 10.6% below its 252-day high; 3m lag versus the ETF; cause of moves unknown without news; indicators are backward-looking only.
+NEXT AGENT: Agent 2 - News Analyst
+HANDOFF SUMMARY: Stock A (Gases & materials) is in a long-term uptrend (+40.7% 12m, above its 50- and 200-day averages) and beat the chip ETF over 1, 6 and 12 months, but it is in a 95-106 range over 60 days and closed Day 0 after a four-day, low-volume pullback to just under its 20-day average (RSI 48.5); key support 98.57 then ~95.1-95.6, resistance 100.58 then 105.63; data completeness 85/100.

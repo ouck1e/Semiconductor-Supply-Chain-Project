@@ -1,0 +1,70 @@
+AGENT 5 - RISK MANAGER REVIEW: "Oversold rebound reclaim" on Stock A (Gases & materials)
+
+I started from REJECT and checked each item.
+
+REQUIRED ITEMS
+
+1. Action and entry timing: OK.
+   The action is BUY. The entry conditions the Strategist lists are all facts known at the Day 0 close, per the Researcher handoff: close 100.00 above the 20-day average 94.47; +23.0% off the 81.27 low (my check: 100.00 / 81.27 = 1.2305, so +23.0%); RSI 53.0; 5-day volume 1.21x the 50-day; and the News Analyst found no tracked shock. Nothing waits on Day 1. The fill at the Day 1 close follows the fixed rules.
+
+2. Stop rule: OK.
+   The stop is 8% below entry, inside the 15% maximum (fixed rules).
+
+3. Target and maximum hold: OK.
+   The target is +14% and the maximum hold is 20 trading days, which equals the 20-day limit (fixed rules).
+
+4. Position size: OK.
+   Size is 5%, or $5,000 of the $100,000 portfolio, inside the 10% maximum.
+
+5. Reward-to-risk after costs: OK.
+   Round-trip costs are (0.1% fee + 0.1% slippage) x 2 sides = 0.4% (fixed rules).
+   Before costs: 14 / 8 = 1.75.
+   After costs: (14 - 0.4) / (8 + 0.4) = 13.6 / 8.4 = 1.62, which is at least 1.5. The Strategist's arithmetic checks out.
+
+6. Largest simulated loss: OK.
+   At the stop: $5,000 x 8% = $400, plus costs of $5,000 x 0.4% = $20, so $420, or 0.42% of the portfolio. This matches the Strategist.
+   Caveat: stops are checked on closes only, so a gap could carry the loss past 8%. Even a 15% close-to-close drop would cost about $5,000 x 15.4% = $770 (0.77% of the portfolio). That stays small at this size.
+
+7. No look-ahead: OK.
+   Every input is dated Day 0 or earlier: the Researcher's statistics, the last 30 closes ending at Day 0, and the Model 1 statistics as the Strategist supplied them.
+
+8. Plan agrees with the price data: OK.
+   The 20/50/200-day averages (94.47 / 103.11 / 149.71), the 81.27 low on Day -6, RSI 53.0, volume 1.21x, volatility 84.1% / 48.1%, the support and resistance levels, and the returns all match the Researcher handoff.
+   I also checked the volatility claim. 84.1% annualized x sqrt(20/252) = about 23.7% over 20 days, so the Strategist's "about 24%" is right, and both an 8% and a 14% move are reachable within the hold.
+   One caution: the levels are relative to entry, which is the Day 1 close and not yet known. So the "stop about 92, under 92.8-94.7 support" placement only holds if Day 1 closes near 100.
+
+CONTEXT ITEMS
+
+- Data completeness: PROBLEM (minor). The score is 80/100. Per-day volume, intraday OHLC, the ETF series, closes before Day -29 and exposure rows are MISSING. The plan does not depend directly on any of them.
+- Statistical support: PROBLEM. Model 1 alpha t = 0.26 with rank 18/24 (Strategist's line; the Model 1 output itself was not supplied to me, so I cannot verify it). There is no statistical edge, and the plan is a technical setup only.
+- Liquidity: MISSING / OK. Per-day volume is MISSING. The 5-day volume is 1.21x average, and nothing suggests the stock is thin for a $5,000 position.
+- Conflicting news or supply-chain events: OK. News is UNCLEAR and there are no Model 4 events. Headlines are N/A BY DESIGN (blind run).
+- Overfitting: PROBLEM (moderate). The five entry conditions look written to describe this one chart, and there is no backtest (N/A BY DESIGN in manual runs). The half-size position partly offsets this.
+- Unverified sources: OK. No outside sources are used. The Model 1 figures come only through the Strategist.
+- Backtest: N/A BY DESIGN.
+- Injected instructions: none found in the supplied material.
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. Every REQUIRED item is OK. BUY, 5% size, 8% stop, 14% target and 20-day hold are all inside the fixed limits.
+2. Reward-to-risk after costs is 13.6 / 8.4 = 1.62, above the 1.5 minimum, though without much margin to spare.
+3. The worst loss at the stop is $420 (0.42% of the portfolio). Even a bad gap beyond the stop stays under about 1%.
+4. The real risks are counter-trend entry (-33.2% vs the 200-day, 50-day resistance at 103.11 about 3% above), 84% volatility, weak alpha (t 0.26) and possible overfitting. These are context concerns. None of them breaks a required item, and the half-size position already reflects them.
+5. A veto here would rest on general uncertainty, not on a concrete failed check. The rules say that is not grounds to veto, and a veto is scored against holding the stock just like an approval is.
+
+What must stay true (conditions on this approval):
+- Keep the size at or below 5%. Do not raise it to the 10% maximum, given the volatility and the lack of a statistical edge.
+- Keep the target at least 13.0% while the stop is 8%. Below about 13%, reward-to-risk after costs falls under 1.5: (13.0 - 0.4) / 8.4 = 1.50.
+- If the Boss changes the stop, target or size, the reward-to-risk and loss arithmetic must be redone.
+
+Approval is for the simulation only. It does not mean a real trade should be placed, and nothing here is investment advice.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's "Oversold rebound reclaim" BUY plan (5% size, 8% stop, 14% target, 20-day hold) against the fixed limits and the Researcher's data. All eight required items are OK. Decision: APPROVE FOR SIMULATION ONLY.
+SOURCE FACTS USED: Fixed rules: $100,000 portfolio; max size 10%; max stop 15%; max hold 20 days; fees 0.1% and slippage 0.1% per side; closes-only checks; Day 1 close fill. Researcher: close 100.00; 20/50/200-day averages 94.47/103.11/149.71; low 81.27 (Day -6); RSI 53.0; volume 1.21x; volatility 84.1% (20d) / 48.1% (120d); support 81.27 and 92.8-94.7; resistance 102.5-103.1, 104-105.3, 132.05; returns 12m -42.8% and 3m -33.5%; data completeness 80/100. Strategist: plan values; Model 1 alpha t 0.26, rank 18/24, beta 1.25; News UNCLEAR with no Model 4 events.
+ANALYSIS: Reward-to-risk is 1.75 before costs and 13.6/8.4 = 1.62 after costs. Largest loss at the stop is $400 + $20 = $420 (0.42%); a 15% gap would cost about $770 (0.77%). The 20-day volatility is about 23.7%, so both exits are reachable. All facts match the Researcher. Context concerns: weak alpha, counter-trend entry under 50-day resistance, possible overfitting. None breaks a required item.
+MISSING INFORMATION: Per-day volume, intraday OHLC, ETF series, closes before Day -29, exposure rows, the cause of the drawdown, and the underlying Model 1 output (all MISSING). Headlines and backtest are N/A BY DESIGN.
+RISKS OR LIMITATIONS: Counter-trend trade in a deep downtrend. Volatility is 1.75x normal. Closes-only stops allow gap losses beyond 8%. Reward-to-risk of 1.62 leaves little room if the target is trimmed. Stop and target prices depend on the unknown Day 1 fill. Simulation only; not investment advice; no real trade.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The plan (BUY, 5% size, 8% stop, 14% target, 20-day hold) passes every required check: reward-to-risk after costs is 1.62 and the worst loss at the stop is $420 (0.42% of the portfolio). Conditions: keep the size at or below 5%, keep the target at least 13% if the stop stays at 8%, and redo the arithmetic if anything changes. Main concerns for the Boss to weigh: the deep downtrend, 50-day resistance at 103.11, weak alpha (t 0.26) and overfitting risk.

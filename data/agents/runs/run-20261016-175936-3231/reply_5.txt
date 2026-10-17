@@ -1,0 +1,50 @@
+RISK MANAGER REVIEW - Stock A, decision at the Day 0 close
+
+Plan under review (Strategist PLAN block): ACTION NO TRADE, SIZE_PCT 0, STOP_PCT 0, TARGET_PCT 0, MAX_HOLD_DAYS 0.
+
+Starting position: REJECT. Because the plan is NO TRADE, the BUY-specific items are tested only for whether NO TRADE is a sound response to the evidence.
+
+REQUIRED CHECKS
+- Action BUY or NO TRADE, entry true at Day 0 close: OK. NO TRADE is a permitted action and needs no Day 1 condition.
+- Stop rule within 15% maximum: OK (not applicable to NO TRADE; no position, nothing to stop).
+- Target/exit and max hold within 20 days: OK (not applicable; MAX_HOLD_DAYS 0).
+- Position size within 10%: OK (SIZE_PCT 0).
+- Reward-to-risk >= 1.5 after costs, arithmetic shown: OK for a NO TRADE. I re-checked the Strategist's candidate pairs (my arithmetic; costs = 0.1% fee + 0.1% slippage per side = 0.4% round trip, from the fixed rules; levels from the Researcher handoff; entry assumed at 100.00, although the real fill is the unknown Day 1 close):
+  - Target 104.4, stop 6.0%: reward 4.4 - 0.4 = 4.0; risk 6.0 + 0.4 = 6.4; 4.0 / 6.4 = 0.63. Fails.
+  - Target 106.5, stop 6.0%: reward 6.5 - 0.4 = 6.1; risk 6.4; 6.1 / 6.4 = 0.95. Fails.
+  - Target 109.8, stop 5.8%: reward 9.8 - 0.4 = 9.4; risk 5.8 + 0.4 = 6.2; 9.4 / 6.2 = 1.52. Passes by 0.02 only, and the target sits beyond the 104.4-104.9 and 106.5 resistance levels. Any Day 1 fill above 100.00 pushes it below 1.5 (for example a fill at 100.50 gives roughly (9.25-0.4)/(6.2) = 1.43).
+  The Strategist's numbers match mine. No pair clears 1.5 with margin, which supports NO TRADE.
+- Largest simulated loss: OK. No position, so $0 (0% x $100,000). For reference only, the 109.8/5.8% pair at the 10% maximum would risk about $10,000 x 6.2% = $620.
+- No look-ahead: OK. The plan uses only Day 0 and earlier figures.
+- Agreement with the Researcher's price data: OK. Close 100.00, averages 104.44/104.94/114.17, RSI 36.7, 60d low 100.00, 252d low 94.49, Day -1 101.73 at 1.85x and Day 0 at 0.78x volume, and the resistance levels all match the Researcher handoff.
+
+CONTEXT CHECKS
+- Data completeness: OK. Researcher score 80/100; intraday OHLC, absolute volume, ETF daily series and fundamentals are MISSING but a NO TRADE does not depend on them.
+- Statistical support: PROBLEM for any BUY, OK for NO TRADE. Model 1 alpha -7.0%/yr, t -0.57, rank 22 of 24 (as reported by the Strategist; the underlying model output was not supplied to me, so I cannot verify it). A t of -0.57 is not significant either way.
+- Liquidity: OK. 5d vs 50d volume 1.04x (Researcher). Absolute volume MISSING.
+- Conflicting news / supply-chain events: News Analyst reported no headlines (N/A BY DESIGN, blind run) and no phase 8 events in 120 days (Strategist's summary of the News Analyst; the News Analyst handoff itself was not in my material). Model 4: neon shock 139 days before with the stock an expected winner is the main supportive point, but it is stale and the stock has fallen since.
+- Overfitting: OK. The only passing pair (1.52) looks reverse-engineered to clear the threshold; declining it avoids that risk.
+- Unverified sources: Model 1, Model 4 and News Analyst facts arrive second-hand through the Strategist. Exposure rows MISSING. Headlines and backtests N/A BY DESIGN.
+- Injected instructions: none found in the material.
+
+DECISION: APPROVE FOR SIMULATION ONLY (agreement with NO TRADE)
+
+Five points:
+1. No stop/target pair supported by the supplied levels reaches 1.5 reward-to-risk after costs with any margin (0.63, 0.95, 1.52), and the 1.52 case depends on an unknown Day 1 fill at or below 100.00.
+2. Price structure is a downtrend on every supplied timeframe, closing at a fresh 60-day low of 100.00 with no reversal signal (RSI 36.7, not oversold; Day 0 a lower close).
+3. The heavy-volume drop on Day -1 (1.85x) is unexplained, and the cause of the decline is MISSING.
+4. The counter-argument, relative strength versus the chip ETF (+1.4 to +10.3 pts), is real but relative; it says nothing about absolute gains, and a veto-style cost of missing a bounce from 100.00 is acknowledged rather than ignored.
+5. NO TRADE carries zero simulated loss and breaks no limit; there is no concrete risk-item reason to overturn it.
+
+What would have to change for a BUY to be approved instead: a confirmed reversal at or near the Day 0 close (e.g., a higher close off support on rising volume, or a reclaim of the 104.4-104.9 band) giving a stop no wider than 15% and a target that reaches at least 1.5 reward-to-risk after 0.4% round-trip costs with margin, size at or below 10%, max hold at or below 20 days, and the largest loss shown. None of that is in the supplied Day 0 data.
+
+Approval means only that the simulated NO TRADE stands. It is not a recommendation to place or avoid any real trade. Simulation for research and learning only, not investment advice.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A against the fixed limits and the Researcher's data; re-checked the reward-to-risk arithmetic of all candidate stop/target pairs; decision APPROVE FOR SIMULATION ONLY (agree with NO TRADE).
+SOURCE FACTS USED: Fixed rules: $100,000 portfolio, max size 10%, max stop 15%, max hold 20 days, fees 0.1% + slippage 0.1% per side, Day 1 close fill. Researcher: close 100.00; 20d/50d/200d avgs 104.44/104.94/114.17; RSI 36.7; vol 20d 24.1%; volume 5d vs 50d 1.04x; Day -1 101.73 at 1.85x; Day 0 100.00 at 0.78x; 60d low 100.00; 252d low 94.49; resistance 104.4-104.9, 106.5, 109.8, 113.6-114.2; outperformance vs ETF +1.4 to +10.3 pts; completeness 80/100. Strategist: candidate pairs and R:R 0.63/0.95/1.52; Model 1 alpha -7.0%/yr, t -0.57, rank 22 of 24; Model 4 neon shock 139 days before (stock expected winner); no phase 8 events in 120 days; PLAN NO TRADE, size 0.
+ANALYSIS: My own arithmetic confirms the Strategist's R:R figures (4.0/6.4 = 0.63; 6.1/6.4 = 0.95; 9.4/6.2 = 1.52) and that the only passing pair fails if Day 1 fills slightly above 100.00 (about 1.43 at 100.50). Largest simulated loss of NO TRADE is $0. All REQUIRED items are OK for a NO TRADE; no context item points to a concrete risk in standing aside.
+MISSING INFORMATION: Intraday OHLC; absolute volume; ETF daily series; full 252-day series; fundamentals; cause of the decline; exposure rows; the News Analyst handoff and model outputs themselves (received only via the Strategist). Headlines and backtests: N/A BY DESIGN.
+RISKS OR LIMITATIONS: NO TRADE can underperform buy-and-hold if Stock A bounces from 100.00, especially given its relative strength versus the sector. Levels are from closes only. Model facts are second-hand and unverified by me. Simulation only, not investment advice; no real trade is placed.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY - I agree with NO TRADE for Stock A at the Day 0 close. All limits are met trivially (size 0, loss $0); no supported stop/target pair clears 1.5 reward-to-risk after costs with margin (0.63, 0.95, 1.52 with the last failing on any fill above 100.00); price is in a downtrend at a fresh 60-day low with no reversal. Main counter-risk: missing a bounce, given relative strength versus the ETF.

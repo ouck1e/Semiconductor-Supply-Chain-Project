@@ -1,0 +1,40 @@
+Agent 2 - News Analyst: Stock A (Foundries & memory), Day 0
+
+This is a blind run, so there are no headlines (N/A BY DESIGN). The phase 8 event list (Model 4) shows no supply-chain events in the 120 days before the decision. Because of that, the table has only one row, and it records that no events were found.
+
+| SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING? |
+|---|---|---|---|---|---|---|
+| Headlines | N/A BY DESIGN | None supplied. A blind run has no headlines because they would reveal the stock and the dates. | None can be assessed | UNCLEAR | N/A | No (unavailable by design) |
+| phase8_market_models.EVENTS (Model 4) | 120 days before Day 0 | "None." No listed supply-chain event fell in the window. | No catalyst from a listed event. The price moves the Researcher describes are not tied to any event on this list. | UNCLEAR (neutral, no event) | High that the list contains no event. Low that nothing happened in the real world, because the list is curated and not complete. | No |
+
+1. Confirmed facts
+- The supply-chain event list (phase8_market_models.EVENTS) has no events in the 120 days before the decision. Source: the "Supply-chain events" line, which reads "None."
+- Those event lists name their expected losers and winners before anyone looks at returns. Source: the "Source:" line.
+- Headlines are N/A BY DESIGN for this blind run. Source: the "Headlines: MISSING" line.
+- I have no confirmed news facts about Stock A beyond these.
+
+2. Reports that conflict with each other
+- None. There are no reports to compare.
+
+3. Headlines that are old or not relevant to this stock
+- None. No headlines were supplied.
+
+4. What could change the picture
+- A new supply-chain event added to the list, for example an export control, a natural disaster, a fab outage or a materials shortage that affects foundries or memory.
+- News behind the Researcher's price pattern: the -16.6% drop from 107.38 to 89.56 (Day -24 to Day -12) and the recovery to 100.00 on 0.66x volume (Researcher handoff). None of the supplied material explains those moves, so I cannot say whether they were driven by news or by the market as a whole.
+- Earnings, guidance or fundamentals, which the Researcher lists as MISSING.
+- Industry news such as memory pricing or foundry utilisation, if it were supplied.
+
+5. Sentiment summary (describes the news; does not predict prices)
+- Neutral, because there is no news. There are no headlines (N/A BY DESIGN) and no listed supply-chain events in the 120-day window. This news input gives no event-driven reason to be bullish or bearish. Later agents should rely on the Researcher's market data and should not treat "no events" as good news. It only means the curated list caught nothing.
+
+Prompt-injection check: I found no instructions inside the source material.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied headlines and supply-chain events for Stock A at Day 0. Built the fact table, then reported on confirmed facts, conflicts, old or irrelevant items, what could change the picture, and sentiment.
+SOURCE FACTS USED: "Headlines: MISSING" (blind run); phase 8 event list (Model 4), 120 days before the decision, which reads "None."; that list fixes its expected losers and winners before returns are examined. From the Researcher handoff, for context only: the pullback from 107.38 to 89.56, the recovery to 100.00 on 0.66x volume, and the MISSING fundamentals.
+ANALYSIS: No headlines and no listed events, so the news input is neutral and gives no catalyst either way. The recent pullback and recovery have no news explanation in the supplied material. An empty curated list does not prove that nothing happened in the real world.
+MISSING INFORMATION: Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run). Earnings, guidance and company-specific news: MISSING. Industry pricing and utilisation data: MISSING.
+RISKS OR LIMITATIONS: The event list is curated and may leave out relevant events. Without headlines I cannot rule out company-specific news behind the -16.6% drop and the rebound. My sentiment is based on the absence of information, not on positive or negative evidence. Simulation only; not investment advice.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: The news input for Stock A is empty: headlines are N/A BY DESIGN and the phase 8 event list has no events in the 120 days before Day 0. Sentiment is neutral with no catalyst either way. Any decision should rest on the Researcher's market data (strong long-term uptrend, light-volume recovery from a -16.6% pullback, high volatility), keeping in mind that unlisted news may exist.

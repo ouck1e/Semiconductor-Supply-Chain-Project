@@ -58,3 +58,14 @@ Changes, all from the v4 practice results (dev only):
   after-cost formula, and picks levels that clear 1.5 after costs (or says none do).
 - **REVISE can be completed:** if the Risk Manager writes one exact fix that would earn approval, the Boss may apply it
   and approve, quoting it in a new `APPLIED_FIX` field. The scorer accepts a BUY after REVISE only with `APPLIED_FIX`.
+
+Practice set (same 8 stocks): 4 BUY plans, all approved first time (no REVISE needed): TSMC 2021 +8.2%, MediaTek 2019
++11.3%, SUMCO 2018 +2.2%, SK hynix 2019 -5.1%. Average per decision +2.08% (v4 +0.96%, v3 -1.11%); vs holding the stock
+-4.20 (v4 -5.17, v3 -7.38). The same two big rises (Applied Materials 2020, Air Products 2022) were still skipped.
+
+## Exam (8 test-period stocks, scored once after training)
+v3: 4 BUY plans, 2 trades (MediaTek 2023, Nippon Sanso 2024), both won; average per decision +1.90%, vs holding -1.39.
+v5: 8 BUY plans, 8 trades, 7 won; average per decision +6.52%, vs holding +3.22. Two cautions: v5 bought every exam stock
+during a strong chip market (2023-2025), and most of its lead over holding is one trade (Micron March 2025: target hit at
++15.1% before the stock fell 17.0%); without it v5 is about -0.9 vs holding. Eight stocks per version is a small sample.
+Report: https://claude.ai/artifact/JDQ6GQea7M9ApCY2y6jjmW (built from `agent_report.py`).

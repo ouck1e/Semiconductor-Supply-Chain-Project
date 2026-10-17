@@ -1,0 +1,39 @@
+AGENT 2 - NEWS ANALYST: Stock A (blind run)
+
+No instructions were embedded in the source material. Nothing to flag.
+
+NEWS AND EVENTS TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines | N/A BY DESIGN | None supplied. The material says "Headlines: MISSING" because headlines would reveal the stock and dates in a blind run | None can be assessed | UNCLEAR | N/A | No (unavailable by design)
+Phase 8 event list (Model 4), 120 days before decision | N/A | "None." No supply-chain events in the window. Source line: phase8_market_models.EVENTS | No event-driven supply shock is recorded for this window | UNCLEAR (neutral: no event) | High that the list is empty; low as evidence about the stock's real news flow | Yes: the list covers only pre-defined events, so it cannot rule out company-specific news
+
+1. CONFIRMED FACTS
+- Headlines are not available in this run (N/A BY DESIGN, blind run).
+- The phase 8 event list records no supply-chain events in the 120 days before the decision (source line: "Supply-chain events ... in the 120 days before the decision: - None.").
+- Those events' expected losers and winners were fixed before looking at returns (source line: "the expected losers and winners were fixed before looking at returns"). This applies to the list in general; with no events, there is nothing to apply it to here.
+
+2. REPORTS THAT CONFLICT WITH EACH OTHER
+- None. There are no headlines and no events, so there is nothing to conflict.
+- One tension to note (analysis, not a news conflict): the Researcher reports a high-volume 11.7% drop on Day -26 (96.58 at 2.07x volume, from the Researcher handoff), yet the event list shows no supply-chain event in the window. The cause of that drop is MISSING. It may have been company-specific news (earnings, guidance, a deal) or a broad-market move that the phase 8 event list does not track. It should not be read as a supply-chain shock.
+
+3. HEADLINES THAT ARE OLD OR NOT RELEVANT TO THIS STOCK
+- None to assess. Headlines are N/A BY DESIGN.
+
+4. WHAT COULD CHANGE THE PICTURE
+- The reason for the Day -26 high-volume drop (MISSING). If it was a lasting fundamental change, the downtrend view gets stronger. If it was a one-off, the sideways range may reflect stabilising.
+- Any earnings date or guidance update near Day 0 (earnings calendar MISSING per the Researcher).
+- A new supply-chain event (export controls, fab outage, materials shortage) after Day 0. Anything like that would be outside this material.
+- Sector news behind the chip-sector ETF's weakness (ETF -10.2% over 6 months per the Researcher). Stock A's relative strength could fade if the weakness spreads.
+
+5. SENTIMENT SUMMARY (describes the news, does not predict prices)
+There is no news signal in this run. Headlines are withheld by design, and the supply-chain event list is empty for the 120-day window. So news sentiment is NEUTRAL / UNKNOWN. That is not the same as positive. Any decision has to rest on the Researcher's price and volume work. The unexplained Day -26 drop is the main gap in the news picture.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied headlines (none, N/A BY DESIGN in this blind run) and the phase 8 supply-chain event list (none in the 120-day window); built the facts table and reported confirmed facts, conflicts, relevance, possible changes and a sentiment summary.
+SOURCE FACTS USED: "Headlines: MISSING" (blind run); "Supply-chain events from the phase 8 event list (Model 4) in the 120 days before the decision: - None." (source phase8_market_models.EVENTS); Researcher handoff: Day -26 close 96.58 at 2.07x volume (11.7% drop), ETF 6m -10.2%, earnings calendar MISSING.
+ANALYSIS: No news or event signal: sentiment NEUTRAL / UNKNOWN, not positive. The Day -26 high-volume drop has no matching supply-chain event, so its cause was likely company-specific or market-wide, but that is unconfirmed. No supply-chain catalyst supports or argues against a trade.
+MISSING INFORMATION: Headlines: N/A BY DESIGN (blind run). Cause of the Day -26 drop: MISSING. Earnings calendar and guidance: MISSING. Company-specific news outside the phase 8 event list: MISSING. Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: The event list only covers pre-defined supply-chain shocks, so an empty list does not mean no news. An unknown catalyst (for example earnings) could fall inside the holding period. Very high volatility (about 60% annualised per the Researcher) makes unseen news more costly. Simulation only, not investment advice.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: The news layer is empty for Stock A. Headlines are withheld by design and no supply-chain events fall in the 120-day window, so sentiment is neutral/unknown. Any plan must rest on the Researcher's technical picture, and the unexplained high-volume Day -26 drop should be treated as an open risk, not as a supply-chain event.

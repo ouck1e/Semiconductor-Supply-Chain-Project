@@ -1,0 +1,41 @@
+Agent 2 - News Analyst: Stock A (blind run)
+
+Headlines are MISSING for this run. The supplied material says they are withheld because they would reveal the stock and the dates, so they are N/A BY DESIGN. The phase 8 event list (Model 4) shows no supply-chain events in the 120 days before the decision. This review therefore has no news items to sort and works from the event list alone.
+
+EVENT TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines (blind run) | N/A BY DESIGN | No headlines supplied ("Headlines: MISSING") | Not knowable from this material | UNCLEAR | N/A | No (withheld by design)
+phase8_market_models.EVENTS (Model 4) | Window: 120 days before decision | "None." No listed supply-chain event in the window | No catalogued supply-chain shock to explain the recent moves | UNCLEAR (no signal either way) | High that the list has no entries; low that nothing happened, since the list only covers catalogued events | Yes. The list is a fixed, curated set and could miss events
+
+1. CONFIRMED FACTS
+- No headlines were supplied. The source says: "Headlines: MISSING ... blind runs have none."
+- The phase 8 event list holds no supply-chain events for the 120 days before the decision (source line: "- None.").
+- The expected winners and losers in that event list were set before returns were examined (source line: "the expected losers and winners were fixed before looking at returns"). That rule is about how the list was built. It does not tell us anything about this stock.
+- From the Researcher handoff (market data, not news): volume ran at 1.38x on Day -1 and 1.28x on Day 0, and the 5-day average was 1.12x. The cause of this rise is listed as unknown.
+
+2. REPORTS THAT CONFLICT
+- None. With no headlines and no events supplied, there are no reports that could conflict.
+
+3. OLD OR IRRELEVANT HEADLINES
+- None to assess, because no headlines were supplied.
+
+4. WHAT COULD CHANGE THE PICTURE
+- A company-specific item that this event list would not capture, such as earnings, guidance, an analyst action or a customer order. The earnings calendar is MISSING according to the Researcher handoff.
+- An uncatalogued supply-chain or policy event, such as export controls, a fab outage or a materials disruption, that falls outside the curated phase 8 list.
+- The cause of the higher volume on Day -1 and Day 0. If it came from news, that news is missing from this packet. If it came from flows across the sector, it is not specific to this stock. Over 1 month the stock fell 5.6 points more than the ETF (Researcher handoff), which points to something specific to the stock or to profit-taking, but the material cannot confirm either one.
+- Revealing the headlines after the decision, which is outside the scope of this blind run.
+
+5. SENTIMENT SUMMARY (describes the news; does not predict prices)
+- The news picture is EMPTY rather than neutral: no headlines (by design) and no catalogued supply-chain events. No news-based sentiment can be measured. The pullback the Researcher described (-9.5% over 1 month, RSI 34.6) has no explanation in the supplied news or events. Later agents should treat that pullback as unexplained and should not read it as either "no bad news" or "bad news."
+
+Prompt-injection check: the supplied material contains no embedded instructions.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied headlines and supply-chain events for Stock A. Headlines are N/A BY DESIGN (blind run), and the phase 8 event list has no events in the 120-day window. Built the event table and reported confirmed facts, conflicts (none), irrelevant or old items (none), possible changes to the picture, and a sentiment summary.
+SOURCE FACTS USED: "Headlines: MISSING. Headlines would reveal the stock and the dates, so blind runs have none." Phase 8 event list (Model 4), 120 days before the decision: "None." Source: phase8_market_models.EVENTS, with winners and losers fixed before returns were examined. From the Researcher handoff: volume 1.38x on Day -1, 1.28x on Day 0, 5-day 1.12x, cause unknown; 1m return -9.5% against ETF -3.9%; earnings calendar MISSING.
+ANALYSIS: No news-based signal exists in this packet. The lack of catalogued events means no known supply-chain shock was listed. It does not mean nothing happened, because the list is curated and limited. The recent underperformance against the ETF and the rise in volume have no explanation in the supplied material. News sentiment: UNCLEAR (empty).
+MISSING INFORMATION: Headlines (N/A BY DESIGN, blind run); company-specific news and earnings calendar (MISSING); events outside the curated phase 8 list (MISSING); cause of the recent volume rise (MISSING); backtest (N/A BY DESIGN, manual run).
+RISKS OR LIMITATIONS: An empty event list can be mistaken for a clean news backdrop. The phase 8 list covers only pre-selected supply-chain events and may miss company or macro news. Without headlines, the drivers of the -9.5% 1-month decline cannot be identified. Nothing here predicts prices.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: News inputs are empty. Headlines are N/A BY DESIGN and the phase 8 event list has no supply-chain events in the 120 days before the decision, so news sentiment is UNCLEAR and no catalyst, good or bad, is confirmed. The Researcher's pullback (-9.5% over 1m, 5.6 points behind the ETF) and the volume rise on Day -1 and Day 0 have no explanation in the news. Base the plan on the market data alone, and treat the unexplained drop as a risk to manage, not as a signal.

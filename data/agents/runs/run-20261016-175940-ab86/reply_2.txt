@@ -1,0 +1,40 @@
+Agent 2 News Analyst: review of Stock A (blind run)
+
+No instructions were embedded in the source material. Nothing to flag.
+
+EVENT TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines | N/A BY DESIGN | No headlines supplied. This is a blind run, and headlines would reveal the stock and the dates. | None can be assessed | UNCLEAR | N/A | N/A BY DESIGN
+phase8_market_models.EVENTS (Model 4) | 120 days before Day 0 | No supply-chain events were listed in this window ("- None.") | No event-driven expected winner or loser effect applies to this window | UNCLEAR (neutral, no catalyst) | High that the list is empty. Low on what that means, because the list only covers the events the model tracks. | No
+
+1. Confirmed facts
+- The phase 8 event list (Model 4) has no supply-chain events in the 120 days before the decision (source: the "Supply-chain events" line, "- None.").
+- The expected winners and losers in that list were fixed before anyone looked at returns (source line). It does not apply here, since no events were listed.
+- Headlines: N/A BY DESIGN (blind run).
+- From the Researcher's handoff, as context only (these are not news facts): the stock closed at 100.00, rose +13.0% over the last 4 days on 1.06x to 1.34x volume, is up 35.7% over 3 months and down 38.5% over 12 months, and is labelled a "chip designer".
+
+2. Reports that conflict with each other
+- None. There are no headlines, and the event list is empty, so nothing can conflict.
+
+3. Headlines that are old or not relevant to this stock
+- None to assess (headlines N/A BY DESIGN; no events listed).
+
+4. What could change the picture
+- Company news that would explain the 4-day +13.0% rebound and the 3-month +35.7% rally (Researcher handoff). An earnings result, guidance or product news is possible, but none was supplied, so this is MISSING. Moves that big without a known news cause leave a real gap.
+- Earnings dates are MISSING (Researcher handoff). An earnings report soon after Day 0 could bring a big move in either direction.
+- Supply-chain shocks that the phase 8 event list does not cover. An empty list means no tracked event happened, not that nothing happened at all.
+- Sector-wide news behind the chip ETF's +24.6% 3-month move (Researcher handoff). No such news was supplied.
+- Anything that happened after Day 0.
+
+5. Sentiment summary (describes the news; does not predict prices)
+- There is no news to describe. Headlines are N/A BY DESIGN, and there were no tracked supply-chain events in the 120-day window. News sentiment is NEUTRAL / UNCLEAR because no information was supplied, not because the news was balanced. Whatever drove the recent price action is not explained by any supplied news or event. Later agents should treat the move as purely technical, with an unknown cause.
+
+AGENT: Agent 2 News Analyst
+TASK COMPLETED: Reviewed the supplied headlines (N/A BY DESIGN, blind run) and the phase 8 supply-chain event list (empty for the 120 days before Day 0); built the event table and reported facts, conflicts, relevance, catalysts and sentiment.
+SOURCE FACTS USED: "Headlines: MISSING... blind runs have none"; "Supply-chain events from the phase 8 event list (Model 4) in the 120 days before the decision: - None."; source note phase8_market_models.EVENTS, with outcomes fixed in advance. Researcher handoff used as context only: close 100.00, last 4 days +13.0% on 1.06x to 1.34x volume, 3m +35.7%, 12m -38.5%, chip designer, earnings dates MISSING.
+ANALYSIS: There is no news or event catalyst in the supplied material. Sentiment is neutral by absence, not by balance. The recent rebound and 3-month rally have no supplied news explanation, so they rest on price data alone. No event-driven signal (expected winner or loser) applies to this window.
+MISSING INFORMATION: Company-specific news (headlines N/A BY DESIGN); earnings dates and results (MISSING); sector or macro news behind the ETF's +24.6% 3-month move (MISSING); supply-chain events outside the phase 8 list (MISSING).
+RISKS OR LIMITATIONS: An empty event list only covers events the model tracks; untracked news could explain the price moves. Without headlines, an upcoming earnings date or a pending company event cannot be ruled out. This is a simulation for research and learning, not investment advice.
+NEXT AGENT: Agent 3 Strategist
+HANDOFF SUMMARY: News input for Stock A is empty by design: no headlines (blind run) and no phase 8 supply-chain events in the 120 days before Day 0. News sentiment is neutral by absence, there are no conflicts and nothing is stale, no event-driven signal applies, and the recent +13.0% 4-day and +35.7% 3-month moves have no supplied news cause. The Strategist should rely on the Researcher's technical picture and treat unknown catalysts, especially an earnings date that is MISSING, as an open risk.

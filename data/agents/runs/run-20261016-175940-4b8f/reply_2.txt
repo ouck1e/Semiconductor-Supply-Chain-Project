@@ -1,0 +1,40 @@
+Agent 2 - News Analyst: news and supply-chain event review for Stock A (Chip designers), blind run
+
+Headlines are MISSING. They are left out by design in blind runs because they would reveal the stock and the dates, so I mark them N/A BY DESIGN. That leaves the supplied supply-chain event list, and it has no entries for the 120 days before the decision.
+
+EVENT TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines (blind run) | N/A BY DESIGN | None. No headlines were supplied (N/A BY DESIGN) | Cannot be judged | UNCLEAR | N/A | N/A BY DESIGN (shown only after the run)
+phase8_market_models.EVENTS (Model 4), 120 days before the decision | Window ends on Day 0. Event dates: none listed | The list has no supply-chain events in the window ("- None.") | None found by this event list. It does not explain the 1-month weakness | UNCLEAR (no event, so no signal either way) | Medium. The list is fixed and was set before returns were looked at, but it only covers the events the model tracks | Yes. An empty list does not mean nothing happened. It only means no tracked event happened
+
+1. CONFIRMED FACTS
+- No headlines were supplied (blind run, N/A BY DESIGN). Source: the "Headlines: MISSING" line.
+- The phase 8 event list (Model 4) has no supply-chain events in the 120 days before the decision. Source: the "Supply-chain events ... - None." line.
+- Per that same source line, the event list's expected winners and losers were fixed before anyone looked at returns, so the empty result is not tuned after the fact.
+- From the Researcher's handoff, which is market data and not news: Stock A fell 7.8% over 1 month while the ETF rose 2.6%. Day 0 closed at 100.00, its 20-day low, on 1.65x volume, and the selling on Days -10 and -9 came on 1.56x and 1.91x volume.
+
+2. REPORTS THAT CONFLICT WITH EACH OTHER
+- None. There are no headlines to compare. One tension stands out: the Researcher found weakness specific to this stock, on heavy volume, and the event list shows no supply-chain shock that would explain it. That is not a conflict between reports. It means the cause sits outside what the supplied material covers (for example company news, earnings or analyst actions, all MISSING).
+
+3. HEADLINES THAT ARE OLD OR NOT RELEVANT TO THIS STOCK
+- None to judge. Headlines are N/A BY DESIGN.
+
+4. WHAT COULD CHANGE THE PICTURE
+- Company-specific news behind the drop since Day -13 (guidance, earnings, a customer loss, a downgrade, a product delay): MISSING. Bad fundamental news would make the pullback look more lasting. Selling with no news would make it look more like ordinary profit-taking after a +57% year.
+- Earnings dates: MISSING. An earnings report coming soon would raise the risk of a sudden jump in either direction.
+- Supply-chain events outside the Model 4 list, or after Day 0: not covered.
+- Sector news: the ETF rose over 1 month, so whatever drove the drop seems specific to Stock A. Source: Researcher's handoff.
+- Manipulation check: the supplied material contains no embedded instructions to flag.
+
+5. SENTIMENT SUMMARY (describes the news; it does not predict prices)
+- The news picture is EMPTY and NEUTRAL. No headlines were supplied, and no tracked supply-chain event, good or bad, falls in the 120-day window. The news gives no reason for the stock-specific pullback the Researcher found, and none against it. The heavy-volume selling therefore has no explanation in the supplied material. Treat that as an unknown, not as reassurance.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied headlines and supply-chain events for Stock A. Built the event table and reported confirmed facts, conflicts, stale or irrelevant items, what could change the picture, and a descriptive sentiment summary. No trade recommendation made.
+SOURCE FACTS USED: "Headlines: MISSING" (blind run). The phase 8 event list (Model 4), 120 days before the decision: "None", with winners and losers fixed before returns were looked at. From the Researcher's handoff: 1m -7.8% vs ETF +2.6%; Day 0 close 100.00 at the 20d low on 1.65x volume; Days -10/-9 on 1.56x/1.91x volume; 12m +57.0%.
+ANALYSIS: No tracked supply-chain shock explains the drop, and the sector ETF did not show the same weakness, so the cause most likely sits outside the supplied material (company-specific). Sentiment from the supplied news is neutral because nothing was supplied, not because the facts are balanced. The unexplained heavy-volume selling is an open risk, not a signal either way.
+MISSING INFORMATION: Headlines: N/A BY DESIGN (blind run). Company news, earnings dates, analyst actions, guidance and fundamentals: MISSING. Events outside the Model 4 list: not covered. Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: The event list only covers the events the model tracks, so an empty list does not prove nothing happened. Without headlines, the cause of the stock-specific weakness cannot be known, and there could be negative news the team cannot see. Simulation only, not investment advice.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: The news layer is empty for Stock A. Headlines are N/A BY DESIGN, and the phase 8 event list shows no supply-chain events in the 120 days before Day 0. Sentiment is neutral by absence. Nothing in the supplied material explains the stock-specific pullback (1m -7.8% vs ETF +2.6%, heavy-volume down days, close at the 20-day low), so the Strategist should treat its cause as unknown and weigh the plan on price and volume alone.

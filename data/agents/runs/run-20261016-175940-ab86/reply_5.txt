@@ -1,0 +1,41 @@
+AGENT 5 RISK MANAGER: REVIEW OF STRATEGIST PLAN FOR STOCK A
+
+Starting point: REJECT. I move off it only if every REQUIRED item is OK.
+
+REQUIRED CHECKS
+1. Action and entry timing: OK. ACTION: BUY. The Strategist's entry conditions (close above all MAs, 3m +35.7% vs ETF +24.6%, RSI 62.9, 4-day push on 1.06x-1.34x volume, flat volatility) all match Researcher facts at the Day 0 close. Fill at the Day 1 close follows the fixed rules. No condition waits on Day 1 or later.
+2. Stop rule: OK. STOP_PCT 6, a percent below entry. Limit is 15%.
+3. Target and max hold: OK. TARGET_PCT 13. MAX_HOLD_DAYS 20, which equals the 20-day limit and does not exceed it.
+4. Position size: OK. SIZE_PCT 6. Limit is 10%.
+5. Reward-to-risk after costs: OK. Round-trip costs = (0.1% fee + 0.1% slippage) x 2 sides = 0.4% (fixed rules). Net reward = 13 - 0.4 = 12.6%. Net risk = 6 + 0.4 = 6.4%. R:R = 12.6 / 6.4 = 1.97, which is at least 1.5. This matches the Strategist's figure.
+6. Largest simulated loss: OK. Position = 6% x $100,000 = $6,000. Loss at stop = $6,000 x 6% = $360. Costs = $6,000 x 0.4% = $24. Total about $384, or 0.38% of the portfolio. Caveat: stops are checked on closes only, so a gap through the stop can lose more. Example (my arithmetic, not a forecast): a close 12% below entry would cost about $720 + $24 = $744, or 0.74%.
+7. No look-ahead: OK. Everything the plan uses is dated Day 0 or earlier.
+8. Agreement with the price data: OK. The close, MAs, returns, RSI, volatility, volume ratios, resistance (101.00, 103.01-104.17) and support (97.85/94.84/92.52/87.69-88.51) all match the Researcher handoff. The 6% stop (about 94 if the fill is near 100) sits just under the 50-day average of 94.84, which is consistent. The model facts (alpha t-stat 0.74, beta 0.72, ETF beta 0.68 up / 0.81 down) come from the News Analyst handoff, which I was not given. I cannot check them myself, so I treat them as reported, not verified. The plan does not depend on them.
+
+CONTEXT
+- Data completeness: OK. 85/100. Earnings date is MISSING, which is a concrete gap-risk issue. The 6% size partly offsets it. Headlines: N/A BY DESIGN.
+- Statistical support: PROBLEM (weak). Alpha t-stat 0.74 is not significant. The setup rests on chart structure, not a tested edge. Backtest: N/A BY DESIGN.
+- Liquidity: MISSING in absolute terms (no absolute volume). Relative volume of 1.08x over 5 days does not suggest a problem.
+- Conflicting events: PROBLEM (moderate). The 101-104.17 resistance failed a month ago on heavy 1.91x/1.76x volume, and the 12-month trend is down (-38.5%, -40.2% vs the 252-day high). No supply-chain events were supplied.
+- Overfitting / target realism: PROBLEM (moderate). The Strategist says a target at nearest resistance gives only 0.59 R:R, so 13% was chosen to clear the rule. 13% is larger than the 20-day 1-sigma move of about 11.0% (39.0% x sqrt(20/252); my arithmetic). Expect the target to be hit less often than the stop, with the 20-day time exit doing much of the work. This is a real limitation, but the plan states it openly and the time exit caps the hold. It is not a rule breach.
+- Unverified sources: OK. No outside sources were used. No embedded instructions were found in the material.
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. Every REQUIRED item is OK: BUY decided at Day 0 with a Day 1 fill; 6% stop (limit 15%); 13% target; 20-day hold (limit 20); 6% size (limit 10%).
+2. Net R:R is (13 - 0.4) / (6 + 0.4) = 1.97, which clears 1.5. Largest planned loss is about $384, or 0.38% of the portfolio.
+3. The facts the plan uses match the Researcher's numbers, and nothing comes from after Day 0.
+4. The concerns are real but not grounds for a veto: weak alpha (t 0.74), resistance that failed before, a target above the 1-sigma 20-day move, and a MISSING earnings date. The small 6% size and the stop on the 50-day average limit the damage. Vetoing for these alone would be general uncertainty, not a concrete rule failure.
+5. Gap risk: stops are checked on closes only, and the earnings date is unknown, so the realised loss can be larger than 0.38%. The Boss should accept this knowingly.
+
+What would change this: nothing has to change for approval. To stay approved, any revision must keep the stop at or under 15%, the size at or under 10%, the hold at or under 20 days, and net R:R at or above 1.5. Lowering the target toward 104.17 resistance without tightening the stop would fail the R:R rule. Approval never means a real trade should be placed.
+
+AGENT: Agent 5 Risk Manager
+TASK COMPLETED: Checked the Strategist's BUY plan for Stock A against the fixed limits and the Researcher's data. All 8 REQUIRED items are OK. Decision: APPROVE FOR SIMULATION ONLY.
+SOURCE FACTS USED: Fixed rules (portfolio $100,000; max size 10%; max stop 15%; max hold 20; fees 0.1% + slippage 0.1% per side; Day 1 close fill; checks on closes only). Researcher (close 100.00; MAs 92.52/94.84/97.85; 3m +35.7% vs ETF +24.6%; 12m -38.5%; RSI 62.9; vol 39.0%/39.2%; resistance 101.00, 103.01-104.17; support 97.85/94.84/92.52/87.69-88.51; Day -18/-17 selloff on 1.91x/1.76x volume; completeness 85/100). Strategist plan (BUY, size 6, stop 6, target 13, hold 20; R:R 1.97 after costs; alpha t-stat 0.74 as reported).
+ANALYSIS: Net R:R (13-0.4)/(6+0.4) = 1.97. Max loss $6,000 x 6% + $24 = $384 (0.38% of portfolio). 20-day 1-sigma move about 11.0% (39.0% x sqrt(20/252)), so the 13% target is ambitious. Stop near 94 sits under the 50-day MA of 94.84.
+MISSING INFORMATION: Earnings date; absolute volume; intraday highs/lows; closes before Day -29; News Analyst handoff (model facts unverified by me). Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Gap risk through a close-only stop, worse if earnings fall inside the hold; resistance at 101-104.17 failed before on heavy volume; 12-month downtrend; insignificant alpha; target above the 1-sigma move, so the time exit is a likely outcome. Simulation only, not investment advice, and no real trade is placed.
+NEXT AGENT: Agent 6 Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The BUY plan for Stock A (size 6%, stop 6%, target 13%, max hold 20 days, fill at the Day 1 close) passes every limit. Net R:R is 1.97 and the largest planned loss is about $384 (0.38% of the portfolio). Main cautions: the earnings date is MISSING, so a gap could exceed the stop; the 13% target needs a breakout above 104.17 and is larger than the roughly 11% 20-day 1-sigma move; alpha is not significant (t 0.74).

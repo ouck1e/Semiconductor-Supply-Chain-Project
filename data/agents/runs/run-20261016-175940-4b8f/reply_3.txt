@@ -1,0 +1,74 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (blind run, decision at the Day 0 close)
+
+Source facts (from the handoffs and model facts supplied above) are kept apart from my analysis. No text in the material tried to give instructions, so there was nothing of that kind to ignore.
+
+1. SETUP NAME
+Pullback in a long-term uptrend (buying a 10-15% dip toward support while the long-term trend is intact). The size is reduced because the cause of the dip is unknown.
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE ON DAY 0
+a) Long-term trend is up: close above the 200d average. Source: close 100.00 vs 200d 82.61 (+21.1%), Researcher handoff. TRUE.
+b) Medium- and long-term momentum is positive: 3m +17.1%, 6m +33.5%, 12m +57.0%, Researcher handoff. TRUE.
+c) The pullback is meaningful but not a breakdown: 10% to 15% below the 252d high. Source: close -12.4% vs the 252d high of 114.12, Researcher handoff. TRUE.
+d) Not overbought, and not yet in deep capitulation: RSI between 30 and 45. Source: RSI 39.4, Researcher handoff. TRUE.
+e) No tracked supply-chain shock hits this stock. Source: Model 4 shows "None" in the 120 days before; the last shock touching chip inputs (gallium/germanium licensing, 197 days before) lists this stock as "not in either group", News Analyst handoff and model facts. TRUE, with the caveat that the event list only covers tracked events.
+Every condition holds at the Day 0 close. One condition I would want is NOT met: there is no reversal sign. Day 0 is the 20d low itself, on 1.65x volume, so support at 100 has not been tested (Researcher handoff). This is the main weakness of the setup, so it is listed under reasons to skip, not hidden.
+
+3. ENTRY RULE
+BUY at the Day 0 close decision. The simulated fill is at the Day 1 close, whatever that price is. Nothing in the entry depends on Day 1 or later.
+
+4. STOP RULE
+Exit at the first daily close 8% or more below the entry price.
+Analysis: the 30.2% annualized 20-day volatility (Researcher) is about 1.9% a day, or about 8.5% over 20 trading days (my arithmetic: 30.2 / sqrt(252) is about 1.90; 1.90 x sqrt(20) is about 8.5). So an 8% stop sits at roughly one 20-day standard move. The next supplied support levels, 84.05 and 82.61, are about 16-17% below 100. That is past the 15% maximum stop, so no supplied level backs the stop directly. This is a limitation, not something I can fix with the supplied levels.
+
+5. TARGET / EXIT RULE AND MAXIMUM HOLD
+Target: exit at the first daily close 14% or more above entry. From an entry near 100, that is about 114, the 20d/60d/252d high of 114.12 (Researcher). The resistance levels on the way are 102.57, 103-105.3, 106.46 and about 108.5 (Researcher).
+Maximum hold: 20 trading days, closing at that day's close if neither the stop nor the target has been hit.
+Analysis: reaching the target means a full retrace to the prior peak within 20 days. The 60d range (84.05 to 114.12) shows a move of that size happened recently, but that does not mean it will happen again. The 20-day time exit is likely to decide many outcomes.
+
+6. REWARD-TO-RISK
+Before costs: 14 / 8 = 1.75.
+Round-trip costs: 2 x (0.1% fee + 0.1% slippage) = 0.4% (fixed strategy rules).
+After costs: (14 - 0.4) / (8 + 0.4) = 13.6 / 8.4 = 1.62. That clears the Risk Manager's 1.5 minimum.
+Check on the margin: with an 8% stop, a 13% target gives 12.6 / 8.4 = 1.50, right at the limit. So 14% is the lowest round target that clears the minimum with some room, and it lines up with the 114.12 supplied resistance. Note that the entry price is the unknown Day 1 close, so the actual price levels of the stop and target move with it.
+
+7. POSITION SIZE
+5% of the simulated portfolio ($5,000 of $100,000), which is half the 10% maximum.
+Loss at the stop, roughly: 5,000 x 8.4% = $420, or 0.42% of the portfolio (my arithmetic, including costs).
+Why half size: the stock-specific weakness has no known cause, and the heavy-volume selling is unexplained.
+
+8. WHAT WOULD CANCEL THE SETUP
+- Any of conditions 2a-2d being false at the Day 0 close. All are true in the supplied data.
+- Company-specific negative news being revealed (earnings, guidance, a lost customer). This cannot be checked in a blind run.
+- If the Risk Manager's figures for price, costs or limits differ from those used here.
+After entry, the stop, target and 20-day exit are the only exits. The plan uses no discretionary changes.
+
+9. MISSING INPUTS
+Intraday open, high and low; close history beyond 30 days; the ETF price series; fundamentals; earnings dates; analyst actions: MISSING. Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run). The Day 1 fill price is unknown by the rules.
+
+10. REASONS TO SKIP IT
+- No reversal sign: Day 0 is the 20d low on 1.65x volume, and the heavy-volume days (Days -10/-9 at 1.56x/1.91x) point to active selling.
+- The weakness is stock-specific: 1m -7.8% vs the ETF at +2.6%, a 10.4-point lag. Its cause is invisible to the team.
+- The close is below the 20d (106.46) and 50d (102.57) averages, so the short-term trend is down.
+- The Model 1 alpha t-stat of 0.58 is not statistically meaningful. Rank 11 of 26 puts the stock outside the baseline's top-5 holdings.
+- No supplied support level backs the 8% stop.
+Against skipping: the long-term trend is strong (+57% over 12m, +21% above the 200d), market beta is low (0.74), and no tracked supply shock touches this stock. Sitting out a rebound in an established uptrend counts as a mistake under the scoring, just like buying before a fall. I judge the reduced-size conditional BUY the more balanced choice, but it is not a safe or high-probability plan.
+
+Simulation only. Not investment advice, no promise of profit, and no real order is placed.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into one conditional plan: pullback in a long-term uptrend, BUY at the Day 0 decision (Day 1 fill), 5% size, 8% stop, 14% target, 20-day maximum hold, 1.62 reward-to-risk after costs.
+SOURCE FACTS USED: Close 100.00; 20d 106.46; 50d 102.57; 200d 82.61 (+21.1%); returns 1m -7.8%, 3m +17.1%, 6m +33.5%, 12m +57.0%; ETF 1m +2.6%; RSI 39.4; vol 20d 30.2%; 20d/60d/252d high 114.12; 60d low 84.05; -12.4% vs the 252d high; Day 0 volume 1.65x, Days -10/-9 at 1.56x/1.91x (Researcher). Headlines MISSING/N/A BY DESIGN; Model 4 events in the last 120 days: none (News Analyst). Alpha 12.1%/yr, t 0.58, rank 11/26; beta 0.74, up/down ETF beta 0.58/0.78; three past shocks with this stock in neither group (model facts). Fees 0.1% and slippage 0.1% per side, 10% maximum size, 15% maximum stop, 20-day maximum hold (fixed rules).
+ANALYSIS: All the entry conditions for a pullback in an uptrend are true at the Day 0 close, but there is no reversal sign, and the cause of the stock-specific weakness is unknown. The stop of 8% is about one 20-day volatility move. The target of 14% is about the 114.12 prior high. Reward-to-risk is 1.75 before costs and (14-0.4)/(8+0.4) = 1.62 after. Size is cut to 5% for the unexplained risk (about a 0.42% portfolio loss at the stop).
+MISSING INFORMATION: Intraday OHLC, longer close history, ETF series, fundamentals, earnings dates, analyst actions: MISSING. Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN. The Day 1 fill price is unknown by the rules.
+RISKS OR LIMITATIONS: Buying at the 20d low on heavy volume with no test of support. Hidden company-specific news may exist. No supplied support backs the 8% stop. The target needs a full retrace within 20 days. Closes-only checks can produce gaps past the stop. The factor alpha is not statistically meaningful. Simulation only, not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder is skipped in manual runs)
+HANDOFF SUMMARY: Proposed a reduced-size conditional BUY on Stock A: a pullback in a long-term uptrend (all conditions true at the Day 0 close), filling at the Day 1 close, 5% of the portfolio, stop 8% below entry, target 14% above, 20-day maximum hold, after-cost reward-to-risk 13.6/8.4 = 1.62. Key doubts for the Risk Manager: no reversal sign, unexplained stock-specific heavy-volume selling, and no supplied support level behind the stop.
+
+PLAN
+ACTION: BUY
+SETUP: Pullback in long-term uptrend
+SIZE_PCT: 5
+STOP_PCT: 8
+TARGET_PCT: 14
+MAX_HOLD_DAYS: 20
+END PLAN

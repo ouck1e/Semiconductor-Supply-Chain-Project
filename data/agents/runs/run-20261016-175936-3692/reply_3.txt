@@ -1,0 +1,68 @@
+Agent 3 Strategist: conditional simulation plan for Stock A (simulation only, not investment advice)
+
+No text inside the source material tried to give me instructions, so there is nothing of that kind to report.
+
+1. SETUP NAME
+Pullback inside an established long-term uptrend, with a model-based quality filter.
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE AT THE DAY 0 CLOSE
+a) Long-term uptrend: close above the 200d average. Close 100.00 vs 200d avg 80.59 (+24.1%) [Researcher, MARKET DATA]. TRUE.
+b) Strong longer-term momentum: 6m and 12m returns positive and ahead of the ETF. 6m +38.0% vs ETF +36.2%; 12m +114.2% vs ETF +100.4% [Researcher]. TRUE.
+c) A real pullback that is not yet a collapse: RSI between 30 and 50, close below the 20d average, and still above the 60d low. RSI 36.4; close 100.00 below 20d avg 105.98; 60d low 88.83 [Researcher]. TRUE.
+d) Quality filter: Model 1 alpha t-stat ranks in the top 5 (the group the phase 8 baseline holds). Rank 3 of 24, alpha 26.2% a year, t-stat 1.73 [Model 1]. TRUE.
+e) No supplied negative supply-chain event touching this stock. Model 4: no events in the 120 days before the decision [News Analyst]; the only listed shock, 632 days ago, did not include this stock [Model 4]. TRUE as far as the supplied data goes (a cause for the drop is MISSING, not ruled out).
+All entry conditions are true at the Day 0 close.
+
+3. ENTRY RULE
+Decision at the Day 0 close: BUY, filled at the Day 1 close at whatever that price is. Stop and target are percentages of that fill price. No condition depends on Day 1 or later.
+
+4. STOP RULE
+7% below entry, checked on daily closes. Reasoning (my analysis): at a fill near 100, the stop sits near 93, below the Day 0 close and 20-day low of 100.00 but above the next support at 88.83 [Researcher]. A stop at 88.83 (about 11%) would need a target near 18-19% to clear 1.5 after costs, which is at or beyond the 252d high of 118.50; not supported. 20d volatility 32.6% a year [Researcher] is about 2.05% a day by the square-root-of-time rule (32.6 / sqrt(252) = 32.6 / 15.87), so 7% is roughly 3.4 daily standard deviations: room for normal noise, but a stop-out within 20 days is quite possible.
+
+5. TARGET / EXIT RULE
+Target 12.5% above entry, checked on daily closes. At a fill near 100 that is about 112.5, just under the 20d high / resistance at 112.78 [Researcher], so the target does not need to break that level. Maximum holding period 20 trading days; exit at that day's close if neither stop nor target was hit.
+
+6. REWARD-TO-RISK
+Round-trip costs = 2 x (0.1% fee + 0.1% slippage) = 0.4% [FIXED RULES].
+Before costs: 12.5 / 7 = 1.79.
+After costs: (12.5 - 0.4) / (7 + 0.4) = 12.1 / 7.4 = 1.64. Clears the 1.5 minimum.
+Caveat: if Day 1 fills well away from 100, the price levels behind these percentages shift (for example, a fill at 103 puts the target at about 115.9, past the 112.78 resistance).
+
+7. POSITION SIZE
+5% of the simulated portfolio ($5,000 of $100,000), half the 10% maximum, because the cause of the high-volume drop is MISSING. Worst planned loss at the stop is about 7.4% of $5,000 = about $370, or about 0.37% of the portfolio (before any gap past the stop, which closes-only checking can allow).
+
+8. WHAT WOULD CANCEL THE SETUP
+- Any supplied information before the decision that the Day 0 drop has a stock-specific negative cause (earnings, guidance, a new supply shock that includes this stock).
+- If the Day 0 close had been below the 60d low (88.83) or RSI below 30, the "orderly pullback" premise would not hold. Neither is the case.
+- After entry: a daily close at or below the 7% stop, or the 20-day limit.
+
+9. MISSING INPUTS
+- Cause of the Day 0 drop (1.74x volume) and of the Day -24 (1.97x) and Day -17 (2.03x) volume spikes: MISSING.
+- Earnings dates, fundamentals, broad market context, ETF daily series, intraday highs and lows: MISSING.
+- Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. REASONS TO SKIP IT
+- Short-term trend is down: 20d avg below 50d avg, lower closes since Day -24, Day 0 at the 20-day low on heavy volume [Researcher]. Buying a falling stock can mean buying ahead of further falls.
+- 1m underperformance versus the ETF (-12.6% vs -4.0%) hints at something stock-specific with no supplied explanation [News Analyst].
+- The support at 100.00 is just the Day 0 close and is untested; the next support (88.83) is far below the stop.
+- Volatility is rising (20d 32.6% vs 120d 28.3%).
+- Alpha t-stat 1.73 is below the usual 2.0 significance bar, so the quality filter is suggestive, not strong.
+Against skipping: the scoring compares NO TRADE with simply holding, and the stock's long-term trend, ETF outperformance and top-3 alpha rank argue that sitting out a rebound is a real risk too.
+
+AGENT: Agent 3 Strategist
+TASK COMPLETED: Built one conditional simulation plan (pullback in a long-term uptrend with a Model 1 quality filter) for Stock A, with entry conditions checked at the Day 0 close, stop, target, holding period, reward-to-risk before and after costs, size, cancel conditions, missing inputs and reasons to skip.
+SOURCE FACTS USED: Researcher handoff: close 100.00; 20d avg 105.98; 50d avg 107.08; 200d avg 80.59; returns 1m -12.6%, 6m +38.0%, 12m +114.2%; ETF 1m -4.0%, 6m +36.2%, 12m +100.4%; RSI 36.4; vol 20d 32.6% / 120d 28.3%; 20d high/low 112.78/100.00; 60d low 88.83; 252d high 118.50; Day 0 volume 1.74x. News Analyst handoff: headlines N/A BY DESIGN, no Model 4 events in 120 days, drop cause MISSING. Model 1: alpha 26.2%/yr, t-stat 1.73, rank 3 of 24, market beta 0.62. Model 4: only shock 632 days ago, stock not in either group. Fixed rules: 10% max size, 15% max stop, 20-day max hold, 0.1% fee and 0.1% slippage per side.
+ANALYSIS: All five entry conditions are true at the Day 0 close. Stop 7% (about 93 at a fill near 100, above the 88.83 support), target 12.5% (about 112.5, just under 112.78 resistance), max hold 20 days. Reward-to-risk 12.5/7 = 1.79 before costs; (12.5-0.4)/(7+0.4) = 1.64 after costs. Size 5% because the drop's cause is unknown. Daily volatility about 2.05% (32.6/sqrt(252)), so the stop is about 3.4 daily standard deviations away.
+MISSING INFORMATION: Cause of the Day 0 drop and earlier volume spikes; earnings dates; fundamentals; broad market context; ETF daily series; intraday highs/lows. Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Short-term downtrend on heavy volume with no supplied cause; untested support at 100.00; rising volatility; alpha t-stat under 2; closes-only checking means a gap can exit past the stop; Day 1 fill price is unknown, so the price levels behind the percentages can shift. Not a forecast; nothing here is called safe or profitable.
+NEXT AGENT: Agent 5 Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: Proposed BUY at the Day 0 close (fill at Day 1 close) of 5% of the portfolio, stop 7%, target 12.5%, max hold 20 trading days; after-cost reward-to-risk 1.64. Setup: pullback (RSI 36.4, below 20d/50d averages) inside a long-term uptrend (24.1% above 200d average, ahead of ETF on 6m/12m) with a rank-3 Model 1 alpha. Main open risk: the high-volume drop has no supplied cause.
+
+PLAN
+ACTION: BUY
+SETUP: pullback in long-term uptrend with alpha filter
+SIZE_PCT: 5
+STOP_PCT: 7
+TARGET_PCT: 12.5
+MAX_HOLD_DAYS: 20
+END PLAN

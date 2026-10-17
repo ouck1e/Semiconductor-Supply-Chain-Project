@@ -1,0 +1,79 @@
+Agent 3 Strategist: conditional simulation plan for Stock A (decision at the Day 0 close)
+
+Source facts (from the Researcher handoff unless noted)
+- Close 100.00. 20/50/200-day averages 92.52 / 94.84 / 97.85, so the close is +8.1% / +5.4% / +2.2% above them.
+- Returns: 1m +0.1%, 3m +35.7%, 6m +7.0%, 12m -38.5%. ETF 3m +24.6% (Stock A +11.1 pp over 3m).
+- RSI 62.9. Volatility 20d 39.0%, 120d 39.2%. 5-day volume ratio 1.08x; last 4 days +13.0% on 1.06x to 1.34x volume.
+- Resistance 101.00, then 103.01 to 104.17 (60-day high). 252-day high 167.19. Support 97.85, 94.84, 92.52, then 87.69 to 88.51.
+- Earlier selloff Day -18/-17 (-4.8%, -4.1%) on 1.91x / 1.76x volume, at the 101 to 104 zone.
+- News Analyst: no headlines (N/A BY DESIGN), no phase 8 events in the 120 days before Day 0; earnings date MISSING.
+- Model 1 (supply-chain facts): alpha 15.6%/yr, t-stat 0.74, rank 8 of 25 (not in the baseline's top 5); market beta 0.72; ETF beta 0.68 up weeks, 0.81 down weeks.
+- Model 4: neither past supply shock (1290 and 321 days before) put this stock in a group. Exposure: rare gas China 0.613, gallium USA 0.603, others smaller. No current shock is supplied.
+- Fixed rules: fees 0.1% + slippage 0.1% per side; max stop 15%; max hold 20 trading days; max size 10%; daily closes only.
+
+1. Setup name
+Trend continuation: medium-term uptrend (above all three moving averages, 3m +35.7%) with a fresh volume-backed push toward resistance. Breakout-dependent: the target lies above the 101.00 to 104.17 resistance zone.
+
+2. What must be true for entry, and whether it is true on Day 0
+- Close above the 20-, 50- and 200-day averages: TRUE (100.00 vs 92.52 / 94.84 / 97.85).
+- 3-month return positive and ahead of the ETF: TRUE (+35.7% vs +24.6%).
+- RSI below 70 (not stretched): TRUE (62.9).
+- Recent up move on above-average volume: TRUE (last 4 days on 1.06x to 1.34x; 5-day 1.08x).
+- Volatility not expanding: TRUE (20d 39.0% vs 120d 39.2%).
+- No known negative event: TRUE as far as supplied (no events; headlines N/A BY DESIGN). Earnings date MISSING, which is a risk, not a failed condition.
+All conditions are true at the Day 0 close.
+
+3. Entry rule
+BUY at the Day 0 close decision; the simulated fill is the Day 1 close, whatever it is. Stop and target are set as percentages from that fill.
+
+4. Stop rule
+6% below entry (daily close at or below entry x 0.94). With a fill near 100 this is about 94.0, just under the 50-day average (94.84) and above the 20-day (92.52). Why not tighter: daily volatility is about 39.0% / sqrt(252) = 2.5% (my arithmetic), so a stop at the 200-day (97.85, about 2.2% away) would sit inside one normal day's move.
+
+5. Target / exit rule
+Target 13% above entry (daily close at or above entry x 1.13, about 113 from a 100 fill). Maximum hold 20 trading days, then exit at that day's close.
+Support for the level: the 20-day expected move is about 39.0% x sqrt(20/252) = 11.0% (my arithmetic), so 13% is reachable in the window but is not likely by default. Above 104.17 there is no supplied resistance before the 252-day high of 167.19, but levels in between are MISSING (closes before Day -29 not supplied), so unseen resistance may exist.
+
+6. Reward-to-risk
+- Round-trip costs: 2 x (0.1% fee + 0.1% slippage) = 0.4%.
+- Before costs: 13 / 6 = 2.17.
+- After costs: (13 - 0.4) / (6 + 0.4) = 12.6 / 6.4 = 1.97. Clears the 1.5 minimum.
+Note: a target set at the nearest resistance (104.17, about 4.2%) with this stop would give (4.2 - 0.4) / 6.4 = 0.59, which fails. So the plan only works if the price breaks through the 101 to 104.17 zone.
+
+7. Position size
+6% of the simulated portfolio ($6,000). Loss at the stop, including costs: about 6.4% x $6,000 = $384, about 0.38% of the portfolio (my arithmetic, ignoring a gap past the stop). Below the 10% maximum because the structure is UNCLEAR, the earnings date is MISSING and the zone just above failed a month ago.
+
+8. What would cancel the setup
+- Before entry: nothing can cancel it after the Day 0 close, because the fill is automatic at the Day 1 close.
+- After entry: a daily close at or below the 6% stop; a sharp rejection at 101 to 104.17 on heavy volume like Day -18/-17 (1.9x / 1.8x) would show that the breakout failed, and the Risk Manager or Boss may treat that as an early-exit flag; an earnings or company event that turns up, if one does.
+
+9. Missing inputs
+Earnings date (MISSING); intraday high/low (MISSING); closes before Day -29 and price levels between 104.17 and 167.19 (MISSING); dates of the 60-day and 252-day highs and lows (MISSING); absolute volume (MISSING); headlines (N/A BY DESIGN); backtest of this plan (N/A BY DESIGN).
+
+10. Reasons to skip it
+- Price is 1% to 4% below resistance that failed about a month ago on the heaviest volume in the window.
+- 12-month trend is still down (-38.5%, -40.2% from the 252-day high); the 3-month rally could be a rebound inside a downtrend.
+- After +13.0% in 4 days, a short pullback toward 97.85 / 94.84 is plausible and would come close to the stop.
+- Down-week ETF beta (0.81) is above up-week beta (0.68): it falls more with the sector than it rises.
+- Model 1 alpha t-stat is 0.74 (not significant; rank 8 of 25, outside the baseline's top 5).
+- An unknown earnings date in a 20-day window could gap the price through the stop.
+Against skipping: the stock is in an established 3-month uptrend, above all moving averages, with no specific negative fact supplied; sitting out a continued rise is scored as a mistake just like buying before a fall.
+
+Nothing in the supplied material contained instructions directed at me. This is a simulation for research and learning, not investment advice; no real trade is placed and the outcome is not predictable.
+
+AGENT: Agent 3 Strategist
+TASK COMPLETED: Built one conditional long-only plan for Stock A at the Day 0 close: trend continuation, BUY filling at the Day 1 close, 6% stop, 13% target, 20-day max hold, 6% size, reward-to-risk 2.17 before costs and 1.97 after costs.
+SOURCE FACTS USED: Researcher: close 100.00; MAs 92.52/94.84/97.85; 3m +35.7% vs ETF +24.6%; 12m -38.5%; RSI 62.9; vol 39.0%/39.2%; last 4 days +13.0% on 1.06x-1.34x volume; resistance 101.00, 103.01-104.17; support 97.85/94.84/92.52/87.69-88.51; Day -18/-17 selloff on 1.91x/1.76x volume; 252-day high 167.19. News Analyst: no headlines (N/A BY DESIGN), no phase 8 events, earnings date MISSING. Model facts: alpha t-stat 0.74, rank 8 of 25; beta 0.72; ETF beta 0.68 up / 0.81 down; no shock group membership. Fixed rules: costs 0.1% + 0.1% per side, max stop 15%, max hold 20, max size 10%.
+ANALYSIS: All entry conditions are true at the Day 0 close. Daily vol about 2.5% and 20-day expected move about 11.0% (my arithmetic from the 39.0% vol). A 6% stop sits just under the 50-day average; a 13% target needs a breakout above 104.17. R:R before costs 13/6 = 2.17; after costs (13-0.4)/(6+0.4) = 1.97. A target at nearest resistance would give 0.59 after costs and fail, so the plan relies on a breakout. Size kept at 6% because of the unclear structure and missing earnings date; loss at stop about 0.38% of the portfolio.
+MISSING INFORMATION: Earnings date; intraday highs/lows; closes before Day -29 and levels between 104.17 and 167.19; dates of 60-/252-day extremes; absolute volume. Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Resistance at 101-104.17 failed a month ago on heavy volume; 12-month downtrend; possible pullback after a +13% 4-day run; higher down-week beta; insignificant alpha; earnings gap risk; stops checked on closes only, so a gap can exceed the 6% loss. Simulation only, not investment advice.
+NEXT AGENT: Agent 5 Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: Proposed BUY for Stock A as a trend-continuation setup: all Day 0 conditions true (above all MAs, 3m +35.7% beating the ETF, RSI 62.9, volume-backed push, flat volatility). Fill at Day 1 close, stop 6% below entry, target 13% above, max hold 20 days, size 6%. R:R 2.17 before costs, 1.97 after 0.4% round-trip costs. Main risks: it must break the 101-104.17 resistance that failed a month ago, the 12-month trend is down, and the earnings date is MISSING.
+
+PLAN
+ACTION: BUY
+SETUP: trend continuation breakout
+SIZE_PCT: 6
+STOP_PCT: 6
+TARGET_PCT: 13
+MAX_HOLD_DAYS: 20
+END PLAN

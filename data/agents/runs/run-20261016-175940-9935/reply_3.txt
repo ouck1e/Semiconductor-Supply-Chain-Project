@@ -1,0 +1,79 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A at the Day 0 close
+
+Note on the source material: none of the supplied material tries to give me instructions. Nothing to flag.
+
+1. SETUP NAME
+Trend pullback recovery (long-only). The stock is in an established uptrend and has climbed back above its 20-day average after a pullback. The plan asks for the trend to resume past the prior highs.
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE ON DAY 0
+All of these are checked on Day 0 closes only (source: the Researcher handoff, SOURCE FACTS USED line):
+a) Close is above the 50-day and 200-day averages, so the long-term trend is up. Close 100.00 vs 50d 91.90 (+8.8%) and 200d 69.97 (+42.9%). TRUE.
+b) Close is above the 20-day average, so the pullback has been recovered at least in the short term. Close 100.00 vs 20d 97.04 (+3.1%). TRUE.
+c) The pullback low has held. Close 100.00 vs 20d low 89.56, +11.7% off the low (Researcher ANALYSIS). TRUE.
+d) RSI is not overbought (below 70). RSI 58.0. TRUE.
+e) The stock beat the chip ETF over 3, 6 and 12 months. +31.1 / +26.1 / +36.4 pp (Researcher ANALYSIS). TRUE.
+f) No negative catalyst is known. The News Analyst reports none: headlines are N/A BY DESIGN and the event list for the last 120 days reads "None." TRUE, with the caveat that unlisted news may exist.
+Every condition holds at the Day 0 close.
+
+3. ENTRY RULE
+BUY at the Day 0 close decision. The order fills at the Day 1 close, whatever that price is. Nothing in the entry depends on Day 1 or any later day.
+
+4. STOP RULE
+Exit at the first daily close 8.5% or more below the entry price. My analysis: if the fill is near 100.00, the stop sits near 91.5, just under the 91.9-92.0 support zone (Researcher ANALYSIS) and above the 89.56 pullback low. The Day 1 fill is not known yet, so the exact price level will move with it. Daily volatility is about 2.9% (my figure: 45.7% annualised from "vol 20d 45.7%", divided by the square root of 252). An 8.5% stop is therefore about 3 daily moves wide, which keeps it out of ordinary day-to-day noise.
+
+5. TARGET / EXIT RULE AND MAXIMUM HOLD
+- Target: exit at the first daily close 14% or more above entry. Near a 100.00 fill that is about 114. To get there the stock has to break above the 106.96 and 107.38 highs, which sit 6.9% below the target level (Researcher: -6.9% from 252d high).
+- Maximum hold: 20 trading days. If neither the stop nor the target is hit, exit at the close of day 20.
+- My analysis: with 20-day volatility of about 12.9% (45.7% x sqrt(20/252)), a 14% move within the holding period is about 1.1 standard deviations. It is possible but far from certain.
+
+6. REWARD-TO-RISK
+- Round-trip costs: 2 x (0.1% fee + 0.1% slippage) = 0.4% (source: FIXED STRATEGY RULES).
+- Before costs: 14 / 8.5 = 1.65.
+- After costs: (14 - 0.4) / (8.5 + 0.4) = 13.6 / 8.9 = 1.53. This clears the Risk Manager's 1.5 minimum, but only narrowly.
+- Why I chose this pair: a target at the nearby resistance (106.96-107.38, about +7%) cannot clear 1.5 with any stop that sits below support. With a stop of 8.5%, the target would need (1.5 x 8.9) + 0.4 = 13.75% or more. A tighter stop near 6% (about 94) would let the target fall to about 10%, but that stop would sit inside normal daily noise for a stock with 45.7% volatility. So the only pair that both clears the hurdle and respects the support levels needs a breakout to new highs.
+
+7. POSITION SIZE
+5% of the simulated portfolio ($5,000 of $100,000), half the 10% maximum. I cut the size because of the high volatility (20d 45.7%, rising slightly from 42.0% over 120 days), the light-volume rebound and the weak model alpha. If the stop is hit, the loss is about 5% x 8.9% = about 0.45% of the portfolio, or about $445 including costs (my arithmetic).
+
+8. WHAT WOULD CANCEL THE SETUP
+- Before the decision: a Day 0 close below the 20-day average (97.04) or below the pullback low (89.56). Neither is the case.
+- Any known negative catalyst at Day 0, such as company news, earnings or a new supply shock that lists this stock as an expected loser. None is supplied.
+- If the Risk Manager's recalculation shows the after-cost ratio below 1.5 on their terms, the plan fails as written.
+- After entry, the stop, the target and the 20-day limit are the only exits. A Day 1 fill that gaps far from 100.00 does not change the percentage rules.
+
+9. MISSING INPUTS
+- Intraday highs and lows: MISSING. The rules use closes only, which matches the strategy rules.
+- Absolute price and volume levels, the ETF price series, fundamentals, earnings dates and guidance: MISSING.
+- Industry pricing and utilisation data: MISSING.
+- Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. REASONS TO SKIP IT
+- The rebound came on light volume (5-day volume 0.66x) after a higher-volume sell-off. The bounce may not have broad participation behind it.
+- The chart shows a lower high (106.96 below 107.38). The 1-month return is -3.0%, and the stock lagged the ETF by 1.4 pp over that month.
+- The price is stretched: +42.9% above the 200-day average.
+- Model 1 alpha is -10.8% a year (t -0.64, rank 23 of 26). The t-stat is not statistically meaningful, but it gives no support to the trade, and the baseline rule would not hold this stock.
+- Market beta is 1.14, and the stock tends to fall harder with the sector in down weeks (0.97) than it rises in up weeks (0.84), which is unfavourable asymmetry.
+- Supply exposure is concentrated: helium from Qatar 0.391 and HF from China 0.352 (only 55% of capacity covered by trade data), plus rare gas from China 0.264. The stock was an expected loser in the neon shock 803 days ago. No current shock is listed.
+- The target requires new 252-day highs, and the after-cost ratio clears the minimum only narrowly.
+
+Against those points, the rules ask me to weigh sitting out a rise as heavily as buying before a fall. The long-term trend and the relative strength are strong, and nothing specific argues against them. That is why I propose a reduced-size BUY rather than NO TRADE. The Risk Manager and the Boss decide whether it goes ahead.
+
+This is a simulation for research and learning. It is not investment advice and not a promise of profit, and no real trade is placed.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into one conditional long-only plan for Stock A, decided at the Day 0 close: trend pullback recovery, BUY filling at the Day 1 close, 5% size, 8.5% stop, 14% target, 20-day maximum hold.
+SOURCE FACTS USED: Researcher: close 100.00; 20d 97.04, 50d 91.90, 200d 69.97; RSI 58.0; vol 20d 45.7%, 120d 42.0%; 5-day volume 0.66x; 20d high/low 106.96/89.56; 252d high 107.38; -6.9% from 252d high; returns 1m -3.0%, 3m 41.0%, 12m 95.8%; outperformance of the ETF +31.1/+26.1/+36.4 pp; support 97.04, 91.9-92.0, 89.56; resistance 100.77, 106.96, 107.38. News Analyst: no headlines (N/A BY DESIGN), event list "None." for the last 120 days, neutral sentiment. Model 1: alpha -10.8% a year, t -0.64, rank 23 of 26; beta 1.14; ETF beta 0.84 in up weeks and 0.97 in down weeks. Model 4: expected loser in the neon shock 803 days ago. Exposure: helium from Qatar 0.391, HF from China 0.352, rare gas from China 0.264. Strategy rules: costs of 0.1% fee plus 0.1% slippage per side, 10% maximum size, 15% maximum stop, 20-day maximum hold.
+ANALYSIS: All entry conditions hold at the Day 0 close (price above all three averages, pullback low intact, RSI 58, strong relative strength, no known catalyst). Round-trip costs are 0.4%. Reward-to-risk is 14/8.5 = 1.65 before costs and 13.6/8.9 = 1.53 after costs. The stop at -8.5% sits just under the 91.9-92.0 support if the fill is near 100.00. The 14% target needs a break above 107.38, about 1.1 standard deviations of 20-day volatility (about 12.9%, my figure). Size is cut to 5% for volatility and weak alpha, so a stop-out costs about 0.45% of the portfolio.
+MISSING INFORMATION: Intraday highs/lows, absolute price and volume levels, ETF price series, fundamentals, earnings dates, industry pricing and utilisation data: MISSING. Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Light-volume rebound; lower high; negative 1-month momentum; price +42.9% above the 200-day; high volatility; negative (not significant) alpha, rank 23 of 26; down-week beta higher than up-week beta; concentrated helium, HF and rare-gas supply exposure; the after-cost ratio clears 1.5 only narrowly; the target needs new highs; the Day 1 fill price is unknown, so the stop and target price levels move with it; stops are checked on closes only, so a gap can produce losses beyond 8.5%. Simulation only; not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4, the Coder, is skipped in manual runs)
+HANDOFF SUMMARY: The proposal is a reduced-size (5%) long BUY on Stock A, decided at the Day 0 close and filling at the Day 1 close. The setup is a trend pullback recovery in a strong uptrend, and every entry condition is true on Day 0. The stop is 8.5% below entry, the target 14% above, with a 20-day maximum hold; reward-to-risk is 1.65 before costs and 1.53 after. The main concerns are the light-volume rebound, high volatility, weak model alpha and a target that needs new highs. Please check that the 1.53 after-cost ratio and the 5% size meet your limits.
+
+PLAN
+ACTION: BUY
+SETUP: Trend pullback recovery
+SIZE_PCT: 5
+STOP_PCT: 8.5
+TARGET_PCT: 14
+MAX_HOLD_DAYS: 20
+END PLAN

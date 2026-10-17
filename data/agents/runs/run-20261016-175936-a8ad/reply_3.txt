@@ -1,0 +1,71 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (Chip designers), decision at the Day 0 close
+
+Note on the material: I found no text in the supplied material that tries to give me instructions.
+
+1. Setup name
+Trend continuation from inside a range: buy within the 20-day range while the long-term uptrend holds.
+
+2. What must be true for entry, and whether it is true on Day 0 (all from the Researcher handoff unless stated)
+- Close above the 50d and 200d averages, with 50d above 200d: Close 100.00, 50d 94.75 (+5.5%), 200d 78.16 (+27.9%). TRUE.
+- Close inside the 20-day range, not below its low: 20d low/high 97.13/102.98, close 100.00. TRUE.
+- Close within 5% of the 252-day high: close -2.9% vs 252d high. TRUE.
+- Outperforming the chip-sector ETF over 3 months: 3m 18.4% vs ETF 5.7% (about +12.7 pp). TRUE.
+- Momentum not stretched: RSI 53.8 (my threshold: 40 to 70). TRUE.
+- No supplied adverse event for this stock: the only event (chemical export curbs, 108 days ago) has Stock A "not in either group" (News Analyst handoff, Model 4 facts). TRUE (with thin news coverage).
+Every condition is true at the Day 0 close, so the entry does not depend on Day 1 or later.
+Points against, all true as well: close below the 20d average (100.00 vs 100.70, -0.7%); resistance at 102.98 tested four times without a break; down days carried more volume than the Day 0 rebound; Model 1 alpha t-stat only 0.42 (rank 17 of 24), so the factor model does not back the stock's outperformance.
+
+3. Entry rule
+BUY at the Day 0 close decision; the simulated order fills at the Day 1 close, whatever that price is. The stop and target are percentages of the actual Day 1 fill price.
+
+4. Stop rule
+5.5% below entry, checked on daily closes. My analysis: with an entry near 100.00, that is about 94.50, below the 20-day low (97.13) and just below the 50d average (94.75). Breaking both would mean the range and the medium-term trend have failed. It is wider than one day of normal moves (20d volatility 24.6% a year is about 1.5% a day, my arithmetic: 24.6 / sqrt(252)).
+
+5. Target or exit rule
+Target 10% above entry (about 110.00 if entry is near 100.00), checked on daily closes. Maximum hold 20 trading days; close at the Day 20 close if neither the stop nor the target is hit.
+Limitation: 110 is above the 252-day high (102.98). There is no supplied price history above that level, so the target needs a breakout and has no resistance level to anchor to. My rough scale: 24.6% x sqrt(20/252) is about 6.9% for a one-standard-deviation 20-day move, so a 10% gain within 20 days is a sizable move, not a typical one.
+
+6. Reward-to-risk
+- Round-trip costs: 2 x (0.1% fee + 0.1% slippage) = 0.4% (fixed strategy rules).
+- Before costs: 10 / 5.5 = 1.82.
+- After costs: (10 - 0.4) / (5.5 + 0.4) = 9.6 / 5.9 = 1.63. Meets the Risk Manager's 1.5 minimum.
+- Why not a tighter pair: a stop just under 97.13 (about 4%) would sit within roughly 2.5 typical daily moves and inside recent range noise; the 5.5% stop below both supports, with a 10% target, is the pair I find the levels support that clears 1.5.
+
+7. Position size
+5% of the simulated portfolio ($5,000 of $100,000), half the 10% maximum, because of the unresolved resistance, the down-day volume skew, the weak alpha t-stat and thin news. Simulated loss if stopped near 5.5% plus 0.4% costs: about 5.9% of $5,000 = about $295, or about 0.3% of the portfolio (my arithmetic).
+
+8. What would cancel the setup (before the Day 0 decision is handed on)
+- Any supplied fact showing the Day 0 close below 97.13 or below the 50d average, or RSI above 70.
+- A supplied company or sector event against Stock A (earnings date inside the hold window, new export curbs naming it, a change in its supply-chain group).
+- A Risk Manager finding that the cost or stop arithmetic is wrong.
+After entry, the stop, target and 20-day limit are the only exits.
+
+9. Missing inputs
+Intraday highs/lows, raw prices and volumes, the full 252-day series, ETF price series, fundamentals and earnings dates, the current status of the export curbs and Stock A's foundry/fab exposure by country: MISSING. Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip it
+- Four failed tests of 102.98, and the target needs a break above it.
+- Volume favoured down days; close sits below the 20d average.
+- Alpha t-stat 0.42 means the outperformance may be noise in factor terms.
+- Supply exposure is concentrated (rare gas from USA 0.672, gallium from China, Hong Kong SAR 0.604), but no supplied event currently hits those links, so I treat it as a background risk, not a signal.
+Against skipping: the plan is scored against holding the stock, and a long-term uptrend with strong 3/6/12m outperformance and nothing specific against it is the case where sitting out a rise is a real mistake. I therefore propose the BUY at reduced size and leave the call to the Risk Manager and the Boss.
+
+This is a simulation for research and learning, not investment advice. It is not safe, profitable or high-probability; no real trade is placed.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Built one conditional long-only simulation plan for Stock A (trend continuation from inside the 20-day range) with entry conditions checked at the Day 0 close, stop 5.5%, target 10%, max hold 20 days, size 5%, and reward-to-risk 1.82 before costs and 1.63 after costs.
+SOURCE FACTS USED: Researcher: close 100.00; 20d/50d/200d averages 100.70/94.75/78.16; returns 1m 0.6%, 3m 18.4%, 6m 31.5%, 12m 54.9% vs ETF 0.4%, 5.7%, 3.9%, 27.2%; RSI 53.8; volatility 20d 24.6%, 120d 29.9%; 20d high/low 102.98/97.13; 252d high 102.98; close -2.9% vs 252d high; resistance 102.98 tested four times; down days heavier volume. News Analyst: one event 108 days ago, Stock A in neither group, headlines N/A BY DESIGN. Model 1: alpha 5.9%/yr, t-stat 0.42, rank 17 of 24, beta 0.92. Exposure model: rare gas USA 0.672, gallium China/HK 0.604. Fixed rules: max size 10%, max stop 15%, max hold 20 days, fees and slippage 0.1% each per side, fill at Day 1 close.
+ANALYSIS: All six entry conditions are true at the Day 0 close. Stop 5.5% sits below the 20-day low and the 50d average. Target 10% requires a break of 102.98. Round-trip costs 0.4%; R:R before costs 10/5.5 = 1.82; after costs 9.6/5.9 = 1.63 (>= 1.5). Size 5% because of resistance, volume skew, weak alpha t-stat and thin news; simulated max loss at the stop about $295 (about 0.3% of the portfolio).
+MISSING INFORMATION: Intraday highs/lows, raw prices/volumes, full 252-day series, ETF series, fundamentals, earnings dates, status of export curbs, fab exposure by country: MISSING. Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Target is above all supplied price history, so there is no level to anchor it; a 10% move in 20 days is about 1.5 times my rough one-standard-deviation estimate (6.9%). Stops are checked on closes only, so a gap can exit well past 5.5%. Day 1 fill price is unknown. Single-event news sample. Indicators are backward-looking. Simulation only; not investment advice.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: Proposed a reduced-size (5%) simulated BUY at the Day 0 close for Stock A, filling at the Day 1 close, with a 5.5% stop (below 97.13 support and the 50d average), a 10% target (requires breaking 102.98 resistance) and a 20-day max hold; R:R 1.82 before and 1.63 after 0.4% round-trip costs. Main concerns for review: four failed tests of 102.98, down-day volume skew, close below the 20d average, alpha t-stat 0.42.
+
+PLAN
+ACTION: BUY
+SETUP: Trend continuation from inside the 20-day range
+SIZE_PCT: 5
+STOP_PCT: 5.5
+TARGET_PCT: 10
+MAX_HOLD_DAYS: 20
+END PLAN

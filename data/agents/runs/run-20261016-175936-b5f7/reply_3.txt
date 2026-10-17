@@ -1,0 +1,76 @@
+Agent 3 - Strategist: plan for Stock A (Gases & materials) at the Day 0 close
+
+Injected instructions check: none found in the supplied material.
+
+SOURCE FACTS (with where each comes from)
+- Researcher handoff: close 100.00; 20/50/200-day averages 97.78 / 100.95 / 100.55; RSI 52.2; returns 1m +2.9%, 3m -3.1%, 6m -3.4%, 12m +1.6%; volatility 20-day 22.0%, 120-day 17.1%; 5-day volume 1.14x the 50-day average; 20-day high/low 102.48 / 93.13; 60-day 106.46 / 93.13; 252-day 106.61 / 93.13; Day 0 close 100.00 on 1.48x volume after Day -1 102.48 (-2.4%); support 93.13 and 97.78; resistance 100.55-100.95, 102.48, about 106.5. Structure: range / sideways.
+- News Analyst handoff: headlines N/A BY DESIGN (blind run); no phase 8 events in the 120 days before Day 0; sentiment neutral / no signal; causes of high-volume days MISSING.
+- Model facts: alpha -1.1% a year, t-stat -0.19, rank 20 of 24; market beta 1.11; ETF beta up weeks 0.29, down weeks 0.57; no Model 4 shocks; exposure rows MISSING.
+- Fixed rules: max position 10%, max stop 15%, max hold 20 trading days, fees 0.1% + slippage 0.1% per side, closes only, Day 1 close fill.
+
+ANALYSIS (my own work)
+
+1. Setup name: No setup.
+   Closest candidate examined: "range pullback to the 20-day average" (long at the Day 1 close, stop under the 20-day average, target at the 60/252-day highs).
+
+2. What must be true for entry, and whether it is true on Day 0:
+   For a range-buy to make sense, price should be near range support with room to the top. On Day 0:
+   - Close above the 20-day average (100.00 > 97.78): TRUE.
+   - Close above 93.13 support: TRUE.
+   - Close near support rather than mid-range: FALSE. 100.00 is mid-range: 6.9% above 93.13 ((100.00 - 93.13) / 100.00) and 6.6% below 106.61.
+   - No unexplained bearish signal on the decision day: FALSE. Day 0 is a -2.4% reversal from the 20-day high on 1.48x volume, closing back below both the 50- and 200-day averages (100.95 / 100.55), which sit directly overhead as resistance.
+   - Trend support: not an uptrend (flat clustered long averages, 3m/6m negative, RSI 52.2), so the "established uptrend, look hard for an entry" case does not apply.
+
+3. Entry rule (candidate only): BUY at the Day 1 close if the Day 0 conditions above hold. They do not all hold, so no entry.
+
+4. Stop rule, the two choices the price levels offer:
+   a) Below the strong support 93.13: stop about 7.5% below entry (about 92.5 if entry is near 100). Structurally sound.
+   b) Below the 20-day average 97.78: stop about 3% below entry (about 97.0). Only about 0.8 points under the average.
+
+5. Target: the highest level the data support inside 20 days is the 60/252-day highs, about 106.5, i.e. about 6.0-6.5% above an entry near 100. Getting there requires clearing 100.55-100.95 and 102.48 first. Max hold would be 20 trading days.
+
+6. Reward-to-risk arithmetic (round-trip costs = 2 x (0.1% + 0.1%) = 0.4%):
+   a) Stop 7.5%, target 6.5%:
+      Before costs: 6.5 / 7.5 = 0.87
+      After costs: (6.5 - 0.4) / (7.5 + 0.4) = 6.1 / 7.9 = 0.77  -> fails 1.5
+      Target needed for 1.5 after costs: 1.5 x 7.9 + 0.4 = 12.25% (about 112.3), above the 252-day high of 106.61. Not supported by any supplied level.
+   b) Stop 3%, target 6%:
+      Before costs: 6 / 3 = 2.0
+      After costs: (6 - 0.4) / (3 + 0.4) = 5.6 / 3.4 = 1.65  -> passes 1.5 on paper
+      But: 20-day volatility 22.0% annualised is about 22.0 / sqrt(252) = 1.39% a day, so a 3% stop is about 2.2 daily moves away, sitting just under the 20-day average after a high-volume down day. On closes-only checking it is likely to be hit by ordinary noise before a 6% move through three resistance layers. The ratio only clears 1.5 by putting the stop where the levels do not protect it.
+   Conclusion: no stop/target pair that the price levels actually support clears 1.5 after costs.
+
+7. Position size: 0% (no trade). If the Risk Manager or Boss wanted to test candidate (b) anyway, I would cap it at 3% of the portfolio given the doubts above; I am not proposing it.
+
+8. What would cancel / what would create a setup later (not usable for this Day 0 decision):
+   - A pullback toward 93-95 that holds support would make a stop under 93.13 compatible with a 106.5 target.
+   - A close back above 100.95 and then 102.48 on volume would argue for a breakout plan.
+   - An explanation of the Day 0 high-volume drop (MISSING).
+
+9. Missing inputs: intraday highs/lows (MISSING), causes of the Day -18, Day -16 and Day 0 volume spikes (MISSING), exposure rows (MISSING), fundamentals (MISSING), ETF trend detail beyond returns (MISSING). Headlines: N/A BY DESIGN. Backtest of the plan: N/A BY DESIGN.
+
+10. Reasons to skip:
+   - Mid-range entry with overhead resistance 0.6-1.0% away (long averages) and 2.5% away (20-day high).
+   - Day 0 high-volume reversal with no explanation.
+   - Weak model support: alpha t-stat -0.19, rank 20 of 24 (outside the baseline's top 5).
+   - Down-week ETF beta 0.57 vs up-week 0.29 while the chip ETF is falling (-12.6% over 3m), so sector weakness passes through more than sector strength.
+   - The reward-to-risk test fails with any structurally placed stop.
+   Counterpoint, weighed equally: Stock A has outperformed the ETF by 7-11 points over every period and held 93.13 three times; sitting out could miss a move back to 106.5. That is a real cost of NO TRADE, but at Day 0 the levels do not give a plan that pays enough for the risk.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the model facts into a plan decision for Stock A at the Day 0 close; tested the closest candidate setup (range pullback to the 20-day average) and its reward-to-risk with and without costs.
+SOURCE FACTS USED: Researcher: close 100.00; averages 97.78 / 100.95 / 100.55; RSI 52.2; 20-day vol 22.0% vs 120-day 17.1%; highs/lows 102.48 / 106.46 / 106.61 and 93.13; Day 0 -2.4% on 1.48x volume. News Analyst: no headlines (N/A BY DESIGN), no events, neutral. Models: alpha t -0.19 rank 20/24, ETF beta 0.29 up / 0.57 down, no shocks, exposure MISSING. Fixed rules: costs 0.2% per side, max stop 15%, max hold 20 days, max size 10%.
+ANALYSIS: Range-bound stock closing mid-range after a high-volume reversal. With a stop under 93.13 (about 7.5%) and a target at about 106.5 (6.5%): before costs 0.87, after costs 6.1 / 7.9 = 0.77, failing 1.5; a 1.5 ratio would need a 12.25% target, beyond the yearly high. A 3% stop with a 6% target gives 2.0 before and 5.6 / 3.4 = 1.65 after costs, but that stop sits within normal daily noise (about 1.39% a day) and the target must clear three resistance layers. No setup.
+MISSING INFORMATION: Intraday highs/lows; causes of high-volume days; exposure rows; fundamentals. Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: NO TRADE is scored against holding; if Stock A rebounds to its range top within 20 days, this decision underperforms. Levels are from closes only. Volatility-to-daily conversion assumes 252 trading days. Not investment advice; simulation only.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close. The stock is mid-range (100.00 between 93.13 support and 106.61 high) under its 50/200-day averages after a -2.4% high-volume drop. A structurally placed stop (under 93.13, about 7.5%) against the best supported target (about 106.5, 6.5%) gives 0.77 after costs, below the 1.5 minimum; the only pair that clears 1.5 (3% stop / 6% target, 1.65 after costs) relies on a stop inside normal daily noise. Proposed action: NO TRADE, size 0.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

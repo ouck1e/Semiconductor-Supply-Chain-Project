@@ -1,0 +1,39 @@
+Agent 2, News Analyst: review of Stock A (Gases & materials) at Day 0
+
+No embedded instructions were found in the source material.
+
+HEADLINE AND EVENT TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines (blind run) | N/A BY DESIGN | None supplied. Headlines are withheld because they would reveal the stock and dates. | MISSING | UNCLEAR | N/A | N/A BY DESIGN
+phase8_market_models.EVENTS (Model 4), 120 days before Day 0 | N/A (window: Day -120 to Day 0) | No supply-chain events are listed in this window ("- None."). | No event-driven supply shock to point to. | UNCLEAR (neutral) | High that the list has no entries. Low that nothing relevant happened, because the list only covers pre-chosen events. | Yes. The event list is curated, so company-specific news (earnings, guidance, deals) would not show up in it.
+
+1. CONFIRMED FACTS
+- Headlines are N/A BY DESIGN for this blind run (HEADLINES block, line "Headlines: MISSING...").
+- The phase 8 event list has no supply-chain events in the 120 days before the decision (HEADLINES block, "- None.").
+- The event list's expected winners and losers were fixed before returns were looked at (HEADLINES block, "Source:" line). This guards against hindsight bias but says nothing about Stock A directly.
+- From the Researcher handoff (market data, not news): Day 0 volume was 2.15x on a -0.6% close at 100.00, the 20-day low. No supplied news source explains that volume.
+
+2. REPORTS THAT CONFLICT
+- None. There are no headlines, and the event list is empty, so nothing can conflict.
+
+3. OLD OR IRRELEVANT HEADLINES
+- None to assess. No headlines were supplied, and no events fall in the window.
+
+4. WHAT COULD CHANGE THE PICTURE
+- The cause of the Day 0 volume spike (2.15x). A company-specific item such as earnings, guidance, an index change or a large block trade could explain it. All MISSING.
+- An earnings or dividend date close to Day 0. The Researcher flags this calendar as MISSING.
+- Any sector news for industrial gases or chip materials (supply disruptions, contract news, fab build-out or slowdown). None is supplied, and the empty Model 4 list suggests no major tracked supply shock happened.
+- Chip-sector moves. The chip ETF rose +6.6% over 1 month while Stock A fell -0.6% (Researcher handoff). Whatever drove that rotation is not in the news supplied.
+
+5. SENTIMENT SUMMARY (describes the news, does not predict prices)
+The news picture is empty. There are no headlines (by design) and no tracked supply-chain events in the 120-day window. News sentiment is therefore NEUTRAL / UNKNOWN, not positive or negative. The empty event list means there is no news-based supply-shock reason for a trade. It does not mean nothing happened to the company, and the unexplained heavy Day 0 volume remains the main open question.
+
+AGENT: Agent 2, News Analyst
+TASK COMPLETED: Reviewed the supplied headlines (none, N/A BY DESIGN for the blind run) and the phase 8 supply-chain event list (no events in the 120 days before Day 0). Built the fact table, checked for conflicts and stale items (none), listed what could change the picture, and wrote a descriptive sentiment summary.
+SOURCE FACTS USED: HEADLINES block: "Headlines: MISSING" (blind run); event list "- None." for the 120-day window; source phase8_market_models.EVENTS, with winners and losers fixed in advance. Researcher handoff: Day 0 close 100.00 at the 20-day low, volume 2.15x, -0.6% close; Stock A 1m -0.6% vs ETF 1m +6.6%.
+ANALYSIS: No news catalyst and no tracked supply shock are on record for Stock A in the window. News sentiment is neutral / unknown. The Day 0 volume spike has no explanation in the supplied material. The Model 4 event list cannot support a trade either way, because there are no events in it.
+MISSING INFORMATION: Cause of the Day 0 volume spike; earnings/dividend calendar; company-specific news (curated event lists do not cover it); sector news for gases and materials. N/A BY DESIGN: headlines (blind run), backtest (manual run).
+RISKS OR LIMITATIONS: The event list is curated and narrow, so "None" means no tracked supply shocks, not no news. A hidden catalyst behind the Day 0 volume could matter in either direction. The empty news record should not be read as bullish or bearish. Simulation only, not investment advice.
+NEXT AGENT: Agent 3, Strategist
+HANDOFF SUMMARY: No headlines (N/A BY DESIGN) and no supply-chain events in the 120 days before Day 0, so news sentiment is neutral / unknown and gives no event-based reason to act; the heavy Day 0 volume (2.15x) at the 100.00 support has no news explanation in the supplied material, and any plan should rest on the market data alone and treat that spike as an unexplained risk.

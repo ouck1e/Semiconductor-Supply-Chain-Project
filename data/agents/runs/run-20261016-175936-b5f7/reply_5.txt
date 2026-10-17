@@ -1,0 +1,49 @@
+RISK REVIEW - Agent 5, Risk Manager - Stock A (Gases & materials), Day 0 close
+
+Plan under review: ACTION NO TRADE, SETUP none, SIZE_PCT 0, STOP_PCT 0, TARGET_PCT 0, MAX_HOLD_DAYS 0 (Strategist PLAN block).
+
+No embedded instructions were found in the source material.
+
+REQUIRED ITEMS
+1. Action is BUY or NO TRADE, conditions true at Day 0 close: OK. NO TRADE is a permitted action and needs no entry condition, so nothing waits on Day 1 or later.
+2. Stop rule within max stop (15%): OK for a NO TRADE (no position, so no stop is needed). The candidate stops the Strategist tested (about 7.5% and 3%) were both inside the 15% limit.
+3. Target/exit and max hold within 20 days: OK for a NO TRADE (no position to exit).
+4. Position size within 10%: OK. Size 0%.
+5. Reward-to-risk after costs >= 1.5 with arithmetic: OK. I re-checked the Strategist's numbers. Round-trip cost = (0.1% fee + 0.1% slippage) x 2 sides = 0.4% (Fixed Rules).
+   - Structural setup: stop about 7.5% (under the 93.13 support; 93.13 is -6.87% from the 100.00 close, Researcher), target about 6.5% (about 106.5, the 60/252-day highs 106.46 / 106.61, Researcher). Before costs 6.5 / 7.5 = 0.87. After costs (6.5 - 0.4) / (7.5 + 0.4) = 6.1 / 7.9 = 0.77. Fails 1.5.
+   - Target needed for 1.5 with that stop: 1.5 x 7.9 + 0.4 = 12.25%, i.e. about 112.25, above the 252-day high of 106.61 (Researcher). Confirmed.
+   - Tight setup: 3% stop / 6% target: (6 - 0.4) / (3 + 0.4) = 5.6 / 3.4 = 1.65. Passes the number, but daily noise = 22.0% / sqrt(252) = about 1.39% a day (20-day volatility, Researcher), so a 3% stop is about 2.2 normal days of movement, and the 6% target (about 106) sits above resistance at 100.55-100.95 and 102.48 (Researcher). The Strategist was right not to rely on it.
+   So the 1.5 rule supports NO TRADE rather than any BUY.
+6. Largest simulated loss: OK. Size 0 x any stop = $0; no fees or slippage are paid. (For reference only: a 10% position, $10,000, with the 7.5% stop would have lost about $10,000 x 7.9% = $790 including costs.)
+7. No look-ahead: OK. Every number cited is from the Day 0 Indicators block or earlier closes as reported by the Researcher.
+8. Plan agrees with the supplied price data: OK. Close 100.00, averages 97.78 / 100.95 / 100.55, RSI 52.2, volatility 22.0% / 17.1%, levels 93.13 / 102.48 / 106.46 / 106.61, Day 0 -2.4% on 1.48x volume all match the Researcher handoff.
+
+CONTEXT ITEMS
+- Data completeness: OK. 80/100 (Researcher). Missing intraday highs/lows and the full 252-day series matter for stop placement, which argues for caution, not for a trade.
+- Statistical support: PROBLEM for any BUY, fine for NO TRADE. Strategist reports alpha t -0.19, rank 20/24; that is no evidence of an edge. I cannot verify these model figures because the model output itself is not in my material (only the Strategist's citation).
+- Liquidity: MISSING in absolute terms (absolute volume not supplied, Researcher); relative volume 1.14x-1.48x the 50-day average gives no warning sign.
+- Conflicting news / supply-chain events: N/A BY DESIGN (blind run; Strategist reports the News Analyst found no events). The News Analyst handoff was not supplied to me directly.
+- Overfitting: OK. The only setup clearing 1.5 (3%/6%) looks fitted to pass the ratio; rejecting it avoids overfitting.
+- Unverified sources: Model figures (alpha t, beta 0.29 up / 0.57 down, exposure MISSING) are cited by the Strategist but not shown to me. They do not drive the decision.
+
+DECISION: APPROVE FOR SIMULATION ONLY (I agree with NO TRADE)
+
+Five points:
+1. The best-supported setup (stop under 93.13, target near the 106.5 range top) gives 0.77 reward-to-risk after costs, well under the 1.5 minimum; the arithmetic checks out.
+2. Reaching 1.5 with a structural stop would need a 12.25% target, above the 252-day high, which the data does not support.
+3. The only pair that clears 1.5 uses a 3% stop that is about 2 days of normal noise (1.39% a day) and a target behind three resistance layers; approving a BUY on that would be fitting the plan to the rule.
+4. There is no statistical edge to lean on (alpha t -0.19, as cited) and the chart is range-bound with neutral momentum (RSI 52.2) after a high-volume Day 0 reversal.
+5. Cost of this decision: if Stock A rebounds toward 102.48-106.6 within 20 days, NO TRADE underperforms holding. That is a real scoring risk, but it is general uncertainty, not a concrete failure in the plan, so it is not grounds to overturn it.
+
+What must change for approval: nothing; NO TRADE is approved as is. A future BUY would need an entry with a stop no wider than 15% placed outside normal noise and a supported target giving at least 1.5 after the 0.4% round-trip cost, e.g. an entry near the 93.13 support.
+
+Simulation only. Not investment advice. No real trade is placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A against the fixed limits and the Researcher's evidence; re-checked the reward-to-risk arithmetic; decision APPROVE FOR SIMULATION ONLY (agree with NO TRADE).
+SOURCE FACTS USED: Fixed Rules: max position 10%, max stop 15%, max hold 20 days, fees 0.1% and slippage 0.1% per side, BUY fills at Day 1 close, closes-only checks. Researcher: close 100.00; 20/50/200-day averages 97.78 / 100.95 / 100.55; RSI 52.2; volatility 22.0% (20-day) / 17.1% (120-day); 20-day high/low 102.48 / 93.13; 60-day high 106.46; 252-day high 106.61; Day 0 -2.4% on 1.48x volume; completeness 80/100. Strategist: plan NO TRADE size 0; candidate setups 7.5%/6.5% (0.77 after costs) and 3%/6% (1.65 after costs); alpha t -0.19 rank 20/24; beta 0.29 up / 0.57 down.
+ANALYSIS: Round-trip cost 0.4%. Structural setup (6.5 - 0.4) / (7.5 + 0.4) = 0.77 < 1.5; target needed for 1.5 = 12.25% (above 106.61). Tight setup 5.6 / 3.4 = 1.65 but 3% stop is about 2.2x daily noise of 22.0% / sqrt(252) = 1.39%. Largest simulated loss $0. No look-ahead; plan facts match Researcher numbers. All REQUIRED items OK.
+MISSING INFORMATION: Intraday highs/lows; full 252-day series; absolute volume; underlying model output (alpha t, beta, exposure) not shown to me; News Analyst handoff not shown directly. Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: NO TRADE underperforms holding if Stock A rises toward its range top within 20 days. Levels and stops use closes only. Volatility-to-daily conversion assumes 252 trading days. Model figures are unverified citations. Simulation only, not investment advice.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY - I agree with NO TRADE for Stock A. The best structural setup gives 0.77 reward-to-risk after the 0.4% round-trip cost (needs a 12.25% target, beyond the 106.61 yearly high); the only pair clearing 1.5 relies on a 3% stop inside normal daily noise. Size 0, largest loss $0, no look-ahead, facts match the Researcher. Main risk: missing a rebound toward 102.48-106.6 versus holding.

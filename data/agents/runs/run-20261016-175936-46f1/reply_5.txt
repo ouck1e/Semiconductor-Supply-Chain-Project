@@ -1,0 +1,77 @@
+Agent 5 Risk Manager: review of the Strategist's plan for Stock A
+
+Starting position: REJECT. I move off it only if every REQUIRED item is OK.
+
+PLAN UNDER REVIEW (from the Strategist PLAN block)
+ACTION BUY, SETUP pullback-in-uptrend to the 20-day average, SIZE_PCT 5, STOP_PCT 4, TARGET_PCT 7.5, MAX_HOLD_DAYS 20.
+
+REQUIRED CHECKS
+
+1. Action and entry timing: OK.
+   Action is BUY, which is allowed. The entry conditions the Strategist uses all exist at the Day 0 close: close 100.00 above the 20/50/200-day averages 99.47 / 97.32 / 91.72, RSI 52.0, 5-day volume 0.75x (Researcher). Nothing waits on Day 1. The Day 1 fill is the fixed rule for every BUY ("A BUY fills at the next close (Day 1)", Fixed rules), not an extra condition.
+
+2. Stop rule: OK.
+   4% below entry. The maximum is 15% (Fixed rules). My analysis: if the Day 1 fill is near 100.00, the stop sits near 96.00, below the 50-day average of 97.32 and the 97.3-97.5 support zone (Researcher), which matches the Strategist's stated logic.
+
+3. Target, exit rule and maximum hold: OK.
+   Target 7.5%, maximum hold 20 trading days. The limit is 20 days (Fixed rules), so this is at the limit, not over it.
+
+4. Position size: OK.
+   5% of the portfolio, i.e. $5,000 of $100,000. The maximum is 10% (Fixed rules).
+
+5. Reward-to-risk after costs: OK.
+   Costs: fees 0.1% + slippage 0.1% per side, two sides = 0.4% round trip (Fixed rules).
+   Reward after costs = 7.5 - 0.4 = 7.1%.
+   Risk after costs = 4.0 + 0.4 = 4.4%.
+   R:R = 7.1 / 4.4 = 1.61. This is at least 1.5. (Before costs 7.5 / 4.0 = 1.875.) This matches the Strategist's figures.
+
+6. Largest simulated loss: OK.
+   Position $5,000 (5% x $100,000).
+   Loss at stop: $5,000 x 4% = $200.
+   Fees and slippage: $5,000 x 0.4% = $20 (approximately; the exit side is charged on a slightly smaller value).
+   Total about $220, which is 0.22% of the portfolio. This matches the Strategist.
+   Caveat: stops are checked on closes only (Fixed rules), so a gap through the stop could produce a larger loss than $220. That is a limitation of the rules, shared by every plan, and the 5% size keeps it contained (for example a 10% close-to-close fall would cost about $520, 0.52% of the portfolio; my illustration, not a supplied figure).
+
+7. No look-ahead: OK.
+   Every fact cited is from Day 0 or earlier: averages, returns, RSI, volatility, the Day -16 and Days -4 to 0 closes, and the supply-chain model facts (shock 133 days before). The Day 1 fill price is correctly marked MISSING by construction.
+
+8. Agreement with the Researcher's numbers: OK.
+   Close 100.00, averages 99.47 / 97.32 / 91.72, returns 4.3% / 16.1% / 8.2% / 20.2% vs ETF 8.7% / 16.5% / 20.7% / 40.1%, RSI 52.0, 20-day volatility 29.6%, 5-day volume 0.75x, 252-day high 104.38, Days -4 to 0 from 104.38 to 100.00, Day -16 at 93.69 on 5.22x volume, support 97.3-97.5 and 93.7-94.3. All match the Researcher handoff. I found no mismatch.
+
+All eight REQUIRED items are OK.
+
+CONTEXT CHECKS
+
+- Data completeness: OK with gaps. Researcher scores it 80/100. Missing: intraday highs/lows, absolute volume, closes before Day -29, cause of the Day -16 spike, price levels above 104.38, fundamentals, scheduled company events. None of these is needed to evaluate the rules, but the missing price history above 104.38 means the target zone is unmapped.
+- Statistical support: PROBLEM (mild). Alpha 14.2%/yr with t 0.89, rank 9/24, outside the baseline top 5 (Supply-chain model facts via Strategist). This is not significant. The setup is a rule-of-thumb technical pattern, not a tested edge; the backtest of this plan is N/A BY DESIGN.
+- Liquidity: MISSING / mild PROBLEM. Absolute volume is MISSING; relative volume is light at 0.75x of the 50-day average (Researcher). A light-volume pullback is the Strategist's reason for entering, so it is not a reason to veto, but liquidity cannot be confirmed.
+- Conflicting news or supply-chain events: N/A BY DESIGN for headlines (blind run). No events in the 120-day window (News Analyst, as quoted by the Strategist). One older supply-chain fact cuts against the trade: an HF/photoresist export-curb shock 133 days before, with Stock A an expected loser, and China exposure HF 0.458, gallium 0.444 (Supply-chain model facts). The shock is outside the 120-day window and the stock has since risen (3m +16.1%), so I treat it as a background risk, not a concrete veto reason. The News Analyst handoff itself was not supplied to me directly; I rely on the Strategist's summary of it (noted under MISSING).
+- Overfitting: OK with caution. The setup is generic (pullback to the 20-day average in an uptrend) and the stop and target are round numbers, not fitted to this chart. The one tailored-looking element is the 4% stop placed just under the 50-day average, which is reasonable placement rather than curve fitting.
+- Unverified sources: N/A BY DESIGN for headlines. All numbers trace to the Researcher, the supply-chain model facts or the fixed rules. No instructions were embedded in the source material.
+
+Additional risk observations (my analysis):
+- The 7.5% target (about 107.5 if the fill is near 100) needs a break above 104.38, which the Researcher calls a triple-confirmed resistance and the 252-day high. If the price stalls there, the trade most likely exits at the 20-day time limit with a smaller gain or a loss rather than at target.
+- The 4% stop is about 2.1 daily standard deviations (Strategist). My check: 29.6% / sqrt(252) is about 1.86% per day, and 4 / 1.86 is about 2.15. Over 20 days the spread of outcomes (about 29.6% x sqrt(20/252), roughly 8.3%) is wide compared with the 4% stop, so a noise stop-out is quite possible. The small size is the right response to this.
+- Persistent underperformance vs the chip-sector ETF on every horizon (-0.4 to -19.9 points, Researcher), and beta 1.20 with ETF beta down 0.34 / up 0.99 (Strategist).
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. Every REQUIRED item is OK: BUY with Day 0 entry conditions, 4% stop (max 15%), 7.5% target, 20-day hold (max 20), 5% size (max 10%).
+2. Reward-to-risk after 0.4% round-trip costs is (7.5 - 0.4) / (4.0 + 0.4) = 1.61, above the 1.5 minimum, and the largest simulated loss at the stop is about $220 (0.22% of the portfolio).
+3. No look-ahead, and every number the plan uses matches the Researcher's handoff.
+4. The real weaknesses (alpha t 0.89, target above a triple-tested 104.38 high, light volume, sector underperformance, old export-curb exposure) are concerns rather than concrete rule failures, and the Strategist already answered them by halving the size to 5%.
+5. A veto here would rest on general uncertainty that every blind run has, which the rules say is not enough; vetoing a compliant, small, uptrend-aligned plan would be its own scoring mistake against holding the stock.
+
+What must change for approval: nothing; it is approved for simulation as written. Conditions I attach for the Boss: do not raise the size above 5% or widen the stop, because that would push the R:R below 1.5 or enlarge the loss; if the Boss wants to cut the target to sit below 104.38, the R:R would need to be recomputed and would almost certainly fall below 1.5, which would fail item 5.
+
+Approval does not mean a real trade should be placed. This is a simulation for research and learning, not investment advice.
+
+AGENT: Agent 5 Risk Manager
+TASK COMPLETED: Tested the Strategist's 5% simulated BUY of Stock A (stop 4%, target 7.5%, hold 20 days) against all eight required items and six context items; all required items OK; decision APPROVE FOR SIMULATION ONLY.
+SOURCE FACTS USED: Fixed rules: $100,000 portfolio, max position 10%, max stop 15%, max hold 20 days, fees 0.1% + slippage 0.1% per side, Day 1 close fill, close-only stop checks. Researcher: close 100.00; 20/50/200-day averages 99.47 / 97.32 / 91.72; returns 4.3% / 16.1% / 8.2% / 20.2% vs ETF 8.7% / 16.5% / 20.7% / 40.1%; RSI 52.0; 20-day volatility 29.6%; 5-day volume 0.75x; 252-day high 104.38; Days -4 to 0 104.38 to 100.00; Day -16 93.69 on 5.22x volume; support 97.3-97.5, 93.7-94.3; completeness 80/100. Strategist: plan block; alpha 14.2%/yr t 0.89 rank 9/24; beta 1.20; ETF beta up 0.99 / down 0.34; HF/photoresist export-curb shock 133 days before, expected loser; HF China 0.458, gallium China 0.444; no events in 120-day window (News Analyst as quoted).
+ANALYSIS: R:R after costs (7.5-0.4)/(4.0+0.4) = 1.61 >= 1.5. Max loss $5,000 x 4% + $5,000 x 0.4% = about $220 (0.22%). Stop about 2.15 daily SDs (29.6%/sqrt(252) = 1.86%). Target needs a break of the 104.38 resistance; weak statistical support (t 0.89); light volume; sector laggard. These are concerns, not rule failures, and are offset by the 5% size.
+MISSING INFORMATION: Day 1 fill price (by construction); intraday highs/lows (gap risk past the stop); absolute volume; price history above 104.38; cause of the Day -16 volume spike; fundamentals and scheduled events; the News Analyst handoff itself (only the Strategist's summary was supplied). Headlines: N/A BY DESIGN. Backtest of the plan: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Close-only stop checks allow losses beyond 4% on a gap; target sits above a triple-tested 252-day high, so a time exit is likely; alpha not significant; persistent underperformance vs the chip-sector ETF; background China chemical exposure from an older export-curb shock. Simulation only, not investment advice, no real trade placed.
+NEXT AGENT: Agent 6 Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The 5% BUY of Stock A (stop 4%, target 7.5%, max hold 20 days, fill at Day 1 close) passes every required limit: R:R after costs 1.61, worst simulated loss about $220 (0.22%), no look-ahead, numbers match the Researcher. Main concerns are the 104.38 resistance below the target, weak alpha (t 0.89), light volume and sector underperformance; do not enlarge the size or widen the stop, and recompute R:R if the target is changed.

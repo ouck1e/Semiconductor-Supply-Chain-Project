@@ -1,0 +1,83 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (decision at Day 0 close)
+
+Note on the material: I found no embedded instructions in the supplied handoffs or model facts. Everything below comes only from the supplied lines.
+
+SOURCE FACTS (quoted from the Researcher handoff unless marked otherwise)
+- Close 100.00; 20d avg 105.31 (-5.0%); 50d avg 105.71 (-5.4%); 200d avg 90.05 (+11.0%).
+- Returns 1m -9.5% / 3m +7.5% / 6m +39.2% / 12m +1.6%. ETF 1m -3.9% / 6m +23.3%.
+- RSI 34.6. Volatility 20d 18.4% / 120d 30.1%. Volume 5-day 1.12x; Day -1 1.38x; Day 0 1.28x.
+- Closing levels: 20d low 98.87 (Day -1); 60d low 94.99; 200d 90.05. Resistance 105.3-105.7, 106-107.2, 109.28, 110.47 (252d high, Day -21).
+- Price structure: lower highs at Day -21 110.47, Day -16 109.28, Day -7 107.22; Day 0 closed 100.00, up from 98.87.
+- News Analyst: headlines N/A BY DESIGN; phase 8 event list has no events in the 120 days before; sentiment UNCLEAR.
+- Model 1 (supplied model facts): alpha 39.8%/yr, t-stat 1.71, rank 3 of 25 by alpha t-stat (so inside the baseline's top 5); market beta 0.66; ETF beta 0.48 up weeks / 0.60 down weeks.
+- Model 4: the most recent shock (neon supply war) was 427 days before, with this stock an expected loser; nothing inside the 120-day window.
+- Exposure: rare gas from China 0.581, gallium from USA 0.556, helium from Qatar 0.232 (30% coverage), HF from China 0.171 (30% coverage).
+- Fixed rules: max size 10%, max stop 15%, max hold 20 days, fees 0.1% + slippage 0.1% per side, closes only.
+
+1. SETUP NAME
+Pullback to support inside a longer-term uptrend (buy-the-dip, first bounce off the 20-day closing low).
+
+2. WHAT MUST BE TRUE FOR ENTRY, AND WHETHER IT IS TRUE ON DAY 0
+a) Longer trend up: close above the 200d average. TRUE (100.00 vs 90.05, +11.0%), and 6m +39.2%.
+b) Real pullback, not a chase: close at least 4% below the 20d average and RSI under 40. TRUE (-5.0%; RSI 34.6).
+c) Support holds on a closing basis: Day 0 close above the 20d closing low of 98.87. TRUE (100.00 > 98.87). Day 0 closed up from Day -1.
+d) No catalogued negative supply-chain event in the last 120 days. TRUE (Model 4 / News Analyst: none). Note that this is a curated list, so this check is weak.
+e) Close still above the 60d low of 94.99. TRUE.
+All entry conditions are met at the Day 0 close.
+
+3. ENTRY RULE
+BUY at the Day 0 close decision; the simulated fill is the Day 1 close, whatever it is. Stop and target are set as percentages from that fill. Nothing in the entry depends on Day 1 or later.
+
+4. STOP RULE
+5.5% below entry, checked on daily closes. With a fill near 100.00 that is about 94.5, just under the 60d closing low of 94.99, so the stop sits below the next support instead of inside the noise between 98.87 and 94.99. (Analysis: 20d vol 18.4% a year is roughly 1.2% a day, 120d vol 30.1% roughly 1.9% a day, so 5.5% is about 3 to 5 typical daily moves.)
+
+5. TARGET / EXIT RULE
+Target 10% above entry, checked on daily closes. With a fill near 100.00 that is about 110.0, just under the 252d high of 110.47, so the target does not require a new high. Maximum hold 20 trading days; the position closes at that day's close if neither the stop nor the target has been hit.
+
+6. REWARD-TO-RISK
+- Round-trip costs: 2 x (0.1% fee + 0.1% slippage) = 0.4%.
+- Before costs: 10 / 5.5 = 1.82.
+- After costs (Risk Manager's method): (10 - 0.4) / (5.5 + 0.4) = 9.6 / 5.9 = 1.63. This clears the 1.5 minimum.
+- Why not a closer target: the nearer resistance levels (105.3-105.7, 106-107.2, 109.28) give at most about +9.3% from 100.00, which with a stop at or under 94.99 (about 5.5%) gives (9.3 - 0.4) / 5.9 = 1.51, too thin. A tighter stop just under 98.87 (about 1.5%) would sit inside normal daily noise. 10% / 5.5% is the pair the levels support that clears 1.5 after costs.
+
+7. POSITION SIZE
+5% of the simulated portfolio ($5,000), half the 10% maximum. Planned loss at the stop including costs: about 5.9% x $5,000 = about $295, or about 0.3% of the portfolio. Below-maximum size because the cause of the drop is unknown and the target must travel through several resistance levels.
+
+8. WHAT WOULD CANCEL THE SETUP
+- A Day 0 close at or below 98.87 (not the case; noted for the record).
+- Any supplied information before the decision showing a company-specific negative catalyst (earnings miss, guidance cut, new supply shock hitting its groups). None is supplied.
+- After entry: a close at or below the stop ends the trade. A large gap that puts the Day 1 fill far from 100.00 shifts all levels with it; the Risk Manager may want to note that the stop and target are percentages from the fill, not fixed prices.
+
+9. MISSING INPUTS
+- Intraday open/high/low: MISSING. Absolute volume: MISSING. Daily ETF series: MISSING.
+- Fundamentals and earnings calendar: MISSING (an earnings date inside the 20-day hold would be a gap risk not captured by the stop).
+- Cause of the -9.5% month and the volume rise: MISSING.
+- Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. REASONS TO SKIP IT
+- The short-term trend is down: three lower highs, below the 20d and 50d averages, and the 106 floor has broken. Catching a falling stock can fail.
+- The 98.87 low is one day old and untested; the bounce to 100.00 is a single day.
+- The volume increase on the drop (1.38x) is unexplained and could reflect informed selling.
+- 1m relative performance is weak (-5.6 points vs the ETF); 12m return is only +1.6%, so the six-month run partly reversed an earlier fall.
+- The target sits in a band of overhead resistance (105.3 to 110.47) where former buyers may sell.
+- The Model 1 alpha t-stat of 1.71 is below the usual 2.0 bar, and the baseline built on it underperformed holding the ETF in development years.
+- Supply exposure is concentrated (rare gas from China 0.581); the stock was an expected loser in the last neon shock. This is a standing risk, not a current signal.
+Against skipping: the longer uptrend is intact, there is nothing specific against it in the supplied material, volatility is compressed, and NO TRADE is scored against holding the stock, so sitting out a rebound is also an error.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Built one conditional long-only simulation plan (pullback to support in a longer uptrend) from the Researcher and News Analyst handoffs and the supply-chain model facts, with entry conditions checked at the Day 0 close, stop, target, hold, reward-to-risk both ways, size, cancel conditions, missing inputs and reasons to skip.
+SOURCE FACTS USED: Researcher: close 100.00, 20d 105.31, 50d 105.71, 200d 90.05, RSI 34.6, 1m -9.5%, 6m +39.2%, vol 20d 18.4% / 120d 30.1%, volume 1.38x Day -1 and 1.28x Day 0, closing levels 98.87 / 94.99 / 90.05 and 105.3-105.7 / 106-107.2 / 109.28 / 110.47. News Analyst: headlines N/A BY DESIGN, no phase 8 events in 120 days, sentiment UNCLEAR. Model facts: alpha t-stat 1.71 (rank 3 of 25), beta 0.66, neon shock 427 days before (expected loser), rare gas China 0.581 exposure. Fixed rules: 10% max size, 15% max stop, 20-day max hold, 0.1% + 0.1% per side.
+ANALYSIS: All five entry conditions are true at the Day 0 close (above 200d, more than 4% below 20d with RSI under 40, close above 98.87, no catalogued event, above 94.99). Stop 5.5% (about 94.5, under the 94.99 support), target 10% (about 110.0, under the 110.47 high), hold up to 20 days. Reward-to-risk 10 / 5.5 = 1.82 before costs; (10 - 0.4) / (5.5 + 0.4) = 1.63 after costs. Size 5%, planned loss at stop about 0.3% of the portfolio.
+MISSING INFORMATION: Intraday OHLC, absolute volume, daily ETF series, fundamentals and earnings calendar, cause of the recent drop and volume rise (all MISSING). Headlines and backtest are N/A BY DESIGN.
+RISKS OR LIMITATIONS: Short-term downtrend with lower highs; untested one-day-old support; unexplained high-volume selling; target needs to pass several resistance levels; levels from closes only; Day 1 fill price unknown so price levels move with it; possible unseen earnings date in the hold window; concentrated input exposure (rare gas from China). Not investment advice; simulation only; not a prediction of profit.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: Proposed a BUY at the Day 0 close: pullback-to-support in a longer uptrend, 5% size, stop 5.5%, target 10%, max hold 20 days, reward-to-risk 1.82 before and 1.63 after 0.4% round-trip costs. Entry conditions are all met on Day 0. Main risks are the short-term downtrend, unexplained volume on the drop and overhead resistance; please check the margin over 1.5 and whether the 5% size is right.
+
+PLAN
+ACTION: BUY
+SETUP: pullback to support in longer uptrend
+SIZE_PCT: 5
+STOP_PCT: 5.5
+TARGET_PCT: 10
+MAX_HOLD_DAYS: 20
+END PLAN

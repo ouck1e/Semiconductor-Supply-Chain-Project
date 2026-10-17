@@ -1,0 +1,70 @@
+Agent 3 - Strategist: conditional simulation plan for Stock A (decision at the Day 0 close)
+
+Source check: nothing in the supplied material asks me to do anything outside my role. No injected instructions found.
+
+1. Setup name
+No setup.
+
+I looked at two possible long setups and neither one is valid at the Day 0 close:
+- Trend continuation (pullback in an uptrend): not available. The Researcher reports a downtrend on every timeframe: close 100.00 below the 20d avg 104.44 (-4.3%), 50d avg 104.94 (-4.7%) and 200d avg 114.17 (-12.4%), with lower highs (Day -24 113.62, Day -12 109.83, Day -7 106.47).
+- Support bounce / mean reversion: not confirmed. Day 0 itself is the fresh 60-day closing low (100.00 = 20d and 60d low), so there is no evidence yet that support is holding. The Researcher states the 100.00 level is "untested (it is simply the latest close)". RSI 36.7 is weak but not below 30, so there is no oversold extreme either. Day -1 was a down day on 1.85x volume (selling pressure), and Day 0 was a lower close on 0.78x volume, which is not a reversal signal.
+
+2. What must be true for entry, and whether it is true on Day 0
+For a support-bounce entry I would need at least one of: a close back above the prior day after testing a level, a close back above the 20d average (104.44), or a heavy-volume up day off the low. None is true on Day 0: Day 0 closed lower (100.00 vs 101.73 on Day -1). NOT TRUE on Day 0. Because a BUY can only be decided on Day 0 information, there is no entry.
+
+3. Entry rule
+None (no setup). For reference only: a BUY would fill at the Day 1 close, whatever that price is.
+
+4. Stop rule
+None. Reference analysis: the only supplied support below 100.00 is the 252d low 94.49, which is 5.5% below the Day 0 close (my arithmetic: 94.49 / 100.00 - 1). A stop that sits below it would be about 5.8% to 6%.
+
+5. Target / exit rule
+None. Reference analysis of supplied resistance (Researcher handoff): 104.4-104.9 (+4.4% to +4.9%), 106.5 (+6.5%), 109.8 (+9.8%), 113.6-114.2 (+13.6% to +14.2%), all measured from the Day 0 close of 100.00.
+
+6. Reward-to-risk (why no pair works well)
+Round-trip costs = 2 x (0.1% fee + 0.1% slippage) = 0.4% (from the fixed strategy rules).
+- Target at first resistance 104.4 (+4.4%), stop 6.0%: before costs 4.4 / 6.0 = 0.73; after costs (4.4 - 0.4) / (6.0 + 0.4) = 4.0 / 6.4 = 0.63. Fails the 1.5 minimum.
+- Target 106.5 (+6.5%), stop 6.0%: before 6.5 / 6.0 = 1.08; after (6.5 - 0.4) / 6.4 = 6.1 / 6.4 = 0.95. Fails.
+- Target 109.8 (+9.8%), stop 5.8%: before 9.8 / 5.8 = 1.69; after (9.8 - 0.4) / (5.8 + 0.4) = 9.4 / 6.2 = 1.52. Clears by a hair, but only if the price breaks through the whole 104.4-106.5 resistance cluster within 20 days while in a downtrend, and only if the Day 1 fill is close to 100.00 (the levels shift with the unknown fill price; a fill even slightly above 100 pushes the ratio below 1.5).
+- A tighter stop (for example 3%) would sit between 100.00 and 94.49 with no supplied level behind it. With 20-day volatility of 24.1% a year (about 1.5% a day, my arithmetic: 24.1 / sqrt(252)), a 3% stop is within two normal days of movement, so it would likely be hit by noise.
+Conclusion: the only pair that clears 1.5 after costs needs a far target through stacked resistance in a downtrend, with no entry trigger. I do not consider that a pair the price levels support.
+
+7. Position size
+0% (no trade).
+
+8. What would cancel / change this view (for a future decision, not this one)
+A close back above the 20d average (104.44) or a reversal day off the 100.00 / 94.49 area on heavy volume would create a possible setup at a later decision date. A close below 94.49 would mean the 252-day support failed.
+
+9. Missing inputs
+- Intraday OHLC, absolute volume, full 252-day close series, ETF daily series, fundamentals: MISSING (Researcher).
+- Cause of the decline and of the Day -1 heavy-volume drop: MISSING (News Analyst).
+- Upcoming scheduled events (earnings, policy): MISSING.
+- Supply exposure rows for this stock before the decision year: MISSING (exposure model).
+- Headlines: N/A BY DESIGN (blind run). Backtests of this plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip
+- Downtrend on all supplied timeframes; Day 0 is a fresh 60-day low with no reversal sign.
+- Model 1: alpha -7.0% a year (t-stat -0.57, not statistically strong), rank 22 of 24 by alpha t-stat, so the phase 8 baseline rule (top 5 each month) would not hold it either.
+- Model 4: the stock was an "expected winner" of the neon-supply war 139 days before, yet it fell (6m -21.7%), so that tailwind is not showing up in price. I treat this as a fact, not a buy signal.
+- Unexplained heavy-volume drop on Day -1 (unknown event risk).
+- No price-level pair gives a comfortable reward-to-risk after costs.
+
+Arguments against skipping (weighed equally, per the rules): the stock has outperformed the falling chip-sector ETF in every period (Researcher: +1.4 to +10.3 pts), volatility is below its longer-term level, and if 100.00 holds a bounce to the 104.4-104.9 area is possible, which a NO TRADE would miss. But that bounce alone (+4.4%) does not pay for the risk down to 94.49, and relative strength in a falling sector is not absolute strength.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Assessed Stock A for a long-only simulated entry at the Day 0 close using the Researcher and News Analyst handoffs and the supply-chain model facts. Result: no setup; reward-to-risk arithmetic shown for the candidate stop/target pairs.
+SOURCE FACTS USED: Researcher: close 100.00; 20d/50d/200d avgs 104.44/104.94/114.17; returns 1m -7.5%, 6m -21.7%, 12m -19.2%; ETF 6m -32.0%; RSI 36.7; vol 20d 24.1%; Day -1 101.73 at 1.85x volume, Day 0 100.00 at 0.78x; 60d low 100.00; 252d low 94.49; resistance 104.4-104.9, 106.5, 109.8, 113.6-114.2. News Analyst: no headlines (blind), no phase 8 events in 120 days. Model 1: alpha -7.0%/yr, t -0.57, rank 22 of 24, beta 0.92. Model 4: neon-war shock 139 days before, stock an expected winner; HF/photoresist curbs 1108 days before, stock in neither group. Exposure: MISSING. Fixed rules: fees 0.1% + slippage 0.1% per side, max stop 15%, max hold 20 days, max size 10%.
+ANALYSIS: No trend-following entry (downtrend everywhere) and no confirmed support bounce (Day 0 is the low itself, lower close, RSI not oversold). Round-trip costs 0.4%. Target 104.4 / stop 6.0% gives 0.63 after costs; 106.5 / 6.0% gives 0.95; 109.8 / 5.8% gives 1.52, only by a hair and only through stacked resistance and an unknown Day 1 fill. Negative alpha rank (22 of 24) and an unexplained heavy-volume drop add to the case for no trade. Relative strength vs the ETF is the main counter-argument.
+MISSING INFORMATION: Intraday OHLC; absolute volume; full 252-day series; ETF daily series; fundamentals; cause of decline; upcoming events; exposure rows. Headlines and backtests: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Sitting out may miss a bounce from 100.00 (scored against buy-and-hold). Support and resistance levels come from closing prices only. Percent distances, daily volatility and ratios are my own arithmetic from supplied numbers. Simulation only, not investment advice; no plan here is safe or profitable.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: No setup for Stock A at the Day 0 close: downtrend on every timeframe, fresh 60-day low with no reversal, negative alpha (rank 22 of 24), and no stop/target pair the levels comfortably support (best realistic pairs 0.63-0.95 after costs; the only one that clears 1.5, 109.8 target / 5.8% stop at 1.52, needs a break through stacked resistance). Proposed action: NO TRADE, size 0.
+
+PLAN
+ACTION: NO TRADE
+SETUP: none
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END PLAN

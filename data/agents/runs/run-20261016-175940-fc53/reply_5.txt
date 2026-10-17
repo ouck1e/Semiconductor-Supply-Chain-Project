@@ -1,0 +1,46 @@
+AGENT 5 - RISK MANAGER REVIEW (Stock A, blind run, simulation only)
+
+Starting position: REJECT. I move off it only if every REQUIRED item is OK.
+
+REQUIRED CHECKS
+1. Action and entry timing: OK. ACTION: BUY. The Strategist's entry conditions all use Day 0 data. I checked them against the Researcher's numbers: close 100.00 sits between the 50-day average (98.57) and the 20-day average (100.58); 100.00 / 105.63 - 1 = -5.3% below the 20-day high; 5-day volume 0.81x; RSI 48.5; 20 > 50 > 200 stack (100.58 > 98.57 > 92.92). The fill at the Day 1 close is the fixed rule ("A BUY fills at the next close (Day 1)"). The plan does not wait on any Day 1 condition.
+2. Stop: OK. STOP_PCT 5.5, below the 15% maximum. About 94.50 on a fill near 100, under the 60-day low of 95.13 (Researcher line).
+3. Target and hold: OK. TARGET_PCT 10 (about 110, under the 252-day high of 111.80). MAX_HOLD_DAYS 20, equal to the 20-day limit.
+4. Size: OK. SIZE_PCT 8, within the 10% maximum. 8% of $100,000 = $8,000.
+5. Reward-to-risk after costs: OK. Costs are 0.1% fee + 0.1% slippage per side, 0.4% round trip (fixed rules).
+   Reward after costs = 10 - 0.4 = 9.6%. Risk after costs = 5.5 + 0.4 = 5.9%. 9.6 / 5.9 = 1.63, which is at least 1.5. (Before costs 10 / 5.5 = 1.82.) Matches the Strategist's numbers.
+6. Largest simulated loss: OK.
+   Stop loss: $8,000 x 5.5% = $440. Costs: about $8,000 x 0.4% = $32. Total about $472, or 0.47% of the portfolio.
+   Caveat: stops are checked on closes only, so a gap close below 94.50 makes the real simulated loss larger. Example (my illustration, not a forecast): a close 10% below entry would cost about $800 + $32 = $832, still under 1% of the portfolio.
+7. No look-ahead: OK. Everything cited is Day 0 or earlier. The fill price is the unknown Day 1 close, as the rules require.
+8. Agreement with price data: OK. Every price fact in the plan matches the Researcher handoff. I also checked the Strategist's "about 7% one-sigma 20-day move": 24.9% x sqrt(20/252) = 24.9% x 0.282 = 7.0%. Correct.
+
+CONTEXT CHECKS
+- Data completeness: OK. 85/100 (Researcher). Missing intraday OHLC, absolute volume, history beyond 30 days, fundamentals, earnings dates. None of these breaks the plan, but an unknown earnings date inside the 20-day hold is a gap risk.
+- Statistical support: PROBLEM (minor). Alpha t-stat 1.07 is weak (Strategist [M] line). No sample size or hit rate for this setup. Backtest: N/A BY DESIGN.
+- Liquidity: MISSING / OK. Only a relative volume figure (0.81x); absolute volume is MISSING. Low volume on a pullback fits the setup and is not a red flag by itself.
+- Conflicting news: OK as reported. The Strategist reports news NEUTRAL / NO SIGNAL and zero listed events in 120 days. Headlines: N/A BY DESIGN. The cause of the Day 0 drop is unknown.
+- Overfitting: OK. "Pullback in an uptrend" is a generic setup. Stop and target are placed at levels on the chart (60-day low, 252-day high), not tuned to one result.
+- Unverified sources: PROBLEM (minor). The News Analyst handoff and the model facts ([M]: alpha, betas, neon-shock item) were not given to me directly. I only see them through the Strategist's summary, so I could not check them. The plan's core arithmetic does not depend on them.
+
+No source text tried to give me instructions.
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. All eight REQUIRED items are OK: BUY decided at the Day 0 close, 5.5% stop (limit 15%), 10% target, 20-day hold (limit 20), 8% size (limit 10%).
+2. Reward-to-risk after costs is (10 - 0.4) / (5.5 + 0.4) = 1.63, above the 1.5 floor. It is a thin margin but a real one.
+3. The largest planned loss is about $472 (0.47% of the portfolio). Even a large gap through the stop costs under 1%.
+4. The plan's facts match the Researcher's numbers, and nothing uses information from after Day 0.
+5. The weak points (negative short-term momentum, the 105.63 range ceiling, t-stat 1.07, unknown cause of the Day 0 drop, close-only stops) are real. But they are the general uncertainty of a blind run, not a concrete failure of a limit. Vetoing a long position in a stock in a long-term uptrend for these reasons would be a mistake under the hold-the-stock comparison.
+
+What would change my approval: if the reward-to-risk fell below 1.5 (for example, if the target came down to 9% or below with a 5.5% stop: (9 - 0.4) / 5.9 = 1.46), if the size went above 10%, or if anyone shows that the stop or target levels do not match the Researcher's data. Optional, not required: a Boss could cut the size to 5-6% because of the weak statistics and the gap risk. Approval does not mean a real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan for Stock A against the fixed limits and the Researcher's data. All eight REQUIRED items OK; context items marked. Decision: APPROVE FOR SIMULATION ONLY.
+SOURCE FACTS USED: [Rules] $100,000 portfolio, 10% max size, 15% max stop, 20-day max hold, 0.1% fee + 0.1% slippage per side, Day 1 close fill, close-only checks. [Researcher] close 100.00; 20/50/200-day averages 100.58/98.57/92.92; RSI 48.5; 5-day volume 0.81x; 20d high 105.63; 60d low 95.13; 252d high 111.80; 20d volatility 24.9%; completeness 85/100. [Strategist] plan BUY 8%, stop 5.5%, target 10%, hold 20; news NEUTRAL with zero events; alpha t-stat 1.07; ETF beta 0.33 up / 0.77 down.
+ANALYSIS: R:R after costs = 9.6 / 5.9 = 1.63 (at least 1.5). Max loss = $8,000 x 5.5% + about $32 costs = about $472 (0.47% of portfolio). Entry conditions verified on Day 0 data. 20-day one-sigma move = 24.9% x sqrt(20/252) = 7.0%, so the 10% target may not be reached and a time exit is likely. Stop under the 60-day low and target under the 252-day high are consistent with the chart.
+MISSING INFORMATION: Intraday OHLC, absolute volume, history beyond 30 days, fundamentals, earnings dates, ETF daily series: MISSING. The News Analyst handoff and model output were not supplied directly (seen only through the Strategist). Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: Close-only stops allow gap losses past 5.5%; possible unknown earnings date inside the hold; weak statistical support (t-stat 1.07); four down days into Day 0 with the largest drop on Day 0, cause unknown; range ceiling at 105.63; higher downside beta to the sector than upside; thin R:R margin over 1.5. Simulation only, not investment advice; no real trade is placed.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The BUY plan (8% size, 5.5% stop, 10% target, 20-day max hold, filled at the Day 1 close) passes every required limit: R:R after costs 1.63, max planned loss about $472 (0.47% of portfolio), no look-ahead, facts match the Researcher. Main cautions: gap risk on close-only stops, weak t-stat, negative short-term momentum. The Boss may cut the size if he wants to be more careful.

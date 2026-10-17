@@ -1,0 +1,87 @@
+AGENT 5 - RISK MANAGER REVIEW (simulation only, not investment advice)
+
+Plan under review (Strategist PLAN block): BUY, pullback to support in longer uptrend, SIZE_PCT 5, STOP_PCT 5.5,
+TARGET_PCT 10, MAX_HOLD_DAYS 20. I started from REJECT and checked each required item.
+
+REQUIRED ITEMS
+
+1. Action and Day 0 entry - OK.
+   Action is BUY. The five entry conditions the Strategist lists are checked against Day 0 closes only, and each matches
+   the Researcher's numbers:
+   - above the 200d: close 100.00 vs 200d 90.05 (+11.0%) (Researcher SOURCE FACTS)
+   - more than 4% below the 20d with RSI under 40: 20d 105.31 (-5.0%), RSI 34.6 (Researcher SOURCE FACTS)
+   - close above 98.87: 100.00 > 98.87 (Researcher, 20d low)
+   - above 94.99: 100.00 > 94.99 (Researcher, 60d low)
+   - no catalogued event: News Analyst, "no phase 8 events in 120 days" (as relayed by the Strategist)
+   None waits on Day 1. The fill at the Day 1 close is set by the fixed rules, not by a condition.
+
+2. Stop rule - OK. 5.5% below entry, within the 15% maximum (fixed rules).
+
+3. Target / exit and maximum hold - OK. Target +10% above entry; maximum hold 20 trading days, equal to the 20-day limit.
+
+4. Position size - OK. 5% of $100,000 = $5,000, within the 10% maximum ($10,000).
+
+5. Reward-to-risk after fees and slippage - OK (thin margin).
+   Costs per side = 0.1% fee + 0.1% slippage = 0.2%; round trip = 0.4% (fixed rules).
+   Net reward = 10.0% - 0.4% = 9.6%. Net risk = 5.5% + 0.4% = 5.9%.
+   9.6 / 5.9 = 1.63 >= 1.5. Before costs: 10 / 5.5 = 1.82. This matches the Strategist's arithmetic.
+   Because stop and target are percents of the Day 1 fill, the ratio does not change if Day 1 fills away from 100.00.
+
+6. Largest simulated loss - OK (worked out here).
+   Position $5,000. Stop loss 5.5% x $5,000 = $275. Costs 0.4% x $5,000 = $20 (approx; exit side is on a slightly
+   smaller value). Planned largest loss about $295 = 0.295% of the portfolio, consistent with the Strategist's "about 0.3%".
+   Caveat: stops are checked on daily closes only, so a close that gaps through the stop would lose more. Illustration
+   (my own, not a forecast): a close 10% below entry would cost about $500 + $20 = $520, about 0.52% of the portfolio.
+   Even a 15% close-to-close gap stays under 1% of the portfolio at this size.
+
+7. No look-ahead - OK. Every fact used is dated Day 0 or earlier; the 427-day-old neon shock and the alpha t-stat are
+   backward-looking. Nothing refers to Day 1 or later prices.
+
+8. Agreement with supplied price data - OK. Close 100.00, 20d 105.31, 50d 105.71, 200d 90.05, RSI 34.6, 1m -9.5%,
+   6m +39.2%, volatility 20d 18.4% / 120d 30.1%, volumes 1.38x (Day -1) and 1.28x (Day 0),
+   levels 98.87 / 94.99 / 90.05 and 105.3-105.7 / 106-107.2 / 109.28 / 110.47 all match the Researcher handoff.
+   Stop at about 94.5 sits under the 94.99 closing support; target at about 110.0 sits under the 110.47 high.
+
+CONTEXT ITEMS
+
+- Data completeness: OK with gaps. Researcher score 85/100. Intraday OHLC, absolute volume, daily ETF series,
+  fundamentals and earnings calendar are MISSING. The earnings calendar matters most: an unseen report inside the
+  20-day window could gap through the stop. Not a concrete reason to veto at a 5% size.
+- Statistical support: PROBLEM (mild). Alpha t-stat 1.71 (rank 3 of 25) is below the usual ~2 threshold; sample size
+  not supplied (MISSING). These model facts came to me only through the Strategist, so I cannot check them against the
+  original News Analyst / model output.
+- Liquidity: MISSING. Only relative volume (1.12x 5-day, 1.38x / 1.28x last two days); absolute volume MISSING. The
+  0.1% slippage assumption cannot be verified, but nothing points to an illiquid name.
+- Conflicting news / supply-chain events: N/A BY DESIGN for headlines (blind run). News Analyst sentiment UNCLEAR.
+  The Day -1 drop on 1.38x volume is unexplained (PROBLEM, but no concrete evidence of a negative event). Rare-gas
+  China exposure 0.581 is a standing risk, not a current event.
+- Overfitting: OK, mild concern. The setup is a generic pullback-in-uptrend rule with round numbers; stop and target are
+  placed just inside visible closing levels, which is reasonable rather than curve-fitted. Backtest N/A BY DESIGN.
+- Unverified sources: PROBLEM (mild). Model facts (t-stat, beta 0.66, neon shock, rare-gas exposure) are relayed second
+  hand. No embedded instructions were found in the material.
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. Every REQUIRED item is OK: BUY with all entry conditions true at the Day 0 close, 5.5% stop (limit 15%), 10% target,
+   20-day hold (limit 20), 5% size (limit 10%).
+2. Reward-to-risk after costs is 9.6 / 5.9 = 1.63, above 1.5, though the margin is thin; with the same target, a stop
+   wider than 6.0% would fail (9.6 / 1.5 = 6.4% net risk, minus 0.4% costs = 6.0% raw stop).
+3. Planned largest loss is about $295 (0.3% of the portfolio); close-only stop checks add gap risk, but at 5% size even
+   a large gap stays well under 1% of the portfolio.
+4. The facts the plan relies on match the Researcher's numbers exactly, and nothing uses information after Day 0.
+5. The weak points (t-stat 1.71, unexplained high-volume drop, short-term lower highs, missing earnings calendar) are
+   real but general; none is a concrete breach that justifies a veto, and vetoing would itself be scored against holding.
+
+What must stay true for this approval: size no larger than 5%, stop no wider than 5.5%, target 10% and hold no longer
+than 20 days. Any change that pushes after-cost reward-to-risk below 1.5 or adds an entry condition that depends on
+Day 1 voids the approval. Approval does not mean a real trade should be placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan against the fixed limits and the Researcher's data; all eight required items OK; context items reviewed; decision APPROVE FOR SIMULATION ONLY.
+SOURCE FACTS USED: Fixed rules ($100,000, max size 10%, max stop 15%, max hold 20 days, 0.1% fee + 0.1% slippage per side, close-only checks, Day 1 fill). Researcher: close 100.00, 20d 105.31 (-5.0%), 50d 105.71, 200d 90.05 (+11.0%), RSI 34.6, 1m -9.5%, 6m +39.2%, volatility 18.4% / 30.1%, volume 1.12x / 1.38x / 1.28x, levels 98.87, 94.99, 90.05, 105.3-105.7, 106-107.2, 109.28, 110.47, completeness 85/100. Strategist PLAN: BUY, size 5, stop 5.5, target 10, hold 20; model facts as relayed (t-stat 1.71, beta 0.66, neon shock 427 days before, rare gas China 0.581); News Analyst as relayed (no events in 120 days, sentiment UNCLEAR).
+ANALYSIS: R:R after costs (10 - 0.4) / (5.5 + 0.4) = 9.6 / 5.9 = 1.63 (1.82 before costs). Largest planned loss 5% x $100,000 = $5,000; $275 stop + about $20 costs = about $295 (0.295% of portfolio); gap risk from close-only checks noted (e.g. a -10% close costs about $520). Entry conditions verified against Day 0 data; no look-ahead; plan facts match Researcher.
+MISSING INFORMATION: Intraday OHLC, absolute volume, daily ETF series, fundamentals, earnings calendar, sample size behind the t-stat, cause of the Day -1 high-volume drop (all MISSING). Headlines and backtest N/A BY DESIGN.
+RISKS OR LIMITATIONS: Thin margin over the 1.5 floor; t-stat 1.71 below conventional significance; short-term downtrend with lower highs; untested one-day-old support; possible unseen earnings date in the hold window; close-only stop can be gapped through; model facts relayed second hand and unverified. Simulation only, not investment advice, no promise of profit.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The BUY plan (5% size, 5.5% stop, 10% target, 20-day max hold) passes every required check: entry true at the Day 0 close, limits respected, after-cost R:R 1.63 (shown), largest planned loss about $295 (0.3% of portfolio), no look-ahead, facts match the Researcher. Watch the thin R:R margin, weak t-stat, unexplained volume and gap risk; do not widen the stop or raise the size.

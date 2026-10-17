@@ -1,0 +1,82 @@
+AGENT 1 - RESEARCHER REPORT: Stock A
+
+Simulated, educational exercise. Not investment advice. No trade is placed.
+
+The supplied material had no embedded instructions to flag.
+
+1. STOCK, SECTOR GROUP, TIMEFRAME
+- Source: "Stock: Stock A (sector group: Foundries & memory)". Daily closes rebased so the Day 0 close = 100. At least 252 closes up to Day 0 and nothing after it (Source line). The last 30 closes (Day -29 to Day 0) are listed one by one.
+- I make no attempt to identify the stock or the dates.
+
+2. STRUCTURE
+Source facts:
+- Close 100.00. 20-day avg 105.31 (close -5.0% below it). 50-day avg 105.71 (-5.4%). 200-day avg 90.05 (+11.0% above it).
+- 252-day closing high / low: 110.47 / 69.69. Close vs 252-day high: -9.5%.
+- Last 30 closes: peak 110.47 on Day -21. Later bounce highs 109.28 (Day -16) and 107.22 (Day -7). Pullback lows 106.41 (Day -18) and 106.00 (Day -12), then a drop to 98.87 (Day -1). Day 0 closed at 100.00.
+Analysis:
+- Long term: the close is above the 200-day average (+11.0%), and the 50-day average (105.71) sits well above the 200-day (90.05). The longer trend is still up.
+- Short term: the stock is in a downtrend. Since the Day -21 peak it has made lower highs (110.47, then 109.28, then 107.22). The lower low on Day -1 (98.87) broke below the earlier 106.00-106.41 floor. The close is under both the 20-day and 50-day averages, and the 20-day (105.31) has slipped just below the 50-day (105.71).
+- Overall label: a short-term downtrend (pullback) inside a longer-term uptrend. Whether the longer uptrend holds is UNCLEAR from this data.
+
+3. MOMENTUM
+Source facts: returns 1m -9.5%, 3m +7.5%, 6m +39.2%, 12m +1.6%. RSI (14-day) 34.6.
+Analysis:
+- The 1m return matches Day -21 (110.47) to Day 0 (100.00): 100 / 110.47 - 1 = -9.5%. So the 1-month window starts exactly at the 252-day high.
+- Strong 6m gain (+39.2%) and moderate 3m gain (+7.5%), but the 12m return is only +1.6%. My arithmetic: the close about 12 months ago was roughly 100 / 1.016 = 98.4, and about 6 months ago roughly 100 / 1.392 = 71.8. That fits the 252-day low of 69.69. In other words, the stock fell to a low in the past year, rallied hard, and is now giving back part of that rally.
+- RSI 34.6 is weak, below 50 and close to the common 30 "oversold" line, but not under it.
+
+4. VOLUME
+Source facts: last 5 days vs 50-day average = 1.12x. Daily: Day -4 0.81x, Day -3 0.93x, Day -2 1.20x, Day -1 1.38x, Day 0 1.28x. Days -15 to -13 were very light (0.41x, 0.28x, 0.28x). Most of Days -20 to -5 were below 1.0x.
+Analysis:
+- Volume was below average through most of the drift lower from the peak. It rose above average over the last three days: during the sharpest drop (Day -2 to 99.47, Day -1 to 98.87) and on the Day 0 uptick (+1.1%, 98.87 to 100.00).
+- Heavier volume on the breakdown is a sign of real selling pressure. Heavy volume on the Day 0 bounce could also mean buyers stepped in. One day is not enough to tell which.
+
+5. VOLATILITY
+Source facts: annualised volatility 20-day 18.4%, 120-day 30.1%.
+Analysis: short-term volatility is about 0.61x the 120-day level (18.4 / 30.1). The recent decline was steady rather than violent. The 120-day window covers the larger swings of the rally phase.
+
+6. SUPPORT AND RESISTANCE (closing basis only)
+Support:
+- 98.87: 20-day closing low (Day -1). This is the nearest level and was tested one day ago.
+- 94.99: 60-day closing low.
+- 90.05: 200-day average.
+- 69.69: 252-day low (far away).
+Resistance:
+- 105.31 / 105.71: the 20-day and 50-day averages, about 5% above the close.
+- 106.00-107.22: the former pullback floor (Days -12 and -18) and the Day -7 lower high.
+- 109.28: 20-day closing high.
+- 110.47: 60-day and 252-day closing high.
+Note: these levels come from closes only. Intraday highs and lows were not supplied.
+
+7. COMPARISON WITH THE CHIP-SECTOR ETF
+Source facts: ETF returns 1m -3.9%, 3m -0.9%, 6m +23.3%, 12m +2.7%.
+Analysis (Stock A minus ETF, in percentage points):
+- 1m: -9.5 vs -3.9, so -5.6 pts. The stock fell harder than the sector.
+- 3m: +7.5 vs -0.9, so +8.4 pts. It outperformed.
+- 6m: +39.2 vs +23.3, so +15.9 pts. It outperformed strongly.
+- 12m: +1.6 vs +2.7, so -1.1 pts. Roughly in line.
+The sector itself is also weak over 1 month, so part of the drop is sector-wide. The stock has given back more than the sector recently, after leading it over 3 to 6 months. It behaves like a higher-beta name within the group.
+
+8. THREE STRONGEST FACTS
+1) Longer trend intact: close +11.0% above the 200-day average (90.05), and the 6m return is +39.2% vs the ETF's +23.3%.
+2) Clear short-term downtrend: lower highs since Day -21 (110.47, 109.28, 107.22), a break below the 106.00 floor, and the close under the 20-day and 50-day averages (-5.0%, -5.4%). 1m return -9.5% vs ETF -3.9%.
+3) Volume rose on the latest leg: the last three days were 1.20x, 1.38x and 1.28x after weeks mostly below 1.0x. RSI is 34.6.
+
+THREE BIGGEST UNCERTAINTIES
+1) Whether 98.87 holds. It was set only one day ago, and Day 0's +1.1% bounce is a single observation.
+2) What drove the above-average volume and the drop. No news or headlines (N/A BY DESIGN, blind run) and no fundamentals were supplied.
+3) Sector direction. The ETF is down 3.9% over 1 month and only its period returns are given, with no daily series, so a sector bottom or further sector weakness cannot be judged.
+
+9. DATA COMPLETENESS SCORE: 85 / 100
+Price, averages, returns, RSI, volatility, volume ratios, ranges, ETF period returns and 30 daily closes are all present and consistent with each other (the 1m return checks out against the Day -21 close). Points off for: no intraday high/low/open data, no absolute volume, only period returns for the ETF (no daily series), and no fundamentals or earnings dates. Headlines are N/A BY DESIGN and are not counted against the score.
+
+---
+
+AGENT: Agent 1 - Researcher
+TASK COMPLETED: Described Stock A's market data: structure, momentum, volume, volatility, support/resistance, sector comparison, key facts and uncertainties, and a data completeness score. No trade recommendation made.
+SOURCE FACTS USED: Close 100.00; 20d avg 105.31 (-5.0%); 50d avg 105.71 (-5.4%); 200d avg 90.05 (+11.0%); returns 1m -9.5% / 3m +7.5% / 6m +39.2% / 12m +1.6%; ETF 1m -3.9% / 3m -0.9% / 6m +23.3% / 12m +2.7%; RSI 34.6; volatility 20d 18.4% / 120d 30.1%; 5-day volume 1.12x; 20d high/low 109.28 / 98.87; 60d high/low 110.47 / 94.99; 252d high/low 110.47 / 69.69; close vs 252d high -9.5%; last-30-closes table (peak Day -21 110.47; lower highs Day -16 109.28 and Day -7 107.22; low Day -1 98.87 on 1.38x volume; Day 0 100.00 on 1.28x).
+ANALYSIS: Short-term downtrend (lower highs, broken 106 floor, below 20d/50d) inside a longer uptrend (above the 200d, +39.2% over 6m). Momentum is weak short term (RSI 34.6, 1m -9.5%). Volume picked up on the latest drop and the bounce. Volatility is compressed (20d/120d about 0.61). Nearest support 98.87, then 94.99 and 90.05. Resistance 105.3-105.7, then 106-107.2, 109.28 and 110.47. Relative to the ETF: -5.6 pts over 1m, +8.4 pts over 3m, +15.9 pts over 6m, -1.1 pts over 12m.
+MISSING INFORMATION: Intraday open/high/low (MISSING); absolute volume (MISSING); daily ETF series (MISSING); fundamentals and earnings calendar (MISSING); headlines (N/A BY DESIGN, blind run); backtest (N/A BY DESIGN, manual run).
+RISKS OR LIMITATIONS: Support/resistance comes from closes only. The 98.87 low is one day old and untested. The cause of the volume rise is unknown. The prices are rebased, so absolute levels mean nothing outside this dataset. Indicators look backward and say nothing certain about what comes next.
+NEXT AGENT: Agent 2 - News Analyst
+HANDOFF SUMMARY: Stock A is pulling back in a short-term downtrend (-9.5% from its 252-day high at Day -21, below its 20d/50d averages, RSI 34.6) but stays +11% above its 200-day after a +39.2% 6-month run. Volume rose on the last three days, 98.87 is the nearest closing support, and data completeness is 85/100. Headlines are N/A BY DESIGN.

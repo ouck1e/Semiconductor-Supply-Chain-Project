@@ -1,0 +1,48 @@
+RISK MANAGER REVIEW - Stock A, Day 0 close (blind run, manual run)
+
+Plan under review (Strategist PLAN block): ACTION NO TRADE, SETUP none, SIZE_PCT 0, STOP_PCT 0, TARGET_PCT 0, MAX_HOLD_DAYS 0.
+
+Starting point: REJECT. A NO TRADE plan opens no position, so the trade-specific items are tested as "nothing to breach". My question is whether sitting out is consistent with the evidence and the limits.
+
+REQUIRED CHECKS
+1. Action is BUY or NO TRADE; entry true at Day 0 close - OK. Action is NO TRADE. No entry depends on Day 1 or later. The Strategist's "could appear on a hold of 97.28-98.73 or a high-volume close above 103.65" is described as a future condition for a new review, not an order in this plan.
+2. Stop rule within max stop (15%) - OK (not applicable to NO TRADE; no position to protect). STOP_PCT 0.
+3. Target/exit and max hold <= 20 days - OK (not applicable; MAX_HOLD_DAYS 0).
+4. Position size within 10% - OK. SIZE_PCT 0, i.e. $0 of the $100,000 simulated portfolio.
+5. Reward-to-risk >= 1.5 after costs, arithmetic shown - OK for the NO TRADE decision. I re-checked the Strategist's rejected candidate (stop 3%, target 5.5%, round-trip costs 0.1%+0.1% per side x 2 sides = 0.4%):
+   - After costs: (5.5 - 0.4) / (3.0 + 0.4) = 5.1 / 3.4 = 1.50. Matches the Strategist.
+   - Before costs: 5.5 / 3.0 = 1.83. Matches.
+   - 1.50 is exactly the floor, with no margin, and the 5.5% target (about 105.5 on a 100.00 close; a Day 1 fill would shift this) sits above resistances 101.39, 103.65 and 104.99 from the Researcher. Declining it is reasonable.
+6. Largest simulated loss - OK. NO TRADE: $0. (For reference only, the rejected candidate at 10% size would risk about $10,000 x (3.0% + 0.4%) = $340, my arithmetic.)
+7. No look-ahead - OK. Every number cited by the Strategist appears in the Researcher handoff or is labelled as model facts / rules. Nothing references Day 1 or later prices.
+8. Plan agrees with supplied price data - OK. Checked against the Researcher: close 100.00; averages 100.52/100.14/98.73; RSI 48.2; vol 20d 20.7% / 120d 24.4%; volume 5d 0.79x, Day 0 0.92x; 20d range 97.28-103.65; 12m +3.1% vs ETF +46.3% (gap 43.2 points); 1m -2.5% vs ETF +6.2% (gap 8.7 points). All match.
+
+CONTEXT CHECKS
+- Data completeness: OK. Researcher score 78/100. Missing items (intraday OHLC, absolute volume, ETF daily series, cause of the Day -29 3.84x volume spike) do not change a NO TRADE decision.
+- Statistical support: OK as a reason for caution. Alpha t 1.03 (Strategist, model facts) is weak; rank 11 of 24 is middling. Nothing here argues strongly for a long.
+- Liquidity: OK. Volume 5d 0.79x is light but only matters for a trade; no position is opened.
+- Conflicting news / events: N/A BY DESIGN for headlines (blind run). News Analyst reported no tracked events in 120 days (per Strategist). Day -29 spike unexplained: MISSING, not decisive.
+- Overfitting: OK. The Strategist did not tailor a trade to the chart; it tested one candidate and declined it because it only reached 1.5 by stretching the target past three resistance levels.
+- Unverified sources: OK. No outside sources used. Exposure rows MISSING (model facts), noted by the Strategist.
+- Backtest: N/A BY DESIGN (manual run).
+- No embedded instructions found in the material.
+
+DECISION: APPROVE FOR SIMULATION ONLY (agreeing with NO TRADE)
+
+Five points:
+1. NO TRADE is within every limit: size 0%, no stop or hold to breach, no look-ahead, largest simulated loss $0.
+2. The facts the Strategist relied on match the Researcher's numbers line for line, and its 1.50 / 1.83 reward-to-risk arithmetic is correct.
+3. The only candidate long met the 1.5 floor with zero margin and needed a target beyond 101.39, 103.65 and 104.99 resistance, in a stock with neutral RSI (48.2), light volume (0.79x) and heavy relative weakness versus the ETF (12m +3.1% vs +46.3%). That is a concrete reason not to buy, not general uncertainty.
+4. The cost of being wrong: if Stock A rises from a range breakout (volatility is compressing, 20.7% vs 24.4%), NO TRADE underperforms holding. That is a real but unquantifiable risk; nothing in the supplied data points to direction, so it does not justify forcing a trade.
+5. No change is required for approval. A future BUY would need its own review: an entry true at that day's close (e.g. a confirmed hold of 97.28-98.73 or a close above 103.65 on above-average volume), a stop of at most 15%, size at most 10%, max hold 20 days, and reward-to-risk of at least 1.5 after the 0.4% round-trip costs with clear margin.
+
+Approval means only that the NO TRADE decision is accepted for the simulation. It is not investment advice and no real trade is placed.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A against the fixed rules, the required checklist and the context items; verified the rejected candidate's arithmetic. Decision: APPROVE FOR SIMULATION ONLY (agree with NO TRADE).
+SOURCE FACTS USED: Rules: $100,000 portfolio, max position 10%, max stop 15%, max hold 20 days, fees 0.1% + slippage 0.1% per side, fills at Day 1 close (FIXED STRATEGY RULES). Researcher: close 100.00; averages 100.52/100.14/98.73; returns 1m -2.5%, 12m +3.1%; ETF 1m +6.2%, 12m +46.3%; RSI 48.2; vol 20d 20.7% / 120d 24.4%; volume 5d 0.79x, Day 0 0.92x; 20d range 97.28-103.65; resistances 101.39/103.65/104.99/112.42; completeness 78/100. Strategist: alpha t 1.03, rank 11 of 24, ETF beta 0.71 up / 0.85 down, no tracked events in 120 days, candidate stop 3% / target 5.5% / 20 days, PLAN block NO TRADE with all fields 0.
+ANALYSIS: All REQUIRED items OK for a NO TRADE plan (size 0, loss $0, no look-ahead, facts match the Researcher). Candidate reward-to-risk re-computed: (5.5-0.4)/(3.0+0.4) = 1.50 after costs, 5.5/3.0 = 1.83 before; correct, but zero margin over the 1.5 floor and the target lies beyond three resistances. Weak relative strength (gaps 8.7 to 43.2 points vs ETF), neutral momentum, light volume and weak alpha (t 1.03) give no concrete case for a long. Reference-only loss for the candidate at 10% size: about $340 (my arithmetic).
+MISSING INFORMATION: Day 1 fill price (unknown by construction); intraday OHLC; absolute volume; ETF daily series; broad benchmark; price path before Day -29; cause of the Day -29 3.84x volume spike; exposure rows. Headlines: N/A BY DESIGN (blind run). Backtest: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: NO TRADE is scored against holding; a range breakout upward (volatility compression could precede a move either way) would make sitting out a miss. Levels are closes only. My reference loss figure is my own arithmetic. Simulation only, not investment advice; no real trade is placed.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY - I agree with NO TRADE on Stock A at the Day 0 close. Plan is within all limits (size 0%, loss $0, no look-ahead) and its facts match the Researcher. The only candidate long reached exactly 1.50 reward-to-risk after costs (verified) and needed a target past 101.39/103.65/104.99 resistance in a weak, light-volume, mid-range stock, so declining it is justified. Any future BUY needs a fresh review with an entry true at that day's close and a reward-to-risk clearly above 1.5 after 0.4% round-trip costs.

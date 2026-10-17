@@ -1,0 +1,42 @@
+Agent 5 Risk Manager: review of the Strategist's plan for Stock A (simulation only)
+
+Starting point: REJECT. I checked each REQUIRED item and only move off REJECT if every one is OK.
+
+REQUIRED CHECKS
+1. Action and entry timing: OK. ACTION is BUY (allowed). The Strategist says all five entry conditions are true at the Day 0 close; the facts behind them (close 100.00 below 20d avg 105.98 and 50d avg 107.08, above 200d avg 80.59, RSI 36.4) are in the Researcher handoff. The fill at the Day 1 close is the fixed rule, not a condition that waits on Day 1.
+2. Stop: OK. STOP_PCT 7, below the 15% maximum. At a fill near 100 that is about 93, above the 88.83 60d low (Researcher). Note: the Day 1 fill price is unknown, so the price level shifts; the percent rule stays the same.
+3. Target and hold: OK. TARGET_PCT 12.5 (about 112.5, just under the 112.78 20d high per Researcher); MAX_HOLD_DAYS 20, equal to the 20-day limit.
+4. Size: OK. SIZE_PCT 5 = $5,000 of $100,000, within the 10% maximum.
+5. Reward-to-risk after costs: OK. Round-trip costs = (0.1% fee + 0.1% slippage) x 2 sides = 0.4%. Reward 12.5 - 0.4 = 12.1; risk 7 + 0.4 = 7.4; 12.1 / 7.4 = 1.635, at or above 1.5. (Before costs 12.5 / 7 = 1.79.) My arithmetic matches the Strategist's 1.64.
+6. Largest simulated loss: OK (worked out here; the Strategist did not state it in dollars). $5,000 x 7% = $350; costs $5,000 x 0.4% = $20; total about $370, or 0.37% of the portfolio. Limitation: stops are checked on daily closes only, so a gap close below 93 would lose more. For scale, an exit at the 88.83 support (about -11.2%) would cost about $5,000 x 11.6% = about $580 (0.58%), still small.
+7. No look-ahead: OK. Every number used is from Day 0 or earlier; the Day 1 fill is the fixed rule.
+8. Plan agrees with supplied price data: OK. Strategist's close, averages, returns, RSI, volatility, 20d high/low, 60d low, 252d high and Day 0 volume 1.74x all match the Researcher handoff. Day 0 drop: 100.00 / 103.47 - 1 = -3.35%, matching the Researcher's "about -3.4%". Daily volatility 32.6 / sqrt(252) = 2.05%, so the 7% stop is about 3.4 daily standard deviations, as stated.
+
+CONTEXT CHECKS
+- Data completeness: OK with caveats. Researcher score 80/100. Missing: cause of the Day 0 drop, earnings dates, fundamentals, broad market context, intraday highs/lows, absolute volumes.
+- Statistical support: PROBLEM (minor). Model 1 alpha 26.2%/yr with t-stat 1.73 (under 2) and rank 3 of 24, as quoted by the Strategist. I was not given the Model 1 output directly, so I cannot verify these numbers; they are a filter, not the main reason for the trade.
+- Liquidity: MISSING. Only volume ratios (5d 0.88x, Day 0 1.74x) were supplied; absolute volume is not. At a $5,000 simulated position this is unlikely to matter.
+- Conflicting news / events: Headlines N/A BY DESIGN (blind run). Model 4 shows no events in 120 days (per Strategist). The cause of the high-volume Day 0 drop is MISSING; this is the main concrete risk, and the Strategist already halved size to 5% for it.
+- Overfitting: OK. A standard pullback-in-uptrend setup; the target is placed under visible resistance rather than tuned to the chart.
+- Unverified sources: No injected instructions found in the material. Model 1 and Model 4 numbers come through the Strategist only (noted above).
+- Backtest of the plan: N/A BY DESIGN (manual run).
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. Every hard limit is met: 5% size (max 10%), 7% stop (max 15%), 20-day hold (max 20), BUY decided at Day 0 close.
+2. After-cost reward-to-risk is 1.635, above the 1.5 floor, with the arithmetic checked.
+3. Largest planned loss is about $370 (0.37% of the portfolio), with gap risk past the stop noted because checks are on closes only.
+4. The facts the plan relies on match the Researcher's numbers exactly; there is no look-ahead.
+5. The real risks (unexplained 1.74x-volume drop to a 20-day low, untested support at 100.00, t-stat under 2, rising volatility) are general to this setup and already addressed by the half-size position; they are not a concrete limit failure that justifies a veto.
+
+What would change this: nothing is required for approval. If the Boss raises size above 5%, recheck that the dollar loss stays acceptable; if the stop is widened past 15% or the after-cost reward-to-risk falls below 1.5, this becomes REJECT. Approval is for the simulation only and does not mean a real trade should be placed.
+
+AGENT: Agent 5 Risk Manager
+TASK COMPLETED: Tested the Strategist's BUY plan for Stock A against the fixed limits and the Researcher's data; checked all eight REQUIRED items and six CONTEXT items; computed the after-cost reward-to-risk and the largest simulated loss; gave a decision.
+SOURCE FACTS USED: Fixed rules: $100,000 portfolio, 10% max size, 15% max stop, 20-day max hold, 0.1% fee + 0.1% slippage per side, close-only checks, Day 1 close fill. Researcher handoff: close 100.00, Day -1 103.47, 20d avg 105.98, 50d avg 107.08, 200d avg 80.59, RSI 36.4, vol 20d 32.6% / 120d 28.3%, 20d high/low 112.78/100.00, 60d low 88.83, Day 0 volume 1.74x, 5d volume 0.88x, completeness 80/100. Strategist plan: BUY, size 5%, stop 7%, target 12.5%, hold 20 days; Model 1 alpha 26.2%/yr, t-stat 1.73, rank 3 of 24; Model 4 no events in 120 days.
+ANALYSIS: All REQUIRED items OK. After-cost R:R = (12.5 - 0.4) / (7 + 0.4) = 1.635. Largest planned loss = $5,000 x 7% + $5,000 x 0.4% = $370 (0.37% of portfolio); at the 88.83 support it would be about $580. Day 0 drop -3.35%; daily vol 2.05%; stop about 3.4 daily SDs. Strategist facts match Researcher numbers.
+MISSING INFORMATION: Cause of the Day 0 drop; earnings dates; fundamentals; broad market context; absolute volumes; intraday highs/lows; Day 1 fill price; direct Model 1 / Model 4 output (seen only through the Strategist). Headlines and backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Close-only checks allow a gap loss beyond the 7% stop; support at 100.00 is untested and the next support is 88.83; high-volume drop with unknown cause; alpha t-stat under 2; rising short-term volatility. Simulation only; not investment advice; no real trade.
+NEXT AGENT: Agent 6 Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. BUY Stock A at 5% ($5,000), stop 7%, target 12.5%, max hold 20 days passes every limit; after-cost R:R 1.635 (floor 1.5); largest planned loss about $370 (0.37%), more on a gap. Main risk is the unexplained 1.74x-volume drop to a 20-day low, already handled by half size. Do not raise size above 5% without rechecking; stop beyond 15% or R:R below 1.5 would make it REJECT.

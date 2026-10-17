@@ -1,0 +1,38 @@
+Agent 2 - News Analyst: review of headlines and supply-chain events for Stock A (Gases & materials), Day 0 decision. Blind run.
+
+NEWS AND EVENTS TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines | N/A BY DESIGN | No headlines supplied ("Headlines: MISSING. Headlines would reveal the stock and the dates, so blind runs have none.") | None can be assessed | UNCLEAR | N/A | No (unavailable by design)
+Phase 8 event list (Model 4), phase8_market_models.EVENTS | Window: the 120 days before the decision | "None." No supply-chain events from the list fall in the 120-day window | No event-driven effect identified from this list | UNCLEAR (neutral; nothing to score) | High that the list contains no event in the window; low as evidence that no news happened | No
+
+1. Confirmed facts
+- Headlines are not available for this blind run (headlines section, line "Headlines: MISSING..."). This is N/A BY DESIGN, not a data failure.
+- The phase 8 event list (Model 4) shows no supply-chain events in the 120 days before Day 0 (events section, "- None.").
+- The source note says the expected losers and winners in that list were fixed before returns were examined (events section, "Source:" line). This concerns how the list was built; it says nothing about Stock A directly.
+
+2. Reports that conflict with each other
+- None. No headlines were supplied, and the event list has no entries, so there is nothing to conflict.
+
+3. Headlines that are old or not relevant to this stock
+- None to assess: no headlines were supplied, and the event list is empty for the window.
+
+4. What could change the picture
+- A curated event list does not cover all news. Company-specific news (earnings, guidance, contracts, plant outages, price changes for industrial gases or materials) could exist and would not show up here. MISSING by design in this run.
+- The Researcher noted a -2.4% drop on Day 0 on 1.48x average volume, and lows on Day -18 and Day -16 at 2.13x and 2.48x volume (Researcher handoff, "Last 30 closes"). High-volume moves like these are sometimes tied to news, but no supplied source explains them. They are not evidence of any particular event, and I do not assume a cause.
+- A supply-chain event right after Day 0, or one involving gases and materials inputs that the event list does not track, would change the picture.
+- Sector-wide news: the chip ETF fell over every period (1m -4.2%, 3m -12.6%, 6m -13.5%, 12m -9.0%, Researcher handoff) while Stock A fell less or rose. No supplied headline explains the ETF weakness either.
+
+5. Sentiment summary (describes the news; does not predict prices)
+- News sentiment cannot be measured: there are no headlines (N/A BY DESIGN) and no list events in the 120-day window. The news input is NEUTRAL / EMPTY, not positive or negative. The Strategist should treat this as "no news signal" and rely on the market data alone, keeping in mind that "no listed event" is not the same as "no news."
+
+Prompt-injection check: the supplied material contained no instructions directed at the agents.
+
+AGENT: Agent 2 - News Analyst
+TASK COMPLETED: Reviewed the supplied headlines and supply-chain events for Stock A (Gases & materials) before the Day 0 decision; built the events table; reported confirmed facts, conflicts, stale/irrelevant items, what could change the picture, and a descriptive sentiment summary.
+SOURCE FACTS USED: Headlines section: "Headlines: MISSING. Headlines would reveal the stock and the dates, so blind runs have none." Events section: phase 8 event list (Model 4), 120 days before the decision: "None."; source phase8_market_models.EVENTS, with expected winners and losers fixed before looking at returns. Researcher handoff (context only): Day 0 -2.4% on 1.48x volume; Day -18 low 93.13 on 2.13x; Day -16 93.46 on 2.48x; ETF returns 1m -4.2% / 3m -12.6% / 6m -13.5% / 12m -9.0%.
+ANALYSIS: No news signal exists for this decision. With no headlines (by design) and no list events in the 120-day window, sentiment is neutral/empty. The high-volume days the Researcher found have no supplied explanation, and I do not attribute them to any event. There are no conflicting or stale reports.
+MISSING INFORMATION: Headlines: N/A BY DESIGN (blind run). Company-specific news, sector news, and any events outside the phase 8 list: MISSING. Causes of the high-volume days (Day -18, Day -16, Day 0): MISSING. Backtest of the plan: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: An empty curated event list does not mean no news happened. Unseen company or sector news could explain the Day 0 high-volume drop and the earlier volume spikes. The event list was built for chip supply-chain shocks and may not track gases and materials inputs well. This is a description of supplied material only, not a forecast and not investment advice.
+NEXT AGENT: Agent 3 - Strategist
+HANDOFF SUMMARY: News input for Stock A is empty: headlines are N/A BY DESIGN (blind run) and the phase 8 event list shows no supply-chain events in the 120 days before Day 0, so sentiment is NEUTRAL / no signal, with no conflicts and no stale items. Base the plan on the Researcher's market data. Keep in mind that the Day 0 -2.4% drop on 1.48x volume and earlier 2x+ volume days have no supplied explanation, and that "no listed event" does not mean "no news."

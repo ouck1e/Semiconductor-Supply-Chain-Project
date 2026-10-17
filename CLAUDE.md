@@ -28,7 +28,10 @@ The owner is a student learning as he builds. Explain changes in plain language,
   `agents/prompts/` and `agents/config.json`; `agent_packets.py` builds the paste-in prompts (blind by default for past
   dates), `agent_score.py` scores the Boss's DECISION block against `phase8_baseline.py` (the frozen opponent), all on
   `agent_sim.py`. Records live in `data/agents/` (trade_log.csv, scoreboard.csv); `data/agents/keys/` holds answers to
-  blind runs. Never add live order execution or broker credentials. Tests: `python -m unittest discover tests`.
+  blind runs and the fixed `eval_practice.csv` / `eval_exam.csv` sets. `agents/CHANGELOG.md` logs every prompt version;
+  `agent_handoff.py` passes handoffs in automated runs; `agent_report.py` writes `run_summaries.csv` and the report data.
+  Tune prompts on the practice set (dev years) only; score the exam set once per round. Never add live order execution
+  or broker credentials. Tests: `python -m unittest discover tests`.
 - **Scheduled jobs (`.github/workflows/`):** news hourly, prices weekdays after the US close, trade data and risk
   on Mondays. Each runs a script, then `build_site_data.py`, then `.github/actions/commit`, then `deploy.yml`
   (GitHub Pages). Their commits land on `main` every hour.

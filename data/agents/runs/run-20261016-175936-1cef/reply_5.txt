@@ -1,0 +1,47 @@
+RISK MANAGER REVIEW - Stock A (Equipment), plan: NO TRADE
+
+Starting position: REJECT. The plan is NO TRADE, so the question is whether I agree that no BUY should be opened at the Day 0 close.
+
+REQUIRED ITEMS
+- Action is BUY or NO TRADE, conditions true at Day 0 close: OK. ACTION: NO TRADE, decided on Day 0 data only; nothing waits on Day 1.
+- Stop rule (percent, <= 15%): OK (not applicable to a non-position). STOP_PCT 0 because no position is opened.
+- Target/exit and max hold <= 20 days: OK (not applicable). TARGET_PCT 0, MAX_HOLD_DAYS 0.
+- Position size within 10% max: OK. SIZE_PCT 0.
+- Reward-to-risk >= 1.5 after costs, arithmetic shown: OK as a test of the rejected setups. I re-checked the Strategist's numbers using the fixed rules (0.1% fee + 0.1% slippage per side = 0.4% round trip):
+  - Stop 8 / target 11: reward 11 - 0.4 = 10.6; risk 8 + 0.4 = 8.4; 10.6 / 8.4 = 1.26 (fails 1.5).
+  - Stop 6 / target 11: 10.6 / 6.4 = 1.66 (passes on paper).
+  - Stop 5 / target 10: 9.6 / 5.4 = 1.78 (passes on paper).
+  All three match the Strategist's stated figures.
+- Largest simulated loss: OK. No position, so $0. (For reference, the rejected 10% / 8% stop version would have risked $10,000 x 8.4% = $840; the 6% stop version $10,000 x 6.4% = $640, before any gap past the stop.)
+- No look-ahead: OK. The plan cites only Day 0 and earlier data; the re-check triggers (close above 103.30 on strong volume, or a held 95.99 retest) are stated as future conditions to re-examine, not used as entry.
+- Agrees with supplied price data: OK. Close 100.00, 20/50/200-day averages 103.30/101.97/110.02, 20-day range 95.99-111.24, Day -4 rejection at 111.24 with 13.7% two-session drop on 1.30x/1.21x volume, volume 0.95x, volatility 76.0% (20d) all match the Researcher handoff.
+
+CONTEXT ITEMS
+- Data completeness (80/100): OK. Missing items (intraday highs/lows, raw volume, pre-Day -29 history, fundamentals) do not change a NO TRADE call.
+- Statistical support: PROBLEM for any long, which supports NO TRADE. Alpha -1.2%/yr, t-stat -0.08 (no meaningful signal), rank 24 of 24 (Strategist's model facts).
+- Liquidity: OK as far as supplied. Volume 0.95x of 50-day average; raw volume MISSING.
+- Conflicting news/events: N/A BY DESIGN (blind run, no headlines). No Model 4 events; last shock 309 days before and Stock A not in either group.
+- Overfitting: OK. The Strategist did not tune a stop/target pair to force a pass; it rejected the tight pairs that pass on paper because a 5-6% stop is about one typical daily move at 76% annualised volatility (76 / sqrt(252) ~ 4.8% per day, Strategist's figure, which I confirm arithmetically).
+- Unverified sources: OK. No outside sources used. No embedded instructions were found in the supplied material.
+
+DECISION: APPROVE FOR SIMULATION ONLY (I agree with NO TRADE)
+
+Five points:
+1. The plan is a valid NO TRADE: size 0, no entry, no look-ahead, and every number it relies on matches the Researcher's data.
+2. The only setups that clear 1.5 reward-to-risk after costs (6/11 = 1.66, 5/10 = 1.78) use stops roughly equal to one normal day's move at 76% volatility, so they would likely be stopped out by noise; the volatility-robust 8% stop gives 1.26, below the 1.5 floor.
+3. Price structure leans against a long at Day 0: close below all three moving averages, a high-volume rejection at 111.24 followed by a light-volume bounce, and three resistance levels (101.97, 103.30, 110.02-111.24) before an 11% target.
+4. The factor evidence gives no support for a long (alpha t-stat -0.08, rank 24 of 24), and the stock lags its ETF over 3 and 6 months by 13.0 and 11.9 points.
+5. The main cost of this decision is opportunity: with beta 1.45 and a recent +15.5% month, a rebound could be missed. That is general uncertainty, not a concrete failure in the required items, so it is not a reason to override NO TRADE.
+
+What would have to change for a BUY to be approvable: a setup where a stop of at least ~8% (wide enough for 76% volatility) still yields >= 1.5 after the 0.4% round-trip costs, i.e. a credible target of about 13% or more (13 - 0.4 = 12.6; 12.6 / 8.4 = 1.5), supported by a Day 0 close confirming the trigger (e.g. above 103.30 on above-average volume), size <= 10%, max hold <= 20 days, and the largest loss stated.
+
+Approval here never means a real trade should be placed. Simulation only, not investment advice.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's NO TRADE plan for Stock A against the fixed limits and the Researcher's data; re-checked the reward-to-risk arithmetic; agreed with NO TRADE. Decision: APPROVE FOR SIMULATION ONLY.
+SOURCE FACTS USED: Fixed rules (portfolio $100,000; max size 10%; max stop 15%; max hold 20 days; 0.1% fee + 0.1% slippage per side; daily-close checks). Researcher: close 100.00; 20/50/200-day averages 103.30/101.97/110.02; 20-day high/low 111.24/95.99; Day -4 rejection and 13.7% two-session drop on 1.30x/1.21x volume; volume 0.95x; volatility 76.0% (20d)/77.4% (120d); returns 1m 15.5%, 3m -22.2%, 6m -11.3% vs ETF 17.0%/-9.2%/0.6%; completeness 80/100. Strategist: alpha -1.2%/yr, t-stat -0.08, rank 24/24; beta 1.45; no Model 4 events, last shock 309 days before; plan ACTION NO TRADE, SIZE 0, STOP 0, TARGET 0, HOLD 0.
+ANALYSIS: Round trip 0.4%. Stop 8/target 11 = 10.6/8.4 = 1.26 (fails); 6/11 = 1.66 and 5/10 = 1.78 pass on paper but stops are about one daily move (76/sqrt(252) ~ 4.8%). An 8% stop needs a ~13% target for 1.5. Largest simulated loss of the plan: $0. All required items OK for a NO TRADE; context items either support NO TRADE or are N/A BY DESIGN.
+MISSING INFORMATION: Intraday highs/lows; raw volume; history before Day -29; fundamentals; supply exposure rows; Day 1 fill price. Headlines: N/A BY DESIGN (blind run). Backtests: N/A BY DESIGN (manual run).
+RISKS OR LIMITATIONS: NO TRADE may miss a high-beta rebound (beta 1.45, 1m +15.5%), and the decision is scored against holding the stock. Support/resistance levels are judgement calls from closing data only. Simulation only, not investment advice; no real order is placed.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY - I agree with NO TRADE on Stock A at the Day 0 close. The plan's facts match the Researcher's data and there is no look-ahead. The only long setups clearing 1.5 reward-to-risk after 0.4% costs need 5-6% stops, about one normal day at 76% volatility; a robust 8% stop gives 1.26. Price structure (below all averages, high-volume rejection at 111.24, light-volume bounce) and factor rank 24/24 lean against entry. A BUY would need a Day 0 confirmed trigger (e.g. close above 103.30 on strong volume) and a credible ~13%+ target with an ~8% stop, size <= 10%, hold <= 20 days.

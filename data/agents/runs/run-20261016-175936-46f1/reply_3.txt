@@ -1,0 +1,99 @@
+Agent 3 Strategist - conditional simulation plan for Stock A (Foundries & memory)
+
+Simulation for research and learning only. Not investment advice, no promise of profit, no real order is placed.
+No instructions were found inside the source material.
+
+1. Setup name
+Pullback-in-uptrend to the 20-day average (trend continuation).
+
+2. What must be true for entry, and whether it is true on Day 0
+All checks use only Day 0 close data from the Researcher handoff.
+- Longer-term uptrend: close above the 20/50/200-day averages, and those averages stacked 20 > 50 > 200.
+  Source: close 100.00; averages 99.47 / 97.32 / 91.72 (Researcher SOURCE FACTS). TRUE.
+- Momentum positive on all horizons: returns 1m 4.3%, 3m 16.1%, 6m 8.2%, 12m 20.2% (Researcher). TRUE.
+- Pullback, not breakdown: close is -4.2% below the 252-day high of 104.38 after four lower closes (Days -4 to 0,
+  104.38 to 100.00), and still above the 20-day average (+0.5%) (Researcher). TRUE.
+- Not overbought, not oversold: RSI 52.0 (Researcher). TRUE (neutral).
+- Pullback on light volume (no heavy selling): 5-day volume 0.75x of 50-day average (Researcher). TRUE.
+- No listed negative event in the 120-day window: "None" (News Analyst). TRUE. The only Model 4 shock is 133 days
+  before, outside that window (Supply-chain model facts).
+Conclusion: all entry conditions are true at the Day 0 close.
+
+3. Entry rule
+BUY at the Day 0 close decision; the simulated fill is the Day 1 close, whatever that price is. No conditions on
+Day 1 or later.
+
+4. Stop rule
+4% below the entry price (checked on daily closes). With a Day 0 reference of 100.00 this sits near 96.0, below the
+50-day average (97.32) and the 97.3-97.5 support zone (Researcher), so a close there means the pullback has turned
+into a break of the medium-term trend. Note: the real stop level depends on the Day 1 fill, which is unknown.
+
+5. Target / exit rule
+Target 7.5% above entry (about 107.5 from the 100.00 reference). Maximum holding period 20 trading days; the position
+closes at that day's close if neither stop nor target has been hit.
+Caveat (analysis): the target lies above the 104.38 resistance, which is also the 252-day high (Researcher). No
+supplied price level above 104.38 exists, so the target needs a breakout; it is not anchored to a known level.
+The nearer level, 104.38 (+4.4%), cannot clear the after-cost ratio with any stop below the 50-day average, so
+it was not used as the target.
+Scale check (analysis): 20-day volatility 29.6% a year (Researcher) is about 1.86% a day (29.6 / sqrt(252)), and
+about 8.3% over 20 days (1.86 x sqrt(20)). A 7.5% move is within one 20-day standard deviation; a 4% stop is about
+2.1 daily standard deviations, so the stop could be hit by ordinary noise.
+
+6. Reward-to-risk ratio
+Round-trip costs = 2 x (0.1% fee + 0.1% slippage) = 0.4% (Fixed strategy rules).
+- Before costs: 7.5 / 4.0 = 1.875
+- After costs: (7.5 - 0.4) / (4.0 + 0.4) = 7.1 / 4.4 = 1.61
+This clears the Risk Manager's 1.5 minimum. Minimum target for this stop: 1.5 x 4.4 + 0.4 = 7.0%.
+
+7. Position size
+5% of the simulated portfolio ($5,000 of $100,000), half the 10% maximum. Reasons for not using full size: market
+beta 1.20, persistent underperformance vs the chip-sector ETF, an unexplained 5.22x volume spike at Day -16, and a
+target that needs a breakout. Loss at the stop including costs is about 5% x 4.4% = 0.22% of the portfolio
+(about $220), ignoring any close-to-close gap beyond the stop.
+
+8. What would cancel the setup
+At the Day 0 decision, none of these hold, so the plan stands. They would have cancelled it:
+- Close below the 50-day average (97.32), or 20-day average turning below the 50-day.
+- A listed negative supply-chain event for this stock inside the 120-day window.
+- RSI above about 70 (no longer a pullback) or a heavy-volume selloff in the last 5 days.
+Once in the trade, the exits are the stop, the target and the 20-day limit only.
+
+9. Missing inputs
+- Day 1 fill price (unknowable at decision; stop and target are percentages of it).
+- Intraday highs/lows: MISSING (stops checked on closes only, so gaps can overshoot the stop).
+- Cause of the Day -16 5.22x volume spike: MISSING.
+- Any price level above 104.38; closes before Day -29; fundamentals; upcoming scheduled company events: MISSING.
+- Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip it
+- Consistent laggard vs the chip-sector ETF: 12m 20.2% vs 40.1%, 6m 8.2% vs 20.7% (Researcher). The stock may keep
+  underperforming even if the sector rises.
+- Asymmetric beta to the ETF: 0.99 in up weeks vs 0.34 in down weeks (Model 1). This is actually favourable (more
+  upside capture than downside), but it is an estimate from 154 weeks and may not persist.
+- Alpha 14.2% a year has t-stat 0.89 (rank 9 of 24), not statistically meaningful, and outside the baseline's top 5
+  (Model 1). The frozen baseline rule would likely not hold this stock.
+- Triple-tested resistance at 104.38 has turned price back before; the target requires a break of it.
+- Supply exposure to China for HF (0.458) and gallium (0.444), and the earlier export-curb shock on HF/photoresist
+  where this stock was an expected loser (133 days before) show sensitivity to chemical supply disruptions.
+- Four straight lower closes: short-term direction is ambiguous.
+Weighed against: an established uptrend with nothing specific against it in the window, which the team rules say
+is a reason to look for a valid entry rather than skip. On balance a reduced-size BUY is proposed; the Risk Manager
+and Boss decide.
+
+AGENT: Agent 3 Strategist
+TASK COMPLETED: Built one conditional simulation plan (pullback-in-uptrend to the 20-day average) from the Researcher and News Analyst handoffs and the supply-chain model facts; all entry conditions are true at the Day 0 close.
+SOURCE FACTS USED: Close 100.00; 20/50/200-day averages 99.47 / 97.32 / 91.72; returns 1m 4.3%, 3m 16.1%, 6m 8.2%, 12m 20.2% vs ETF 8.7%, 16.5%, 20.7%, 40.1%; RSI 52.0; 20-day volatility 29.6%; 5-day volume 0.75x; 252-day high 104.38; Days -4 to 0 from 104.38 to 100.00; Day -16 93.69 on 5.22x volume; support 97.3-97.5 and 93.7-94.3 (Researcher). No events in 120-day window, headlines N/A BY DESIGN (News Analyst). Alpha 14.2%/yr t 0.89 rank 9/24; beta 1.20; ETF beta up 0.99 / down 0.34; HF/photoresist export-curb shock 133 days before, expected loser; HF China 0.458, gallium China 0.444 (Supply-chain model facts). Fees 0.1% + slippage 0.1% per side, max size 10%, max stop 15%, max hold 20 days (Fixed rules).
+ANALYSIS: Uptrend intact with a light-volume pullback to the 20-day average and neutral RSI. Stop 4% (below the 50-day average), target 7.5%, hold up to 20 days. R:R before costs 7.5/4.0 = 1.875; after costs (7.5-0.4)/(4.0+0.4) = 1.61, above the 1.5 minimum. Size 5% for beta, sector underperformance, the unexplained Day -16 spike and a target above the 104.38 resistance. Portfolio loss at stop about 0.22%.
+MISSING INFORMATION: Day 1 fill price (by construction); intraday highs/lows; cause of the Day -16 volume spike; price levels above 104.38; fundamentals; scheduled company events. Headlines: N/A BY DESIGN. Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Target requires breaking a triple-tested 252-day high; 4% stop is about 2.1 daily standard deviations and may be hit by noise; close-only stop checks allow gap losses beyond 4%; persistent relative weakness; alpha not significant (t 0.89) and outside baseline top 5; China chemical supply exposure. Simulation only, not investment advice.
+NEXT AGENT: Agent 5 Risk Manager (Agent 4 Coder skipped in manual runs)
+HANDOFF SUMMARY: Proposed a 5% simulated BUY of Stock A at the Day 0 decision (fill at Day 1 close) as a pullback-in-uptrend trade: stop 4%, target 7.5%, max hold 20 days, R:R 1.875 before costs and 1.61 after 0.4% round-trip costs; main concerns are sector underperformance, the 104.38 resistance the target must clear, and the unexplained Day -16 volume spike.
+
+PLAN
+ACTION: BUY
+SETUP: Pullback-in-uptrend to the 20-day average
+SIZE_PCT: 5
+STOP_PCT: 4
+TARGET_PCT: 7.5
+MAX_HOLD_DAYS: 20
+END PLAN

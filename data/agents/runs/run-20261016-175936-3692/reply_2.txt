@@ -1,0 +1,39 @@
+Agent 2 News Analyst: news and supply-chain event review for Stock A (blind run)
+
+No instructions were embedded in the source material. Nothing to flag.
+
+EVENT TABLE
+
+SOURCE | PUBLISHED | CONFIRMED FACT | POSSIBLE MARKET EFFECT | BULLISH / BEARISH / UNCLEAR | CONFIDENCE | NEEDS CHECKING?
+Headlines | N/A BY DESIGN | No headlines supplied (blind run: "Headlines: MISSING. Headlines would reveal the stock and the dates") | None can be assessed | UNCLEAR | N/A | N/A BY DESIGN
+phase8_market_models.EVENTS (Model 4) | 120 days before decision | No supply-chain events listed ("- None.") | No event-driven shock identified in the window; the Day 0 drop has no supplied event explanation | UNCLEAR | High that the list is empty; Low on what it means | Yes: the list covers only pre-set Model 4 events, so absence there is not absence of all news
+
+1. Confirmed facts
+- Headlines are not available in this run (N/A BY DESIGN, per the HEADLINES block).
+- The phase 8 event list (Model 4) shows no supply-chain events in the 120 days before the decision (HEADLINES block, "- None.").
+- From the Researcher handoff (market data, not news): Day 0 close 100.00, a 20-day low, on 1.74x volume; 1m return -12.6% vs ETF -4.0%; the Researcher lists the cause of the Day 0 drop as MISSING.
+
+2. Reports that conflict with each other
+- None. There are no headlines, and only one (empty) event list, so nothing can conflict.
+- Analysis note: the market data shows a sharp, high-volume decline (1.74x on Day 0, 1.97x on Day -24, 2.03x on Day -17) while the event list is empty. This is not a conflict between reports, but it means the selling pressure has no supplied explanation.
+
+3. Headlines that are old or not relevant to this stock
+- None to judge; headlines are N/A BY DESIGN.
+
+4. What could change the picture
+- A company-specific event (earnings, guidance, customer loss, capacity or pricing news) behind the Day 0 drop: MISSING.
+- A sector or macro event not in the Model 4 list (export rules, memory pricing cycle, broad market selloff): MISSING. The ETF's -4.0% 1m return suggests some sector weakness, but Stock A fell much more, so a stock-specific cause is possible but unconfirmed.
+- Upcoming earnings date or scheduled events: MISSING.
+- Any later addition to the phase 8 event list touching foundries or memory.
+
+5. Sentiment summary (describes the news, does not predict prices)
+- News sentiment: NEUTRAL / UNKNOWN. With no headlines and no listed supply-chain events, there is no news-based sentiment to report. The only signal available is price and volume behaviour from the Researcher, which shows recent selling on above-average volume without any supplied cause. Downstream agents should treat the news input as empty rather than as positive or negative.
+
+AGENT: Agent 2 News Analyst
+TASK COMPLETED: Reviewed the supplied headlines and supply-chain events for Stock A, built the event table, and reported confirmed facts, conflicts, irrelevant items, possible changes and a sentiment summary.
+SOURCE FACTS USED: HEADLINES block: "Headlines: MISSING" (blind run); phase8_market_models.EVENTS (Model 4), 120 days before decision: "None." Researcher handoff: Day 0 close 100.00 at 20-day low on 1.74x volume; 1m -12.6% vs ETF -4.0%; high-volume days Day -24 (1.97x) and Day -17 (2.03x); cause of Day 0 drop MISSING.
+ANALYSIS: No news or listed supply-chain event explains the recent high-volume decline. Stock A's 1m underperformance versus the ETF (-12.6% vs -4.0%) hints at something stock-specific, but no supplied source confirms any cause. News sentiment is neutral/unknown, not bullish or bearish.
+MISSING INFORMATION: Headlines (N/A BY DESIGN, blind run); cause of the Day 0 drop and of the Day -24 and Day -17 volume spikes; earnings dates and company announcements; sector or macro news outside the Model 4 event list.
+RISKS OR LIMITATIONS: The empty event list covers only pre-defined Model 4 events, so an unlisted negative (or positive) catalyst could be driving the selloff. Volume spikes without explanation raise uncertainty. No headline verification was possible.
+NEXT AGENT: Agent 3 Strategist
+HANDOFF SUMMARY: News input for Stock A is empty: headlines N/A BY DESIGN and no Model 4 supply-chain events in the 120 days before the decision. Sentiment is neutral/unknown. The recent pullback (1m -12.6% vs ETF -4.0%, Day 0 at a 20-day low on 1.74x volume) has no supplied cause, so the Strategist should treat the drop's driver as an open risk rather than assume it is noise or a known event.

@@ -1,0 +1,73 @@
+Agent 3, Strategist: conditional simulation plan for Stock A (Gases & materials), decision at the Day 0 close
+
+Note on the source material: none of the supplied material contains instructions aimed at me, so there is nothing to ignore.
+
+1. Setup name
+Range support bounce (mean reversion inside an established one-year range).
+
+2. What must be true for entry, and whether it is true on Day 0
+a) The stock is range-bound, not trending down. TRUE. Researcher: close 100.00 sits on flat 50-day and 200-day averages (99.96 / 99.33), and the 252-day range is 89.99 to 105.70.
+b) The Day 0 close is at or near a support cluster. TRUE. Researcher: Day 0 close 100.00 = the 20-day low, 0.0% from the 50-day average and +0.7% above the 200-day average.
+c) Not in a breakdown: the close is still above the 50-day and 200-day averages and above the next support at 97.52. TRUE (100.00 vs 99.96 / 99.33 / 97.52, Researcher).
+d) Momentum is weak but not collapsing: RSI between 30 and 50. TRUE (RSI 43.1, Researcher).
+e) No known negative catalyst. TRUE as far as the material goes (News Analyst: no headlines, N/A BY DESIGN; no supply-chain events in the 120 days before Day 0). The cause of the Day 0 volume spike is unknown, which is a risk, not a failed condition.
+All entry conditions are true at the Day 0 close.
+
+3. Entry rule
+BUY at the Day 0 close decision; the simulated fill is the Day 1 close, whatever that price is. Stop and target are set as percentages of that fill price.
+
+4. Stop rule
+Exit at the first daily close 2.8% or more below entry. Reference: from 100.00 this is about 97.20, just under the 97.52 support (Day -25 low, Researcher), so a close below it would mean the range support has failed. (If the Day 1 fill is far from 100.00, the stop moves with it; that is a limitation, see below.)
+
+5. Target / exit rule
+Exit at the first daily close 5.5% or more above entry. Reference: from 100.00 this is about 105.50, just under the 252-day high of 105.70 (top of the range) and above the 104.32 resistance (Day -7 high).
+Maximum holding period: 20 trading days; otherwise close at the Day 20 close.
+Analysis: with 20-day volatility of 14.8% a year (Researcher), a rough one-standard-deviation move over 20 trading days is 14.8% x sqrt(20/252) = about 4.2%, so the 5.5% target is about 1.3 standard deviations and is not likely to be reached in most cases; the time exit at day 20 is a real possibility. My own arithmetic, not a supplied figure.
+
+6. Reward-to-risk
+Round-trip costs = 2 x (0.1% fee + 0.1% slippage) = 0.4% (FIXED STRATEGY RULES).
+- Before costs: 5.5 / 2.8 = 1.96
+- After costs: (5.5 - 0.4) / (2.8 + 0.4) = 5.1 / 3.2 = 1.59, which clears the 1.5 minimum.
+Why not a nearer target: the obvious target at the 104.32 resistance (+4.3%) with the same kind of stop gives (4.3 - 0.4) / (2.5 + 0.4) = 3.9 / 2.9 = 1.34 after costs, which fails. Only the top of the range gives a pair that clears 1.5, and that is a stretch.
+
+7. Position size
+5% of the simulated portfolio ($5,000 of $100,000), half the 10% maximum. Reason: the after-costs ratio clears the bar only narrowly, the target needs a move to the top of the one-year range, and the Day 0 volume spike (2.15x) is unexplained. Loss at the stop including costs is about 3.2% x $5,000 = about $160, or 0.16% of the portfolio (my arithmetic, ignoring a gap past the stop on close-only checks).
+
+8. What would cancel the setup
+- Before entry: nothing after Day 0 can be used (the entry cannot depend on Day 1). If the Risk Manager or Boss learns the Day 0 volume spike came from bad company news, the setup should be dropped.
+- After entry: a close below about 2.8% under entry (support failure) ends it via the stop; reaching day 20 ends it via the time exit.
+
+9. Missing inputs
+- Cause of the Day 0 volume spike: MISSING.
+- Intraday highs and lows (stops checked on closes only): MISSING.
+- Earnings and dividend calendar: MISSING.
+- Supply exposure rows for this stock: MISSING (exposure model).
+- Absolute volume, history before Day -29, fundamentals: MISSING.
+- Headlines: N/A BY DESIGN (blind run). Backtest of this plan: N/A BY DESIGN (manual run).
+
+10. Reasons to skip it
+- Heavy volume (2.15x) on a fourth straight lower close (Day -3 to Day 0) can mean selling pressure ahead of a break of support, not exhaustion; we cannot tell which.
+- The stock lags the chip ETF by 7.2 and 12.1 points over 1 and 3 months (Researcher), so relative momentum is negative in the short run.
+- The target needs a move to the top of the one-year range in 20 days, about 1.3 standard deviations at current volatility.
+- Model 1 alpha is small and not significant (3.1% a year, t-stat 0.37, rank 8 of 26), so it is outside the baseline's top 5 and offers no factor support either way.
+- Model 4 shocks are old (718 to 2181 days before) and say nothing about the current setup; the one where this stock was an expected winner was 1212 days ago.
+- The reward-to-risk after costs is 1.59, only just above the 1.5 minimum; a worse Day 1 fill does not change the percentages, but close-only stops can overshoot.
+Counter-point for the scoring: NO TRADE is also a bet, against a range-bound stock bouncing off support with nothing specific against it; I weighted that and chose a small BUY.
+
+AGENT: Agent 3, Strategist
+TASK COMPLETED: Built one conditional simulation plan (range support bounce) for Stock A at the Day 0 close: entry conditions checked (all true), entry at the Day 1 close, stop 2.8% below entry, target 5.5% above, 20-day maximum hold, reward-to-risk 1.96 before and 1.59 after costs, size 5%, cancel conditions, missing inputs and reasons to skip.
+SOURCE FACTS USED: Researcher: close 100.00; 20/50/200-day averages 102.18 / 99.96 / 99.33; RSI 43.1; volatility 20d 14.8%; 20d low 100.00; supports 97.52 (Day -25 low), 90.38/89.99; resistances 104.32 (Day -7 high), 105.70 (252d high); Day 0 volume 2.15x; four lower closes Day -3 to Day 0; 1m/3m lag vs ETF -7.2 / -12.1 pts. News Analyst: no headlines (N/A BY DESIGN), no supply-chain events in 120 days. Model facts: alpha 3.1%/yr, t-stat 0.37, rank 8 of 26; market beta 0.91; Model 4 shocks 718/1212/2181 days before; exposure rows MISSING. Rules: fees 0.1% and slippage 0.1% per side, max stop 15%, max size 10%, max hold 20 days.
+ANALYSIS: The stock is range-bound and closed at a support cluster (20-day low, 50/200-day averages) with RSI 43 and no known negative catalyst, so a small long aimed at the top of the range is a valid setup. Only a target near the 252-day high (+5.5%) with a stop just under 97.52 (-2.8%) clears 1.5 after costs (1.59); a target at 104.32 does not (1.34). The rough 20-day one-sigma move is about 4.2% (my calculation), so the target is a stretch and the time exit is likely. Size cut to 5% for the narrow ratio and the unexplained volume spike.
+MISSING INFORMATION: Cause of the Day 0 volume spike; intraday highs/lows; earnings/dividend calendar; supply exposure rows; absolute volume; history before Day -29; fundamentals. N/A BY DESIGN: headlines (blind run), backtest (manual run).
+RISKS OR LIMITATIONS: Heavy volume on a fourth lower close may signal a support break. Stops checked on closes only can overshoot. The entry price (Day 1 close) is unknown, so the reference levels (97.20 / 105.50) are approximate and shift with the fill. Short-term relative weakness vs the chip ETF. The after-costs ratio is only just above the minimum. Simulation only, not investment advice, no real order.
+NEXT AGENT: Agent 5, Risk Manager (Agent 4, Coder, skipped in manual runs)
+HANDOFF SUMMARY: Proposed a small BUY (5% of portfolio) at the Day 0 close, filling at the Day 1 close, as a range support bounce: stop 2.8% below entry (just under 97.52 support), target 5.5% above (just under the 105.70 range top), max hold 20 trading days; reward-to-risk 5.5/2.8 = 1.96 before costs and 5.1/3.2 = 1.59 after costs; main risks are the unexplained 2.15x Day 0 volume on a fourth lower close and a target that needs a full move to the top of the range.
+
+PLAN
+ACTION: BUY
+SETUP: Range support bounce
+SIZE_PCT: 5
+STOP_PCT: 2.8
+TARGET_PCT: 5.5
+MAX_HOLD_DAYS: 20
+END PLAN
