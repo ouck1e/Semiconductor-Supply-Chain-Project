@@ -324,5 +324,22 @@ medium). The Coder step is skipped, as in manual runs.
   is logged as failed rather than guessed. The script talks to the Claude API and nothing else: no broker, no orders.
 - **To stop it:** delete the `ANTHROPIC_API_KEY` secret, or empty the watchlist.
 
+**8. Time-span simulation.** `agent_span.py` lets the team trade one stock through a period you choose, so you can
+watch it on candles. While it holds nothing, the full team makes a decision every 5 trading days (`--cadence`) and on
+the day after each exit; while it holds, the trade runs on its own stop, target and time limit, scored exactly like
+any other run. Each decision is an ordinary run (blind for past dates, `eval_set` = `sim:<id>`), so it also lands in
+`trade_log.csv`. Before each decision the team is told what it did earlier in the span (prompt v6, see
+`agents/CHANGELOG.md`).
+- `python agent_span.py --ticker MU --start 2022-01-03 --end 2022-03-31` prints the decision days and a cost estimate
+  and spends nothing. Add `--yes` to run it through the Claude API (needs `ANTHROPIC_API_KEY`; about $1 a decision, and
+  it stops at `monthly_budget_usd`). `--resume <sim_id>` continues an interrupted run. `--demo` runs a simple
+  pullback rule instead of the agents, free, labelled DEMO and kept out of the trade log.
+- The span needs enough later prices to close the last possible trade; the script says the latest end date allowed.
+  Spans in the test years (2023 on) are fine to watch but shouldn't be used to tune prompts.
+- Results go to `data/agents/sims/<sim_id>/sim.json`. `run_span.bat` asks for the stock and dates, shows the estimate,
+  runs, and rebuilds the dashboard, whose **Simulations** tab replays the span day by day: candles and volume, buy and
+  sell markers, the holding period shaded, the agents' state and reasons, what they remembered, and team vs holding.
+- Candles need open, high and low prices, which `fetch_prices.py` now stores (`adj_open`, `adj_high`, `adj_low`).
+
 Settings: `agents/config.json` (portfolio, position and stop limits, fees, slippage, splits). Tests:
 `python -m unittest discover tests`.

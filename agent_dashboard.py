@@ -101,12 +101,50 @@ def build():
             researcher=text(sm.get("researcher", "")), strategist=text(sm.get("strategist", "")),
             risk_manager=text(sm.get("risk_manager", "")), boss=text(sm.get("boss", ""))))
 
+    sims = build_sims(cfg, usd, names, summaries)
     order = list(dict.fromkeys(names[h] for h in names))            # v1, v2, ... in changelog order
     return dict(generated=datetime.now().isoformat(timespec="seconds"),
                 asof=max(st["dates"][-1] for st in stocks.values()), config=dict(
                     portfolio=cfg["portfolio_usd"], max_position=cfg["max_position_pct"], max_hold=cfg["max_hold_days"],
                     fee=cfg["fee_pct_per_side"], slippage=cfg["slippage_pct_per_side"], blind_before=cfg["blind_before"]),
-                versions=order, stocks=stocks, runs=runs, changelog=changelog)
+                versions=order, stocks=stocks, runs=runs, changelog=changelog, sims=sims)
+
+
+def build_sims(cfg, usd, names, summaries):
+    """Every time-span simulation (agent_span.py) with candles for its span, its curves, and each decision with
+    what the agents remembered at that moment and their own reasons."""
+    import agent_span
+    out = []
+    for p in sorted((sim.OUT / "sims").glob("*/sim.json")):
+        st = json.loads(p.read_text(encoding="utf-8"))
+        if not st.get("decisions"):
+            continue
+        t = st["ticker"]
+        dates = agent_span.trading_days(usd, t)
+        closes = usd[t].dropna().tolist()
+        curve, stats = agent_span.curves(st, dates, closes, cfg)
+        ohlc = sim.load_ohlc(t)
+        a = dates[max(0, st["span_index"][0] - 30)]
+        b = dates[min(len(dates) - 1, dates.index(curve[-1]["date"]) + 10)]
+        o = ohlc[(ohlc.index >= a) & (ohlc.index <= b)]
+        decisions = []
+        for k, d in enumerate(st["decisions"]):
+            i = dates.index(d["date"])
+            sm = summaries.loc[d["run_id"]] if d.get("run_id") and d["run_id"] in summaries.index else {}
+            decisions.append(dict(d, memory=agent_span.history_text(st["decisions"][:k], dates, i),
+                                  strategist=text(sm.get("strategist", "")) or d.get("reason", ""),
+                                  risk_manager=text(sm.get("risk_manager", "")), boss=text(sm.get("boss", "")),
+                                  exit_px=close_on(usd[t].dropna(), d.get("exit_date", "")),
+                                  entry_px=close_on(usd[t].dropna(), d.get("entry_date", ""))))
+        version = "demo" if st.get("demo") else names.get(st.get("prompts_version", ""), st.get("prompts_version", ""))
+        out.append(dict(sim_id=st["sim_id"], ticker=t, company=st["company"], start=st["start"], end=st["end"],
+                        cadence=st["cadence"], version=version, runner=st.get("runner", ""), demo=bool(st.get("demo")),
+                        status=st.get("status", ""), created=st.get("created", ""), stats=stats, decisions=decisions,
+                        curve=curve, candles=[dict(time=d.strftime("%Y-%m-%d"), open=round(r.open, 4), high=round(r.high, 4),
+                                                   low=round(r.low, 4), close=round(r.close, 4),
+                                                   volume=None if pd.isna(r.volume) else int(r.volume))
+                                              for d, r in o.iterrows()]))
+    return out
 
 
 def main():

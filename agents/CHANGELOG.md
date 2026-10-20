@@ -12,6 +12,7 @@ at the end of a round of changes.
 | `7108011e` | v3 | 2026-10-15 |
 | `8915d28d` | v4 | 2026-10-16 |
 | `eeeb0ee8` | v5 | 2026-10-16 |
+| `b7ca4044` | v6 | 2026-10-20 |
 
 ## v1 `42c55623`
 First version: six roles in our own words after the SebAI guide; Boss ends with a machine-readable DECISION block.
@@ -62,6 +63,14 @@ Changes, all from the v4 practice results (dev only):
 Practice set (same 8 stocks): 4 BUY plans, all approved first time (no REVISE needed): TSMC 2021 +8.2%, MediaTek 2019
 +11.3%, SUMCO 2018 +2.2%, SK hynix 2019 -5.1%. Average per decision +2.08% (v4 +0.96%, v3 -1.11%); vs holding the stock
 -4.20 (v4 -5.17, v3 -7.38). The same two big rises (Applied Materials 2020, Air Products 2022) were still skipped.
+
+## v6 `b7ca4044`
+Memory for time-span simulations (`agent_span.py`). The Strategist, Risk Manager and Boss prompts get an "Earlier in
+this simulation" section filled from the team's own earlier decisions in the span: each past BUY with its setup, stop,
+target and how it ended, and each skip with how the stock moved afterwards, plus a running total. It stays blind
+(relative days and percentages, no dates or prices). The Strategist is told to use it as evidence (a setup that keeps
+failing on this stock, or skips that kept missing rises), not as a rule. Outside a simulation the section says it is a
+single, independent decision, so ordinary runs read the same as v5 apart from that line. No practice-set score yet.
 
 ## Exam (8 test-period stocks, scored once after training)
 v3: 4 BUY plans, 2 trades (MediaTek 2023, Nippon Sanso 2024), both won; average per decision +1.90%, vs holding -1.39.

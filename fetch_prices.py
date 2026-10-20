@@ -106,7 +106,7 @@ class Tee:
 
 # ---------------------------------------------------------------- download
 def yahoo_history(symbol, tries=3):
-    """Daily adjusted close and volume for one symbol, index = trading date."""
+    """Daily adjusted open, high, low, close and volume for one symbol, index = trading date."""
     import yfinance as yf
     last = None
     for i in range(tries):
@@ -115,7 +115,8 @@ def yahoo_history(symbol, tries=3):
             if h is None or h.empty:
                 raise ValueError("no data returned")
             h.index = pd.to_datetime(h.index).tz_localize(None).normalize()
-            return h[["Close", "Volume"]].rename(columns={"Close": "adj_close", "Volume": "volume"})
+            return h[["Open", "High", "Low", "Close", "Volume"]].rename(columns={
+                "Open": "adj_open", "High": "adj_high", "Low": "adj_low", "Close": "adj_close", "Volume": "volume"})
         except Exception as e:  # noqa: BLE001 - one bad symbol must not stop the run
             last = e
             time.sleep(2 + 2 * i)
@@ -157,7 +158,9 @@ def download(db):
             failed.append(t)
             print(f"failed            {t:10s} {name}  ({type(e).__name__}: {str(e)[:100]})")
     if frames:
-        pd.concat(frames)[["date", "ticker", "adj_close", "volume"]].to_sql("prices", con, if_exists="replace", index=False)
+        # open/high/low are for candlestick charts (the agent simulator); everything else reads adj_close
+        pd.concat(frames)[["date", "ticker", "adj_open", "adj_high", "adj_low", "adj_close", "volume"]].to_sql(
+            "prices", con, if_exists="replace", index=False)
 
     fx_frames = []
     for cur, (sym, kind) in FX.items():

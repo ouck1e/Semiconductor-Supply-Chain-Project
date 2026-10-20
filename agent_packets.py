@@ -199,7 +199,12 @@ def strategist_facts(t, D, usd, ff, uni, cfg, blind):
 
 
 # ---------------------------------------------------------------- packet
-def build(t, D, blind, cfg, market, out_dir=None, seed=None, eval_set="", runner="manual chat"):
+NO_HISTORY = "Not part of a simulation: this is a single, independent decision."
+
+
+def build(t, D, blind, cfg, market, out_dir=None, seed=None, eval_set="", runner="manual chat", history=""):
+    """history: what the team did earlier in a time-span simulation (agent_span.history_text), shown to the
+    Strategist, Risk Manager and Boss. Empty outside a simulation."""
     usd, vol, uni, ff = market
     info = uni.set_index("ticker").loc[t].to_dict()
     s = usd[t].dropna()
@@ -217,7 +222,8 @@ def build(t, D, blind, cfg, market, out_dir=None, seed=None, eval_set="", runner
              "3_strategist": strategist_facts(t, D, usd, ff, uni, cfg, blind), "4_coder": "", "5_risk_manager": "", "6_boss": ""}
     for name, fx in facts.items():
         tpl = (sim.PROMPTS / f"{name}.md").read_text(encoding="utf-8")
-        text = tpl.replace("{SHARED_RULES}", shared).replace("{RULES}", rules).replace("{FACTS}", fx)
+        text = (tpl.replace("{SHARED_RULES}", shared).replace("{RULES}", rules).replace("{FACTS}", fx)
+                .replace("{HISTORY}", history.strip() or NO_HISTORY))
         (run_dir / f"{name}.txt").write_text(text, encoding="utf-8")
     (run_dir / "00_HOW_TO_RUN.txt").write_text(HOW_TO.format(run_id=run_id), encoding="utf-8")
     key = dict(run_id=run_id, ticker=t, name=info["name"], decision_date=str(D.date()), blind=blind,

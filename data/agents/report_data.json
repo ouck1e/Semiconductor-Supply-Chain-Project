@@ -1596,7 +1596,15 @@
   },
   {
    "title": "v5 eeeb0ee8",
-   "body": "Changes, all from the v4 practice results (dev only):\n- **Same formula on both sides:** the Strategist shows reward-to-risk before and after costs, using the Risk Manager's\n  after-cost formula, and picks levels that clear 1.5 after costs (or says none do).\n- **REVISE can be completed:** if the Risk Manager writes one exact fix that would earn approval, the Boss may apply it\n  and approve, quoting it in a new `APPLIED_FIX` field. The scorer accepts a BUY after REVISE only with `APPLIED_FIX`."
+   "body": "Changes, all from the v4 practice results (dev only):\n- **Same formula on both sides:** the Strategist shows reward-to-risk before and after costs, using the Risk Manager's\n  after-cost formula, and picks levels that clear 1.5 after costs (or says none do).\n- **REVISE can be completed:** if the Risk Manager writes one exact fix that would earn approval, the Boss may apply it\n  and approve, quoting it in a new `APPLIED_FIX` field. The scorer accepts a BUY after REVISE only with `APPLIED_FIX`.\n\nPractice set (same 8 stocks): 4 BUY plans, all approved first time (no REVISE needed): TSMC 2021 +8.2%, MediaTek 2019\n+11.3%, SUMCO 2018 +2.2%, SK hynix 2019 -5.1%. Average per decision +2.08% (v4 +0.96%, v3 -1.11%); vs holding the stock\n-4.20 (v4 -5.17, v3 -7.38). The same two big rises (Applied Materials 2020, Air Products 2022) were still skipped."
+  },
+  {
+   "title": "v6 b7ca4044",
+   "body": "Memory for time-span simulations (`agent_span.py`). The Strategist, Risk Manager and Boss prompts get an \"Earlier in\nthis simulation\" section filled from the team's own earlier decisions in the span: each past BUY with its setup, stop,\ntarget and how it ended, and each skip with how the stock moved afterwards, plus a running total. It stays blind\n(relative days and percentages, no dates or prices). The Strategist is told to use it as evidence (a setup that keeps\nfailing on this stock, or skips that kept missing rises), not as a rule. Outside a simulation the section says it is a\nsingle, independent decision, so ordinary runs read the same as v5 apart from that line. No practice-set score yet."
+  },
+  {
+   "title": "Exam (8 test-period stocks, scored once after training)",
+   "body": "v3: 4 BUY plans, 2 trades (MediaTek 2023, Nippon Sanso 2024), both won; average per decision +1.90%, vs holding -1.39.\nv5: 8 BUY plans, 8 trades, 7 won; average per decision +6.52%, vs holding +3.22. Two cautions: v5 bought every exam stock\nduring a strong chip market (2023-2025), and most of its lead over holding is one trade (Micron March 2025: target hit at\n+15.1% before the stock fell 17.0%); without it v5 is about -0.9 vs holding. Eight stocks per version is a small sample.\nReport: https://claude.ai/artifact/JDQ6GQea7M9ApCY2y6jjmW (built from `agent_report.py`)."
   }
  ],
  "baseline": [

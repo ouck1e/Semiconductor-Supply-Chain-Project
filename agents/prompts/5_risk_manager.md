@@ -35,6 +35,9 @@ Approval never means a real trade should be placed.
 === FIXED STRATEGY RULES AND LIMITS ===
 {RULES}
 
+=== EARLIER IN THIS SIMULATION ===
+{HISTORY}
+
 === RESEARCHER HANDOFF ===
 [PASTE THE RESEARCHER'S HANDOFF BLOCK HERE]
 

@@ -1,35 +1,35 @@
 ticker,name,group,country,first,last,total_return_usd_pct,annual_return_usd_pct,annual_vol_pct,beta_to_soxx,corr_to_soxx,max_drawdown_pct
-2330.TW,TSMC,Foundries & memory,Taiwan,2015-01-05,2026-10-14,2309.4,31.0,26.6,0.5,0.56,-53.0
-005930.KS,Samsung Electronics,Foundries & memory,South Korea,2015-01-02,2026-10-14,827.2,20.8,32.6,0.55,0.5,-54.3
-000660.KS,SK hynix,Foundries & memory,South Korea,2015-01-02,2026-10-14,2693.8,32.7,44.2,0.82,0.55,-56.8
-MU,Micron,Foundries & memory,United States,2015-01-02,2026-10-14,2597.7,32.3,49.4,1.23,0.74,-72.5
-INTC,Intel,Foundries & memory,United States,2015-01-02,2026-10-14,251.7,11.3,41.4,0.88,0.63,-70.8
-GFS,GlobalFoundries,Foundries & memory,United States,2021-10-28,2026-10-14,5.9,1.2,51.9,1.02,0.69,-61.5
-0981.HK,SMIC,Foundries & memory,China,2015-01-02,2026-10-14,625.1,18.3,50.7,0.43,0.25,-66.9
-2303.TW,UMC,Foundries & memory,Taiwan,2015-01-05,2026-10-14,1495.0,26.5,35.0,0.46,0.39,-53.3
-ASML.AS,ASML,Equipment,Netherlands,2015-01-02,2026-10-14,1671.6,27.6,34.8,0.86,0.74,-55.9
-AMAT,Applied Materials,Equipment,United States,2015-01-02,2026-10-14,1959.4,29.3,40.3,1.15,0.85,-55.1
-LRCX,Lam Research,Equipment,United States,2015-01-02,2026-10-14,4129.7,37.4,42.9,1.23,0.85,-56.4
-KLAC,KLA,Equipment,United States,2015-01-02,2026-10-14,3055.1,34.0,38.6,1.07,0.82,-44.5
-8035.T,Tokyo Electron,Equipment,Japan,2015-01-05,2026-10-14,1918.2,29.1,40.1,0.85,0.63,-58.0
-NVDA,Nvidia,Chip designers,United States,2015-01-02,2026-10-14,45823.9,68.3,44.0,1.12,0.75,-66.3
-AMD,AMD,Chip designers,United States,2015-01-02,2026-10-14,21279.0,57.7,56.5,1.23,0.65,-65.4
-QCOM,Qualcomm,Chip designers,United States,2015-01-02,2026-10-14,222.7,10.5,37.5,0.88,0.7,-44.3
-2454.TW,MediaTek,Chip designers,Taiwan,2015-01-05,2026-10-14,1579.8,27.1,41.1,0.7,0.5,-60.8
-LIN,Linde,Gases & materials,United States,2015-01-02,2026-10-14,368.0,14.0,21.3,0.33,0.47,-32.6
-APD,Air Products,Gases & materials,United States,2015-01-02,2026-10-14,189.8,9.5,24.2,0.31,0.38,-31.8
-AI.PA,Air Liquide,Gases & materials,France,2015-01-02,2026-10-14,230.5,10.7,20.8,0.28,0.39,-30.6
-ENTG,Entegris,Gases & materials,United States,2015-01-02,2026-10-14,1122.3,23.7,42.6,1.09,0.76,-59.3
-4063.T,Shin-Etsu Chemical,Gases & materials,Japan,2015-01-05,2026-10-14,271.0,11.8,29.4,0.52,0.52,-47.2
-3436.T,SUMCO,Gases & materials,Japan,2015-01-05,2026-10-14,67.4,4.5,50.2,0.9,0.54,-79.4
-4091.T,Nippon Sanso,Gases & materials,Japan,2015-01-05,2026-10-14,277.9,12.0,35.5,0.39,0.33,-56.2
-MP,MP Materials,Rare earths,United States,2020-06-22,2026-10-14,299.5,24.5,66.5,0.7,0.35,-82.0
-LYC.AX,Lynas,Rare earths,Australia,2015-01-02,2026-10-14,1289.3,25.0,63.0,0.52,0.25,-70.5
-SOXX,iShares Semiconductor ETF,Benchmark,United States,2015-01-02,2026-10-14,1788.0,28.3,29.7,,,-45.8
-^SOX,Philadelphia Semiconductor Index,Benchmark,United States,2015-01-02,2026-10-14,1601.5,27.2,29.8,1.0,1.0,-46.5
-^GSPC,S&P 500,Benchmark,United States,2015-01-02,2026-10-14,275.0,11.9,16.7,0.44,0.79,-33.9
-URTH,iShares MSCI World ETF,Benchmark,Global,2015-01-02,2026-10-14,257.7,11.4,16.4,0.43,0.78,-34.0
-^KS11,KOSPI,Benchmark,South Korea,2015-01-02,2026-10-13,156.8,8.3,24.2,0.49,0.61,-52.5
-^TWII,TAIEX,Benchmark,Taiwan,2015-01-05,2026-10-13,416.3,15.0,19.8,0.4,0.6,-41.7
-^N225,Nikkei 225,Benchmark,Japan,2015-01-05,2026-10-13,195.8,9.7,19.1,0.39,0.61,-38.2
-^HSI,Hang Seng,Benchmark,China,2015-01-02,2026-10-13,1.4,0.1,20.4,0.26,0.38,-55.9
+2330.TW,TSMC,Foundries & memory,Taiwan,2015-01-05,2026-10-19,2223.0,30.6,26.6,0.5,0.56,-53.0
+005930.KS,Samsung Electronics,Foundries & memory,South Korea,2015-01-02,2026-10-19,776.6,20.2,32.9,0.56,0.51,-54.3
+000660.KS,SK hynix,Foundries & memory,South Korea,2015-01-02,2026-10-19,2429.6,31.5,44.7,0.84,0.56,-56.8
+MU,Micron,Foundries & memory,United States,2015-01-02,2026-10-20,2596.6,32.2,49.4,1.23,0.74,-72.5
+INTC,Intel,Foundries & memory,United States,2015-01-02,2026-10-20,234.7,10.8,41.6,0.89,0.64,-70.8
+GFS,GlobalFoundries,Foundries & memory,United States,2021-10-28,2026-10-20,3.4,0.7,51.8,1.01,0.69,-61.5
+0981.HK,SMIC,Foundries & memory,China,2015-01-02,2026-10-16,599.8,17.9,50.7,0.43,0.26,-66.9
+2303.TW,UMC,Foundries & memory,Taiwan,2015-01-05,2026-10-19,1365.3,25.6,35.1,0.47,0.4,-53.3
+ASML.AS,ASML,Equipment,Netherlands,2015-01-02,2026-10-20,1598.7,27.1,34.8,0.86,0.74,-55.9
+AMAT,Applied Materials,Equipment,United States,2015-01-02,2026-10-20,1771.1,28.2,40.6,1.15,0.85,-55.1
+LRCX,Lam Research,Equipment,United States,2015-01-02,2026-10-20,3814.2,36.5,43.1,1.23,0.85,-56.4
+KLAC,KLA,Equipment,United States,2015-01-02,2026-10-20,2772.7,32.9,38.8,1.07,0.82,-46.0
+8035.T,Tokyo Electron,Equipment,Japan,2015-01-05,2026-10-19,1764.5,28.2,40.2,0.86,0.64,-58.0
+NVDA,Nvidia,Chip designers,United States,2015-01-02,2026-10-20,45029.1,67.9,44.0,1.11,0.75,-66.3
+AMD,AMD,Chip designers,United States,2015-01-02,2026-10-20,20224.6,56.9,56.6,1.23,0.65,-65.4
+QCOM,Qualcomm,Chip designers,United States,2015-01-02,2026-10-20,228.1,10.6,37.5,0.87,0.69,-44.3
+2454.TW,MediaTek,Chip designers,Taiwan,2015-01-05,2026-10-19,1465.9,26.3,41.2,0.7,0.51,-60.8
+LIN,Linde,Gases & materials,United States,2015-01-02,2026-10-20,374.2,14.1,21.3,0.33,0.46,-32.6
+APD,Air Products,Gases & materials,United States,2015-01-02,2026-10-20,196.1,9.6,24.2,0.3,0.37,-31.8
+AI.PA,Air Liquide,Gases & materials,France,2015-01-02,2026-10-20,236.4,10.8,20.7,0.27,0.39,-30.6
+ENTG,Entegris,Gases & materials,United States,2015-01-02,2026-10-20,1070.6,23.2,42.9,1.1,0.76,-59.3
+4063.T,Shin-Etsu Chemical,Gases & materials,Japan,2015-01-05,2026-10-19,259.6,11.5,29.4,0.51,0.52,-47.2
+3436.T,SUMCO,Gases & materials,Japan,2015-01-05,2026-10-19,45.1,3.2,50.5,0.92,0.54,-79.4
+4091.T,Nippon Sanso,Gases & materials,Japan,2015-01-05,2026-10-19,278.2,11.9,35.5,0.39,0.33,-56.2
+MP,MP Materials,Rare earths,United States,2020-06-22,2026-10-20,294.8,24.2,66.4,0.7,0.35,-82.0
+LYC.AX,Lynas,Rare earths,Australia,2015-01-02,2026-10-20,1269.2,24.8,63.1,0.53,0.25,-70.5
+SOXX,iShares Semiconductor ETF,Benchmark,United States,2015-01-02,2026-10-20,1738.5,28.0,29.8,,,-45.8
+^SOX,Philadelphia Semiconductor Index,Benchmark,United States,2015-01-02,2026-10-20,1559.0,26.9,29.9,1.0,1.0,-46.5
+^GSPC,S&P 500,Benchmark,United States,2015-01-02,2026-10-20,275.4,11.9,16.7,0.44,0.79,-33.9
+URTH,iShares MSCI World ETF,Benchmark,Global,2015-01-02,2026-10-20,258.6,11.4,16.4,0.43,0.78,-34.0
+^KS11,KOSPI,Benchmark,South Korea,2015-01-02,2026-10-19,145.6,7.9,24.4,0.5,0.61,-52.5
+^TWII,TAIEX,Benchmark,Taiwan,2015-01-05,2026-10-19,393.0,14.5,19.8,0.4,0.61,-41.7
+^N225,Nikkei 225,Benchmark,Japan,2015-01-05,2026-10-19,184.6,9.3,19.2,0.39,0.61,-38.2
+^HSI,Hang Seng,Benchmark,China,2015-01-02,2026-10-16,0.8,0.1,20.4,0.26,0.38,-55.9

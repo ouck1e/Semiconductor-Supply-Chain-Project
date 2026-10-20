@@ -271,8 +271,10 @@ function paper() {
 
 /* ---------- tabs and boot ---------- */
 function tab(name) {
-  ["trades", "improve", "paper"].forEach(n => { $("#tab-" + n).setAttribute("aria-selected", String(n === name)); $("#view-" + n).hidden = n !== name; });
+  ["trades", "sims", "improve", "paper"].forEach(n => { $("#tab-" + n).setAttribute("aria-selected", String(n === name)); $("#view-" + n).hidden = n !== name; });
   store.set("tab", name); if (name === "improve") runningChart();
+  // charts drawn while their tab was hidden have no width; redraw the current frame once the tab is visible
+  if (name === "sims" && typeof SIM !== "undefined" && SIM.frames.length) requestAnimationFrame(() => simFrame(SIM.idx));
 }
 
 async function boot() {
@@ -293,8 +295,8 @@ async function boot() {
   $("#play").addEventListener("click", () => S.playing ? stop() : play());
   $("#reset").addEventListener("click", showAll);
   $("#scrub").addEventListener("input", e => { stop(); frame(+e.target.value); });
-  ["trades", "improve", "paper"].forEach(n => $("#tab-" + n).addEventListener("click", () => tab(n)));
-  improvement(); paper();
+  ["trades", "sims", "improve", "paper"].forEach(n => $("#tab-" + n).addEventListener("click", () => tab(n)));
+  improvement(); paper(); simsInit();
   const saved = store.get("stock"); const first = D.stocks[saved] ? saved : (D.stocks["2454.TW"] ? "2454.TW" : Object.keys(D.stocks)[0]);
   chooseStock(first); const sr = store.get("run"); if (sr && D.runs.some(r => r.run_id === sr && r.ticker === first)) select(sr);
   tab(store.get("tab") || "trades");

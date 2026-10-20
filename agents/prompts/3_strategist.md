@@ -47,6 +47,11 @@ END PLAN
 === FIXED STRATEGY RULES AND LIMITS ===
 {RULES}
 
+=== EARLIER IN THIS SIMULATION ===
+{HISTORY}
+(If earlier decisions on this same stock are listed, treat them as evidence: which setups worked, which were stopped
+out, how the stock moved after a skip. Judge today's setup on today's data, and say if the history changed your plan.)
+
 === RESEARCHER HANDOFF ===
 [PASTE THE RESEARCHER'S HANDOFF BLOCK HERE]
 

@@ -201,6 +201,18 @@ class Dashboard(unittest.TestCase):
                 self.assertAlmostEqual(r["stop_px"], r["entry_px"] * (1 - r["stop"] / 100), places=3)
                 self.assertAlmostEqual(r["target_px"], r["entry_px"] * (1 + r["target"] / 100), places=3)
 
+    def test_every_simulation_trade_sits_inside_its_candles(self):
+        for s in self.d.get("sims", []):
+            times = {c["time"] for c in s["candles"]}
+            for d in s["decisions"]:
+                self.assertIn(d["date"], times, s["sim_id"])
+                if d["action"] == "BUY":
+                    self.assertIn(d["entry_date"], times, s["sim_id"])
+                    self.assertIn(d["exit_date"], times, s["sim_id"])
+            for c in s["candles"]:
+                self.assertGreaterEqual(c["high"], max(c["open"], c["close"]) - 1e-6)
+                self.assertLessEqual(c["low"], min(c["open"], c["close"]) + 1e-6)
+
     def test_exit_reason_agrees_with_prices(self):
         for r in self.d["runs"]:
             if r["action"] == "BUY" and r["status"] == "scored" and r["exit_reason"] == "target":

@@ -60,6 +60,28 @@ def load_market():
     return usd, vol, uni, ff
 
 
+def load_ohlc(ticker):
+    """Daily candles for one stock in US dollars: open, high, low, close (all adjusted) and share volume.
+    Converted at each day's exchange rate, the same way fetch_prices.to_usd converts closes."""
+    con = sqlite3.connect(MKT / "market.db")
+    cols = {r[1] for r in con.execute("PRAGMA table_info(prices)")}
+    if not {"adj_open", "adj_high", "adj_low"} <= cols:
+        con.close()
+        raise SystemExit("market.db has no open/high/low prices yet. Run  python fetch_prices.py  once to add them.")
+    df = pd.read_sql("SELECT date, adj_open, adj_high, adj_low, adj_close, volume FROM prices WHERE ticker = ?", con,
+                     params=(ticker,), parse_dates=["date"]).set_index("date").sort_index()
+    cur = con.execute("SELECT currency FROM universe WHERE ticker = ?", (ticker,)).fetchone()
+    fx = pd.read_sql("SELECT date, currency, usd_per_unit FROM fx", con, parse_dates=["date"])
+    con.close()
+    df.columns = ["open", "high", "low", "close", "volume"]
+    if cur and cur[0] != "USD":
+        rate = fx[fx.currency == cur[0]].set_index("date")["usd_per_unit"].sort_index()
+        r = rate.reindex(rate.index.union(df.index)).ffill().reindex(df.index)
+        df[["open", "high", "low", "close"]] = df[["open", "high", "low", "close"]].mul(r, axis=0)
+    df["volume"] = df["volume"].where(df["volume"] > 0)
+    return df.dropna(subset=["open", "high", "low", "close"])
+
+
 def companies(uni):
     return pm.companies(uni)
 
