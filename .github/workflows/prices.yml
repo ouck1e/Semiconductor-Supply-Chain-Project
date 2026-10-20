@@ -28,6 +28,33 @@ jobs:
       - uses: ./.github/actions/commit
         with:
           message: "Daily prices"
+      # Agent paper trading (simulation only). Every step may fail without touching the price update above.
+      - name: Restore the news archive (read only, for the agents' headlines)
+        continue-on-error: true
+        uses: actions/cache/restore@v4
+        with:
+          path: data/news/news.db
+          key: news-db-none
+          restore-keys: news-db-
+      - name: Rebuild supply exposure (data/processed is not in git)
+        continue-on-error: true
+        run: mkdir -p data/processed && python exposure_model.py
+      - name: Close paper trades whose prices have arrived
+        continue-on-error: true
+        run: python agent_score.py --update
+      - name: Run the agent team on the watchlist
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python agent_daily.py
+      - name: Rebuild the agent summaries
+        continue-on-error: true
+        run: python agent_report.py
+      - uses: ./.github/actions/commit
+        continue-on-error: true
+        with:
+          message: "Agent paper trades"
+          paths: data/agents
   deploy:
     needs: prices
     uses: ./.github/workflows/deploy.yml

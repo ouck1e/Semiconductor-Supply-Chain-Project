@@ -8,3 +8,4 @@ scikit-learn
 xlrd
 openpyxl
 yfinance
+anthropic>=1.15

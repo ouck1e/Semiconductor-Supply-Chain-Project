@@ -302,5 +302,27 @@ trade log, so every newly scored run adds to the record. **Paper trades** lists 
 latest close. To start one: `python agent_packets.py --ticker MU --date <latest trading day> --named`, run the six
 agents, score it (it stays pending), and close it later with `python agent_score.py --update` once prices arrive.
 
+**7. Daily paper trading (automatic).** `python agent_daily.py` runs the team through the Claude API instead of by
+hand: for each stock on the watchlist in `agents/config.json` (`automation`: TSMC, Micron, ASML, MediaTek, Shin-Etsu)
+it builds a named packet for the latest close, sends each agent its prompt, hands each reply on with
+`agent_handoff.py`, and scores the Boss's decision, which stays pending until the prices close it. Runs are built
+and scored exactly like manual ones; the `runner` column says which models ran (Opus 5.5 for every role, effort
+medium). The Coder step is skipped, as in manual runs.
+- **When:** every weekday, as extra steps of the "Stock prices (daily)" job, after the price update: close paper
+  trades whose prices have arrived (`agent_score.py --update`), run the watchlist, rebuild the summaries, commit
+  `data/agents`. These steps may fail without stopping the price update. `dashboard/data.json` is not committed (it is
+  1.4 MB and rebuilt each time); `run_dashboard.bat` rebuilds it after a `git pull`. `run_paper_trading.bat` does a
+  day by hand on your PC.
+- **The key:** the script reads only the `ANTHROPIC_API_KEY` environment variable. On GitHub, add it under
+  Settings > Secrets and variables > Actions as `ANTHROPIC_API_KEY`; on your PC, as a Windows user environment
+  variable. Never put it in a file in this folder. Without it, the job skips the agents and does the rest.
+- **Cost:** about $0.50 a run (5 calls), so about $50 a month for 5 stocks. Every call's tokens and dollars go to
+  `data/agents/api_usage.csv`, and the script stops before the month's total could pass `monthly_budget_usd` ($60).
+  Set the same limit in the Anthropic Console as a second guard.
+- **Safeguards:** forward dates only (never before `blind_before`, so the practice and exam sets stay manual); a stock
+  with an open BUY or a run for that date is skipped; an unreadable DECISION block gets one fix request, then the run
+  is logged as failed rather than guessed. The script talks to the Claude API and nothing else: no broker, no orders.
+- **To stop it:** delete the `ANTHROPIC_API_KEY` secret, or empty the watchlist.
+
 Settings: `agents/config.json` (portfolio, position and stop limits, fees, slippage, splits). Tests:
 `python -m unittest discover tests`.

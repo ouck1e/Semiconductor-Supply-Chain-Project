@@ -13,6 +13,26 @@
     "test": ["2023-01-01", "2026-06-30"]
   },
   "blind_before": "2026-07-01",
+  "automation": {
+    "_note": "Daily paper trading (agent_daily.py): forward runs through the Claude API. Simulation only. The API key is the ANTHROPIC_API_KEY environment variable, never a file.",
+    "watchlist": ["2330.TW", "MU", "ASML.AS", "2454.TW", "4063.T"],
+    "models": {
+      "1_researcher": "claude-opus-5-5",
+      "2_news_analyst": "claude-opus-5-5",
+      "3_strategist": "claude-opus-5-5",
+      "5_risk_manager": "claude-opus-5-5",
+      "6_boss": "claude-opus-5-5"
+    },
+    "effort": "medium",
+    "max_tokens": 16000,
+    "monthly_budget_usd": 60,
+    "usd_per_million_tokens": {
+      "claude-opus-5-5": [4.0, 20.0],
+      "claude-sonnet-5-5": [2.0, 10.0],
+      "claude-opus-5": [5.0, 25.0],
+      "claude-opus-4-8": [5.0, 25.0]
+    }
+  },
   "baseline": {
     "version": "v1",
     "top_n": 5,
