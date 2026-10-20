@@ -5,6 +5,10 @@ set PY=python
 where py >nul 2>nul && set PY=py
 set PYTHONIOENCODING=utf-8
 echo Let the six-agent team trade one stock through a period (simulation only).
+echo.
+set RESUME=
+set /p RESUME=To continue a stopped simulation, type its id (for example hand-20261020-...); for a new one press Enter:
+if not "%RESUME%"=="" goto resume
 echo Stocks: 2330.TW TSMC, MU Micron, ASML.AS ASML, 2454.TW MediaTek, NVDA Nvidia, AMAT ... (see dashboard)
 set /p TICKER=Ticker (for example MU):
 set /p START=Start date (YYYY-MM-DD):
@@ -12,14 +16,19 @@ set /p END=End date (YYYY-MM-DD):
 echo.
 %PY% agent_span.py --ticker %TICKER% --start %START% --end %END%
 echo.
-echo Type  run  to run it with the Claude API (spends the amount above),
+echo Type  hand  to run the agents yourself in Claude chats (free: the prompts go onto your clipboard),
+echo       run   to run them with the Claude API (spends the amount above),
 echo       demo  for a free demo with a simple rule instead of the agents,
 set /p GO=or anything else to stop:
+if /i "%GO%"=="hand" %PY% agent_span.py --ticker %TICKER% --start %START% --end %END% --manual
 if /i "%GO%"=="run" %PY% agent_span.py --ticker %TICKER% --start %START% --end %END% --yes
 if /i "%GO%"=="demo" %PY% agent_span.py --ticker %TICKER% --start %START% --end %END% --demo
+if /i "%GO%"=="hand" goto rebuild
 if /i "%GO%"=="run" goto rebuild
 if /i "%GO%"=="demo" goto rebuild
 goto end
+:resume
+%PY% agent_span.py --resume %RESUME%
 :rebuild
 %PY% agent_report.py > nul
 %PY% agent_dashboard.py

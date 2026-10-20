@@ -331,12 +331,18 @@ any other run. Each decision is an ordinary run (blind for past dates, `eval_set
 `trade_log.csv`. Before each decision the team is told what it did earlier in the span (prompt v6, see
 `agents/CHANGELOG.md`).
 - `python agent_span.py --ticker MU --start 2022-01-03 --end 2022-03-31` prints the decision days and a cost estimate
-  and spends nothing. Add `--yes` to run it through the Claude API (needs `ANTHROPIC_API_KEY`; about $1 a decision, and
+  and spends nothing.
+- **Free, by hand:** add `--manual`. For each decision the script puts each agent's prompt on your clipboard (handoffs
+  already filled in); paste it into a new Claude chat, click Copy under the reply, press Enter. It checks each copy
+  (not the prompt again, a handoff block present, a readable DECISION block from the Boss) and scores the decision
+  itself. Type `q` to stop; `python agent_span.py --resume <sim_id>` carries on from the same agent. About five pastes
+  a decision, so a three-month span is roughly an evening. Turn web search off in those chats so blind runs stay blind.
+- **Paid, automatic:** add `--yes` to run it through the Claude API (needs `ANTHROPIC_API_KEY`; about $1 a decision, and
   it stops at `monthly_budget_usd`). `--resume <sim_id>` continues an interrupted run. `--demo` runs a simple
   pullback rule instead of the agents, free, labelled DEMO and kept out of the trade log.
 - The span needs enough later prices to close the last possible trade; the script says the latest end date allowed.
   Spans in the test years (2023 on) are fine to watch but shouldn't be used to tune prompts.
-- Results go to `data/agents/sims/<sim_id>/sim.json`. `run_span.bat` asks for the stock and dates, shows the estimate,
+- Results go to `data/agents/sims/<sim_id>/sim.json`. `run_span.bat` asks for the stock and dates (or a sim id to continue), shows the estimate, offers hand / API / demo,
   runs, and rebuilds the dashboard, whose **Simulations** tab replays the span day by day: candles and volume, buy and
   sell markers, the holding period shaded, the agents' state and reasons, what they remembered, and team vs holding.
 - Candles need open, high and low prices, which `fetch_prices.py` now stores (`adj_open`, `adj_high`, `adj_low`).

@@ -97,13 +97,14 @@
       <label>Simulation <select id="sim"></select></label>
       <span class="asof" id="sim-meta"></span>
     </div>
-    <p class="demo-note" id="demo-note" hidden>DEMO: these trades come from a simple rule (buy a pullback in an uptrend), not from the agents. It shows how a simulation looks; run a real one with <code>python agent_span.py ... --yes</code>.</p>
+    <p class="demo-note" id="demo-note" hidden>DEMO: these trades come from a simple rule (buy a pullback in an uptrend), not from the agents. It shows how a simulation looks; run a real one with <code>python agent_span.py ... --manual</code> (free) or <code>--yes</code> (Claude API).</p>
     <div class="empty card" id="sim-empty" hidden>
       <h2>No simulations yet</h2>
       <p class="muted">Give the agents a stock and a period, and they trade through it: a full six-agent decision every week while they hold nothing, exits on each trade's stop, target or time limit.</p>
       <ol class="steps">
         <li>See the plan and cost (spends nothing): <code>python agent_span.py --ticker MU --start 2022-01-03 --end 2022-03-31</code></li>
-        <li>Run it with the Claude API: add <code>--yes</code> (needs <code>ANTHROPIC_API_KEY</code>). Or try a free demo with a simple rule: add <code>--demo</code>.</li>
+        <li>Run it yourself in Claude chats, free: add <code>--manual</code>. Each agent's prompt goes onto your clipboard; paste it into a new chat, copy the reply, press Enter. Type q to stop and <code>--resume</code> later.</li>
+        <li>Or run it with the Claude API (paid): add <code>--yes</code> (needs <code>ANTHROPIC_API_KEY</code>). Or try a free demo with a simple rule: add <code>--demo</code>.</li>
         <li>Rebuild this page with <code>run_dashboard.bat</code>.</li>
       </ol>
     </div>
@@ -205,6 +206,6 @@
 </div>
 <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
 <script src="dashboard.js?v=6"></script>
-<script src="sims.js?v=2"></script>
+<script src="sims.js?v=3"></script>
 </body>
 </html>

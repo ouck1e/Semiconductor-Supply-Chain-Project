@@ -102,6 +102,82 @@ class Curves(unittest.TestCase):
         self.assertLess(out[-1]["portfolio"], 100000 * 1.01)        # a 5% position moves the portfolio a little
 
 
+BOSS = """Reasons here.
+DECISION
+FINAL_STATUS: REJECT
+ACTION: NO TRADE
+SETUP: none
+RESEARCH_CONFIDENCE: 70
+RISK_DECISION: REJECT
+SIZE_PCT: 0
+STOP_PCT: 0
+TARGET_PCT: 0
+MAX_HOLD_DAYS: 0
+END DECISION"""
+
+
+class ByHand(unittest.TestCase):
+    """The hand-run walk with a fake clipboard: prompts go out, replies come back, handoffs get filled."""
+    def setUp(self):
+        import tempfile
+        self.tmp = tempfile.TemporaryDirectory()
+        self.dir = Path(self.tmp.name)
+        prompts = {"1_researcher.txt": "Researcher prompt " * 20,
+                   "2_news_analyst.txt": "News prompt [PASTE THE RESEARCHER'S HANDOFF BLOCK HERE]",
+                   "3_strategist.txt": "Strategist prompt [PASTE THE RESEARCHER'S HANDOFF BLOCK HERE]",
+                   "5_risk_manager.txt": "Risk prompt [PASTE THE STRATEGIST'S HANDOFF AND PLAN BLOCKS HERE]",
+                   "6_boss.txt": "Boss prompt [PASTE THE RESEARCHER, NEWS ANALYST, STRATEGIST AND RISK MANAGER HANDOFF BLOCKS HERE]"}
+        for k, v in prompts.items():
+            (self.dir / k).write_text(v, encoding="utf-8")
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def walk(self, replies, answers=None):
+        sent, clip = [], {"v": ""}
+        replies = iter(replies)
+
+        def clip_set(path):
+            clip["v"] = path.read_text(encoding="utf-8"); sent.append(clip["v"])
+
+        def ask(_):
+            a = next(answers) if answers else ""
+            if a != "q":
+                clip["v"] = next(replies)          # the person copied the agent's reply
+            return a
+        span.walk_by_hand(self.dir, "Check 1", ask=ask, say=lambda *_: None, clip_set=clip_set, clip_get=lambda: clip["v"])
+        return sent
+
+    def reply(self, who):
+        return f"My analysis as {who}, long enough to count.\n**AGENT:** {who}\nSUMMARY: fine"
+
+    def test_full_walk_fills_handoffs_and_saves_replies(self):
+        sent = self.walk([self.reply("Researcher"), self.reply("News"), self.reply("Strategist"), self.reply("Risk"), BOSS])
+        self.assertEqual(len(sent), 5)
+        self.assertIn("AGENT:** Researcher", sent[1])            # the News Analyst got the Researcher's handoff
+        self.assertIn("AGENT:** Risk", sent[4])                  # the Boss got all four
+        for f in ("reply_1.txt", "reply_2.txt", "reply_3.txt", "reply_5.txt", "boss.txt"):
+            self.assertTrue((self.dir / f).exists(), f)
+
+    def test_bad_copies_are_refused_and_a_stop_resumes_mid_way(self):
+        answers = iter(["", "", "q"])
+        with self.assertRaises(span.Paused):
+            # first copy is still the prompt (refused), second is the real reply, then the person stops
+            self.walk(["Researcher prompt " * 20, self.reply("Researcher")], answers)
+        self.assertTrue((self.dir / "reply_1.txt").exists())
+        self.assertFalse((self.dir / "reply_2.txt").exists())
+        sent = self.walk([self.reply("News"), self.reply("Strategist"), self.reply("Risk"), BOSS])
+        self.assertTrue(sent[0].startswith("News prompt"))       # resumed at the News Analyst
+
+    def test_a_boss_reply_without_a_readable_decision_waits_for_the_fix(self):
+        for n, f in ((1, "reply_1.txt"), (2, "reply_2.txt"), (3, "reply_3.txt"), (5, "reply_5.txt")):
+            (self.dir / f).write_text(self.reply(f), encoding="utf-8")
+        self.walk(["The Boss rambles without a decision block, at some length.", BOSS])
+        text = (self.dir / "boss.txt").read_text(encoding="utf-8")
+        self.assertIn("rambles", text)                           # both parts kept, the fix last
+        self.assertTrue(text.endswith("END DECISION"))
+
+
 @unittest.skipUnless((sim.MKT / "market.db").exists(), "needs market.db")
 class Candles(unittest.TestCase):
     def test_candles_are_consistent_and_match_closes(self):

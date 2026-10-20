@@ -161,7 +161,7 @@ function simImprovementTable() {
     .map((x, i) => h("th", { class: i > 2 ? "n" : "", text: x })))));
   const tb = h("tbody");
   if (!D.sims.length) tb.append(h("tr", {}, h("td", { colspan: "10", class: "empty", text: "No simulations yet." })));
-  D.sims.forEach(s => tb.append(h("tr", {}, h("td", { text: `${s.company}${s.demo ? " (demo)" : ""}` }), h("td", { class: "mono", text: s.version }),
+  D.sims.forEach(s => tb.append(h("tr", {}, h("td", { text: `${s.company}${s.demo ? " (demo)" : ""}${s.status !== "done" ? ` (${s.status.split(":")[0]})` : ""}` }), h("td", { class: "mono", text: s.version }),
     h("td", { class: "mono", text: `${s.start} → ${s.end}` }), h("td", { class: "n", text: s.stats.decisions }), h("td", { class: "n", text: s.stats.trades }),
     h("td", { class: "n", text: s.stats.won }), h("td", { class: "n " + sign(s.stats.strategy_pct), text: pct(s.stats.strategy_pct) }),
     h("td", { class: "n", text: pct(s.stats.hold_pct) }), h("td", { class: "n " + sign(s.stats.vs_hold), text: pts(s.stats.vs_hold) }),
@@ -177,7 +177,7 @@ function simsInit() {
   if (empty) return;
   simCharts();
   const sel = document.querySelector("#sim");
-  D.sims.forEach(s => sel.append(h("option", { value: s.sim_id, text: `${s.company} · ${s.start} → ${s.end} · ${s.version}${s.demo ? " · DEMO" : ""}` })));
+  D.sims.forEach(s => sel.append(h("option", { value: s.sim_id, text: `${s.company} · ${s.start} → ${s.end} · ${s.version}${s.demo ? " · DEMO" : ""}${s.status !== "done" ? " · " + s.status.split(":")[0] : ""}` })));
   sel.addEventListener("change", () => chooseSim(sel.value));
   document.querySelector("#s-play").addEventListener("click", () => SIM.playing ? simStop() : simPlay());
   document.querySelector("#s-reset").addEventListener("click", () => { simStop(); simFrame(SIM.frames.length - 1); document.querySelector("#s-scrub-date").textContent = ""; });

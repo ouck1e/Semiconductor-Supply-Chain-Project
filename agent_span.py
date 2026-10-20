@@ -4,6 +4,8 @@ Time-span simulation: let the six-agent team trade one stock through a period, t
   python agent_span.py --ticker MU --start 2022-01-03 --end 2022-03-31          plan and cost estimate only
   python agent_span.py --ticker MU --start 2022-01-03 --end 2022-03-31 --yes    run it (Claude API)
   python agent_span.py --resume <sim_id> --yes                                  continue after an interruption
+  python agent_span.py --ticker MU --start 2022-01-03 --end 2022-03-31 --manual run it by hand in Claude chats (free)
+  python agent_span.py --resume <sim_id>                                        continue a hand run where you stopped
 
 How it trades:
   - While the team holds nothing, it makes a full five-agent decision every `cadence` trading days (default 5,
@@ -15,7 +17,9 @@ How it trades:
     Improvement record. Past dates are blind, as in training.
 
 Writes  data/agents/sims/<sim_id>/sim.json   saved after every decision, so a stopped span can be resumed
-The agents run through agent_daily.run_one (Claude API, ANTHROPIC_API_KEY environment variable, monthly budget in
+By hand (--manual): for each decision the script puts each agent's prompt on the clipboard; paste it into a new
+Claude chat, copy the reply, press Enter. Handoffs are filled in for you, and q stops at any point (resume later).
+With --yes, the agents run through agent_daily.run_one (Claude API, ANTHROPIC_API_KEY environment variable, monthly budget in
 agents/config.json). Simulation only: no broker, no orders.
 """
 import argparse
@@ -123,7 +127,9 @@ def curves(state, dates, closes, cfg):
     """Daily strategy index (fully in each trade, flat between) vs buy & hold, both 100 at the span's first close,
     plus a portfolio that uses the agents' own position sizes."""
     a, b = state["span_index"]
-    end = b
+    end = b                                                  # a paused or stopped span ends where its checks stopped
+    if state.get("status") != "done" and state.get("next_check") in dates:
+        end = max(a, min(b, dates.index(state["next_check"]) - 1))
     for d in state["decisions"]:
         if d["action"] == "BUY" and d.get("exit_date"):
             end = max(end, dates.index(d["exit_date"]))
@@ -198,6 +204,120 @@ def api_runner(state, cfg, market):
     return run
 
 
+# ---------------------------------------------------------------- by hand, in Claude chats (free)
+class Paused(Exception):
+    """The person running the agents by hand stopped; the span resumes from the same decision."""
+
+
+def clipboard_set(path):
+    """Put a UTF-8 text file on the clipboard."""
+    import subprocess
+    if sys.platform == "win32":
+        subprocess.run(["powershell", "-NoProfile", "-Command",
+                        f"Get-Content -LiteralPath '{path}' -Raw -Encoding UTF8 | Set-Clipboard"],
+                       check=True, capture_output=True)
+    else:
+        import tkinter
+        r = tkinter.Tk(); r.withdraw(); r.clipboard_clear(); r.clipboard_append(path.read_text(encoding="utf-8"))
+        r.update(); r.destroy()
+
+
+def clipboard_get():
+    import subprocess
+    if sys.platform == "win32":
+        out = subprocess.run(["powershell", "-NoProfile", "-Command",
+                              "[Console]::OutputEncoding=[Text.Encoding]::UTF8; Get-Clipboard -Raw"],
+                             check=True, capture_output=True)
+        return out.stdout.decode("utf-8", "replace").replace("\r\n", "\n").strip()
+    import tkinter
+    r = tkinter.Tk(); r.withdraw()
+    try:
+        return r.clipboard_get().strip()
+    finally:
+        r.destroy()
+
+
+HAND_STAGES = [(1, "1_researcher", "Researcher", "reply_1.txt"), (2, "2_news_analyst", "News Analyst", "reply_2.txt"),
+               (3, "3_strategist", "Strategist", "reply_3.txt"), (5, "5_risk_manager", "Risk Manager", "reply_5.txt"),
+               (6, "6_boss", "Boss", "boss.txt")]
+
+
+def check_reply(n, text, prompt):
+    """Why a copied reply can't be used yet, or '' when it can."""
+    import re
+    if len(text) < 40:
+        return "the clipboard is (nearly) empty"
+    if text.strip() == prompt.strip() or text.startswith(prompt[:200]):
+        return "the clipboard still holds the prompt, not the agent's reply"
+    if n < 6 and not re.search(r"^\W*AGENT:", text, re.M):
+        return "the reply has no handoff block (a line starting with AGENT:); copy the whole reply"
+    if n == 6:
+        try:
+            agent_score.parse_decision(text)
+        except agent_score.DecisionError as e:
+            return (f"the Boss's DECISION block can't be read ({e}). In the Boss's chat, ask: \"Please repeat your "
+                    "DECISION block exactly in the required format.\" Then copy that reply (it is added to the first)")
+    return ""
+
+
+def walk_by_hand(run_dir, label, ask=input, say=print, clip_set=clipboard_set, clip_get=clipboard_get):
+    """Take one packet through the agents by hand: each prompt goes onto the clipboard, the person pastes it into a
+    new Claude chat, copies the reply, and presses Enter. Replies saved earlier are skipped, so it resumes mid-way."""
+    import agent_handoff
+    for n, stage, name, reply in HAND_STAGES:
+        out = run_dir / reply
+        if out.exists():
+            continue
+        prompt_file = run_dir / f"{stage}.txt" if n == 1 else agent_handoff.fill(n, run_dir)
+        prompt = prompt_file.read_text(encoding="utf-8")
+        try:
+            clip_set(prompt_file)
+            say(f"\n{label} | {name}: the prompt is on your clipboard. Open a NEW Claude chat, paste it (Ctrl+V), send,")
+            say("  then click Copy under the whole reply and come back here.")
+        except Exception:  # noqa: BLE001 - clipboard trouble shouldn't stop a free run
+            clip_get = None
+            say(f"\n{label} | {name}: open {prompt_file} and paste all of it into a NEW Claude chat. Save the reply as {out}.")
+        kept = ""                          # a first Boss reply whose DECISION block needs a fix
+        while True:
+            if ask("  Press Enter when the reply is copied (q to stop for now): ").strip().lower() == "q":
+                raise Paused()
+            got = clip_get() if clip_get else (out.read_text(encoding="utf-8") if out.exists() else "")
+            text = f"{kept}\n\n{got}".strip() if kept and got != kept else got
+            why = check_reply(n, text, prompt)
+            if not why:
+                break
+            if n == 6 and "DECISION block" in why and not kept:
+                kept = got
+            say(f"  Not yet: {why}.")
+        out.write_text(text, encoding="utf-8")
+
+
+def hand_runner(state, cfg, market, save=None, **walk):
+    """Runs each decision by hand in Claude chats: free, but about five pastes a decision. A stop (q) keeps the
+    packet, so --resume carries on with the same decision."""
+    import agent_packets
+    save = save or save_state
+
+    def run(date, history, blind):
+        p = state.get("pending")
+        if not (p and p["date"] == date):
+            run_id, run_dir, _ = agent_packets.build(state["ticker"], pd.Timestamp(date), blind, cfg, market, out_dir=sim.OUT,
+                                                     runner="manual chat (span)", eval_set=f"sim:{state['sim_id']}",
+                                                     history=history)
+            state["pending"] = p = dict(date=date, run_id=run_id)
+            save(state)
+        run_dir = sim.OUT / "runs" / p["run_id"]
+        k = len(state["decisions"]) + 1
+        walk_by_hand(run_dir, f"Check {k} ({date})", **walk)
+        row, _ = agent_score.score_run(p["run_id"], run_dir / "boss.txt", sim.OUT, market[0], cfg)
+        state["pending"] = None
+        d = decision_row(row, run_dir)
+        print(f"  Scored {p['run_id']}: {d['action']}" + (f", exit {d['exit_date']} ({d['exit_reason']}), {d['ret']:+.2f}%"
+                                                         if d["action"] == "BUY" else ""))
+        return d
+    return run
+
+
 def demo_runner(state, cfg, usd):
     """A stand-in for the agents, so the dashboard's Simulations tab can be tried without an API key: buy a pullback
     (close above its 50-day average but below its 5-day-ago close), stop -7%, target +12%, 20 days. It is a simple
@@ -221,6 +341,36 @@ def demo_runner(state, cfg, usd):
     return run
 
 
+def finish(state, dates, closes, cfg):
+    stats = curves(state, dates, closes, cfg)[1]
+    state["stats"] = stats
+    save_state(state)
+    return stats
+
+
+def run_by_hand(state, dates, closes, cfg, market):
+    a, b = state["span_index"]
+    start = dates.index(state["next_check"]) if state.get("next_check") else a
+    n = 0 if start > b else math.ceil((b - start + 1) / state["cadence"])
+    print(f"{state['sim_id']}: {state['company']} ({state['ticker']}), {state['start']} to {state['end']}, by hand (free).")
+    print(f"  {len(state['decisions'])} decisions done, at most {n} to go (fewer when trades are open), five agents each.")
+    print("  Tips: a new chat for every agent; turn web search off so the agents can't look up the real stock;")
+    print("  type q at any prompt to stop, then continue with: python agent_span.py --resume " + state["sim_id"])
+    state["status"] = "running"
+    save_state(state)
+    try:
+        step_span(state, dates, closes, hand_runner(state, cfg, market), cfg, save=save_state)
+    except Paused:
+        state["status"] = "paused"
+        stats = finish(state, dates, closes, cfg)
+        print(f"\nPaused after {stats['decisions']} decisions. Continue: python agent_span.py --resume {state['sim_id']}")
+        print("The dashboard can already show the part done so far: python agent_dashboard.py")
+        return
+    stats = finish(state, dates, closes, cfg)
+    print(f"\nDone: {stats['decisions']} decisions, {stats['trades']} trades ({stats['won']} won); strategy "
+          f"{stats['strategy_pct']:+.2f}% vs buy & hold {stats['hold_pct']:+.2f}%. Rebuild the dashboard: python agent_dashboard.py")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--demo", action="store_true", help="run a simple rule instead of the agents (free, labelled DEMO)")
@@ -230,6 +380,7 @@ def main():
     ap.add_argument("--cadence", type=int, default=5, help="trading days between checks while flat (default 5)")
     ap.add_argument("--resume", metavar="SIM_ID")
     ap.add_argument("--yes", action="store_true", help="actually run (spends API credit); without it, only the plan")
+    ap.add_argument("--manual", action="store_true", help="run the agents by hand in Claude chats (free)")
     a = ap.parse_args()
     cfg = sim.config()
     market = sim.load_market()
@@ -246,10 +397,11 @@ def main():
         dates = trading_days(usd, a.ticker)
         idx = plan_span(dates, a.start, a.end, cfg)
         info = market[2].set_index("ticker").loc[a.ticker]
-        sim_id = f"{'demo' if a.demo else 'sim'}-{datetime.now():%Y%m%d-%H%M%S}-{a.ticker.split('.')[0].lower()}"
+        sim_id = f"{'demo' if a.demo else 'hand' if a.manual else 'sim'}-{datetime.now():%Y%m%d-%H%M%S}-{a.ticker.split('.')[0].lower()}"
         state = dict(sim_id=sim_id, ticker=a.ticker, company=info["name"], start=dates[idx[0]], end=dates[idx[1]],
                      span_index=list(idx), cadence=a.cadence, prompts_version="demo" if a.demo else sim.prompts_version(),
-                     runner="DEMO rule (not the agents)" if a.demo else "Claude API", demo=a.demo,
+                     runner="DEMO rule (not the agents)" if a.demo else "by hand in Claude chats" if a.manual else "Claude API",
+                     demo=a.demo, manual=a.manual,
                      created=datetime.now().isoformat(timespec="seconds"), status="new", next_check=None, decisions=[])
     dates = trading_days(usd, state["ticker"])
     closes = usd[state["ticker"]].dropna().tolist()
@@ -262,6 +414,8 @@ def main():
         print(f"DEMO {state['sim_id']} ({state['company']}): {st['decisions']} checks, {st['trades']} trades by the demo rule; "
               f"{st['strategy_pct']:+.2f}% vs buy & hold {st['hold_pct']:+.2f}%. Not the agents. Rebuild: python agent_dashboard.py")
         return
+    if state.get("manual"):
+        return run_by_hand(state, dates, closes, cfg, market)
     n, per, spent = estimate(state, dates, cfg, sim.OUT)
     budget = cfg.get("automation", {}).get("monthly_budget_usd")
     print(f"{state['sim_id']}: {state['company']} ({state['ticker']}), {state['start']} to {state['end']}, "
