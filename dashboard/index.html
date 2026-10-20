@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agent Trading Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="dashboard.css?v=2">
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <h1>Agent Trading Desk</h1>
+        <p class="sub" id="sub">Six-agent team · chip supply-chain stocks · daily closes in USD</p>
+      </div>
+      <span class="pill blue">Paper trading</span>
+      <span class="pill gold">Simulation · not investment advice</span>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" id="tab-trades" aria-selected="true" aria-controls="view-trades">Trades</button>
+      <button role="tab" id="tab-improve" aria-selected="false" aria-controls="view-improve">Improvement</button>
+      <button role="tab" id="tab-paper" aria-selected="false" aria-controls="view-paper">Paper trades <span id="paper-count" class="badge"></span></button>
+    </nav>
+  </header>
+  <p class="status" id="status" hidden></p>
+
+  <!-- TRADES -->
+  <section id="view-trades" role="tabpanel" aria-labelledby="tab-trades">
+    <div class="controls">
+      <label>Stock <select id="stock"></select></label>
+      <label>Version <select id="version"></select></label>
+      <span class="asof" id="asof"></span>
+    </div>
+
+    <div class="tiles">
+      <div class="tile"><span class="lbl">Price</span><span class="big" id="t-price">–</span><span class="note" id="t-price-note"></span></div>
+      <div class="tile"><span class="lbl">Team result</span><span class="big" id="t-team">–</span><span class="note" id="t-team-note"></span></div>
+      <div class="tile"><span class="lbl">Buy &amp; hold instead</span><span class="big" id="t-hold">–</span><span class="note" id="t-hold-note"></span></div>
+      <div class="tile"><span class="lbl">Position</span><span class="big" id="t-pos">–</span><span class="note" id="t-pos-note"></span></div>
+      <div class="tile"><span class="lbl">Trades on this stock</span><span class="big" id="t-count">–</span><span class="note" id="t-count-note"></span></div>
+    </div>
+
+    <div class="grid">
+      <div class="card chart-card">
+        <div class="card-head">
+          <div><h2>Price and the agents' trades</h2><p class="muted" id="chart-sub"></p></div>
+          <div class="replay">
+            <button id="play" class="btn" type="button">▶ Replay trade</button>
+            <select id="speed" aria-label="Replay speed"><option value="320">Slow</option><option value="140" selected>Normal</option><option value="50">Fast</option></select>
+            <button id="reset" class="btn ghost" type="button">Show all</button>
+          </div>
+        </div>
+        <div class="legend">
+          <span><i class="sw" style="background:var(--line-price)"></i>Close (USD)</span>
+          <span><i class="tri up"></i>Buy</span><span><i class="tri down"></i>Sell</span><span><i class="dot"></i>Skipped</span>
+          <span><i class="dash up"></i>Target</span><span><i class="dash down"></i>Stop</span>
+        </div>
+        <div id="price-chart" class="chart"></div>
+        <div class="scrub"><input type="range" id="scrub" min="0" max="0" value="0" aria-label="Replay position"><span id="scrub-date" class="mono"></span></div>
+      </div>
+
+      <aside class="card signal">
+        <h2>Decision</h2>
+        <div id="signal-box" class="signal-box"></div>
+        <dl id="signal-rows" class="rows"></dl>
+        <details open><summary>Why: the agents in their own words</summary><div id="why" class="why"></div></details>
+      </aside>
+
+      <div class="card equity-card">
+        <div class="card-head"><div><h2>This trade vs buy &amp; hold</h2><p class="muted">Value of $100 from the entry close, same days, fees included for the trade</p></div>
+          <div class="legend"><span><i class="sw" style="background:var(--blue)"></i>Team</span><span><i class="sw" style="background:var(--ref)"></i>Buy &amp; hold</span></div></div>
+        <div id="equity-chart" class="chart small"></div>
+      </div>
+
+      <aside class="card activity">
+        <h2>Activity</h2>
+        <ol id="log" class="log"></ol>
+      </aside>
+
+      <div class="card runs-card">
+        <h2>Every decision on this stock</h2>
+        <div class="tablewrap"><table id="runs"></table></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPROVEMENT -->
+  <section id="view-improve" role="tabpanel" aria-labelledby="tab-improve" hidden>
+    <div class="tiles" id="imp-tiles"></div>
+    <div class="grid two">
+      <div class="card">
+        <h2>Results by prompt version</h2>
+        <p class="muted">Practice and exam sets use the same stocks for every version, so those rows compare fairly. "All runs" mixes different stocks.</p>
+        <div class="tablewrap"><table id="ver-table"></table></div>
+      </div>
+      <div class="card">
+        <h2>Running average vs buy &amp; hold</h2>
+        <p class="muted">Every scored decision in the order it was made. Above 0 means the team beat simply holding the stock.</p>
+        <div id="running" class="svgbox"></div>
+      </div>
+      <div class="card wide">
+        <h2>What changed in each version</h2>
+        <div id="changelog" class="changelog"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAPER TRADES -->
+  <section id="view-paper" role="tabpanel" aria-labelledby="tab-paper" hidden>
+    <div class="card">
+      <h2>Open paper trades</h2>
+      <p class="muted">Decisions made on dates after the agents' training cutoff, using real stock names and today's news. They stay open until enough later prices exist to score them.</p>
+      <div id="paper"></div>
+    </div>
+    <div class="card how">
+      <h2>Start a paper trade</h2>
+      <ol>
+        <li>Make a packet for a stock on the latest trading day:<code>python agent_packets.py --ticker MU --date <span class="asof-inline"></span> --named</code></li>
+        <li>Run the six agents on it (by hand in Claude chats, following <code>00_HOW_TO_RUN.txt</code>), saving <code>strategist.txt</code> and <code>boss.txt</code>.</li>
+        <li>Score it: <code>python agent_score.py &lt;run_id&gt;</code>. It stays <em>pending</em> and appears here.</li>
+        <li>As new prices arrive, close it with <code>python agent_score.py --update</code>, then rebuild this page with <code>run_dashboard.bat</code>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer class="foot">Research on how markets react to supply shocks, not investment advice. Simulated fills at daily closes with <span id="cost"></span>. Data: <code>dashboard/data.json</code>, built by <code>agent_dashboard.py</code> from <code>data/agents/</code> and <code>data/market/market.db</code>.</footer>
+</div>
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<script src="dashboard.js?v=4"></script>
+</body>
+</html>

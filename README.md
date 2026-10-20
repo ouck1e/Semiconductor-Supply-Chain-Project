@@ -293,5 +293,14 @@ the results showed. For automated runs, `agent_handoff.py <stage> <run_id>...` f
 the saved replies. `python agent_report.py` writes `data/agents/run_summaries.csv` (every run's decision, outcome and
 each agent's own summary of its reasoning), `report_data.json` and `figures/agent_training.png`.
 
+**6. Dashboard and paper trading.** Double-click `run_dashboard.bat` (or run `python agent_dashboard.py`, then
+`python -m http.server -d dashboard 8010` and open http://localhost:8010). The **Trades** tab draws each stock's daily
+USD closes with the agents' buys, sells (stop / target / time) and skips, the stop and target levels, and a day-by-day
+replay of any decision, with each agent's own reasoning beside it. **Improvement** shows results by prompt version, the
+Risk Manager's veto record, a running average vs holding the stock, and the changelog. All of it is rebuilt from the
+trade log, so every newly scored run adds to the record. **Paper trades** lists open forward decisions marked to the
+latest close. To start one: `python agent_packets.py --ticker MU --date <latest trading day> --named`, run the six
+agents, score it (it stays pending), and close it later with `python agent_score.py --update` once prices arrive.
+
 Settings: `agents/config.json` (portfolio, position and stop limits, fees, slippage, splits). Tests:
 `python -m unittest discover tests`.

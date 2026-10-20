@@ -179,6 +179,36 @@ class StrategistPlan(unittest.TestCase):
             self.assertEqual((plan["ACTION"], src), ("BUY", "strategist.txt"))
 
 
+@unittest.skipUnless(HAVE_DB and (sim.OUT / "trade_log.csv").exists(), "needs market.db and a trade log")
+class Dashboard(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        import agent_dashboard
+        cls.d = agent_dashboard.build()
+
+    def test_every_run_has_prices_for_its_dates(self):
+        for r in self.d["runs"]:
+            dates = set(self.d["stocks"][r["ticker"]]["dates"])
+            self.assertIn(r["decision_date"], dates, r["run_id"])
+            if r["action"] == "BUY":
+                self.assertIn(r["entry_date"], dates, r["run_id"])
+                if r["status"] == "scored":
+                    self.assertIn(r["exit_date"], dates, r["run_id"])
+
+    def test_stop_and_target_levels_match_the_decision(self):
+        for r in self.d["runs"]:
+            if r["action"] == "BUY" and r["entry_px"]:
+                self.assertAlmostEqual(r["stop_px"], r["entry_px"] * (1 - r["stop"] / 100), places=3)
+                self.assertAlmostEqual(r["target_px"], r["entry_px"] * (1 + r["target"] / 100), places=3)
+
+    def test_exit_reason_agrees_with_prices(self):
+        for r in self.d["runs"]:
+            if r["action"] == "BUY" and r["status"] == "scored" and r["exit_reason"] == "target":
+                self.assertGreaterEqual(r["exit_px"], r["target_px"] - 1e-6, r["run_id"])
+            if r["action"] == "BUY" and r["status"] == "scored" and r["exit_reason"] == "stop":
+                self.assertLessEqual(r["exit_px"], r["stop_px"] + 1e-6, r["run_id"])
+
+
 @unittest.skipUnless(HAVE_DB, "needs data/market/market.db")
 class WithMarketData(unittest.TestCase):
     @classmethod
