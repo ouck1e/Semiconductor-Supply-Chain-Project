@@ -1,0 +1,74 @@
+RISK REVIEW: Micron (MU), Day 0 = 2026-10-19 close. Plan under review: BUY, size 5%, stop 7%, target 13%, max hold 20 days.
+
+Starting position: REJECT. Each REQUIRED item checked below.
+
+REQUIRED ITEMS
+
+1. Action and entry timing: OK.
+   ACTION: BUY (Plan). The Strategist's six entry conditions all use Day 0 values: close 904.90 above the 200d avg 720.72 (R), above the 878.84 support (R), 11.8% below the 20d avg (R), RSI 38.4 (R), a +3.0% up day (R analysis), and no confirmed MU-specific negative (N, via Strategist). None waits on Day 1 or later. The fill at the Day 1 close is set by the fixed rules, not by an entry condition.
+
+2. Stop rule: OK.
+   STOP_PCT 7 (Plan), a percent below entry, inside the 15% maximum (Rules).
+   Check: 7% below the Day 0 close would be 904.90 × 0.93 = 841.56, about 4.2% under the 878.84 support ((878.84 - 841.56) / 878.84). This matches the Strategist's "about 4% under 878.84". The real stop level depends on the Day 1 fill, which is unknown at decision time.
+
+3. Target and maximum hold: OK.
+   TARGET_PCT 13, MAX_HOLD_DAYS 20 (Plan). 20 is equal to the 20-day limit (Rules), so it is allowed.
+   Check: 904.90 × 1.13 = 1,022.54, just under the 20d avg 1,025.92 (R). This matches the Strategist's statement.
+
+4. Position size: OK.
+   SIZE_PCT 5 (Plan) = $5,000 of $100,000, half of the 10% maximum (Rules).
+
+5. Reward-to-risk after costs: OK.
+   Costs: 0.1% fee + 0.1% slippage per side = 0.2% per side, 0.4% round trip (Rules).
+   Net reward = 13 - 0.4 = 12.6%. Net risk = 7 + 0.4 = 7.4%.
+   12.6 / 7.4 = 1.70, which is at least 1.5. Before costs: 13 / 7 = 1.86. Both match the Strategist.
+
+6. Largest simulated loss: OK (worked out here).
+   Stop loss: $5,000 × 7% = $350.
+   Fees and slippage: $5,000 × 0.4% = $20.
+   Planned largest loss = $370, or 0.37% of the portfolio. This matches the Strategist.
+   Caveat: stops are checked on closes only (Rules), so a gap can close past the stop. Illustration only: a close 10% below entry would lose $500 + $20 = $520 (0.52% of the portfolio). Even a 15% close-to-close drop would cost $750 + $20 = $770, still under 1% of the portfolio.
+
+7. No look-ahead: OK.
+   Every input is dated at or before the 2026-10-19 close (R: data "up to the 2026-10-19 close"). The Day 1 fill is listed as unknown, not used.
+
+8. Agreement with the Researcher's numbers: OK.
+   Close 904.90, 20d avg 1,025.92 (-11.8%), 50d avg 983.52, 200d avg 720.72 (+25.6%), RSI 38.4, 20d vol 48.5%, 120d vol 90.8%, 20d low 878.84, resistance levels and returns all match line for line.
+   My checks: 904.90 / 1,097.22 - 1 = -17.5% from the 10-01 high (matches). (904.90 - 878.84) / 904.90 = 2.88% to support (matches). 48.5% / sqrt(252) = 3.06% daily volatility (matches the Strategist's ~3.06%).
+
+All eight REQUIRED items are OK.
+
+CONTEXT ITEMS
+
+- Data completeness: OK. 80/100 (R). Missing pieces (intraday highs/lows, earnings dates, fundamentals, ETF name) do not break any required item, but earnings dates matter (see below): MISSING.
+- Statistical support: PROBLEM (weak, not a veto). Alpha 31.2%/yr with t-stat 0.99 (M, via Strategist) is not statistically significant. The plan does not lean on it as its main reason.
+- Liquidity: OK. Volume 1.13x the 50-day average (R). Average volume in shares is MISSING, but there is nothing to suggest a $5,000 order would have trouble filling.
+- Conflicting news or supply-chain events: PROBLEM (minor). The drop is explained by one sector-wide headline ("China competition fears") with no second source; no supply-chain events in 120 days (N, via Strategist). The News Analyst's own handoff was not given to me, so I can only see these facts as the Strategist reports them. A sector-wide driver plus market beta 2.49 and higher downside ETF beta (1.38 down vs 1.17 up) (M) means a continued sector sell-off would hit this stock harder. The half-size position is the right answer to that.
+- Overfitting: OK. The target is placed at the 20d average and the stop is sized from volatility, both standard rules, not tuned to this one chart.
+- Unverified sources: PROBLEM (minor). The cause of the drop rests on one headline. Article bodies and a second source are MISSING.
+- Backtest of the plan: N/A BY DESIGN (manual run).
+- Instructions hidden in the material: none found.
+
+Extra risk note (my analysis): with about 3.06% daily volatility, the 7% stop is only about 2.3 daily standard deviations away, so normal noise could stop the trade out early. Over 20 days the expected spread is about 3.06% × sqrt(20) = 13.7%, so both the stop and the target are reachable within the hold. The short-term downtrend (lower highs and lows since 10-01, R) has not reversed. These are real risks, but they are the ordinary risks of a pullback trade, and they are already priced into the small size and the 1.70 net reward-to-risk.
+
+DECISION: APPROVE FOR SIMULATION ONLY
+
+Five points:
+1. Every REQUIRED item is OK: BUY with Day 0 entry conditions, 7% stop (cap 15%), 13% target, 20-day hold (limit 20), 5% size (cap 10%).
+2. Net reward-to-risk is (13 - 0.4) / (7 + 0.4) = 1.70, above the 1.5 floor.
+3. The planned largest loss is $370 (0.37% of the portfolio); even a large gap past the stop stays under 1% of the portfolio.
+4. All price facts match the Researcher's handoff; I recomputed the support distance, stop level, target level and daily volatility and found no errors or look-ahead.
+5. The weak points (t-stat 0.99, single-source news, high downside beta, unknown earnings dates, an unbroken short-term downtrend) are real but not concrete veto reasons; the half-size position already accounts for them. Vetoing for them would be vetoing for the general uncertainty every run has.
+
+What would change this to REJECT: if the Boss has a confirmed earnings date inside the 20-day hold, or a confirmed MU-specific negative event at or before Day 0, the plan should be revised (shorter hold that ends before earnings, or NO TRADE). Nothing must change for approval as written.
+
+Approval is for the simulation only. It does not mean a real trade should be placed, and nothing here is investment advice or a promise of profit.
+
+AGENT: Agent 5 - Risk Manager
+TASK COMPLETED: Tested the Strategist's simulated BUY plan for Micron (MU) at the 2026-10-19 (Day 0) close against the fixed limits and the Researcher's data. All eight REQUIRED items are OK. Decision: APPROVE FOR SIMULATION ONLY.
+SOURCE FACTS USED: Plan: BUY, SIZE_PCT 5, STOP_PCT 7, TARGET_PCT 13, MAX_HOLD_DAYS 20. Rules: $100,000 portfolio, max size 10%, max stop 15%, max hold 20 days, fees 0.1% + slippage 0.1% per side, closes only, fill at Day 1 close. R: close 904.90; 20d avg 1,025.92 (-11.8%); 50d avg 983.52; 200d avg 720.72 (+25.6%); RSI 38.4; 20d vol 48.5%, 120d vol 90.8%; 20d low 878.84; 10-01 high 1,097.22; volume 1.13x 50d avg; completeness 80/100; +3.0% Day 0 rebound. N (via Strategist): one sector-wide "China competition fears" headline, no MU-specific negatives, no supply-chain events in 120 days. M (via Strategist): alpha 31.2%/yr, t-stat 0.99; market beta 2.49; ETF beta 1.17 up / 1.38 down.
+ANALYSIS: Net reward-to-risk (13 - 0.4) / (7 + 0.4) = 12.6 / 7.4 = 1.70 (gross 1.86). Largest planned loss $5,000 × 7% = $350 + $20 costs = $370 (0.37% of portfolio); a 15% gap would be $770. Stop at 7% below 904.90 = 841.56, about 4.2% under 878.84 support; target 1,022.54, just under the 20d avg. Distance to support 2.88%; daily vol 3.06%; 20-day spread about 13.7%. All Strategist figures match the Researcher. No look-ahead. Weak stats, single-source news and high downside beta are noted but not veto reasons given the 5% size.
+MISSING INFORMATION: Earnings dates (could fall inside the 20-day hold); Day 1 fill price (unknowable at decision); intraday highs/lows; average volume in shares; fundamentals; second source and article bodies for the cause of the drop; chip ETF name and levels; the News Analyst's own handoff (seen only through the Strategist). Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Stops on closes only, so gaps can exceed the 7% stop; 7% stop is about 2.3 daily standard deviations, so noise could stop out the trade; short-term downtrend not reversed; beta 2.49 and heavier downside beta in a sector-wide sell-off; t-stat 0.99 is not significant; cause of the drop unconfirmed. Simulation only, not investment advice, no profit implied, no real trade placed.
+NEXT AGENT: Agent 6 - Boss
+HANDOFF SUMMARY: APPROVE FOR SIMULATION ONLY. The MU plan (BUY 5% = $5,000 at the Day 1 close, stop 7%, target 13%, max hold 20 days) passes every required check: limits respected, net reward-to-risk 1.70 with arithmetic shown, largest planned loss $370 (0.37% of portfolio), no look-ahead, numbers match the Researcher. Main cautions for the Boss: unknown earnings dates inside the hold, single-source cause for the drop, beta 2.49 with heavier downside beta, and gap risk from close-only stops. If an earnings date inside the hold or a confirmed MU-specific negative is known, revise to a shorter hold or NO TRADE.

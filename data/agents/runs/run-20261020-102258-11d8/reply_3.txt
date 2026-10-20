@@ -1,0 +1,80 @@
+Agent 3 - Strategist: conditional simulation plan for Micron (MU), decision at the 2026-10-19 (Day 0) close
+
+Source check: nothing in the supplied material tries to give me instructions. All numbers below come from the Researcher handoff (R), the News Analyst handoff (N), the supply-chain model facts (M) or the fixed strategy rules (S). Where I do arithmetic, I show it.
+
+1. Setup name
+Pullback-to-support in a long-term uptrend (oversold bounce off the 20-day low, long only).
+
+Why there is a setup to consider: MU is 25.6% above its 200-day average (R), with 6m +101.9% and 12m +347.3% returns (R). It has fallen 17.5% from the 10-01 closing high to 904.90 (R), RSI is 38.4 (R), and the close sits 2.97% above the 20-day low of 878.84 (my arithmetic: 904.90 / 878.84 - 1 = 26.06 / 878.84 = 2.97%). The only reported cause of the drop is a sector-wide memory sell-off tied to "China competition fears" (one headline, N), not a confirmed Micron-specific negative, and there are no supply-chain events in 120 days (N, M). The instructions say an established uptrend with nothing specific against it calls for looking hard for a valid entry, so I propose one, with real reservations listed in section 10.
+
+2. What must be true for entry, and whether it is true on Day 0
+a) Close above the 200-day average (long-term uptrend intact): 904.90 vs 720.72 (R). TRUE.
+b) Close above the nearest support, the 20-day low 878.84 (support has not broken): 904.90 > 878.84 (R). TRUE.
+c) Pullback is meaningful: close at least 5% below the 20-day average: 904.90 is 11.8% below 1,025.92 (R). TRUE.
+d) RSI below 45 (stretched to the downside but not in free fall): 38.4 (R). TRUE.
+e) Day 0 close is up on the day (first sign of buyers at support): +3.0% (R, close-based). TRUE.
+f) No confirmed company-specific negative in the supplied news: none found (N). TRUE (based on headlines only).
+All entry conditions are checked at the Day 0 close and all are true. None depends on Day 1 or later.
+
+3. Entry rule
+BUY at the Day 0 close decision; the simulated order fills at the Day 1 close, whatever that price is (S). All stop and target percentages below are measured from that Day 1 fill price, not from 904.90. Price levels quoted next to them are illustrations using 904.90 only.
+
+4. Stop rule
+7% below entry, checked on daily closes (S). Illustration from 904.90: 904.90 x 0.93 = 841.56.
+Why 7%: the nearest support (878.84) is only 2.88% below 904.90 (26.06 / 904.90), which is less than one typical day's move (20-day volatility 48.5% a year, R; 48.5 / sqrt(252) is about 48.5 / 15.87 = 3.06% a day). A stop just under 878.84 would likely be hit by noise. The next support zone, 720-740 (R), is about 18-20% below (720 / 904.90 = 0.796; 740 / 904.90 = 0.818), beyond the 15% maximum stop (S). So 7% puts the stop about 4% under the 878.84 support (841.56 / 878.84 = 0.958), meaning a close there says the support failed clearly, while staying well inside the 15% cap.
+
+5. Target or exit rule
+Target 13% above entry, on daily closes. Illustration from 904.90: 904.90 x 1.13 = 1,022.54, just below the 20-day average of 1,025.92 (R) and above the 50-day average of 983.52 (+8.7%: 983.52 / 904.90 = 1.0869) (R). The first resistance band 914-931 (R) is only +1.0% to +2.9% away and must be cleared on the way.
+Maximum holding period: 20 trading days; if neither stop nor target is hit, the position closes at the 20th day's close (S).
+
+6. Reward-to-risk
+Round-trip costs: per side fee 0.1% + slippage 0.1% = 0.2%; two sides = 0.4% (S).
+- Before costs: 13 / 7 = 1.86.
+- After costs (Risk Manager method): (13 - 0.4) / (7 + 0.4) = 12.6 / 7.4 = 1.70.
+1.70 clears the required 1.5. Note: the target level (about the 20-day average) is supported by the price levels in R, but the 20-day average itself will drift lower while the price stays below it, so the target is a fixed percent, not a moving line.
+
+7. Position size
+5% of the simulated portfolio = $5,000 of $100,000 (cap is 10%, S).
+Why half the cap: market beta 2.49 and down-week beta to the chip ETF 1.38 vs 1.17 in up weeks (M), 120-day volatility 90.8% (R), and the cause of the drop is unconfirmed (N). Loss if the stop is hit, including costs: $5,000 x 7.4% = $370, or 0.37% of the portfolio (my arithmetic). A gap through the stop could lose more, since stops are checked on closes only (S).
+
+8. What would cancel the setup
+- Before entry (known at Day 0): any of conditions 2a-2f being false. All are true now, so the plan stands as written.
+- Information that would cancel it if a reviewer had it at Day 0: a confirmed Micron-specific negative (guidance cut, earnings miss, specific loss of business to Chinese competitors); an earnings date inside the 20-day window (currently MISSING); confirmation that the China competition issue is a lasting structural change rather than a scare.
+- After entry: exit on a close 7% below entry (stop), a close 13% above entry (target), or at day 20. Because entry depends only on Day 0 data, there is no Day 1 cancel rule.
+
+9. Missing inputs
+- Day 1 fill price (unknowable at decision; percentages are used instead).
+- Intraday open/high/low (R); stops on closes only.
+- Earnings dates and fundamentals (R, N): MISSING.
+- Article bodies, a second source for the "China competition fears" cause, and what that competition consists of (N): MISSING.
+- Chip-sector ETF name and price levels (R): MISSING.
+- Exact 5-day change to verify the "15% weekly plunge" headline (N): MISSING.
+- Backtest of this plan: N/A BY DESIGN (manual run).
+- Headlines are supplied in this run (the stock is named), so they are not N/A.
+
+10. Reasons to skip it
+- The short-term trend is down: lower highs and lower lows since 10-01, close below the 20- and 50-day averages, and MU lagging the chip ETF by 5.1 points over 1 month (R). One +3.0% day is not evidence the decline has ended (R).
+- High beta (2.49) and higher downside beta to the sector (1.38 down vs 1.17 up) (M): if the sector sell-off resumes, MU is likely to fall more than the sector.
+- The cause of the fall is one headline from one outlet (N); if the competition worry is real and lasting, the support at 878.84 could break and the next support is 18-20% lower.
+- Model 1 alpha t-stat is 0.99 (M), not statistically strong, and rank 8 of 26 means MU is not in the baseline's top 5. The baseline itself trailed holding the chip ETF in development years (M), so this is weak evidence either way.
+- Supply exposure: helium from Qatar 0.722 (M), and the Helium 2026 shock (Ras Laffan offline) was 231 days before (M), though MU was in neither the winner nor loser group for it. Neon 2022 listed MU as an expected loser (M); that is old (1,698 days). Neither is a current event.
+- Earnings timing is unknown; an earnings release inside the window could move the price past the stop or target in one close.
+Against these: skipping a pullback in a stock up 101.9% over 6 months and 25.6% above its 200-day average, with no confirmed company-specific negative, risks missing a rebound, which counts equally as a mistake. That is why I propose the trade at reduced size rather than no trade.
+
+AGENT: Agent 3 - Strategist
+TASK COMPLETED: Turned the Researcher and News Analyst handoffs and the supply-chain model facts into one conditional long-only simulation plan for Micron (MU) at the 2026-10-19 (Day 0) close: pullback-to-support setup, all entry conditions true at Day 0, stop 7%, target 13%, max hold 20 days, size 5%. Not a trade decision; that belongs to the Risk Manager and the Boss.
+SOURCE FACTS USED: R: close 904.90; 20d avg 1,025.92 (-11.8%); 50d avg 983.52; 200d avg 720.72 (+25.6%); returns 1m -10.9%, 6m +101.9%, 12m +347.3%; ETF 1m -5.8%; RSI 38.4; volatility 20d 48.5%, 120d 90.8%; 20d low 878.84; resistance 914-931, 983.52, 1,025.92, 1,097.22; support 878.84, then 720-740; -17.5% from 10-01 high; +3.0% Day 0 rebound. N: drop attributed to sector-wide "China competition fears" (one headline), no confirmed MU-specific negatives, no supply-chain events in 120 days. M: alpha 31.2%/yr, t-stat 0.99, rank 8 of 26; market beta 2.49; ETF beta 1.17 up / 1.38 down; Neon 2022 expected loser; helium from Qatar exposure 0.722. S: fees 0.1% + slippage 0.1% per side, 10% max size, 15% max stop, 20-day max hold, closes only, fill at Day 1 close.
+ANALYSIS: Long-term uptrend with a sharp short-term pullback to just above the 20-day low, RSI 38.4, one up day, and only a sector-wide, single-source explanation for the drop. Nearest support is too close (2.88%) for a stop given ~3.06% daily volatility, and the next support (18-20% below) is past the 15% cap, so the stop is set at 7% (about 4% under 878.84). Target 13% sits just under the 20-day average. Reward-to-risk 13/7 = 1.86 before costs; (13-0.4)/(7+0.4) = 12.6/7.4 = 1.70 after costs, which clears 1.5. Size 5% because of beta 2.49 and higher downside beta; risk at stop about $370 (0.37% of portfolio) before any gap.
+MISSING INFORMATION: Day 1 fill price (unknowable at decision); intraday highs/lows; earnings dates; fundamentals; article bodies and a second source for the cause of the drop; chip ETF name and levels; exact 5-day change to verify "15% weekly". Backtest: N/A BY DESIGN.
+RISKS OR LIMITATIONS: Short-term downtrend not yet reversed; high beta means a resumed sector sell-off could hit the stop quickly; stops on closes only, so gaps can cause larger losses than 7%; unknown earnings timing; cause of the drop unconfirmed; support levels drawn from closes only. Simulation only, not investment advice, no profit implied.
+NEXT AGENT: Agent 5 - Risk Manager (Agent 4, the Coder, is skipped in manual runs)
+HANDOFF SUMMARY: Proposed BUY (simulated) at the Day 0 close, filling at the Day 1 close: pullback-to-support in a long-term uptrend. All six entry conditions are true at Day 0 (above 200d avg, above 878.84 support, 11.8% below 20d avg, RSI 38.4, up day, no confirmed MU-specific negative). Stop 7% below entry, target 13% above, max hold 20 trading days, size 5% ($5,000). Reward-to-risk 1.86 before costs, 1.70 after 0.4% round-trip costs. Main concerns for review: the short-term downtrend, beta 2.49 with heavier downside beta, a single-source cause for the drop, and missing earnings dates.
+
+PLAN
+ACTION: BUY
+SETUP: Pullback-to-support in a long-term uptrend
+SIZE_PCT: 5
+STOP_PCT: 7
+TARGET_PCT: 13
+MAX_HOLD_DAYS: 20
+END PLAN
